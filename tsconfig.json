@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    // 代码检查
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true
+  }
+}

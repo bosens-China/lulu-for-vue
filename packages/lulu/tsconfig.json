@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    // "baseUrl": "./"
+    // "paths": {
+    //   "@boses/lulu": ["./src/*"]
+    // }
+    // "declaration": true
+  }
+}
