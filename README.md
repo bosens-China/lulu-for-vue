@@ -42,8 +42,8 @@
 
 基于使用角度，将一些常用组件给拓展出来
 
-- Typography
-- Icon
+- [x] Typography
+- [x] Icon
 - Grid
 - Space
 - Tag
