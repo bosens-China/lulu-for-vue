@@ -4,3 +4,4 @@ import './components/progress/styles';
 import './components/loading/styles';
 import './components/typography/styles';
 import './components/space/styles';
+import './components/switch/styles';
