@@ -32,6 +32,10 @@ export default defineConfig({
         items: [{ text: 'Typography 排版', link: '/components/typography/' }],
       },
       {
+        text: '布局',
+        items: [{ text: 'Space 间距', link: '/components/space/' }],
+      },
+      {
         text: '控件',
         items: [
           { text: 'Button 按钮', link: '/components/button/' },

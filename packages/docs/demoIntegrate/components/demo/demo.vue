@@ -85,7 +85,7 @@ const props = defineProps<{
   sourceCode: string;
   sourceCodeJs: string;
   title: string;
-  describe: string;
+  describe?: string;
 }>();
 
 const activeKey = ref<'1' | '2'>('1');

@@ -8,14 +8,16 @@
 
 <demo title="type类型" describe="如果不指定type，默认为dark">
 <template>
-  <lu-text block type="dark">这是一句话</lu-text>
-  <lu-text block type="light">这是一句话</lu-text>
-  <lu-text block type="gray">这是一句话</lu-text>
-  <lu-text block type="blue">这是一句话</lu-text>
-  <lu-text block type="red">这是一句话</lu-text>
-  <lu-text block type="orange">这是一句话</lu-text>
-  <lu-text block type="green">这是一句话</lu-text>
-  <lu-text block type="white">这是一句话</lu-text>
+  <lu-space direction="vertical" :style="{display: 'flex'}">
+    <lu-text block type="dark">这是一句话</lu-text>
+    <lu-text block type="light">这是一句话</lu-text>
+    <lu-text block type="gray">这是一句话</lu-text>
+    <lu-text block type="blue">这是一句话</lu-text>
+    <lu-text block type="red">这是一句话</lu-text>
+    <lu-text block type="orange">这是一句话</lu-text>
+    <lu-text block type="green">这是一句话</lu-text>
+    <lu-text block type="white">这是一句话</lu-text>
+  </lu-space>
 </template>
 </demo>
 
@@ -23,21 +25,19 @@
 
 <demo title="type类型" describe="跟Text类似，在不指定type的情况下为淡蓝色">
 <template>
-  <lu-link href="#link">这是一句话</lu-link>
-  <lu-link href="#link" type="dark">这是一句话</lu-link>
-  <lu-link href="#link" type="light">这是一句话</lu-link>
-  <lu-link href="#link" type="gray">这是一句话</lu-link>
-  <lu-link href="#link" type="blue">这是一句话</lu-link>
-  <lu-link href="#link" type="red">这是一句话</lu-link>
-  <lu-link href="#link" type="orange">这是一句话</lu-link>
-  <lu-link href="#link" type="green">这是一句话</lu-link>
-  <lu-link href="#link" type="white">这是一句话</lu-link>
+  <lu-space direction="vertical" :style="{display: 'flex'}">
+    <lu-link href="#link">这是一句话</lu-link>
+    <lu-link href="#link" type="dark">这是一句话</lu-link>
+    <lu-link href="#link" type="light">这是一句话</lu-link>
+    <lu-link href="#link" type="gray">这是一句话</lu-link>
+    <lu-link href="#link" type="blue">这是一句话</lu-link>
+    <lu-link href="#link" type="red">这是一句话</lu-link>
+    <lu-link href="#link" type="orange">这是一句话</lu-link>
+    <lu-link href="#link" type="green">这是一句话</lu-link>
+    <lu-link href="#link" type="white">这是一句话</lu-link>
+  </lu-space>
+
 </template>
-<style scoped="true">
-a {
-  display: block !important;
-}
-</style>
 
 </demo>
 

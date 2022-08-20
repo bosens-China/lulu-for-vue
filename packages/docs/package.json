@@ -29,8 +29,8 @@
     "docs:serve": "vitepress serve docs"
   },
   "dependencies": {
-    "@boses/lulu": "workspace:^1.0.0",
     "@ant-design/icons-vue": "^6.1.0",
+    "@boses/lulu": "workspace:^1.0.0",
     "ant-design-vue": "^3.2.11",
     "copy-text-to-clipboard": "^3.0.1",
     "vue": "^3.2.37"

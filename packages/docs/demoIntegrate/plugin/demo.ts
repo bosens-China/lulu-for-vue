@@ -3,8 +3,9 @@ import fs from 'fs-extra';
 import type { Plugin } from './index';
 import { encode } from '../utils/code';
 import scriptTransformation from '../utils/scriptTransformation';
+import md5 from '../utils/md5';
 
-const ROUTE = path.join(__dirname, '../../node_modules/.temporary');
+const ROUTE = path.join(__dirname, '../.temporary');
 fs.removeSync(ROUTE);
 
 const demo = (): Plugin => {
@@ -23,7 +24,7 @@ const demo = (): Plugin => {
         // 如果是chilren
         if (length) {
           const sourceCode = $(f).html() || '';
-          const temporaryPath = path.join(ROUTE, `v${performance.now().toString().slice(-8)}.vue`);
+          const temporaryPath = path.join(ROUTE, `v${md5(sourceCode)}.vue`);
           src = path.relative(filePath, temporaryPath).replace(/\\/g, '/');
           filePath = temporaryPath;
           fs.outputFileSync(temporaryPath, sourceCode);
@@ -50,7 +51,8 @@ const demo = (): Plugin => {
           .attr('sourceCode', encode(sourceCode))
           .attr('sourceCodeJs', encode(sourceCodeJs))
           .attr('code', encode(code))
-          .attr('codeJs', encode(codeJs));
+          .attr('codeJs', encode(codeJs))
+          .attr('fileName', encode(src || ''));
 
         return false;
       })
