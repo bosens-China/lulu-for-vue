@@ -53,7 +53,9 @@ const demo = (): Plugin => {
           .attr('code', encode(code))
           .attr('codeJs', encode(codeJs))
           .attr('fileName', encode(src || ''));
-
+        if (!length) {
+          $(f).attr('SFC', '');
+        }
         return false;
       })
       // 删除不存在children和src属性的文件

@@ -39,6 +39,7 @@ export default defineConfig({
         text: '控件',
         items: [
           { text: 'Button 按钮', link: '/components/button/' },
+          { text: 'Switch 开关', link: '/components/switch/' },
           { text: 'Progress 进度条', link: '/components/progress/' },
         ],
       },

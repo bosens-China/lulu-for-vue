@@ -1,5 +1,5 @@
 <template>
-  <lu-loading v-model="show" />
+  <lu-loading :visible="show" />
   <lu-button @click="onClick">关闭</lu-button>
 </template>
 
@@ -9,6 +9,7 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   setup() {
     const show = ref<boolean>(true);
+
     const onClick = () => {
       setTimeout(() => {
         show.value = false;

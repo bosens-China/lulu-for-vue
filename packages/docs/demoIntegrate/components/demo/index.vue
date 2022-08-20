@@ -27,10 +27,11 @@ const props = defineProps<{
   src: any;
   fileName: string;
   describe?: string;
+  SFC?: boolean;
 }>();
 
 const translation = computed(() => {
-  const { fileName, src, title, describe, ...rest } = props;
+  const { fileName, SFC, src, title, describe, ...rest } = props;
   type Key = keyof typeof rest;
   const keys = Object.keys(rest) as Array<Key>;
   return keys.reduce(
@@ -47,8 +48,9 @@ const show = ref(true);
 const View = computed(() => {
   // 如果是开发环境则直接使用变量来导入，否则直接使用固定值
   // https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#limitations
-  if (import.meta.env.DEV) {
+  if (import.meta.env.DEV && !props.SFC) {
     const src = decode(props.fileName);
+
     return defineAsyncComponent(() => import(src));
   }
   return defineAsyncComponent(() => props.src);
