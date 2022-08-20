@@ -17,6 +17,7 @@
 - Button
 - Loading
 - Progress
+- switch
 
 ### 剩余待开发组件
 
@@ -25,7 +26,6 @@
 - textarea
 - Redio
 - checkbox
-- switch
 - Select
 - Range
 - Color
@@ -43,10 +43,10 @@
 基于使用角度，将一些常用组件给拓展出来
 
 - [x] Typography
-- [x] Icon
-- Grid
-- Space
-- Tag
+- [ ] Icon
+- [ ] Grid
+- [x] Space
+- [ ] Tag
 
 ## 其他
 
