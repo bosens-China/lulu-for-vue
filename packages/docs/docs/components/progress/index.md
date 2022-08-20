@@ -5,15 +5,21 @@
 ## 代码演示
 
 <demo title="基础状态">
+<template>
   <lu-progress :value="20">按钮</lu-progress>
+</template>
 </demo>
 
 <demo title="100% 宽度">
+<template>
   <lu-progress :value="40" block>按钮</lu-progress>
+</template>
 </demo>
 
 <demo title="指定最大值">
+<template>
   <lu-progress :max="20" :value="10">按钮</lu-progress>
+</template>
 </demo>
 
 ## API

@@ -16,7 +16,7 @@ export default defineConfig({
       viteExpandPlugin([demo(), table()]),
     ],
     optimizeDeps: {
-      include: ['lulu'],
+      include: ['lulu', '.temporary'],
     },
   },
   lang: 'zh',
@@ -27,6 +27,10 @@ export default defineConfig({
     siteTitle: 'lulu-for-vue',
     logo: '/favicon.svg',
     sidebar: [
+      {
+        text: '通用',
+        items: [{ text: 'Typography 排版', link: '/components/typography/' }],
+      },
       {
         text: '控件',
         items: [

@@ -2,12 +2,7 @@
   <demo v-bind="translation">
     <suspense>
       <template #default>
-        <template v-if="props.src">
-          <View></View>
-        </template>
-        <template v-else>
-          <slot></slot>
-        </template>
+        <View></View>
       </template>
       <template #fallback>
         <div>
@@ -30,7 +25,7 @@ const props = defineProps<{
   sourceCodeJs: string;
   title: string;
   describe: string;
-  src?: any;
+  src: any;
 }>();
 
 const translation = computed(() => {

@@ -5,27 +5,36 @@
 ## 代码演示
 
 <demo title="不同类型按钮">
+<template>
   <lu-button>按钮</lu-button>
   <lu-button type='normal'>按钮</lu-button>
   <lu-button type='primary'>按钮</lu-button>
   <lu-button type='success'>按钮</lu-button>
   <lu-button type='warning'>按钮</lu-button>
   <lu-button type='danger'>按钮</lu-button>
+</template>
 </demo>
 
 <demo title="块按钮">
+<template>
   <lu-button block>按钮</lu-button>
   <lu-button block type='primary'>按钮</lu-button>
+</template>
+
 </demo>
 
 <demo title="禁用按钮">
+<template>
   <lu-button disabled>按钮</lu-button>
   <lu-button disabled type='primary'>按钮</lu-button>
+</template>
 </demo>
 
 <demo title="loading">
+<template>
   <lu-button loading>按钮</lu-button>
   <lu-button loading type='primary'>按钮</lu-button>
+</template>
 </demo>
 
 ## API

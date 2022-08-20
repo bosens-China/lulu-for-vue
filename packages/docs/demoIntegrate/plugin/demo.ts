@@ -1,18 +1,21 @@
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs-extra';
 import type { Plugin } from './index';
 import { encode } from '../utils/code';
 import scriptTransformation from '../utils/scriptTransformation';
 
-const demo =
-  (): Plugin =>
-  ($, { dir, render }) => {
+const ROUTE = path.join(__dirname, '../../node_modules/.temporary');
+fs.removeSync(ROUTE);
+
+const demo = (): Plugin => {
+  return ($, { dir, render }) => {
     const all = $('demo');
     Array.from(all)
       .filter((f) => {
         const { length } = $(f).children();
         const attr = $(f).attr() || {};
-        const { src } = attr;
+        let { src } = attr;
+        let filePath = path.join(dir, src || '');
         // 如果都不存在跳过处理
         if (!length && !src) {
           return true;
@@ -20,18 +23,11 @@ const demo =
         // 如果是chilren
         if (length) {
           const sourceCode = $(f).html() || '';
-          const sourceCodeJs = scriptTransformation(sourceCode);
-          const code = render(`\`\`\`vue\n${sourceCode}\n\`\`\``);
-          const codeJs = render(`\`\`\`vue\n${sourceCodeJs}\n\`\`\``);
-          $(f)
-            .attr('sourceCode', encode(sourceCode))
-            .attr('sourceCodeJs', encode(sourceCodeJs))
-            .attr('code', encode(code))
-            .attr('codeJs', encode(codeJs));
-          return false;
+          const temporaryPath = path.join(ROUTE, `v${performance.now().toString().slice(-8)}.vue`);
+          src = path.relative(filePath, temporaryPath).replace(/\\/g, '/');
+          filePath = temporaryPath;
+          fs.outputFileSync(temporaryPath, sourceCode);
         }
-        // 如果是src属性
-        const filePath = path.join(dir, src || '');
         const fileCode = (src ? fs.readFileSync(filePath, 'utf-8') : $(f).html()) || '';
         const { ext } = path.parse(filePath);
 
@@ -63,5 +59,6 @@ const demo =
         $(e).remove();
       });
   };
+};
 
 export default demo;

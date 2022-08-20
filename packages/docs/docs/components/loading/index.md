@@ -7,19 +7,27 @@ Loading 用于交互中提示使用
 ### Loading
 
 <demo title="加载中">
+<template>
   <lu-loading></lu-loading>
+</template>
 </demo>
 
 <demo title="自定义颜色">
+<template>
   <lu-loading color="#000"></lu-loading>
+</template>
 </demo>
 
 <demo title="指定大小">
+<template>
   <lu-loading :size="4"></lu-loading>
+</template>
 </demo>
 
 <demo title="块级元素，指定高度">
+<template>
   <lu-loading :rows="5"></lu-loading>
+</template>
 </demo>
 
 <demo title="3s后关闭" src="./demo/demo1.vue"></demo>
@@ -27,15 +35,21 @@ Loading 用于交互中提示使用
 ### Dot
 
 <demo title="默认">
+<template>
   <lu-loading-dot></lu-loading-dot>
+</template>
 </demo>
 
 <demo title="指定加载文字">
+<template>
   <lu-loading-dot describe="加载中"></lu-loading-dot>
+</template>
 </demo>
 
 <demo title="插槽方式使用" describe="如果存在插槽和describe属性默认使用describe属性">
+<template>
   <lu-loading-dot>加载中</lu-loading-dot>
+</template>
 </demo>
 
 ## API
