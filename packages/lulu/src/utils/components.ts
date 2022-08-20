@@ -5,7 +5,7 @@ export const setClass = ({
   className,
 }: {
   attrs: SetupContext['attrs'];
-  className: Array<string | undefined | null>;
+  className: Array<string | undefined | null | Record<string, any>>;
 }) => [attrs.class, ...className].filter((f) => f);
 
 export const setStyles = ({

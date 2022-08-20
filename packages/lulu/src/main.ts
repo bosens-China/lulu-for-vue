@@ -4,6 +4,7 @@ import { default as Button } from './components/button';
 import { default as Progress } from './components/progress';
 import { default as Loading } from './components/loading';
 import { Text, Link } from './components/typography';
+import { default as Space } from './components/space';
 
 const install = (app: App) => {
   app.use(Button);
@@ -11,6 +12,7 @@ const install = (app: App) => {
   app.use(Loading);
   app.use(Text);
   app.use(Link);
+  app.use(Space);
 };
 
 export default {
