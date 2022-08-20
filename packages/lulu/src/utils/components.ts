@@ -5,8 +5,8 @@ export const setClass = ({
   className,
 }: {
   attrs: SetupContext['attrs'];
-  className: Array<string>;
-}) => [attrs.class, ...className];
+  className: Array<string | undefined | null>;
+}) => [attrs.class, ...className].filter((f) => f);
 
 export const setStyles = ({
   attrs,
