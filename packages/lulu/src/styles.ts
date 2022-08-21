@@ -7,3 +7,4 @@ import './components/space/styles';
 import './components/switch/styles';
 import './components/range/styles';
 import './components/rate/styles';
+import './components/radio/styles';

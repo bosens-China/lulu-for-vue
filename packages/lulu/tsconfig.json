@@ -1,12 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "noImplicitAny": false
-
-    // "baseUrl": "./"
-    // "paths": {
-    //   "@boses/lulu": ["./src/*"]
-    // }
+    "noImplicitAny": false,
+    // "baseUrl": "./",
+    "paths": {
+      "@boses/lulu": ["./src/main.ts"]
+    }
     // "declaration": true
   }
 }

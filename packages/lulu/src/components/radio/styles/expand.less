@@ -1,0 +1,15 @@
+.ui-radio-root {
+  margin: 0 8px 0 0;
+  cursor: pointer;
+  input + * {
+    padding: 0 8px;
+  }
+}
+
+[is='ui-radio']:disabled {
+  // 拓展属性
+  & + span {
+    opacity: var(--ui-opacity, 0.4);
+    user-select: none;
+  }
+}
