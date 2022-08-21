@@ -38,10 +38,10 @@ export const Button = defineComponent({
             width: props.block ? '100%' : undefined,
           },
         }),
-        class: setClass({ className: ['ui-button'], attrs }),
+        class: setClass({ className: ['ui-button', { loading: props.loading }], attrs }),
         onClick,
         disabled: props.disabled,
-        loading: props.loading,
+
         'data-type': props.type,
       };
       return <button {...args}>{slots?.default?.()}</button>;

@@ -18,16 +18,13 @@ test('base status', () => {
       );
     },
   });
-
   expect(vm.text()).toBe('hello');
   expect(vm.attributes('data-type')).toBe('danger');
-  expect(vm.attributes('loading')).not.toBeUndefined();
   expect(vm.attributes('disabled')).not.toBeUndefined();
   const styles = window.getComputedStyle(vm.element);
   expect(styles.width).toBe('50%');
   expect(styles.height).toBe('100px');
-  expect(vm.classes()).toContain('ui-button');
-  expect(vm.classes()).toContain('abc');
+  expect(vm.classes()).toEqual(expect.arrayContaining(['ui-button', 'loading', 'abc']));
 });
 
 test('disabled onClick', async () => {
