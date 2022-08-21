@@ -59,6 +59,7 @@ const demo = (): Plugin => {
         if (describe) {
           $(f).attr('describe', render(describe));
         }
+
         return false;
       })
       // 删除不存在children和src属性的文件
