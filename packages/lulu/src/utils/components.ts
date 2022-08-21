@@ -11,10 +11,20 @@ export const setClass = ({
 export const setStyles = ({
   attrs,
   style,
+  cover = false,
 }: {
   attrs: SetupContext['attrs'];
   style: CSSProperties;
-}) => ({
-  ...style,
-  ...((attrs.style as any) || {}),
-});
+  cover?: boolean;
+}) => {
+  if (cover) {
+    return {
+      ...((attrs.style as any) || {}),
+      ...style,
+    };
+  }
+  return {
+    ...style,
+    ...((attrs.style as any) || {}),
+  };
+};

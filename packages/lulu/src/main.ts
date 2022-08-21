@@ -6,6 +6,8 @@ import { default as Loading } from './components/loading';
 import { Text, Link } from './components/typography';
 import { default as Space } from './components/space';
 import { default as Switch } from './components/switch';
+import { default as Range } from './components/range';
+import { default as Rate } from './components/rate';
 
 const install = (app: App) => {
   app.use(Button);
@@ -15,6 +17,8 @@ const install = (app: App) => {
   app.use(Link);
   app.use(Space);
   app.use(Switch);
+  app.use(Range);
+  app.use(Rate);
 };
 
 export default {
