@@ -16,11 +16,7 @@
         </a>
       </div>
       <div v-if="props.describe" class="code-box-description">
-        <div>
-          <p>
-            {{ props.describe }}
-          </p>
-        </div>
+        <div v-html="props.describe"></div>
       </div>
       <div class="code-box-actions">
         <a-tooltip :title="copyTitle">

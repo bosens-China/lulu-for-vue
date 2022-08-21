@@ -1,6 +1,6 @@
 # Space 间距
 
-设置组件之间的间距
+Space 设置组件之间的间距。
 
 ## 代码演示
 
@@ -22,7 +22,7 @@
 </template>
 </demo>
 
-<demo title="间距大小" describe="间距预设大、中、小三种大小。通过设置 size 为 large middle 分别把间距设为大、中间距。若不设置 size，则间距为小。" src="./demo/size.vue"></demo>
+<demo title="间距大小" describe="间距预设大、中、小三种大小。通过设置 size 为 `large middle` 分别把间距设为大、中间距。<br > 若不设置 size，则间距默认为小。" src="./demo/size.vue"></demo>
 
 <demo title="对齐" describe="设置对齐模式。" src="./demo/alignment.vue"></demo>
 

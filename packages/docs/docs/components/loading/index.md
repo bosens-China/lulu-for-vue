@@ -1,52 +1,52 @@
 # Loading 加载中
 
-Loading 用于交互中提示使用
+Loading 用于交互中提示使用。
 
 ## 代码演示
 
 ### Loading
 
-<demo title="加载中">
+<demo title="基本用法" describe="组件的基本用法。">
 <template>
   <lu-loading></lu-loading>
 </template>
 </demo>
 
-<demo title="自定义颜色">
+<demo title="自定义颜色" describe="如果对默认颜色不满意，可以传递 color 属性进行调整。">
 <template>
   <lu-loading color="#000"></lu-loading>
 </template>
 </demo>
 
-<demo title="指定大小">
+<demo title="指定大小" describe="大小默认为2，可以在 1-4 区间进行调整。">
 <template>
   <lu-loading :size="4"></lu-loading>
 </template>
 </demo>
 
-<demo title="块级元素，指定高度">
+<demo title="块级元素，指定高度" describe="loading 默认为内联元素，可以指定 rows 属性对高度进行调整，此时 loading 为块元素。">
 <template>
   <lu-loading :rows="5"></lu-loading>
 </template>
 </demo>
 
-<demo title="3s后关闭" src="./demo/demo1.vue"></demo>
+<demo title="3s后关闭" describe="下面演示点击按钮 loading 3s 后关闭。" src="./demo/demo1.vue"></demo>
 
 ### Dot
 
-<demo title="默认">
+<demo title="基本用法" describe="Dot 用于文字提示加载，可以结合 Loading 一起使用。">
 <template>
   <lu-loading-dot></lu-loading-dot>
 </template>
 </demo>
 
-<demo title="指定加载文字">
+<demo title="指定加载文字" describe="如果对默认文字不满意可以指定 describe 属性进行调整。">
 <template>
   <lu-loading-dot describe="加载中"></lu-loading-dot>
 </template>
 </demo>
 
-<demo title="插槽方式使用" describe="如果存在插槽和describe属性默认使用describe属性">
+<demo title="插槽方式使用" describe="如果存在插槽和 describe 属性默认使用 describe 属性。">
 <template>
   <lu-loading-dot>加载中</lu-loading-dot>
 </template>

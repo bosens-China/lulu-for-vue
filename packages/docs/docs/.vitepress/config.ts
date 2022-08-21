@@ -41,6 +41,8 @@ export default defineConfig({
           { text: 'Button 按钮', link: '/components/button/' },
           { text: 'Switch 开关', link: '/components/switch/' },
           { text: 'Progress 进度条', link: '/components/progress/' },
+          { text: 'Range 范围选择', link: '/components/range/' },
+          { text: 'Rate 评分', link: '/components/rate/' },
         ],
       },
       {

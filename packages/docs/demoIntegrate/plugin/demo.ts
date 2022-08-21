@@ -15,7 +15,7 @@ const demo = (): Plugin => {
       .filter((f) => {
         const { length } = $(f).children();
         const attr = $(f).attr() || {};
-        let { src } = attr;
+        let { src, describe } = attr;
         let filePath = path.join(dir, src || '');
         // 如果都不存在跳过处理
         if (!length && !src) {
@@ -55,6 +55,9 @@ const demo = (): Plugin => {
           .attr('fileName', encode(src || ''));
         if (!length) {
           $(f).attr('SFC', '');
+        }
+        if (describe) {
+          $(f).attr('describe', render(describe));
         }
         return false;
       })

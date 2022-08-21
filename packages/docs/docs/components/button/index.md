@@ -1,10 +1,10 @@
 # Button 按钮
 
-按钮用于开始一个即时操作。
+Button 用于开始一个即时操作。
 
 ## 代码演示
 
-<demo title="不同类型按钮">
+<demo title="基本用法" describe="下面为所有 按钮的 type。">
 <template>
   <lu-space>
     <lu-button>按钮</lu-button>
@@ -17,7 +17,7 @@
 </template>
 </demo>
 
-<demo title="块按钮">
+<demo title="块按钮" describe="设置 block 属性会让按钮独占一行。">
 <template>
   <lu-space direction="vertical" :style="{display: 'flex'}">
     <lu-button block>按钮</lu-button>
@@ -27,7 +27,7 @@
 
 </demo>
 
-<demo title="禁用按钮">
+<demo title="禁用按钮" describe="设置 disabled 会让按钮变成不可点击以及透明。">
 <template>
   <lu-space>
     <lu-button disabled>按钮</lu-button>
@@ -36,7 +36,7 @@
 </template>
 </demo>
 
-<demo title="loading">
+<demo title="loading" describe="设置 loading 让按钮处于加载状态，此时按钮点击事件将会失效。">
 <template>
   <lu-space>
     <lu-button loading>按钮</lu-button>

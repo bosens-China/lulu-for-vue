@@ -1,12 +1,12 @@
 # Typography 排版
 
-基础排版组件，在需要使用文字和链接的场景下使用。
+Typography 基础排版组件，在需要使用文字和链接的场景下使用。
 
 ## 代码演示
 
 ### Text
 
-<demo title="type类型" describe="如果不指定type，默认为dark">
+<demo title="基本用法" describe="如果不指定 type，默认为 `dark`。">
 <template>
   <lu-space direction="vertical" :style="{display: 'flex'}">
     <lu-text block type="dark">这是一句话</lu-text>
@@ -23,7 +23,7 @@
 
 ### Link
 
-<demo title="type类型" describe="跟Text类似，在不指定type的情况下为淡蓝色">
+<demo title="基本用法" describe="跟 Text 类似，在不指定 type 的情况下颜色默认为淡蓝色。">
 <template>
   <lu-space direction="vertical" :style="{display: 'flex'}">
     <lu-link href="#link">这是一句话</lu-link>
