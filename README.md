@@ -17,7 +17,8 @@
 - Button
 - Loading
 - Progress
-- switch
+- Switch
+- Range（Rate）
 
 ### 剩余待开发组件
 
@@ -27,7 +28,6 @@
 - Redio
 - checkbox
 - Select
-- Range
 - Color
 - DateTime
 - datalist
