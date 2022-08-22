@@ -19,13 +19,13 @@
 - Progress
 - Switch
 - Range（Rate）
+- Redio
 
 ### 剩余待开发组件
 
 - table
 - input
 - textarea
-- Redio
 - checkbox
 - Select
 - Color
