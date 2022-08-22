@@ -59,7 +59,7 @@
           <a-tab-pane key="1" tab="TypeScript">
             <div v-html="props.code"></div>
           </a-tab-pane>
-          <a-tab-pane key="2" tab="javaScript">
+          <a-tab-pane key="2" tab="JavaScript">
             <div v-html="props.codeJs"></div>
           </a-tab-pane>
         </a-tabs>

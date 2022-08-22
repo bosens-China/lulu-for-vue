@@ -14,8 +14,8 @@ const demo = (): Plugin => {
     Array.from(all)
       .filter((f) => {
         const { length } = $(f).children();
-        const attr = $(f).attr() || {};
-        let { src, describe } = attr;
+        let { src, describe } = $(f).attr() || {};
+        // md所在位置
         let filePath = path.join(dir, src || '');
         // 如果都不存在跳过处理
         if (!length && !src) {
@@ -28,8 +28,10 @@ const demo = (): Plugin => {
           src = path.relative(filePath, temporaryPath).replace(/\\/g, '/');
           filePath = temporaryPath;
           fs.outputFileSync(temporaryPath, sourceCode);
+          // 设置为空，防止vue解析出现问题
+          $(f).html('');
         }
-        const fileCode = (src ? fs.readFileSync(filePath, 'utf-8') : $(f).html()) || '';
+        const fileCode = fs.readFileSync(filePath, 'utf-8');
         const { ext } = path.parse(filePath);
 
         const sourceCode = fileCode;
@@ -44,7 +46,6 @@ const demo = (): Plugin => {
           code = render(`\`\`\`vue\n${sourceCode}\n\`\`\``);
           codeJs = render(`\`\`\`vue\n${sourceCodeJs}\n\`\`\``);
         }
-
         $(f)
           .removeAttr('src')
           .attr(':src', `import('${src}')`)

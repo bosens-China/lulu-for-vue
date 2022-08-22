@@ -10,9 +10,15 @@ export const transformation = (code: string) => {
     .replace('style>', 'style_private>');
 };
 export const reduction = (code: string) => {
-  return code
-    .replace('<script_private', '<script')
-    .replace('script_private>', 'script>')
-    .replace('<style_private', '<style')
-    .replace('style_private>', 'style>');
+  return (
+    code
+      // 对转义符进行处理
+      .replace('&lt;', '<')
+      .replace('&gt;', '>')
+      .replace('&amp;', '&')
+      .replace('<script_private', '<script')
+      .replace('script_private>', 'script>')
+      .replace('<style_private', '<style')
+      .replace('style_private>', 'style>')
+  );
 };
