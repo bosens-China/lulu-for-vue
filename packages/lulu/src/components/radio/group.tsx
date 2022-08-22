@@ -1,4 +1,4 @@
-import { defineComponent, provide, computed, nextTick, Ref } from 'vue';
+import { defineComponent, provide, computed, nextTick, Ref, watch, reactive } from 'vue';
 import { any, array, bool, string } from 'vue-types';
 import type { GetProps } from '../../utils/install';
 import { setClass } from '../../utils/components';
@@ -34,21 +34,35 @@ export const Group = defineComponent({
 
     const setValue = (value: any) => {
       emit('update:modelValue', value);
-      // 强制锁定 modelValue
       nextTick().then(() => {
         if (props.modelValue !== undefined && props.modelValue !== value) {
-          set.forEach((el) => {
-            if (!el.value) {
-              return;
-            }
-            const result = el.value.value === props.modelValue;
-            el.value.checked = result;
-          });
+          refresh(props.modelValue);
+          return;
         }
       });
     };
+    const values = reactive({ ...props, name, setValue, set });
+    provide(key, values);
+    // 监听变化，更改传递的值
+    watch(
+      () => props,
+      (val) => {
+        Object.assign(values, { ...val, name });
+      },
+      { deep: true },
+    );
 
-    provide(key, { ...props, name: name.value, setValue, set });
+    // 强制刷新值，确保v-model 和 default绑定的值正确
+    const refresh = (value: any) => {
+      set.forEach((el) => {
+        if (!el.value) {
+          return;
+        }
+        const result = el.value.value === value;
+        el.value.checked = result;
+      });
+    };
+
     return () => {
       const args = {
         ...attrs,
@@ -67,6 +81,7 @@ export const Group = defineComponent({
                 </Radio>
               );
             }
+
             return <Radio value={item}>{item}</Radio>;
           })
         : slots?.default?.();

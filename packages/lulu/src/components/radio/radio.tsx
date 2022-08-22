@@ -1,11 +1,20 @@
-import { defineComponent, inject, nextTick, ref, onUnmounted, InjectionKey, Ref } from 'vue';
+import {
+  defineComponent,
+  inject,
+  nextTick,
+  ref,
+  onUnmounted,
+  InjectionKey,
+  Ref,
+  computed,
+} from 'vue';
 import { any, bool } from 'vue-types';
 import { useSynchronization } from '../../hooks/useSynchronization';
 import { setClass } from '../../utils/components';
 import { GetProps } from '../../utils/install';
 import type { GroupProps } from './group';
 
-export const key = Symbol() as unknown as InjectionKey<
+export const key = Symbol() as InjectionKey<
   GroupProps & {
     setValue: (value: any) => void;
     set: Set<Ref<HTMLInputElement | null>>;
@@ -43,15 +52,17 @@ export const Radio = defineComponent({
     /*
      * 初始是否选中
      */
-    const checked = useSynchronization(
-      (superior?.modelValue !== undefined && props.value !== undefined
-        ? superior.modelValue === props.value
-        : props.modelValue) as boolean | undefined,
-    );
+    const current = computed(() => {
+      if (superior?.modelValue !== undefined && props.value !== undefined) {
+        return superior.modelValue === props.value;
+      }
+      if (superior?.defaultValue !== undefined && props.value !== undefined) {
+        return superior.defaultValue === props.value;
+      }
+      return props.modelValue;
+    });
 
-    if (checked.value === undefined && superior?.defaultValue && props.value !== undefined) {
-      checked.value = superior.defaultValue === props.value;
-    }
+    const checked = useSynchronization(current);
 
     const onChange = (e: Event) => {
       if (props.disabled) {
@@ -75,13 +86,14 @@ export const Radio = defineComponent({
       const args = {
         type: 'radio',
         is: 'ui-radio',
-        checked: checked.value,
+        checked: !!checked.value,
         disabled: props.disabled || superior?.disabled,
         value: props.value,
         onChange,
         name: superior?.name,
         ref: myRef,
       };
+
       const rootArgs = {
         ...attrs,
         class: setClass({
@@ -89,6 +101,7 @@ export const Radio = defineComponent({
           className: ['ui-radio-root'],
         }),
       };
+
       return (
         <label {...rootArgs}>
           <input {...args} />
