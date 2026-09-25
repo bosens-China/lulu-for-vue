@@ -25,8 +25,10 @@ export function useTheme() {
   function toggleTheme() {
     const nextDark = !isDark.value
     applyTheme(nextDark)
-    if (typeof localStorage !== 'undefined') {
+    try {
       localStorage.setItem(STORAGE_KEY, nextDark ? 'dark' : 'light')
+    } catch {
+      // 存储受限时保留当前页面的主题切换能力。
     }
   }
 
@@ -34,7 +36,12 @@ export function useTheme() {
     if (typeof window === 'undefined')
       return
 
-    const saved = localStorage.getItem(STORAGE_KEY)
+    let saved: string | null = null
+    try {
+      saved = localStorage.getItem(STORAGE_KEY)
+    } catch {
+      // 无法读取偏好时跟随系统。
+    }
     if (saved === 'light' || saved === 'dark') {
       applyTheme(saved === 'dark')
     }

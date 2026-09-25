@@ -10,23 +10,33 @@ export default {
       ],
     },
     {
-      name: '表单与输入',
+      name: '输入与选择',
       items: [
         { component: 'input', name: 'Input 输入框' },
         { component: 'textarea', name: 'Textarea 文本域' },
+        { component: 'autocomplete', name: 'Autocomplete 自动完成' },
         { component: 'select', name: 'Select 选择器' },
         { component: 'checkbox', name: 'Checkbox 多选框' },
         { component: 'radio', name: 'Radio 单选框' },
         { component: 'switch', name: 'Switch 开关' },
-        { component: 'autocomplete', name: 'Autocomplete 自动完成' },
+        { component: 'slider', name: 'Slider 滑块' },
+        { component: 'range-slider', name: 'RangeSlider 范围滑块' },
+        { component: 'rate', name: 'Rate 评分' },
         { component: 'color-picker', name: 'ColorPicker 颜色选择器' },
+      ],
+    },
+    {
+      name: '日期与时间',
+      items: [
         { component: 'date-picker', name: 'DatePicker 日期选择器' },
         { component: 'date-range-picker', name: 'DateRangePicker 日期范围选择器' },
         { component: 'year-picker', name: 'YearPicker 年份选择器' },
         { component: 'hour-picker', name: 'HourPicker 小时选择器' },
-        { component: 'slider', name: 'Slider 滑块' },
-        { component: 'range-slider', name: 'RangeSlider 范围滑块' },
-        { component: 'rate', name: 'Rate 评分' },
+      ],
+    },
+    {
+      name: '表单与校验',
+      items: [
         { component: 'form', name: 'Form 表单' },
         { component: 'form-field', name: 'FormField 表单字段' },
         { component: 'field-error', name: 'FieldError 字段错误' },

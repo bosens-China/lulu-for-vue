@@ -43,6 +43,7 @@ function onSearchKeydown(event: KeyboardEvent) {
     }
   }
   if (event.key === 'Enter' && results.value[selected.value]) {
+    event.preventDefault()
     document.querySelectorAll<HTMLAnchorElement>('#docs-search-results a')[selected.value]?.click()
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, shallowRef } from 'vue'
+import { computed, onMounted, reactive, shallowRef, watch } from 'vue'
 import LuluButton from '@lulu/vue/button'
 import LuluInput from '@lulu/vue/input'
 import '@lulu/vue/button/style.css'
@@ -41,7 +41,38 @@ const palettes = reactive<Record<Mode, Palette>>(structuredClone(defaults))
 const mode = shallowRef<Mode>('light')
 const inputValue = shallowRef('示例输入')
 const copyStatus = shallowRef('')
+const storageStatus = shallowRef('')
+const storageKey = 'lulu-docs-palette-v1'
 const palette = computed(() => palettes[mode.value])
+
+onMounted(() => {
+  try {
+    const saved: unknown = JSON.parse(localStorage.getItem(storageKey) ?? 'null')
+    if (saved && typeof saved === 'object') {
+      const data = saved as Record<string, unknown>
+      if (data.mode === 'light' || data.mode === 'dark') mode.value = data.mode
+      for (const theme of ['light', 'dark'] as const) {
+        const colors = data[theme]
+        if (!colors || typeof colors !== 'object') continue
+        for (const { key } of controls) {
+          const value = (colors as Record<string, unknown>)[key]
+          if (typeof value === 'string' && /^#[\da-f]{6}$/i.test(value)) palettes[theme][key] = value
+        }
+      }
+    }
+  } catch {
+    storageStatus.value = '无法读取已保存的配色，当前使用默认值。'
+  }
+})
+
+watch([palettes, mode], () => {
+  try {
+    localStorage.setItem(storageKey, JSON.stringify({ ...palettes, mode: mode.value }))
+    storageStatus.value = '配色已保存在此浏览器'
+  } catch {
+    storageStatus.value = '此浏览器无法保存配色，仍可预览和复制 CSS。'
+  }
+}, { deep: true })
 
 // 主按钮前景色按当前底色选黑或白，避免试色时把文字变成不可读。
 function contrastText(hex: string): string {
@@ -107,6 +138,8 @@ async function copyCss() {
 
 <template>
   <section class="theme-playground" aria-label="在线主题调色盘">
+    <p class="px-4 pt-4 text-sm">分别编辑明暗配色；预览仅作用于下方组件，复制 CSS 后用于项目。</p>
+    <p v-if="storageStatus" class="px-4 pt-2 text-sm" role="status">{{ storageStatus }}</p>
     <div class="theme-playground__toolbar">
       <div class="theme-playground__modes" role="group" aria-label="预览主题">
         <button v-for="item in (['light', 'dark'] as const)" :key="item" type="button" :aria-pressed="mode === item" @click="mode = item">
@@ -145,7 +178,7 @@ async function copyCss() {
         <button type="button" @click="copyCss">复制 CSS</button>
       </div>
       <p v-if="copyStatus" role="status">{{ copyStatus }}</p>
-      <pre><code>{{ cssCode }}</code></pre>
+      <pre tabindex="0" aria-label="主题 CSS 代码"><code>{{ cssCode }}</code></pre>
     </div>
   </section>
 </template>

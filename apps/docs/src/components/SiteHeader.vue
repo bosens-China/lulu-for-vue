@@ -9,11 +9,13 @@ import { withBase } from '../siteUrl'
 import DocsSearch from './DocsSearch.vue'
 import DocsHeader from './layout/DocsHeader.vue'
 import SiteSidebar from './SiteSidebar.vue'
+import ThemePlayground from './ThemePlayground.vue'
 
 defineProps<{ currentPath: string }>()
 const { isDark, toggleTheme } = useTheme()
 const menuOpen = ref(false)
 const hasOpenedMenu = ref(false)
+const paletteOpen = ref(false)
 const githubUrl = import.meta.env.VITE_GITHUB_URL
 
 function openMenu() {
@@ -33,6 +35,7 @@ function openMenu() {
 
       <div class="ml-auto flex items-center gap-2 sm:gap-3">
         <DocsSearch />
+        <LuluButton class="docs-icon-button" aria-label="打开主题调色盘" title="主题调色盘" @click="paletteOpen = true">◉</LuluButton>
         <LuluButton
           class="docs-icon-button"
           :aria-label="isDark ? '切换至浅色模式' : '切换至深色模式'"
@@ -47,5 +50,8 @@ function openMenu() {
 
   <LuluDialog v-if="hasOpenedMenu" v-model:open="menuOpen" title="组件导航" class="docs-mobile-nav">
     <SiteSidebar :current-path="currentPath" compact @click="menuOpen = false" />
+  </LuluDialog>
+  <LuluDialog v-if="paletteOpen" v-model:open="paletteOpen" title="主题调色盘" class="docs-palette-dialog">
+    <ThemePlayground />
   </LuluDialog>
 </template>

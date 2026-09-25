@@ -1,8 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+      // 必须早于 Prism 模块加载，避免自动高亮改写待 hydration 的节点。
+      window.Prism = { manual: true }
+      // 在首屏绘制前恢复主题，存储受限时仍跟随系统。
+      try {
+        const mode = localStorage.getItem('lulu-theme-mode')
+        if (mode === 'light' || mode === 'dark') document.documentElement.dataset.luluTheme = mode
+      } catch {}
+      document.documentElement.classList.toggle('dark', document.documentElement.dataset.luluTheme
+        ? document.documentElement.dataset.luluTheme === 'dark'
+        : matchMedia('(prefers-color-scheme: dark)').matches)
+    </script>
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg">
     <!--app-head-->
   </head>

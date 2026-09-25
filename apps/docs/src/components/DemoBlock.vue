@@ -52,7 +52,7 @@ async function copySource(): Promise<void> {
 <template>
   <section class="my-8 overflow-hidden rounded-xl border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-card-bg)] text-[var(--lulu-color-text)] transition-all duration-200 shadow-2xs hover:border-[var(--lulu-color-border)]">
     <!-- 1. 组件实际展示与操作演示区 -->
-    <div v-if="$slots.default" class="min-h-28 flex flex-col justify-center px-6 py-6 sm:px-8 bg-[var(--lulu-color-card-bg)]">
+    <div v-if="$slots.default" class="min-h-28 min-w-0 overflow-x-auto flex flex-col justify-center px-6 py-6 sm:px-8 bg-[var(--lulu-color-card-bg)]">
       <slot />
     </div>
 
