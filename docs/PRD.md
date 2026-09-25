@@ -4,7 +4,13 @@
 
 - `@lulu/vue` 是仓库唯一发布的 Vue 3 组件库。它以 LuLu UI Edge 的低耦合设计理念为参考，但不兼容旧 Web Components API，也不计划提供其他框架实现。
 - `lulu/` 是本地只读迁移参考，不属于 workspace、源码或发布物。
-- 后续文档站放在 `apps/docs`。根 `docs/` 只维护产品决策、计划和实施记录。
+- 组件文档站位于 `apps/docs`，线上入口为 <https://bosens-china.github.io/lulu-for-vue/>。根 `docs/` 只维护产品决策、计划和实施记录。
+
+## 组件文档站
+
+- 文档站使用 Vue 3、Vite 和 Markdown 构建 SSG 页面；`tsdown` 只构建组件包。组件中文说明与可运行 Demo 由组件目录维护，站点通过公开包入口消费 LuLu 组件。
+- 根路径展示品牌首页；组件页、安装与使用指南提供搜索、页内目录及移动端导航。站点支持手机、平板和笔记本尺寸，以及 light/dark 主题。主题指南提供可在线调整并导出 CSS 变量的调色盘。
+- `main` 分支通过 [Docs Pages 工作流](../.github/workflows/docs-pages.yml)发布到 GitHub Pages；每个路由生成可直接访问的静态 HTML、独立 SEO 信息和站点地图。新增公开组件须同时提供中文 README 和 Vue Demo。
 
 ## 构建与兼容性
 
