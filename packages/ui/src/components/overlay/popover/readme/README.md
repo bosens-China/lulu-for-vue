@@ -19,6 +19,12 @@ seo:
 
 浮层中存在按钮或输入时，打开后聚焦第一个可操作元素；按 Escape 关闭会把焦点归还触发按钮。点击浮层外关闭不会抢走外部目标的焦点。
 
+## 位置与关闭策略
+
+::: demo policy
+可尝试全部 12 个位置；视口边缘会约束实际位置。关闭外部/Escape 策略时，仍可通过气泡内按钮退出。
+:::
+
 ## API
 
 ### Props
@@ -46,3 +52,27 @@ seo:
 | --- | --- | --- |
 | `trigger` | 触发按钮内容。 | — |
 | `default` | 浮层内容。 | — |
+
+## CSS Tokens
+
+以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
+| `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
+| `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--lulu-font-size` | 正文大小 | `14px` | `14px` |
+| `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-radius` | 圆角 | `4px` | `4px` |
+| `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
+| `--lulu-space-3` | 间距 3 | `12px` | `12px` |
+| `--lulu-space-4` | 间距 4 | `16px` | `16px` |
+| `--lulu-z-index-dropdown` | 浮层层级 | `1000` | `1000` |
+
+浮层会传送到最近的 `data-lulu-theme` 容器，请在该容器上覆盖变量，不能只设置在触发器上。
+
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。

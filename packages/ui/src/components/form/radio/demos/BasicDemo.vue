@@ -8,7 +8,7 @@ const value = ref('standard')
 
 <template>
   <div class="flex gap-4">
-    <LuluRadio v-model="value" value="standard">标准版</LuluRadio>
-    <LuluRadio v-model="value" value="pro">专业版</LuluRadio>
+    <LuluRadio v-model="value" name="plan" value="standard">标准版</LuluRadio>
+    <LuluRadio v-model="value" name="plan" value="pro">专业版</LuluRadio>
   </div>
 </template>

@@ -7,5 +7,5 @@ const value = ref('')
 </script>
 
 <template>
-  <LuluInput v-model="value" placeholder="请输入内容" />
+  <LuluInput v-model="value" aria-label="示例输入" placeholder="请输入内容" />
 </template>

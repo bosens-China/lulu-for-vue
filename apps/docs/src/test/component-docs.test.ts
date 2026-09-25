@@ -49,6 +49,8 @@ describe('组件中文文档交付', () => {
       expect(document).toContain('::: demo basic')
       expect(document).toMatch(/^# .+/m)
       expect(document).toContain('## API')
+      expect(document).toContain('## CSS Tokens')
+      expect(document).toMatch(/`--lulu-[\w-]+`/)
 
       if (componentSource.includes('defineProps')) {
         expect(document).toContain('| 参数 | 说明 | 类型 | 默认值 |')

@@ -17,7 +17,7 @@ function submit(event: Event) {
 
 <template>
   <LuluForm @submit="submit">
-    <LuluInput name="name" placeholder="请输入姓名" required />
+    <LuluInput name="name" aria-label="姓名" placeholder="请输入姓名" required />
     <LuluButton native-type="submit">提交</LuluButton>
     <p v-if="submitted" role="status">已收到提交事件</p>
   </LuluForm>

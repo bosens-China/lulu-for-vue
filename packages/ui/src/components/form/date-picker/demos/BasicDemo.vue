@@ -7,5 +7,5 @@ const date = ref('2026-08-12')
 </script>
 
 <template>
-  <LuluDatePicker v-model="date" />
+  <LuluDatePicker v-model="date" aria-label="选择日期" />
 </template>

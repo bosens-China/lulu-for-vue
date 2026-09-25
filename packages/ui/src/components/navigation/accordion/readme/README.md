@@ -17,6 +17,12 @@ seo:
 传入面板数据，并通过 `v-model` 绑定展开项。
 :::
 
+## 多项展开与自定义内容
+
+::: demo multiple
+数组模型允许多个面板同时展开；summary 和 default 插槽接收当前 item。
+:::
+
 ## API
 
 ### Props
@@ -38,3 +44,17 @@ seo:
 | --- | --- | --- |
 | `summary` | 自定义面板标题。 | `{ item }` |
 | `default` | 自定义面板内容。 | `{ item }` |
+
+## CSS Tokens
+
+以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
+| `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-radius` | 圆角 | `4px` | `4px` |
+| `--lulu-space-2` | 间距 2 | `8px` | `8px` |
+| `--lulu-space-3` | 间距 3 | `12px` | `12px` |
+
+例如在局部容器的 `style` 中设置 `--lulu-color-border-subtle: #ededef`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。

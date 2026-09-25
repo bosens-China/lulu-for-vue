@@ -17,6 +17,12 @@ seo:
 使用 `v-model:open` 控制内容是否展开。
 :::
 
+## 自定义标题
+
+::: demo summary
+summary 插槽覆盖标题文字；原生 summary 继续承担点击和键盘展开行为，避免在其内嵌套按钮。
+:::
+
 ## API
 
 ### Props
@@ -37,3 +43,17 @@ seo:
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
 | `default` | 面板内容。 | — |
+| `summary` | 自定义折叠标题。 | — |
+
+## CSS Tokens
+
+以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
+| `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-radius` | 圆角 | `4px` | `4px` |
+| `--lulu-space-3` | 间距 3 | `12px` | `12px` |
+
+例如在局部容器的 `style` 中设置 `--lulu-color-border-subtle: #ededef`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。

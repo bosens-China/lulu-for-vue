@@ -7,5 +7,5 @@ const value = ref(40)
 </script>
 
 <template>
-  <LuluSlider v-model="value" />
+  <LuluSlider v-model="value" aria-label="调整数值" />
 </template>

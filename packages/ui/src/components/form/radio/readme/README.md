@@ -17,6 +17,12 @@ seo:
 多个单选框共享同一个 `v-model`。
 :::
 
+## 禁用选项
+
+::: demo states
+禁用项不参与选择，其他选项仍保持同名互斥。
+:::
+
 ## API
 
 ### Props
@@ -38,3 +44,18 @@ seo:
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
 | `default` | 单选框标签内容。 | — |
+
+## CSS Tokens
+
+以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#2a80eb` | `#38bdf8` |
+| `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--lulu-font-size` | 正文大小 | `14px` | `14px` |
+| `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-space-2` | 间距 2 | `8px` | `8px` |
+
+例如在局部容器的 `style` 中设置 `--lulu-color-primary: #2a80eb`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。

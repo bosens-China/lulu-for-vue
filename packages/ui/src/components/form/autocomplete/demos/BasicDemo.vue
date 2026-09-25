@@ -12,6 +12,6 @@ const items = [
 </script>
 
 <template>
-  <LuluAutocomplete v-model="value" :items="items" placeholder="输入城市" />
+  <LuluAutocomplete v-model="value" aria-label="搜索城市" :items="items" placeholder="输入城市" />
   <p class="mt-3 text-sm">当前值：{{ value || '无' }}</p>
 </template>

@@ -4,6 +4,7 @@
 
 - [产品 PRD](./PRD.md)
 - [组件 API 映射](./components.md)
+- [文档与交互走查](./docs-experience-audit.md)
 
 ## 进行中的需求
 

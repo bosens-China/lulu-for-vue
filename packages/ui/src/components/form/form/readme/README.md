@@ -27,6 +27,12 @@ seo:
 
 `useFormValidation` 目前只支持同步规则及原生表单控件。需要异步校验、跨字段规则或复杂表单状态时，可在应用层组合专门的表单库；`LuluForm` 不要求固定校验引擎。
 
+## 重置数据与校验
+
+::: demo reset
+useFormValidation.reset() 触发表单 reset 并清除错误；reset 事件负责同步业务模型。不要在 reset 事件处理器中再次调用 reset()，以免递归。
+:::
+
 ## API
 
 ### Slots
@@ -40,3 +46,16 @@ seo:
 | 属性 | 说明 | 类型 |
 | --- | --- | --- |
 | `element` | 原生表单元素，供 `useFormValidation` 或浏览器 Form API 使用。 | `HTMLFormElement \| null` |
+
+## CSS Tokens
+
+以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--lulu-font-size` | 正文大小 | `14px` | `14px` |
+| `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-space-4` | 间距 4 | `16px` | `16px` |
+
+例如在局部容器的 `style` 中设置 `--lulu-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。

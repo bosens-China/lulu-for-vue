@@ -17,6 +17,12 @@ seo:
 默认插槽会获得应传给表单控件的无障碍属性。
 :::
 
+## 错误与自定义插槽
+
+::: demo error
+复用 controlProps 连接标签、错误和控件；合并 aria-describedby 保留帮助说明。label/error 插槽定制内容时仍保留错误 ID。
+:::
+
 ## API
 
 ### Props
@@ -35,3 +41,16 @@ seo:
 | `default` | 表单控件。 | `{ controlProps }` |
 | `label` | 自定义标签。 | — |
 | `error` | 自定义错误提示。 | `{ errorId, message }` |
+
+## CSS Tokens
+
+以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-danger` | 危险或错误状态 | `#eb4646` | `#f87171` |
+| `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-font-size-sm` | 辅助文字大小 | `12px` | `12px` |
+| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
+
+例如在局部容器的 `style` 中设置 `--lulu-color-danger: #eb4646`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。

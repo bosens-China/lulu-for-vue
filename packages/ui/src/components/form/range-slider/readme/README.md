@@ -19,6 +19,12 @@ seo:
 
 如需原生表单提交，分别设置 `startName` 与 `endName`。两个滑块各自提交数值，也会共同接收外部的 `aria-describedby`。
 
+## 边界与状态
+
+::: demo states
+观察动态范围、交叉限制、禁用和错误状态。
+:::
+
 ## API
 
 ### Props
@@ -41,3 +47,17 @@ seo:
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | `update:modelValue` | 范围改变时触发。 | `value: [number, number]` |
+
+## CSS Tokens
+
+以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#2a80eb` | `#38bdf8` |
+| `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--lulu-font-size` | 正文大小 | `14px` | `14px` |
+| `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-space-2` | 间距 2 | `8px` | `8px` |
+
+例如在局部容器的 `style` 中设置 `--lulu-color-primary: #2a80eb`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。
