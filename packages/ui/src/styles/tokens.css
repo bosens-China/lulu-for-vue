@@ -34,6 +34,7 @@
   --lulu-color-code-bg: #f1f5f9;
   --lulu-color-card-bg: #ffffff;
   --lulu-color-overlay: rgb(15 23 42 / 45%);
+  --lulu-color-loading-overlay: rgb(255 255 255 / 72%);
 
   /* 字体与排版 */
   --lulu-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -97,6 +98,7 @@
   --lulu-color-code-bg: #0d0d10;
   --lulu-color-card-bg: #121215;
   --lulu-color-overlay: rgb(0 0 0 / 75%);
+  --lulu-color-loading-overlay: rgb(9 9 11 / 80%);
   --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.6);
   --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
   --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);
@@ -131,6 +133,7 @@
     --lulu-color-code-bg: #0d0d10;
     --lulu-color-card-bg: #121215;
     --lulu-color-overlay: rgb(0 0 0 / 75%);
+    --lulu-color-loading-overlay: rgb(9 9 11 / 80%);
     --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.6);
     --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
     --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);

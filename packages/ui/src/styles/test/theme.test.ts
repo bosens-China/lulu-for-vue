@@ -10,6 +10,10 @@ function readStyle(name: string) {
 }
 
 describe('Lulu CSS theme', () => {
+  it('加载遮罩在显式与系统深色模式使用主题变量', () => {
+    expect(readStyle('feedback.css')).toContain('background: var(--lulu-color-loading-overlay)')
+    expect(readStyle('tokens.css').match(/--lulu-color-loading-overlay: rgb\(9 9 11 \/ 80%\)/g)).toHaveLength(2)
+  })
   it('publishes the Edge-compatible semantic token baseline', () => {
     const tokens = readStyle('tokens.css')
 

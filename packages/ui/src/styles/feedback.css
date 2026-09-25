@@ -27,7 +27,7 @@
 
 .lulu-loading-overlay {
   align-items: center;
-  background: rgb(255 255 255 / 72%);
+  background: var(--lulu-color-loading-overlay);
   display: flex;
   inset: 0;
   justify-content: center;

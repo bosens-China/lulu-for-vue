@@ -6,6 +6,7 @@
   color: var(--lulu-color-text);
   inline-size: min(560px, calc(100vw - 2 * var(--lulu-space-4)));
   max-inline-size: none;
+  margin: auto;
   padding: 0;
 }
 
