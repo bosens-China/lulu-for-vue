@@ -3,6 +3,11 @@
 /.agents/
 /skills-lock.json
 
+# Local environment configuration
+.env
+.env.*
+!.env.example
+
 # Dependencies and generated output
 node_modules/
 dist/
