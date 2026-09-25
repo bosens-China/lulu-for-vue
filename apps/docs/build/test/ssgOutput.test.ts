@@ -24,6 +24,7 @@ describe('文档 SSG 产物', () => {
     expect(css).toMatch(/\.flex\{display:flex\}/)
     const guideHtml = await readFile(resolve(outputDirectory, 'guide/quick-start/index.html'), 'utf8')
     expect(guideHtml).toContain('快速开始')
+    expect(guideHtml).toContain('class="token tag"')
     await expect(access(resolve(outputDirectory, '.vite'))).rejects.toThrow()
   })
 

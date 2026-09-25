@@ -27,12 +27,12 @@ const nextItem = computed(() => {
 </script>
 
 <template>
-  <div class="mt-16 pt-8 border-t border-[var(--lulu-color-border-subtle)] flex items-center justify-between gap-4">
+  <div class="mt-16 pt-8 border-t border-[var(--lulu-color-border-subtle)] grid grid-cols-2 gap-3 sm:gap-4">
     <!-- 上一页 -->
     <a
       v-if="prevItem"
       :href="withBase(prevItem.page.path)"
-      class="group flex flex-col items-start p-4 rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all text-decoration-none min-w-48"
+      class="group flex min-w-0 flex-col items-start rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] p-4 text-decoration-none transition-all hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)]"
     >
       <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
         ← 上一页
@@ -47,7 +47,7 @@ const nextItem = computed(() => {
     <a
       v-if="nextItem"
       :href="withBase(nextItem.page.path)"
-      class="group flex flex-col items-end p-4 rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all text-decoration-none min-w-48 ml-auto"
+      class="group flex min-w-0 flex-col items-end rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] p-4 text-decoration-none transition-all hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)]"
     >
       <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
         下一页 →
