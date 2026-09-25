@@ -16,6 +16,7 @@ describe('Lulu CSS theme', () => {
     expect(tokens).toContain('--lulu-color-primary: #2a80eb')
     expect(tokens).toContain('--lulu-control-height: 40px')
     expect(tokens).toContain('--lulu-transition-duration: 160ms')
+    expect(tokens).toContain(':root:where(:not([data-lulu-theme]))')
     expect(tokens).not.toContain('--ui-blue')
   })
 

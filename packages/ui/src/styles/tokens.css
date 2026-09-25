@@ -103,7 +103,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-lulu-theme]) {
+  :root:where(:not([data-lulu-theme])) {
     color-scheme: dark;
     --lulu-color-primary: #38bdf8;
     --lulu-color-primary-hover: #60a5fa;

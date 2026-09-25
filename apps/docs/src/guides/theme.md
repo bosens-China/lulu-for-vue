@@ -42,10 +42,33 @@ seo:
   --lulu-color-primary: #73c8ff;
   --lulu-color-bg-page: #0b1220;
 }
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-lulu-theme])) {
+    --lulu-color-primary: #73c8ff;
+    --lulu-color-bg-page: #0b1220;
+  }
+}
 ```
 
 `--lulu-color-primary` 用于强调色，`--lulu-color-bg-page` 用于页面背景，`--lulu-color-text` 与 `--lulu-color-text-heading` 用于正文和标题，`--lulu-color-border` 用于边框。变量定义可在组件包的 `tokens.css` 中查看。
 
+需要分别覆盖显式深色主题和跟随系统的深色主题；上面的媒体查询用于后者。
+
 ## 局部定制
 
-变量遵循 CSS 继承规则，可以只覆盖某个业务区域。为保证对比度，修改主色时同时检查按钮上的文字和暗色主题。
+变量遵循 CSS 继承规则，可以只覆盖某个业务区域。单个按钮也可以覆盖组件专用变量，其他样式仍继承全局主题：
+
+```vue
+<LuluButton class="special-button" variant="primary">保存</LuluButton>
+```
+
+```css
+.special-button {
+  --lulu-button-background: #7c3aed;
+  --lulu-button-border: #7c3aed;
+  --lulu-button-color: #fff;
+}
+```
+
+Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `data-lulu-theme` 容器。要覆盖浮层变量，请将它们设置在该容器上；只设置在触发组件上的变量不会传给浮层。修改主色时，也要检查文字与暗色主题的对比度。

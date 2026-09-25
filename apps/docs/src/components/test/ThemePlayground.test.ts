@@ -12,10 +12,14 @@ describe('ThemePlayground', () => {
     expect(wrapper.get('.theme-playground__preview').attributes('style')).toContain('--lulu-color-primary: #a12bc3')
     expect(wrapper.get('.theme-playground__preview').attributes('style')).toContain('--lulu-color-primary-solid: #a12bc3')
     expect(wrapper.get('#theme-css').text()).toContain('--lulu-color-primary: #a12bc3')
+    expect(wrapper.get('#theme-css').text()).toContain('@media (prefers-color-scheme: dark)')
+    expect(wrapper.get('#theme-css').text()).toContain(':root:where(:not([data-lulu-theme]))')
 
     await wrapper.get('.theme-playground__modes button:nth-child(2)').trigger('click')
     expect(wrapper.get('.theme-playground__preview').attributes('data-lulu-theme')).toBe('dark')
     expect((wrapper.get('input[aria-label="主题强调色"]').element as HTMLInputElement).value).toBe('#38bdf8')
+    await wrapper.get('input[aria-label="主题强调色"]').setValue('#7139c2')
+    expect(wrapper.get('#theme-css').text()).toMatch(/@media \(prefers-color-scheme: dark\)[\s\S]*--lulu-color-primary: #7139c2/)
 
     await wrapper.get('.theme-playground__modes button:nth-child(1)').trigger('click')
     expect((wrapper.get('input[aria-label="主题强调色"]').element as HTMLInputElement).value).toBe('#a12bc3')

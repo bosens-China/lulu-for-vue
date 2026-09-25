@@ -67,13 +67,19 @@ function variables(colors: Palette): Record<string, string> {
 }
 
 const previewStyle = computed(() => variables(palette.value))
-const cssCode = computed(() => (['light', 'dark'] as const).map((theme) => {
-  const selector = theme === 'light' ? ":root, [data-lulu-theme='light']" : "[data-lulu-theme='dark']"
-  const lines = Object.entries(variables(palettes[theme]))
-    .map(([name, value]) => `  ${name}: ${value};`)
+const cssCode = computed(() => {
+  const blocks = (['light', 'dark'] as const).map((theme) => {
+    const selector = theme === 'light' ? ":root, [data-lulu-theme='light']" : "[data-lulu-theme='dark']"
+    const lines = Object.entries(variables(palettes[theme]))
+      .map(([name, value]) => `  ${name}: ${value};`)
+      .join('\n')
+    return `${selector} {\n${lines}\n}`
+  }).join('\n\n')
+  const autoDark = Object.entries(variables(palettes.dark))
+    .map(([name, value]) => `    ${name}: ${value};`)
     .join('\n')
-  return `${selector} {\n${lines}\n}`
-}).join('\n\n'))
+  return `${blocks}\n\n@media (prefers-color-scheme: dark) {\n  :root:where(:not([data-lulu-theme])) {\n${autoDark}\n  }\n}`
+})
 
 function updateColor(key: ColorKey, event: Event) {
   const target = event.target
