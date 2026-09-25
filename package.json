@@ -1,0 +1,32 @@
+{
+  "name": "lulu-for-vue",
+  "private": true,
+  "packageManager": "pnpm@11.15.1",
+  "scripts": {
+    "build": "pnpm --filter @lulu/vue run build",
+    "build:docs": "pnpm --filter @lulu/docs run build",
+    "dev:docs": "pnpm --filter @lulu/docs run dev",
+    "typecheck": "pnpm --filter @lulu/vue run typecheck",
+    "typecheck:docs": "pnpm --filter @lulu/docs run typecheck",
+    "lint": "eslint packages apps",
+    "pretest": "pnpm build:docs",
+    "test": "vitest run",
+    "verify:package": "pnpm build && pnpm --filter @lulu/vue run verify:package && pnpm --filter @lulu/docs exec node build/verifyPackageBundle.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vue/test-utils": "^2.4.11",
+    "eslint": "^10.8.1",
+    "eslint-plugin-vue": "^10.10.0",
+    "globals": "^17.9.0",
+    "happy-dom": "^20.11.2",
+    "tsdown": "^0.22.14",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.66.0",
+    "unplugin-vue": "^7.2.0",
+    "unplugin-vue-markdown": "^32.0.0",
+    "vitest": "^4.1.10",
+    "vue": "^3.5.41",
+    "vue-tsc": "^3.3.9"
+  }
+}

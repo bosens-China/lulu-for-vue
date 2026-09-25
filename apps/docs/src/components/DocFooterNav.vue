@@ -1,0 +1,60 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { orderedDocsNavigationItems } from '../navigation'
+import { withBase } from '../siteUrl'
+
+const props = defineProps<{
+  currentPath: string
+}>()
+
+const currentIndex = computed(() => {
+  return orderedDocsNavigationItems.findIndex(item => item.page.path === props.currentPath)
+})
+
+const prevItem = computed(() => {
+  if (currentIndex.value > 0) {
+    return orderedDocsNavigationItems[currentIndex.value - 1]
+  }
+  return null
+})
+
+const nextItem = computed(() => {
+  if (currentIndex.value >= 0 && currentIndex.value < orderedDocsNavigationItems.length - 1) {
+    return orderedDocsNavigationItems[currentIndex.value + 1]
+  }
+  return null
+})
+</script>
+
+<template>
+  <div class="mt-16 pt-8 border-t border-[var(--lulu-color-border-subtle)] flex items-center justify-between gap-4">
+    <!-- 上一页 -->
+    <a
+      v-if="prevItem"
+      :href="withBase(prevItem.page.path)"
+      class="group flex flex-col items-start p-4 rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all text-decoration-none min-w-48"
+    >
+      <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
+        ← 上一页
+      </span>
+      <span class="text-sm font-semibold text-[var(--lulu-color-text-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
+        {{ prevItem.name }}
+      </span>
+    </a>
+    <div v-else />
+
+    <!-- 下一页 -->
+    <a
+      v-if="nextItem"
+      :href="withBase(nextItem.page.path)"
+      class="group flex flex-col items-end p-4 rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all text-decoration-none min-w-48 ml-auto"
+    >
+      <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
+        下一页 →
+      </span>
+      <span class="text-sm font-semibold text-[var(--lulu-color-text-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
+        {{ nextItem.name }}
+      </span>
+    </a>
+  </div>
+</template>

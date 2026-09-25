@@ -1,0 +1,143 @@
+.lulu-dialog {
+  background: var(--lulu-color-surface);
+  border: 0;
+  border-radius: var(--lulu-radius-lg);
+  box-shadow: var(--lulu-shadow-overlay);
+  color: var(--lulu-color-text);
+  inline-size: min(560px, calc(100vw - 2 * var(--lulu-space-4)));
+  max-inline-size: none;
+  padding: 0;
+}
+
+.lulu-dialog::backdrop {
+  background: var(--lulu-color-overlay);
+}
+
+.lulu-dialog__surface {
+  display: grid;
+}
+
+.lulu-dialog__header,
+.lulu-dialog__footer {
+  align-items: center;
+  display: flex;
+  gap: var(--lulu-space-3);
+  padding: var(--lulu-space-3) var(--lulu-space-4);
+}
+
+.lulu-dialog__header {
+  border-bottom: 1px solid var(--lulu-color-border-subtle);
+}
+
+.lulu-dialog__title {
+  flex: 1;
+  font-size: var(--lulu-font-size-lg);
+  font-weight: 600;
+}
+
+.lulu-dialog__body {
+  padding: var(--lulu-space-4);
+}
+
+.lulu-dialog__footer {
+  border-top: 1px solid var(--lulu-color-border-subtle);
+  justify-content: flex-end;
+}
+
+.lulu-popover,
+.lulu-dropdown {
+  display: inline-flex;
+}
+
+.lulu-popover__trigger,
+.lulu-dropdown__trigger {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  min-block-size: var(--lulu-control-height);
+  padding-inline: var(--lulu-space-3);
+}
+
+.lulu-popover__trigger:disabled,
+.lulu-dropdown__trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.lulu-popover__panel {
+  max-inline-size: min(360px, calc(100vw - 2 * var(--lulu-space-4)));
+}
+
+.lulu-dropdown__menu {
+  display: grid;
+  gap: var(--lulu-space-1);
+}
+
+.lulu-dropdown__menu button {
+  background: transparent;
+  border: 0;
+  border-radius: var(--lulu-radius-sm);
+  color: inherit;
+  cursor: pointer;
+  padding: var(--lulu-space-2) var(--lulu-space-3);
+  text-align: start;
+}
+
+.lulu-dropdown__menu button:not(:disabled):hover,
+.lulu-dropdown__menu button:focus-visible {
+  background: var(--lulu-color-surface-hover);
+  outline: 0;
+}
+
+.lulu-dropdown__menu button:disabled {
+  color: var(--lulu-color-text-muted);
+  cursor: not-allowed;
+}
+
+.lulu-tooltip {
+  background: var(--lulu-color-text);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text-inverse);
+  font-size: var(--lulu-font-size-sm);
+  max-inline-size: min(280px, calc(100vw - 2 * var(--lulu-space-4)));
+  padding: var(--lulu-space-2) var(--lulu-space-3);
+  z-index: var(--lulu-z-index-dropdown);
+}
+
+.lulu-tooltip__trigger {
+  display: inline-flex;
+}
+
+.lulu-tooltip__trigger:focus-visible {
+  border-radius: var(--lulu-radius-sm);
+  outline: 0;
+  box-shadow: var(--lulu-shadow-focus);
+}
+
+.lulu-popconfirm__message {
+  margin: 0 0 var(--lulu-space-3);
+}
+
+.lulu-popconfirm__actions {
+  display: flex;
+  gap: var(--lulu-space-2);
+  justify-content: end;
+}
+
+.lulu-popconfirm__actions button {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  min-block-size: var(--lulu-control-height-sm);
+  padding-inline: var(--lulu-space-3);
+}
+
+.lulu-popconfirm__actions button:last-child {
+  background: var(--lulu-color-primary-solid);
+  border-color: var(--lulu-color-primary-solid);
+  color: var(--lulu-color-text-inverse);
+}

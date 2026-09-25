@@ -1,0 +1,85 @@
+{
+  "name": "@lulu/vue",
+  "version": "0.0.0",
+  "description": "Vue 3 components inspired by LuLu UI Edge",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/styles/style.css",
+    "./base.css": "./dist/styles/base.css",
+    "./tokens.css": "./dist/styles/tokens.css",
+    "./resolver": {
+      "types": "./dist/resolver.d.ts",
+      "import": "./dist/resolver.js"
+    },
+    "./*": {
+      "types": "./dist/entries/*.d.ts",
+      "import": "./dist/entries/*.js"
+    },
+    "./button/style.css": "./dist/styles/action.css",
+    "./data-table/style.css": "./dist/styles/data.css",
+    "./table/style.css": "./dist/styles/data.css",
+    "./field-error/style.css": "./dist/styles/base.css",
+    "./loading/style.css": "./dist/styles/feedback.css",
+    "./loading-overlay/style.css": "./dist/styles/feedback.css",
+    "./message/style.css": "./dist/styles/feedback.css",
+    "./message-host/style.css": "./dist/styles/feedback.css",
+    "./progress/style.css": "./dist/styles/feedback.css",
+    "./autocomplete/style.css": "./dist/styles/form.css",
+    "./checkbox/style.css": "./dist/styles/form.css",
+    "./color-picker/style.css": "./dist/styles/form.css",
+    "./date-picker/style.css": "./dist/styles/form.css",
+    "./date-range-picker/style.css": "./dist/styles/form.css",
+    "./form/style.css": "./dist/styles/form.css",
+    "./form-field/style.css": "./dist/styles/form.css",
+    "./hour-picker/style.css": "./dist/styles/form.css",
+    "./input/style.css": "./dist/styles/form.css",
+    "./radio/style.css": "./dist/styles/form.css",
+    "./range-slider/style.css": "./dist/styles/form.css",
+    "./rate/style.css": "./dist/styles/form.css",
+    "./select/style.css": "./dist/styles/form.css",
+    "./slider/style.css": "./dist/styles/form.css",
+    "./switch/style.css": "./dist/styles/form.css",
+    "./textarea/style.css": "./dist/styles/form.css",
+    "./year-picker/style.css": "./dist/styles/form.css",
+    "./accordion/style.css": "./dist/styles/navigation.css",
+    "./disclosure/style.css": "./dist/styles/navigation.css",
+    "./tab/style.css": "./dist/styles/navigation.css",
+    "./tab-panel/style.css": "./dist/styles/navigation.css",
+    "./tabs/style.css": "./dist/styles/navigation.css",
+    "./pagination/style.css": "./dist/styles/navigation.css",
+    "./dialog/style.css": "./dist/styles/overlay.css",
+    "./dropdown/style.css": "./dist/styles/overlay.css",
+    "./popconfirm/style.css": "./dist/styles/overlay.css",
+    "./popover/style.css": "./dist/styles/overlay.css",
+    "./tooltip/style.css": "./dist/styles/overlay.css"
+  },
+  "types": "./dist/index.d.ts",
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@tsdown/css": "^0.22.14",
+    "@types/node": "^26.2.0",
+    "@unocss/cli": "^66.7.5",
+    "typescript": "^6.0.3",
+    "unocss": "^66.7.5",
+    "unplugin-auto-import": "^21.1.0",
+    "unplugin-vue-components": "^32.1.0",
+    "vue": "^3.5.0"
+  },
+  "scripts": {
+    "build": "unocss \"src/components/**/*.vue\" -c uno.config.ts -o .generated/uno.css && tsdown",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "verify:package": "node scripts/verify-package.mjs"
+  }
+}

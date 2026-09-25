@@ -1,0 +1,94 @@
+.lulu-loading {
+  align-items: center;
+  color: var(--lulu-color-text-muted);
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+}
+
+.lulu-loading[data-block] {
+  display: flex;
+  justify-content: center;
+}
+
+.lulu-loading[data-size='sm'] { --lulu-loading-size: 14px; }
+.lulu-loading[data-size='md'] { --lulu-loading-size: 20px; }
+.lulu-loading[data-size='lg'] { --lulu-loading-size: 28px; }
+
+.lulu-loading__indicator {
+  animation: lulu-loading-spin 700ms linear infinite;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  color: var(--lulu-color-primary);
+  font-size: 0;
+  height: var(--lulu-loading-size, 20px);
+  width: var(--lulu-loading-size, 20px);
+}
+
+.lulu-loading-overlay {
+  align-items: center;
+  background: rgb(255 255 255 / 72%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+}
+
+@keyframes lulu-loading-spin {
+  to { transform: rotate(1turn); }
+}
+
+.lulu-progress {
+  appearance: none;
+  block-size: 8px;
+  border: 0;
+  border-radius: 999px;
+  inline-size: 100%;
+  overflow: hidden;
+}
+
+.lulu-progress::-webkit-progress-bar { background: var(--lulu-color-border-subtle); }
+.lulu-progress::-webkit-progress-value { background: var(--lulu-color-primary); }
+.lulu-progress::-moz-progress-bar { background: var(--lulu-color-primary); }
+
+.lulu-message-host {
+  display: grid;
+  gap: var(--lulu-space-2);
+  inset: var(--lulu-space-4) var(--lulu-space-4) auto;
+  pointer-events: none;
+  position: fixed;
+  z-index: var(--lulu-z-index-message);
+}
+
+.lulu-message {
+  align-items: center;
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-inline-start: 4px solid var(--lulu-color-primary);
+  border-radius: var(--lulu-radius);
+  box-shadow: var(--lulu-shadow-overlay);
+  color: var(--lulu-color-text);
+  display: flex;
+  gap: var(--lulu-space-3);
+  max-inline-size: min(420px, calc(100vw - 2 * var(--lulu-space-4)));
+  padding: var(--lulu-space-3);
+  pointer-events: auto;
+}
+
+.lulu-message--success { border-inline-start-color: var(--lulu-color-success); }
+.lulu-message--warning { border-inline-start-color: var(--lulu-color-warning); }
+.lulu-message--error { border-inline-start-color: var(--lulu-color-danger); }
+
+.lulu-message__content { flex: 1; }
+
+.lulu-message__close,
+.lulu-dialog__close {
+  background: transparent;
+  border: 0;
+  color: var(--lulu-color-text-muted);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: var(--lulu-space-1);
+}

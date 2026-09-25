@@ -1,0 +1,98 @@
+.lulu-tabs {
+  color: var(--lulu-color-text);
+}
+
+.lulu-tabs__list {
+  border-bottom: 1px solid var(--lulu-color-border);
+  display: flex;
+  gap: var(--lulu-space-1);
+  overflow-x: auto;
+}
+
+.lulu-tab {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--lulu-color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  margin-bottom: -1px;
+  padding: var(--lulu-space-2) var(--lulu-space-3);
+}
+
+.lulu-tab[aria-selected='true'] {
+  border-bottom-color: var(--lulu-color-primary);
+  color: var(--lulu-color-primary);
+}
+
+.lulu-tab:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.lulu-tab:focus-visible {
+  outline: 0;
+  box-shadow: inset var(--lulu-shadow-focus);
+}
+
+.lulu-tab-panel {
+  padding-block: var(--lulu-space-3);
+}
+
+.lulu-disclosure,
+.lulu-accordion__item {
+  border: 1px solid var(--lulu-color-border-subtle);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text);
+}
+
+.lulu-accordion {
+  display: grid;
+  gap: var(--lulu-space-2);
+}
+
+.lulu-disclosure__summary,
+.lulu-accordion__summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: var(--lulu-space-3);
+}
+
+.lulu-disclosure__content,
+.lulu-accordion__content {
+  border-top: 1px solid var(--lulu-color-border-subtle);
+  padding: var(--lulu-space-3);
+}
+
+.lulu-pagination {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--lulu-space-1);
+}
+
+.lulu-pagination__button {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius-sm);
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  min-block-size: var(--lulu-control-height-sm);
+  min-inline-size: var(--lulu-control-height-sm);
+  padding-inline: var(--lulu-space-2);
+}
+
+.lulu-pagination__button[aria-current='page'] {
+  background: var(--lulu-color-primary-solid);
+  border-color: var(--lulu-color-primary-solid);
+  color: var(--lulu-color-text-inverse);
+}
+
+.lulu-pagination__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.lulu-pagination__ellipsis {
+  color: var(--lulu-color-text-muted);
+  padding-inline: var(--lulu-space-1);
+}

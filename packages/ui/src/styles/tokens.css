@@ -1,0 +1,138 @@
+:root,
+[data-lulu-theme='light'] {
+  color-scheme: light;
+  /* 基础调色板 (Light 模式) */
+  --lulu-color-primary: #2a80eb;
+  --lulu-color-primary-hover: #1c6ed4;
+  --lulu-color-primary-solid: #0057c3;
+  --lulu-color-success: #1cad70;
+  --lulu-color-warning: #f59b00;
+  --lulu-color-danger: #eb4646;
+  --lulu-color-on-status: #111827;
+  --lulu-color-neutral-solid: #4c5161;
+  --lulu-color-on-neutral: #ffffff;
+
+  /* 语义化色彩与背景 (Light) */
+  --lulu-color-bg-page: #f7f9fa;
+  --lulu-color-bg-container: #ffffff;
+  --lulu-color-text: #4c5161;
+  --lulu-color-text-heading: #2f3442;
+  --lulu-color-text-muted: #a2a9b6;
+  --lulu-color-text-inverse: #ffffff;
+  --lulu-color-surface: #ffffff;
+  --lulu-color-surface-subtle: #f7f9fa;
+  --lulu-color-surface-hover: #f0f7ff;
+  --lulu-color-surface-selected: #e0f0ff;
+
+  /* 边框 */
+  --lulu-color-border: #d0d0d5;
+  --lulu-color-border-strong: #ababaf;
+  --lulu-color-border-subtle: #ededef;
+  --lulu-color-disabled: #ccd0d7;
+
+  /* 代码块与 demo 卡片 */
+  --lulu-color-code-bg: #f1f5f9;
+  --lulu-color-card-bg: #ffffff;
+  --lulu-color-overlay: rgb(15 23 42 / 45%);
+
+  /* 字体与排版 */
+  --lulu-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --lulu-font-size: 14px;
+  --lulu-font-size-sm: 12px;
+  --lulu-font-size-lg: 16px;
+  --lulu-line-height: 1.5;
+  --lulu-control-height: 40px;
+  --lulu-control-height-sm: 32px;
+
+  /* 边角与间距 */
+  --lulu-radius-sm: 4px;
+  --lulu-radius: 4px;
+  --lulu-radius-lg: 10px;
+  --lulu-space-1: 4px;
+  --lulu-space-2: 8px;
+  --lulu-space-3: 12px;
+  --lulu-space-4: 16px;
+
+  /* 阴影与过渡 */
+  --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --lulu-shadow-focus: 0 0 0 3px rgb(42 128 235 / 24%);
+  --lulu-shadow-overlay: 0 8px 24px rgb(15 23 42 / 16%);
+  --lulu-transition-duration: 160ms;
+  --lulu-transition-easing: ease;
+  --lulu-z-index-dropdown: 1000;
+  --lulu-z-index-dialog: 1100;
+  --lulu-z-index-message: 1200;
+}
+
+/* Edge 没有完整暗色主题；按相同语义为局部和全局场景补齐。 */
+[data-lulu-theme='dark'] {
+  color-scheme: dark;
+  --lulu-color-primary: #38bdf8;
+  --lulu-color-primary-hover: #60a5fa;
+  --lulu-color-primary-solid: #38bdf8;
+  --lulu-color-success: #34d399;
+  --lulu-color-warning: #fbbf24;
+  --lulu-color-danger: #f87171;
+  --lulu-color-on-status: #000000;
+  --lulu-color-neutral-solid: #52525b;
+  --lulu-color-on-neutral: #ffffff;
+
+  /* 贴近纯黑的极致深度配色 */
+  --lulu-color-bg-page: #000000;
+  --lulu-color-bg-container: #09090b;
+  --lulu-color-text: #f4f4f5;
+  --lulu-color-text-heading: #ffffff;
+  --lulu-color-text-muted: #a1a1aa;
+  --lulu-color-text-inverse: #000000;
+  --lulu-color-surface: #09090b;
+  --lulu-color-surface-subtle: #121215;
+  --lulu-color-surface-hover: #18181b;
+  --lulu-color-surface-selected: rgb(56 189 248 / 0.16);
+
+  --lulu-color-border: #3f3f46;
+  --lulu-color-border-strong: #52525b;
+  --lulu-color-border-subtle: #27272a;
+  --lulu-color-disabled: #3f3f46;
+
+  --lulu-color-code-bg: #0d0d10;
+  --lulu-color-card-bg: #121215;
+  --lulu-color-overlay: rgb(0 0 0 / 75%);
+  --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.6);
+  --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
+  --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-lulu-theme]) {
+    color-scheme: dark;
+    --lulu-color-primary: #38bdf8;
+    --lulu-color-primary-hover: #60a5fa;
+    --lulu-color-primary-solid: #38bdf8;
+    --lulu-color-success: #34d399;
+    --lulu-color-warning: #fbbf24;
+    --lulu-color-danger: #f87171;
+    --lulu-color-on-status: #000000;
+    --lulu-color-neutral-solid: #52525b;
+    --lulu-color-on-neutral: #ffffff;
+    --lulu-color-bg-page: #000000;
+    --lulu-color-bg-container: #09090b;
+    --lulu-color-text: #f4f4f5;
+    --lulu-color-text-heading: #ffffff;
+    --lulu-color-text-muted: #a1a1aa;
+    --lulu-color-text-inverse: #000000;
+    --lulu-color-surface: #09090b;
+    --lulu-color-surface-subtle: #121215;
+    --lulu-color-surface-hover: #18181b;
+    --lulu-color-surface-selected: rgb(56 189 248 / 0.16);
+    --lulu-color-border: #3f3f46;
+    --lulu-color-border-strong: #52525b;
+    --lulu-color-border-subtle: #27272a;
+    --lulu-color-disabled: #3f3f46;
+    --lulu-color-code-bg: #0d0d10;
+    --lulu-color-card-bg: #121215;
+    --lulu-color-overlay: rgb(0 0 0 / 75%);
+    --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.6);
+    --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
+    --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);
+  }
+}

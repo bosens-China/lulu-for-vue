@@ -1,0 +1,199 @@
+.lulu-form {
+  display: grid;
+  gap: var(--lulu-space-4);
+}
+
+.lulu-form-field {
+  display: grid;
+  gap: var(--lulu-space-1);
+}
+
+.lulu-form-field__label {
+  color: var(--lulu-color-text);
+  font-weight: 600;
+}
+
+.lulu-form-field__control {
+  min-inline-size: 0;
+}
+
+.lulu-input,
+.lulu-textarea,
+.lulu-select,
+.lulu-autocomplete,
+.lulu-date-picker,
+.lulu-year-picker,
+.lulu-hour-picker,
+.lulu-date-range-picker__start,
+.lulu-date-range-picker__end {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  box-sizing: border-box;
+  color: var(--lulu-color-text);
+  font: inherit;
+  inline-size: 100%;
+  min-block-size: var(--lulu-control-height);
+  padding: 0 var(--lulu-space-3);
+  transition: border-color var(--lulu-transition-duration) var(--lulu-transition-easing), box-shadow var(--lulu-transition-duration) var(--lulu-transition-easing);
+}
+
+.lulu-textarea {
+  min-block-size: calc(var(--lulu-control-height) * 2);
+  padding-block: var(--lulu-space-2);
+  resize: vertical;
+}
+
+.lulu-select {
+  cursor: pointer;
+}
+
+.lulu-input::placeholder,
+.lulu-textarea::placeholder,
+.lulu-autocomplete::placeholder {
+  color: var(--lulu-color-text-muted);
+  opacity: 1;
+}
+
+.lulu-input:disabled,
+.lulu-textarea:disabled,
+.lulu-select:disabled,
+.lulu-autocomplete:disabled,
+.lulu-date-picker:disabled,
+.lulu-year-picker:disabled,
+.lulu-hour-picker:disabled,
+.lulu-date-range-picker input:disabled {
+  background: var(--lulu-color-surface-subtle);
+  color: var(--lulu-color-text-muted);
+  cursor: not-allowed;
+}
+
+.lulu-input[aria-invalid='true'],
+.lulu-textarea[aria-invalid='true'],
+.lulu-select[aria-invalid='true'],
+.lulu-date-picker[aria-invalid='true'],
+.lulu-year-picker[aria-invalid='true'],
+.lulu-hour-picker[aria-invalid='true'],
+.lulu-date-range-picker input[aria-invalid='true'] {
+  border-color: var(--lulu-color-danger);
+}
+
+.lulu-checkbox,
+.lulu-radio,
+.lulu-switch {
+  align-items: center;
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+}
+
+.lulu-checkbox input,
+.lulu-radio input,
+.lulu-switch input,
+.lulu-data-table__selection-cell input {
+  accent-color: var(--lulu-color-primary);
+  block-size: 16px;
+  inline-size: 16px;
+  margin: 0;
+}
+
+.lulu-checkbox[data-indeterminate] input {
+  accent-color: var(--lulu-color-primary);
+}
+
+.lulu-checkbox__label,
+.lulu-radio__label,
+.lulu-switch__label {
+  line-height: var(--lulu-line-height);
+}
+
+.lulu-slider,
+.lulu-rate,
+.lulu-range-slider__start,
+.lulu-range-slider__end,
+.lulu-color-picker__alpha {
+  accent-color: var(--lulu-color-primary);
+  cursor: pointer;
+  inline-size: 100%;
+}
+
+.lulu-slider:disabled,
+.lulu-rate:disabled,
+.lulu-range-slider input:disabled,
+.lulu-color-picker input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.lulu-range-slider {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+  inline-size: 100%;
+}
+
+.lulu-rate {
+  block-size: var(--lulu-control-height);
+}
+
+.lulu-date-range-picker {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+  inline-size: 100%;
+}
+
+.lulu-date-range-picker::before {
+  color: var(--lulu-color-text-muted);
+  content: '–';
+  order: 1;
+}
+
+.lulu-date-range-picker__start { order: 0; }
+.lulu-date-range-picker__end { order: 2; }
+
+.lulu-color-picker {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+}
+
+.lulu-color-picker__color {
+  background: transparent;
+  border: 0;
+  block-size: var(--lulu-control-height);
+  cursor: pointer;
+  inline-size: var(--lulu-control-height);
+  padding: var(--lulu-space-1);
+}
+
+.lulu-color-picker__alpha {
+  inline-size: 120px;
+}
+
+.lulu-autocomplete__list {
+  list-style: none;
+  max-block-size: 280px;
+  overflow: auto;
+}
+
+.lulu-autocomplete__loading,
+.lulu-autocomplete__option {
+  border-radius: var(--lulu-radius-sm);
+  padding: var(--lulu-space-2) var(--lulu-space-3);
+}
+
+.lulu-autocomplete__option {
+  cursor: pointer;
+}
+
+.lulu-autocomplete__option[aria-selected='true'],
+.lulu-autocomplete__option:not([aria-disabled='true']):hover {
+  background: var(--lulu-color-surface-selected);
+}
+
+.lulu-autocomplete__option[aria-disabled='true'] {
+  color: var(--lulu-color-text-muted);
+  cursor: not-allowed;
+}

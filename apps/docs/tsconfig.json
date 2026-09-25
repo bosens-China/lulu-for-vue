@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "paths": {
+      "@lulu/vue": ["../../packages/ui/src/index.ts"],
+      "@lulu/vue/tokens.css": ["../../packages/ui/src/styles/tokens.css"],
+      "@lulu/vue/*/style.css": ["../../packages/ui/src/styles/index.css"],
+      "@lulu/vue/*": ["../../packages/ui/src/entries/*.ts"]
+    },
+    "types": ["node", "vite/client"]
+  },
+  "include": [
+    "build/**/*.ts",
+    "docs.config.ts",
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "uno.config.ts",
+    "vite.config.ts"
+  ],
+  "exclude": ["dist", "node_modules"]
+}

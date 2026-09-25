@@ -1,0 +1,69 @@
+.lulu-button {
+  background: var(--lulu-button-background, var(--lulu-color-neutral-solid));
+  border: 1px solid var(--lulu-button-border, var(--lulu-color-neutral-solid));
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-button-color, var(--lulu-color-on-neutral));
+  cursor: pointer;
+  gap: var(--lulu-space-1);
+  min-height: var(--lulu-control-height);
+  min-width: calc(var(--lulu-control-height) * 2);
+  padding: 0 var(--lulu-space-4);
+  transition: background-color var(--lulu-transition-duration) var(--lulu-transition-easing), border-color var(--lulu-transition-duration) var(--lulu-transition-easing), box-shadow var(--lulu-transition-duration) var(--lulu-transition-easing);
+}
+
+.lulu-button[data-variant='normal'] {
+  background: var(--lulu-button-background, var(--lulu-color-surface));
+  border-color: var(--lulu-button-border, var(--lulu-color-border));
+  color: var(--lulu-button-color, var(--lulu-color-text));
+}
+
+.lulu-button[data-variant='primary'] {
+  background: var(--lulu-button-background, var(--lulu-color-primary-solid));
+  border-color: var(--lulu-button-border, var(--lulu-color-primary-solid));
+  color: var(--lulu-button-color, var(--lulu-color-text-inverse));
+}
+
+.lulu-button[data-variant='success'] {
+  background: var(--lulu-button-background, var(--lulu-color-success));
+  border-color: var(--lulu-button-border, var(--lulu-color-success));
+  color: var(--lulu-button-color, var(--lulu-color-on-status));
+}
+
+.lulu-button[data-variant='warning'] {
+  background: var(--lulu-button-background, var(--lulu-color-warning));
+  border-color: var(--lulu-button-border, var(--lulu-color-warning));
+  color: var(--lulu-button-color, var(--lulu-color-on-status));
+}
+
+.lulu-button[data-variant='danger'] {
+  background: var(--lulu-button-background, var(--lulu-color-danger));
+  border-color: var(--lulu-button-border, var(--lulu-color-danger));
+  color: var(--lulu-button-color, var(--lulu-color-text-inverse));
+}
+
+.lulu-button:not(:disabled):hover {
+  filter: brightness(1.06);
+}
+
+.lulu-button:not(:disabled):active {
+  box-shadow: inset 0 1px 2px rgb(0 0 0 / 14%);
+}
+
+.lulu-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.lulu-button__loading {
+  animation: lulu-button-loading 800ms linear infinite;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  block-size: 1em;
+  display: inline-block;
+  inline-size: 1em;
+}
+
+@keyframes lulu-button-loading {
+  to { transform: rotate(1turn); }
+}

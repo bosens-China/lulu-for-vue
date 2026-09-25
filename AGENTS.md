@@ -1,0 +1,6 @@
+- 样式优先用unocss，复杂样式可以用style和css文件
+- 代码行数不要超出400行，超出考虑拆分
+- 重要模块需要包含测试用例，用vitest，测试文件放到当前文件下的test目录，例如 utils/fs.ts，测试文件 utils/test/fs.test.ts
+- vue 书写以template setup ts为主，然后复杂的逻辑可以用jsx
+- 注释使用中文，重要模块需要涵盖
+- 使用ts，避免any，未知可以用unknown

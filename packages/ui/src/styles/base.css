@@ -1,0 +1,65 @@
+:where(
+  .lulu-button,
+  .lulu-input,
+  .lulu-textarea,
+  .lulu-select,
+  .lulu-autocomplete,
+  .lulu-date-picker,
+  .lulu-year-picker,
+  .lulu-hour-picker,
+  .lulu-date-range-picker,
+  .lulu-slider,
+  .lulu-range-slider,
+  .lulu-rate,
+  .lulu-checkbox,
+  .lulu-radio,
+  .lulu-switch,
+  .lulu-form,
+  .lulu-table,
+  .lulu-tabs,
+  .lulu-pagination,
+  .lulu-dialog,
+  .lulu-popover,
+  .lulu-dropdown,
+  .lulu-tooltip,
+  .lulu-message
+) {
+  box-sizing: border-box;
+  font-family: var(--lulu-font-family);
+  font-size: var(--lulu-font-size);
+  line-height: var(--lulu-line-height);
+}
+
+:where(.lulu-button, .lulu-input, .lulu-textarea, .lulu-select, .lulu-autocomplete, .lulu-date-picker, .lulu-year-picker, .lulu-hour-picker, .lulu-date-range-picker__start, .lulu-date-range-picker__end):focus-visible {
+  outline: 0;
+  box-shadow: var(--lulu-shadow-focus);
+}
+
+:where(.lulu-button, .lulu-dropdown__trigger, .lulu-popover__trigger, .lulu-dialog__close, .lulu-message__close, .lulu-pagination__button, .lulu-popconfirm__actions button, .lulu-dropdown__menu button) {
+  font: inherit;
+}
+
+.lulu-floating-panel {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  box-shadow: var(--lulu-shadow-overlay);
+  color: var(--lulu-color-text);
+  margin: 0;
+  min-inline-size: 180px;
+  padding: var(--lulu-space-1);
+  z-index: var(--lulu-z-index-dropdown);
+}
+
+.lulu-field-error {
+  color: var(--lulu-color-danger);
+  font-size: var(--lulu-font-size-sm);
+  margin: var(--lulu-space-1) 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.lulu-button, .lulu-loading__indicator, .lulu-message, .lulu-tabs, .lulu-dialog, .lulu-popover__panel, .lulu-dropdown__menu, .lulu-tooltip) {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+  }
+}
