@@ -27,7 +27,7 @@ const nextItem = computed(() => {
 </script>
 
 <template>
-  <div class="mt-16 pt-8 border-t border-[var(--lulu-color-border-subtle)] grid grid-cols-2 gap-3 sm:gap-4">
+  <div class="mt-8 border-t border-[var(--lulu-color-border-subtle)] pt-6 grid grid-cols-2 gap-3 sm:mt-16 sm:gap-4 sm:pt-8">
     <!-- 上一页 -->
     <a
       v-if="prevItem"

@@ -42,7 +42,7 @@ const { page: currentPage } = useDocsNavigation(props.page)
           </main>
 
           <!-- 全局页脚 Footer -->
-          <footer class="mt-16 text-center text-xs text-[var(--lulu-color-text-muted)] py-6 border-t border-[var(--lulu-color-border-subtle)]">
+          <footer class="mt-8 text-center text-xs text-[var(--lulu-color-text-muted)] py-6 border-t border-[var(--lulu-color-border-subtle)] sm:mt-16">
             LuLu UI Vue Docs © 2026. Inspired by Ant Design & LuLu UI.
           </footer>
         </DocsContent>
