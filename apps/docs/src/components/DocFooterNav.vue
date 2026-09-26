@@ -1,26 +1,27 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { orderedDocsNavigationItems } from '../navigation'
+import { guideNavigation, orderedDocsNavigationItems } from '../navigation'
 import { withBase } from '../siteUrl'
 
 const props = defineProps<{
   currentPath: string
 }>()
 
+const pages = [...guideNavigation, ...orderedDocsNavigationItems]
 const currentIndex = computed(() => {
-  return orderedDocsNavigationItems.findIndex(item => item.page.path === props.currentPath)
+  return pages.findIndex(item => item.page.path === props.currentPath)
 })
 
 const prevItem = computed(() => {
   if (currentIndex.value > 0) {
-    return orderedDocsNavigationItems[currentIndex.value - 1]
+    return pages[currentIndex.value - 1]
   }
   return null
 })
 
 const nextItem = computed(() => {
-  if (currentIndex.value >= 0 && currentIndex.value < orderedDocsNavigationItems.length - 1) {
-    return orderedDocsNavigationItems[currentIndex.value + 1]
+  if (currentIndex.value >= 0 && currentIndex.value < pages.length - 1) {
+    return pages[currentIndex.value + 1]
   }
   return null
 })

@@ -57,6 +57,11 @@ function syncNativeDialog(isOpen: boolean) {
   if (isOpen) {
     returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
     dialog.showModal()
+    // 默认先读标题；使用者可用原生 autofocus 指定表单控件。
+    const focusTarget = dialog.querySelector<HTMLElement>('[autofocus]:not(:disabled)')
+      ?? dialog.querySelector<HTMLElement>('.lulu-dialog__title')
+      ?? dialog
+    focusTarget.focus()
     return
   }
 
@@ -100,6 +105,7 @@ function handleOverlayClick(event: MouseEvent) {
   <dialog
     ref="dialog"
     class="lulu-dialog"
+    tabindex="-1"
     :aria-label="hasHeaderContent ? undefined : 'Dialog'"
     :aria-labelledby="hasHeaderContent ? titleId : undefined"
     @cancel="handleCancel"
@@ -111,7 +117,7 @@ function handleOverlayClick(event: MouseEvent) {
         v-if="hasHeaderContent || props.closable"
         class="lulu-dialog__header"
       >
-        <div v-if="hasHeaderContent" :id="titleId" class="lulu-dialog__title">
+        <div v-if="hasHeaderContent" :id="titleId" class="lulu-dialog__title" tabindex="-1">
           <slot name="header">{{ props.title }}</slot>
         </div>
 

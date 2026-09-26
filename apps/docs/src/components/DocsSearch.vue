@@ -59,7 +59,7 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown))
     class="flex h-9 items-center gap-2 rounded-xl border border-solid border-[var(--lulu-color-border)] bg-[var(--lulu-color-surface-subtle)] px-3 text-xs text-[var(--lulu-color-text-muted)] hover:border-[var(--lulu-color-primary)] hover:text-[var(--lulu-color-primary)]"
     @click="showSearch"
   >
-    <span aria-hidden="true">⌕</span>
+    <span class="i-lucide-search text-base" aria-hidden="true" />
     <span class="hidden md:inline">搜索文档与组件...</span>
     <kbd class="hidden rounded border border-[var(--lulu-color-border-subtle)] px-1 text-[10px] md:inline">Ctrl K</kbd>
   </button>
@@ -68,6 +68,7 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown))
     <label class="sr-only" for="docs-search-input">搜索组件</label>
     <LuluInput
       id="docs-search-input"
+      autofocus
       v-model="query"
       class="w-full"
       placeholder="输入组件名称或描述"

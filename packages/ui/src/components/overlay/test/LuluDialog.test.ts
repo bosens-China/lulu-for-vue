@@ -39,6 +39,23 @@ describe('LuluDialog', () => {
     expect(wrapper.get('.lulu-dialog__footer').text()).toContain('Cancel')
   })
 
+  it('打开时聚焦标题，并尊重内容中的 autofocus', () => {
+    const titleDialog = mount(LuluDialog, {
+      attachTo: document.body,
+      props: { open: true, title: '确认操作' },
+    })
+    expect(document.activeElement).toBe(titleDialog.get('.lulu-dialog__title').element)
+    titleDialog.unmount()
+
+    const inputDialog = mount(LuluDialog, {
+      attachTo: document.body,
+      props: { open: true, title: '搜索' },
+      slots: { default: '<input autofocus aria-label="搜索" />' },
+    })
+    expect(document.activeElement).toBe(inputDialog.get('input').element)
+    inputDialog.unmount()
+  })
+
   it('lets the header slot replace the title', () => {
     const wrapper = mount(LuluDialog, {
       props: {

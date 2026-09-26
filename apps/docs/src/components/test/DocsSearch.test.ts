@@ -7,6 +7,7 @@ it('Enter 选择结果时阻止默认激活，避免焦点归还后再次打开�
   try {
     await wrapper.get('button').trigger('click')
     const input = document.querySelector<HTMLInputElement>('#docs-search-input')!
+    expect(document.activeElement).toBe(input)
     input.value = 'DateRange'
     input.dispatchEvent(new Event('input', { bubbles: true }))
     await wrapper.vm.$nextTick()

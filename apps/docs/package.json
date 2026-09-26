@@ -16,6 +16,7 @@
     "vue": "^3.5.41"
   },
   "devDependencies": {
+    "@iconify-json/lucide": "^1.2.136",
     "@mdit/plugin-container": "^1.0.2",
     "@types/node": "^26.2.0",
     "@types/prismjs": "^1.26.6",
