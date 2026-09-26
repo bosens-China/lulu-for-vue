@@ -49,7 +49,7 @@ alpha 开启透明度滑块；更改颜色或透明度后返回八位十六进�
 | --- | --- | --- | --- |
 | `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#2a80eb` | `#38bdf8` |
 | `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
-| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
-| `--lulu-space-2` | 间距 2 | `8px` | `8px` |
+| `--lulu-space-1` | 最小间距 | `4px` | `4px` |
+| `--lulu-space-2` | 小间距 | `8px` | `8px` |
 
 例如在局部容器的 `style` 中设置 `--lulu-color-primary: #2a80eb`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

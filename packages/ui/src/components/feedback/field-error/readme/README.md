@@ -45,6 +45,6 @@ default 插槽可包含强调文本，覆盖默认 message 内容。
 | --- | --- | --- | --- |
 | `--lulu-color-danger` | 危险或错误状态 | `#eb4646` | `#f87171` |
 | `--lulu-font-size-sm` | 辅助文字大小 | `12px` | `12px` |
-| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
+| `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 
 例如在局部容器的 `style` 中设置 `--lulu-color-danger: #eb4646`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

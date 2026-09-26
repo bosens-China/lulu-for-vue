@@ -59,7 +59,7 @@ seo:
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px rgb(42 128 235 / 24%)` | `0 0 0 3px rgb(56 189 248 / 35%)` |
-| `--lulu-space-3` | 间距 3 | `12px` | `12px` |
+| `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-transition-duration` | 过渡时长 | `160ms` | `160ms` |
 | `--lulu-transition-easing` | 过渡曲线 | `ease` | `ease` |
 

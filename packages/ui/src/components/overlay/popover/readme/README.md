@@ -68,10 +68,10 @@ seo:
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
-| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
-| `--lulu-space-3` | 间距 3 | `12px` | `12px` |
-| `--lulu-space-4` | 间距 4 | `16px` | `16px` |
-| `--lulu-z-index-dropdown` | 浮层层级 | `1000` | `1000` |
+| `--lulu-space-1` | 最小间距 | `4px` | `4px` |
+| `--lulu-space-3` | 中等间距 | `12px` | `12px` |
+| `--lulu-space-4` | 大间距 | `16px` | `16px` |
+| `--lulu-z-index-popup` | 气泡浮层层级 | `1000` | `1000` |
 
 浮层会传送到最近的 `data-lulu-theme` 容器，请在该容器上覆盖变量，不能只设置在触发器上。
 

@@ -71,14 +71,14 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-button-background` | 按钮背景覆盖 | `按类型回退` | `按类型回退` |
-| `--lulu-button-border` | 按钮边框覆盖 | `按类型回退` | `按类型回退` |
-| `--lulu-button-color` | 按钮文字覆盖 | `按类型回退` | `按类型回退` |
+| `--lulu-button-background` | 按钮背景颜色；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
+| `--lulu-button-border` | 按钮边框颜色；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
+| `--lulu-button-color` | 按钮文字颜色（CSS `color`）；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
 | `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
 | `--lulu-color-danger` | 危险或错误状态 | `#eb4646` | `#f87171` |
 | `--lulu-color-neutral-solid` | 默认按钮底色 | `#4c5161` | `#52525b` |
-| `--lulu-color-on-neutral` | 默认按钮文字 | `#ffffff` | `#ffffff` |
-| `--lulu-color-on-status` | 状态按钮文字 | `#111827` | `#000000` |
+| `--lulu-color-on-neutral` | 默认按钮底色上的文字 | `#ffffff` | `#ffffff` |
+| `--lulu-color-on-status` | 成功、警告按钮底色上的文字 | `#111827` | `#000000` |
 | `--lulu-color-primary-solid` | 主要操作底色 | `#0057c3` | `#38bdf8` |
 | `--lulu-color-success` | 成功状态 | `#1cad70` | `#34d399` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
@@ -91,8 +91,8 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px rgb(42 128 235 / 24%)` | `0 0 0 3px rgb(56 189 248 / 35%)` |
-| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
-| `--lulu-space-4` | 间距 4 | `16px` | `16px` |
+| `--lulu-space-1` | 最小间距 | `4px` | `4px` |
+| `--lulu-space-4` | 大间距 | `16px` | `16px` |
 | `--lulu-transition-duration` | 过渡时长 | `160ms` | `160ms` |
 | `--lulu-transition-easing` | 过渡曲线 | `ease` | `ease` |
 

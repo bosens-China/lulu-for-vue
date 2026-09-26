@@ -69,8 +69,8 @@ header 插槽自定义标题；关闭策略只在确有需要的流程中使用�
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius-lg` | 大圆角 | `10px` | `10px` |
 | `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
-| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
-| `--lulu-space-3` | 间距 3 | `12px` | `12px` |
-| `--lulu-space-4` | 间距 4 | `16px` | `16px` |
+| `--lulu-space-1` | 最小间距 | `4px` | `4px` |
+| `--lulu-space-3` | 中等间距 | `12px` | `12px` |
+| `--lulu-space-4` | 大间距 | `16px` | `16px` |
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border-subtle: #ededef`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

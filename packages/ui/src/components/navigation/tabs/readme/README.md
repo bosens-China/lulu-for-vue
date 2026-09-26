@@ -93,8 +93,8 @@ seo:
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px rgb(42 128 235 / 24%)` | `0 0 0 3px rgb(56 189 248 / 35%)` |
-| `--lulu-space-1` | 间距 1 | `4px` | `4px` |
-| `--lulu-space-2` | 间距 2 | `8px` | `8px` |
-| `--lulu-space-3` | 间距 3 | `12px` | `12px` |
+| `--lulu-space-1` | 最小间距 | `4px` | `4px` |
+| `--lulu-space-2` | 小间距 | `8px` | `8px` |
+| `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

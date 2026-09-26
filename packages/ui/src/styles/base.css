@@ -48,7 +48,7 @@
   margin: 0;
   min-inline-size: 180px;
   padding: var(--lulu-space-1);
-  z-index: var(--lulu-z-index-dropdown);
+  z-index: var(--lulu-z-index-popup);
 }
 
 .lulu-field-error {

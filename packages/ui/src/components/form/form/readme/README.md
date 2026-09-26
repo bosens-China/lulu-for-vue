@@ -56,6 +56,6 @@ useFormValidation.reset() 触发表单 reset 并清除错误；reset 事件负�
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
-| `--lulu-space-4` | 间距 4 | `16px` | `16px` |
+| `--lulu-space-4` | 大间距 | `16px` | `16px` |
 
 例如在局部容器的 `style` 中设置 `--lulu-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

@@ -60,7 +60,7 @@
   --lulu-shadow-overlay: 0 8px 24px rgb(15 23 42 / 16%);
   --lulu-transition-duration: 160ms;
   --lulu-transition-easing: ease;
-  --lulu-z-index-dropdown: 1000;
+  --lulu-z-index-popup: 1000;
   --lulu-z-index-dialog: 1100;
   --lulu-z-index-message: 1200;
 }

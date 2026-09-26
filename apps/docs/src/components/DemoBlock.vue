@@ -46,7 +46,7 @@ async function copySource(): Promise<void> {
 </script>
 
 <template>
-  <section class="my-8 overflow-hidden rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-card-bg)] text-[var(--lulu-color-text)] transition-all duration-200 shadow-2xs hover:border-[var(--lulu-color-border)]">
+  <section class="my-8 overflow-hidden rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-card-bg)] text-[var(--lulu-color-text)]">
     <!-- 1. 组件实际展示与操作演示区 -->
     <div v-if="$slots.default" class="min-h-28 min-w-0 overflow-x-auto flex flex-col justify-center px-6 py-6 sm:px-8 bg-[var(--lulu-color-card-bg)]">
       <slot />
@@ -60,10 +60,10 @@ async function copySource(): Promise<void> {
       <slot name="description" />
     </div>
 
-    <!-- 3. 查看源码 Action Toolbar (顶部自带 1px 细下划线分割线，高颜值图标交互) -->
-    <details class="group bg-[var(--lulu-color-surface-subtle)]">
+    <!-- 3. 源码折叠入口 -->
+    <details class="group">
       <summary
-        class="cursor-pointer list-none select-none h-10 border-t border-solid border-[var(--lulu-color-border)] bg-[var(--lulu-color-surface-subtle)] hover:bg-[var(--lulu-color-surface-hover)] transition-colors flex items-center justify-center gap-2 text-xs font-semibold text-[var(--lulu-color-primary)] group-open:bg-[var(--lulu-color-surface-hover)]"
+        class="flex h-10 cursor-pointer list-none select-none items-center justify-center gap-2 border-t border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-card-bg)] text-xs font-medium text-[var(--lulu-color-text-muted)] transition-colors hover:bg-[var(--lulu-color-surface-subtle)] hover:text-[var(--lulu-color-primary)] group-open:text-[var(--lulu-color-primary)]"
       >
         <!-- 代码图标 -->
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
