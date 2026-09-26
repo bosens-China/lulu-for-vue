@@ -32,7 +32,7 @@ function reset(event: Event) {
       <LuluFormField v-slot="{ controlProps }" control-id="reset-email" label="复位示例邮箱" :error="errors.email ?? ''" required>
         <LuluInput v-model="email" v-bind="controlProps" name="email" type="email" />
       </LuluFormField>
-      <div class="flex gap-3"><LuluButton native-type="submit">检查邮箱</LuluButton><LuluButton @click="resetValidation">重置表单与校验</LuluButton></div>
+      <div class="flex flex-wrap gap-3"><LuluButton native-type="submit">检查邮箱</LuluButton><LuluButton @click="resetValidation">重置表单与校验</LuluButton></div>
       <output>{{ status }}</output>
     </LuluForm>
   </div>

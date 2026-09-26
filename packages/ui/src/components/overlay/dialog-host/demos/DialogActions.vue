@@ -24,8 +24,10 @@ function openCustom() {
     title: '自定义内容',
     content: () => h('div', [
       h('p', `当前计数：${count.value}`),
-      h(LuluButton, { onClick: () => { count.value += 1 } }, () => '增加'),
-      h(LuluButton, { onClick: () => handle.close() }, () => '完成'),
+      h(LuluSpace, { wrap: true }, () => [
+        h(LuluButton, { onClick: () => { count.value += 1 } }, () => '增加'),
+        h(LuluButton, { onClick: () => handle.close() }, () => '完成'),
+      ]),
     ]),
   })
   void handle.closed.then(() => { status.value = '自定义弹窗已关闭' })
