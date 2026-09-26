@@ -93,7 +93,7 @@ function toggleCollapse() {
       <button
         v-if="collapsible"
         type="button"
-        class="shrink-0 h-12 w-full border-t border-[var(--lulu-color-border-subtle)] px-4 flex items-center justify-center cursor-pointer text-[var(--lulu-color-text-muted)] hover:text-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all duration-200 outline-none group bg-[var(--lulu-color-bg-container)]"
+        class="docs-sider-toggle shrink-0 h-12 w-full border-t border-[var(--lulu-color-border-subtle)] px-4 flex items-center justify-center cursor-pointer text-[var(--lulu-color-text-muted)] hover:text-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all duration-200 group bg-[var(--lulu-color-bg-container)]"
         :title="isCollapsed ? '展开侧边栏' : '收起侧边栏'"
         @click="toggleCollapse"
       >

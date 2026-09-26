@@ -13,6 +13,8 @@ seo:
 
 `useDialog()` 提供 `open`、`confirm`、`alert`，底层复用 `LuluDialog`。复杂模板仍可直接使用 `LuluDialog v-model:open`。
 
+`confirm` 打开时聚焦取消按钮；`open`、`alert` 默认聚焦标题。关闭后焦点返回打开弹窗前的元素。键盘聚焦标题时会显示焦点提示。
+
 ## 基础用法
 
 ::: demo basic
@@ -126,7 +128,7 @@ await handle.closed
 
 ## 键盘与无障碍
 
-保留原生 dialog 模态语义；初始聚焦标题，Tab 移动到按钮。关闭时恢复打开前焦点；焦点提示仅针对交互控件。异步期间设置 `aria-busy`，错误文本使用 `role="alert"`。禁用所有关闭方式的自定义弹窗必须由业务内容提供结束按钮。
+保留原生 dialog 模态语义；`confirm` 初始聚焦取消按钮，`open` 和 `alert` 默认聚焦标题，Tab 在弹窗内移动。关闭时恢复打开前焦点；键盘聚焦的标题和交互控件显示焦点提示。异步期间设置 `aria-busy`，错误文本使用 `role="alert"`。禁用所有关闭方式的自定义弹窗必须由业务内容提供结束按钮。
 
 ## CSS Tokens
 

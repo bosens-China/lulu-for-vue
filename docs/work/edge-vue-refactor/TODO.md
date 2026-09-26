@@ -14,4 +14,5 @@
 - [ ] 逐项核对并重构组件行为、视觉、文档与测试。
 - [x] 明确 DateRangePicker 和 RangeSlider 双输入的表单字段名、提交与错误描述关联。
 - [x] 补 DataTable 和 Pagination 的可配置文案，验收 Popover、Popconfirm、Tooltip 焦点及 Dialog 浏览器生命周期。
+- [x] 调整 Dialog 初始焦点与键盘焦点提示，确认弹窗优先聚焦取消按钮。
 - [ ] 验证根入口、单组件入口、resolver、类型声明及全量测试。

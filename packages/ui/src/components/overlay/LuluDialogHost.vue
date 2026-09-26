@@ -100,14 +100,14 @@ provide(dialogKey, create)
     @close="cancel(entry)"
   >
     <template #header>
-      <span tabindex="-1" autofocus class="lulu-dialog-host__title">{{ entry.options.title }}</span>
+      <span>{{ entry.options.title }}</span>
     </template>
     <component :is="entry.options.content" v-if="typeof entry.options.content === 'function'" />
     <p v-else class="lulu-dialog-host__content">{{ entry.options.content }}</p>
     <p v-if="error" class="lulu-dialog-host__error" role="alert">{{ error }}</p>
     <div :ref="setMessageLayer" class="lulu-dialog-host__messages" />
     <template v-if="entry.mode !== 'open'" #footer>
-      <button v-if="entry.mode === 'confirm'" type="button" :disabled="pending" @click="cancel(entry)">
+      <button v-if="entry.mode === 'confirm'" type="button" autofocus :disabled="pending" @click="cancel(entry)">
         {{ entry.options.cancelText ?? '取消' }}
       </button>
       <button type="button" :disabled="pending" @click="confirm">

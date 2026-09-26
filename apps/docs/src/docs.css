@@ -60,6 +60,15 @@ html:not(.dark) { --lulu-color-text-muted: #667085; }
   color: var(--lulu-color-primary);
 }
 
+.docs-sider-toggle:focus-visible {
+  outline: 2px solid var(--lulu-color-primary);
+  outline-offset: -2px;
+}
+
+@media (max-width: 640px) {
+  .docs-search-dialog .lulu-input { font-size: 16px; }
+}
+
 .docs-mobile-nav.lulu-dialog {
   width: min(360px, calc(100vw - 24px));
   max-height: calc(100dvh - 24px);

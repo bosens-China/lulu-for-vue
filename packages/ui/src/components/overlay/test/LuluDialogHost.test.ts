@@ -29,6 +29,21 @@ function setup() {
 }
 
 describe('LuluDialogHost / useDialog', () => {
+  it('确认先聚焦取消，普通弹窗聚焦标题', async () => {
+    const { wrapper, dialog } = setup()
+    const result = dialog.confirm(options)
+    await nextTick()
+    expect(document.activeElement).toBe(wrapper.get('.lulu-dialog__footer button').element)
+    await wrapper.get('.lulu-dialog__footer button').trigger('click')
+    await result
+
+    const handle = dialog.open(options)
+    await nextTick()
+    expect(document.activeElement).toBe(wrapper.get('.lulu-dialog__title').element)
+    handle.close()
+    await handle.closed
+  })
+
   it('确认返回 true，取消返回 false，并按顺序展示', async () => {
     const { wrapper, dialog } = setup()
     const first = dialog.confirm(options)

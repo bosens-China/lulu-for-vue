@@ -36,11 +36,33 @@
   font-weight: 600;
 }
 
+.lulu-dialog__title:focus {
+  outline: 0;
+}
+
+.lulu-dialog__title:focus-visible {
+  box-shadow: inset 0 -2px var(--lulu-color-primary-solid);
+}
+
+.lulu-dialog:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+.lulu-dialog:focus-visible {
+  outline: 2px solid var(--lulu-color-primary-solid);
+  outline-offset: 2px;
+}
+
+@media (forced-colors: active) {
+  .lulu-dialog__title:focus-visible {
+    outline: 2px solid Highlight;
+  }
+}
+
 .lulu-dialog__body {
   padding: var(--lulu-space-4);
 }
 
-.lulu-dialog-host__title { outline: none; }
 .lulu-dialog-host .lulu-dialog__close {
   background: transparent;
   border: 0;
