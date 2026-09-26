@@ -14,6 +14,22 @@
       document.documentElement.classList.toggle('dark', document.documentElement.dataset.luluTheme
         ? document.documentElement.dataset.luluTheme === 'dark'
         : matchMedia('(prefers-color-scheme: dark)').matches)
+      // 在首屏绘制前恢复主色，避免刷新后先闪现默认颜色。
+      try {
+        const primary = JSON.parse(localStorage.getItem('lulu-docs-primary-v1') || 'null')
+        if (primary && typeof primary.hex === 'string' && /^#[\da-f]{6}$/i.test(primary.hex)
+          && Number.isInteger(primary.hue) && primary.hue >= 0 && primary.hue < 360
+          && Number.isInteger(primary.saturation) && primary.saturation >= 0 && primary.saturation <= 100
+          && Number.isInteger(primary.lightnessLight) && primary.lightnessLight >= 0 && primary.lightnessLight <= 100
+          && Number.isInteger(primary.lightnessDark) && primary.lightnessDark >= 0 && primary.lightnessDark <= 100) {
+          const root = document.documentElement
+          root.dataset.docsPrimary = ''
+          root.style.setProperty('--docs-primary-hue', primary.hue)
+          root.style.setProperty('--docs-primary-saturation', `${primary.saturation}%`)
+          root.style.setProperty('--docs-primary-lightness-light', `${primary.lightnessLight}%`)
+          root.style.setProperty('--docs-primary-lightness-dark', `${primary.lightnessDark}%`)
+        }
+      } catch {}
     </script>
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg">
     <!--app-head-->

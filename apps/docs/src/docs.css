@@ -27,6 +27,24 @@ body {
 /* 文档的辅助文字需要保持可读，组件库的默认主题不受影响。 */
 html:not(.dark) { --lulu-color-text-muted: #667085; }
 
+/* 文档站只定制主色；明暗模式继续使用组件库各自的背景和文字配色。 */
+:root[data-docs-primary] {
+  --lulu-color-primary: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) var(--docs-primary-lightness-light));
+  --lulu-color-primary-hover: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) calc(var(--docs-primary-lightness-light) - 5%));
+  --lulu-color-primary-solid: var(--lulu-color-primary);
+  --lulu-color-surface-hover: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) 97%);
+  --lulu-color-surface-selected: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) 92%);
+  --lulu-shadow-focus: 0 0 0 3px hsl(var(--docs-primary-hue) var(--docs-primary-saturation) var(--docs-primary-lightness-light) / 24%);
+}
+
+:root[data-docs-primary].dark {
+  --lulu-color-primary: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) var(--docs-primary-lightness-dark));
+  --lulu-color-primary-hover: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) calc(var(--docs-primary-lightness-dark) + 5%));
+  --lulu-color-surface-hover: #18181b;
+  --lulu-color-surface-selected: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) var(--docs-primary-lightness-dark) / 16%);
+  --lulu-shadow-focus: 0 0 0 3px hsl(var(--docs-primary-hue) var(--docs-primary-saturation) var(--docs-primary-lightness-dark) / 35%);
+}
+
 .docs-icon-button.lulu-button {
   min-width: 36px;
   min-height: 36px;
@@ -49,7 +67,7 @@ html:not(.dark) { --lulu-color-text-muted: #667085; }
 }
 
 .docs-palette-dialog.lulu-dialog {
-  width: min(760px, calc(100vw - 24px));
+  width: min(420px, calc(100vw - 24px));
   max-height: calc(100dvh - 24px);
 }
 

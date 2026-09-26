@@ -98,4 +98,4 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 
 `--lulu-button-*` 未显式设置时按 `variant` 回退到对应语义色，可直接在按钮上覆盖。
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

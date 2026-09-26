@@ -35,7 +35,7 @@ function openMenu() {
 
       <div class="ml-auto flex items-center gap-2 sm:gap-3">
         <DocsSearch />
-        <LuluButton class="docs-icon-button" aria-label="打开主题调色盘" title="主题调色盘" @click="paletteOpen = true"><span class="i-lucide-palette" aria-hidden="true" /></LuluButton>
+        <LuluButton class="docs-icon-button" aria-label="设置主色调" title="设置主色调" @click="paletteOpen = true"><span class="i-lucide-palette" aria-hidden="true" /></LuluButton>
         <LuluButton
           class="docs-icon-button"
           :aria-label="isDark ? '切换至浅色模式' : '切换至深色模式'"
@@ -55,7 +55,7 @@ function openMenu() {
     </template>
     <SiteSidebar :current-path="currentPath" compact @click="menuOpen = false" />
   </LuluDialog>
-  <LuluDialog v-if="paletteOpen" v-model:open="paletteOpen" title="主题调色盘" class="docs-palette-dialog">
+  <LuluDialog v-if="paletteOpen" v-model:open="paletteOpen" title="设置主色调" class="docs-palette-dialog">
     <ThemePlayground />
   </LuluDialog>
 </template>

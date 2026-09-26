@@ -57,4 +57,4 @@ seo:
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-space-2` | 间距 2 | `8px` | `8px` |
 
-例如在局部容器的 `style` 中设置 `--lulu-color-primary: #2a80eb`。全局配色与导出入口见顶部“主题调色盘”和“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-primary: #2a80eb`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

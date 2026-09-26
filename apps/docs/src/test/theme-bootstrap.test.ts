@@ -24,4 +24,19 @@ describe('首屏主题初始化', () => {
     expect(toggle).toHaveBeenCalledWith('dark', mode !== 'light')
     expect(root.dataset.luluTheme).toBe(mode === 'blocked' ? undefined : mode)
   })
+
+  it('在首屏绘制前恢复并校验自定义主色', () => {
+    const setProperty = vi.fn()
+    const root = { dataset: {} as Record<string, string>, classList: { toggle: vi.fn() }, style: { setProperty } }
+    const primary = { hex: '#f0d000', hue: 52, saturation: 100, lightnessLight: 24, lightnessDark: 65 }
+    runInNewContext(script, {
+      window: {},
+      document: { documentElement: root },
+      localStorage: { getItem: (key: string) => key === 'lulu-docs-primary-v1' ? JSON.stringify(primary) : 'light' },
+      matchMedia: () => ({ matches: false }),
+    })
+    expect(root.dataset.docsPrimary).toBe('')
+    expect(setProperty).toHaveBeenCalledWith('--docs-primary-hue', 52)
+    expect(setProperty).toHaveBeenCalledWith('--docs-primary-lightness-dark', '65%')
+  })
 })

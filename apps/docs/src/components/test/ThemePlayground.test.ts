@@ -2,63 +2,48 @@ import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import ThemePlayground from '../ThemePlayground.vue'
 
+const storageKey = 'lulu-docs-primary-v1'
+const properties = ['--docs-primary-hue', '--docs-primary-saturation', '--docs-primary-lightness-light', '--docs-primary-lightness-dark']
+
 describe('ThemePlayground', () => {
   afterEach(() => {
     localStorage.clear()
+    document.documentElement.removeAttribute('data-docs-primary')
+    for (const property of properties) document.documentElement.style.removeProperty(property)
     vi.restoreAllMocks()
   })
 
-  it('重新打开恢复明暗配色与编辑模式，重置只影响当前模式', async () => {
+  it('选择主色后立即应用到整个页面，并为明暗模式保存不同明度', async () => {
     let wrapper = mount(ThemePlayground)
-    await wrapper.get('input[aria-label="主题强调色"]').setValue('#123456')
-    await wrapper.get('.theme-playground__modes button:nth-child(2)').trigger('click')
-    await wrapper.get('input[aria-label="主题强调色"]').setValue('#abcdef')
+    await wrapper.get('input[aria-label="主色调"]').setValue('#f0d000')
+
+    const saved = JSON.parse(localStorage.getItem(storageKey) ?? '{}') as Record<string, number | string>
+    expect(document.documentElement.hasAttribute('data-docs-primary')).toBe(true)
+    expect(document.documentElement.style.getPropertyValue('--docs-primary-hue')).toBe(String(saved.hue))
+    expect(saved.hex).toBe('#f0d000')
+    expect(saved.lightnessLight).toBeLessThan(saved.lightnessDark as number)
+    expect(saved.lightnessLight).toBeLessThan(30)
+    expect(saved.lightnessDark).toBeGreaterThanOrEqual(65)
+
     wrapper.unmount()
     wrapper = mount(ThemePlayground)
     await wrapper.vm.$nextTick()
-    expect(wrapper.get('.theme-playground__preview').attributes('data-lulu-theme')).toBe('dark')
-    expect(wrapper.get('#theme-css').text()).toContain('#123456')
-    expect(wrapper.get('#theme-css').text()).toContain('#abcdef')
-    await wrapper.get('.theme-playground__reset').trigger('click')
-    expect(wrapper.get('#theme-css').text()).toContain('#123456')
-    expect(wrapper.get('#theme-css').text()).not.toContain('#abcdef')
+    expect((wrapper.get('input[aria-label="主色调"]').element as HTMLInputElement).value).toBe('#f0d000')
+    await wrapper.get('button').trigger('click')
+    expect(document.documentElement.hasAttribute('data-docs-primary')).toBe(false)
+    expect(localStorage.getItem(storageKey)).toBeNull()
     wrapper.unmount()
   })
 
-  it('忽略损坏的颜色并在存储不可用时继续预览', async () => {
-    localStorage.setItem('lulu-docs-palette-v1', JSON.stringify({ light: { primary: 'url(unsafe)', text: '#123456' } }))
+  it('忽略损坏的存储内容，存储不可用时仍立即更新主色', async () => {
+    localStorage.setItem(storageKey, JSON.stringify({ hex: 'url(unsafe)' }))
     const wrapper = mount(ThemePlayground)
-    await wrapper.vm.$nextTick()
-    expect(wrapper.get('#theme-css').text()).not.toContain('unsafe')
-    expect(wrapper.get('#theme-css').text()).toContain('#123456')
+    expect(document.documentElement.hasAttribute('data-docs-primary')).toBe(false)
+
     vi.spyOn(localStorage, 'setItem').mockImplementation(() => { throw new Error('blocked') })
-    await wrapper.get('input[aria-label="主题强调色"]').setValue('#654321')
-    expect(wrapper.get('#theme-css').text()).toContain('#654321')
-    expect(wrapper.text()).toContain('无法保存配色')
+    await wrapper.get('input[aria-label="主色调"]').setValue('#808080')
+    expect(document.documentElement.style.getPropertyValue('--docs-primary-saturation')).toBe('0%')
+    expect(wrapper.text()).toContain('无法保存主色')
     wrapper.unmount()
-  })
-  it('按主题独立调色，预览与导出使用同一组变量', async () => {
-    const wrapper = mount(ThemePlayground)
-    const picker = wrapper.get('input[aria-label="主题强调色"]')
-
-    await picker.setValue('#a12bc3')
-
-    expect(wrapper.get('.theme-playground__preview').attributes('style')).toContain('--lulu-color-primary: #a12bc3')
-    expect(wrapper.get('.theme-playground__preview').attributes('style')).toContain('--lulu-color-primary-solid: #a12bc3')
-    expect(wrapper.get('#theme-css').text()).toContain('--lulu-color-primary: #a12bc3')
-    expect(wrapper.get('#theme-css').text()).toContain('@media (prefers-color-scheme: dark)')
-    expect(wrapper.get('#theme-css').text()).toContain(':root:where(:not([data-lulu-theme]))')
-
-    await wrapper.get('.theme-playground__modes button:nth-child(2)').trigger('click')
-    expect(wrapper.get('.theme-playground__preview').attributes('data-lulu-theme')).toBe('dark')
-    expect((wrapper.get('input[aria-label="主题强调色"]').element as HTMLInputElement).value).toBe('#38bdf8')
-    await wrapper.get('input[aria-label="主题强调色"]').setValue('#7139c2')
-    expect(wrapper.get('#theme-css').text()).toMatch(/@media \(prefers-color-scheme: dark\)[\s\S]*--lulu-color-primary: #7139c2/)
-
-    await wrapper.get('.theme-playground__modes button:nth-child(1)').trigger('click')
-    expect((wrapper.get('input[aria-label="主题强调色"]').element as HTMLInputElement).value).toBe('#a12bc3')
-
-    await wrapper.get('.theme-playground__reset').trigger('click')
-    expect((wrapper.get('input[aria-label="主题强调色"]').element as HTMLInputElement).value).toBe('#2a80eb')
   })
 })
