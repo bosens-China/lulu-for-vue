@@ -40,7 +40,13 @@ export default {
 }
 ```
 
-`LuluResolver` 只解析 `Lulu*` 公开组件；`LuluApiResolver` 只解析 `useMessage` 和 `useFormValidation`。插件由应用作为开发依赖安装，`@lulu/vue` 不会把它们带入运行时。
+`LuluResolver` 只解析 `Lulu*` 公开组件；`LuluApiResolver` 解析 `useMessage`、`useDialog` 和 `useFormValidation`。插件由应用作为开发依赖安装，`@lulu/vue` 不会把它们带入运行时。
+
+## 命令式弹窗
+
+在祖先模板中放置 `LuluDialogHost`，后代 setup 从 `@lulu/vue/use-dialog` 获取 `useDialog()`，事件中调用 `open`、`confirm` 或 `alert`。按需引入 `@lulu/vue/dialog-host/style.css`；根入口同样导出宿主、hook 和类型。
+
+`confirm` 等待确认结果，`open` 返回可关闭句柄；同一宿主串行显示，调用者卸载时自动清理。与消息组合时，让 `LuluMessageHost` 包裹 `LuluDialogHost`。完整选项与生命周期见 [DialogHost 文档](./src/components/overlay/dialog-host/readme/README.md)。
 
 ## 使用样式
 

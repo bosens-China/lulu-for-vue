@@ -8,6 +8,7 @@ const componentNames = new Set([
   'LuluDatePicker',
   'LuluDateRangePicker',
   'LuluDialog',
+  'LuluDialogHost',
   'LuluDisclosure',
   'LuluDropdown',
   'LuluFieldError',
@@ -39,6 +40,7 @@ const componentNames = new Set([
 ])
 
 const apiEntries = {
+  useDialog: 'use-dialog',
   useFormValidation: 'use-form-validation',
   useMessage: 'use-message',
 } as const

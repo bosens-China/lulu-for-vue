@@ -32,6 +32,13 @@
 - 不提供旧 Custom Elements、自动 DOM 扫描、全局原型扩展、浏览器直引、旧深层导入或构造器式 API。
 - 优先使用 Vue 响应式机制和原生 HTML 语义，避免移植旧版的 DOM 观察与手写状态同步。
 
+### 命令式弹窗
+
+- `LuluDialogHost` 为后代的 `useDialog()` 提供 `open`、`confirm`、`alert`，底层复用 `LuluDialog`，保留受控模板用法。命令式入口归属于宿主，不提供模块级队列或全局静态 API。
+- 每个宿主串行展示；确认以布尔结果结束，其余实例可等待关闭。调用方作用域和宿主销毁均清理请求，避免留下弹窗或未结束的等待。
+- 异步确认期间阻止用户关闭和重复提交，失败在弹窗内反馈并允许重试。内容继承宿主的注入与主题，响应式内容使用渲染函数；业务请求及取消由应用负责。
+- 外层 `LuluMessageHost` 的消息随活动宿主弹窗进入模态内容，关闭后回到原处。SSR 只允许获取 API，显示操作要求客户端宿主已挂载。完整接入与边界见 [DialogHost 文档](../packages/ui/src/components/overlay/dialog-host/readme/README.md)。
+
 ## 已完成的 Edge 功能与视觉迁移
 
 Edge 的全部用户可见运行时功能已转换为 Vue API，并提供以 Edge 默认调色板和尺寸为基线的可覆盖主题。完整的旧功能映射见[组件 API 映射](./components.md)。根入口只导出面向使用者的组件、composable 和类型。
@@ -45,7 +52,7 @@ Edge 的全部用户可见运行时功能已转换为 Vue API，并提供以 Edg
 ### 导航、浮层与反馈
 
 - 导航：`LuluPagination`、`LuluTabs`、`LuluTab`、`LuluTabPanel`、`LuluDisclosure`、`LuluAccordion`。
-- 浮层：`LuluDialog`、`LuluPopover`、`LuluDropdown`、`LuluPopconfirm`、`LuluTooltip`。
+- 浮层：`LuluDialog`、`LuluDialogHost`、`useDialog`、`LuluPopover`、`LuluDropdown`、`LuluPopconfirm`、`LuluTooltip`。
 - 反馈：`LuluFieldError`、`LuluMessage`、`LuluMessageHost`、`useMessage`。
 
 ### 表单与数据

@@ -12,7 +12,7 @@
 | Select | `LuluSelect` | DOM MutationObserver、`refresh()` |
 | Pagination | `LuluPagination` | `href` 模板、long/short 模式、构造器 |
 | Tab | `LuluTabs`、`LuluTab`、`LuluTabPanel`；泛化开合拆为 `LuluDisclosure`、`LuluAccordion` | 路由 history、自动播放、万能 A/B 切换 |
-| Dialog | `LuluDialog` | `new Dialog()`、全局 `alert()` / `confirm()` 工厂 |
+| Dialog | `LuluDialog`、`LuluDialogHost`、`useDialog` | `new Dialog()`、全局 `alert()` / `confirm()` 工厂 |
 | Drop | `LuluPopover`、`LuluDropdown`、`LuluPopconfirm` | target 选择器、位置码、DOM 方法 |
 | Tips | `LuluTooltip` | `title` 劫持、`tips()` 原型方法 |
 | ErrorTip | `LuluFieldError` | 全局唯一命令式错误浮层 |
@@ -32,4 +32,4 @@
 
 - 完整引入：`@lulu/vue` 配合 `@lulu/vue/style.css`。
 - 按组件引入：在应用入口导入一次 `@lulu/vue/base.css`，再引入 `@lulu/vue/button` 与 `@lulu/vue/button/style.css`；组件样式目前按 action、form、overlay 等域共享。
-- `useMessage`、`useFormValidation` 等 composable 提供独立短路径。`@lulu/vue/resolver` 可为模板和 composable 提供自动导入；公开通配符只映射公共组件入口，不支持深层构建路径。
+- `useMessage`、`useDialog`、`useFormValidation` 等 composable 提供独立短路径。`@lulu/vue/resolver` 可为模板和 composable 提供自动导入；公开通配符只映射公共组件入口，不支持深层构建路径。

@@ -58,6 +58,7 @@
     "./tabs/style.css": "./dist/styles/navigation.css",
     "./pagination/style.css": "./dist/styles/navigation.css",
     "./dialog/style.css": "./dist/styles/overlay.css",
+    "./dialog-host/style.css": "./dist/styles/overlay.css",
     "./dropdown/style.css": "./dist/styles/overlay.css",
     "./popconfirm/style.css": "./dist/styles/overlay.css",
     "./popover/style.css": "./dist/styles/overlay.css",

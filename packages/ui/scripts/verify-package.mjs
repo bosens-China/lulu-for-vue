@@ -28,10 +28,15 @@ for (const [subpath, exportTarget] of Object.entries(exportsMap)) {
 const root = await import('@lulu/vue')
 const button = await import('@lulu/vue/button')
 const message = await import('@lulu/vue/use-message')
+const dialog = await import('@lulu/vue/use-dialog')
+const dialogHost = await import('@lulu/vue/dialog-host')
 const resolver = await import('@lulu/vue/resolver')
 
 assert.equal(root.LuluButton, button.default, '根入口和单组件入口必须指向同一个构建模块。')
 assert.equal(typeof message.useMessage, 'function', 'Composable 子路径必须保留具名导出。')
+assert.equal(root.useDialog, dialog.useDialog, '弹窗 composable 入口必须一致。')
+assert.equal(root.LuluDialogHost, dialogHost.default, '弹窗宿主入口必须一致。')
+assert.equal(resolver.LuluApiResolver()('useDialog')?.from, '@lulu/vue/use-dialog')
 assert.equal(typeof resolver.LuluResolver, 'function', '自动导入 resolver 必须是公开入口。')
 for (const subpath of Object.keys(exportsMap).filter((path) => path !== './style.css' && path.endsWith('/style.css'))) {
   const entry = subpath.slice(2, -'/style.css'.length)

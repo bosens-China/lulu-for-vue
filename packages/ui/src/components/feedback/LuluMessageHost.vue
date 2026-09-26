@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { provide, shallowRef } from 'vue'
+import { computed, provide, shallowRef } from 'vue'
 import LuluMessage from './LuluMessage.vue'
 import {
   messageKey,
+  messageLayerKey,
   type MessageApi,
   type MessageConfig,
   type MessageEntry,
@@ -20,6 +21,12 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const messages = shallowRef<MessageEntry[]>([])
+const layers = shallowRef<HTMLElement[]>([])
+const messageTarget = computed(() => layers.value.at(-1))
+provide(messageLayerKey, (target) => {
+  layers.value = [...layers.value, target]
+  return () => { layers.value = layers.value.filter((layer) => layer !== target) }
+})
 let nextId = 0
 
 function show(message: string, options: MessageConfig = {}): MessageHandle {
@@ -67,18 +74,20 @@ provide(messageKey, messageApi)
 
 <template>
   <slot />
-  <section
-    v-if="messages.length"
-    class="lulu-message-host"
-    aria-label="Notifications"
-  >
-    <LuluMessage
-      v-for="message in messages"
-      :key="message.id"
-      :duration="message.duration"
-      :message="message.message"
-      :type="message.type"
-      @close="close(message.id)"
-    />
-  </section>
+  <Teleport :to="messageTarget ?? 'body'" :disabled="!messageTarget">
+    <section
+      v-if="messages.length"
+      class="lulu-message-host"
+      aria-label="Notifications"
+    >
+      <LuluMessage
+        v-for="message in messages"
+        :key="message.id"
+        :duration="message.duration"
+        :message="message.message"
+        :type="message.type"
+        @close="close(message.id)"
+      />
+    </section>
+  </Teleport>
 </template>

@@ -40,6 +40,47 @@
   padding: var(--lulu-space-4);
 }
 
+.lulu-dialog-host__title { outline: none; }
+.lulu-dialog-host .lulu-dialog__close {
+  background: transparent;
+  border: 0;
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 20px;
+  min-width: 36px;
+  min-height: 36px;
+}
+.lulu-dialog-host .lulu-dialog__close:hover { background: var(--lulu-color-surface-hover); }
+.lulu-dialog-host .lulu-dialog__close:focus-visible {
+  outline: 2px solid var(--lulu-color-primary);
+  outline-offset: 2px;
+}
+.lulu-dialog-host__content { margin: 0; white-space: pre-wrap; }
+.lulu-dialog-host .lulu-dialog-host__error { color: var(--lulu-color-danger); margin-block: var(--lulu-space-3) 0; }
+.lulu-dialog-host__messages .lulu-message-host { position: static; margin-top: var(--lulu-space-3); }
+.lulu-dialog-host .lulu-dialog__footer button {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  font: inherit;
+  min-block-size: var(--lulu-control-height);
+  padding-inline: var(--lulu-space-3);
+}
+.lulu-dialog-host .lulu-dialog__footer button:last-child {
+  background: var(--lulu-color-primary-solid);
+  border-color: var(--lulu-color-primary-solid);
+  color: var(--lulu-color-text-inverse);
+}
+.lulu-dialog-host .lulu-dialog__footer button:disabled { cursor: wait; opacity: 0.6; }
+.lulu-dialog-host .lulu-dialog__footer button:focus-visible {
+  outline: 2px solid var(--lulu-color-primary);
+  outline-offset: 2px;
+}
+
 .lulu-dialog__footer {
   border-top: 1px solid var(--lulu-color-border-subtle);
   justify-content: flex-end;

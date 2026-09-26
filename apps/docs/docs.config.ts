@@ -66,6 +66,7 @@ export default {
       name: '反馈与浮层',
       items: [
         { component: 'dialog', name: 'Dialog 对话框' },
+        { component: 'dialog-host', name: 'DialogHost 弹窗宿主' },
         { component: 'popover', name: 'Popover 气泡卡片' },
         { component: 'popconfirm', name: 'Popconfirm 气泡确认框' },
         { component: 'tooltip', name: 'Tooltip 文字提示' },

@@ -31,6 +31,8 @@ export interface MessageApi {
 }
 
 export const messageKey: InjectionKey<MessageApi> = Symbol('lulu-message')
+// 内部协议：消息保持在当前模态框内，避免被原生顶层模态遮挡。
+export const messageLayerKey: InjectionKey<(target: HTMLElement) => () => void> = Symbol('lulu-message-layer')
 
 export function useMessage(): MessageApi {
   const message = inject(messageKey)

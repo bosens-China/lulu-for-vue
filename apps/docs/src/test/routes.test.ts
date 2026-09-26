@@ -7,7 +7,7 @@ describe('文档路由', () => {
     expect(resolvePage('/').statusCode).toBe(200)
     expect(resolvePage('/').heading).toBe('LuLu UI Vue')
     expect(resolvePage('/').path).toBe('/')
-    expect(docsRoutes).toHaveLength(37)
+    expect(docsRoutes).toHaveLength(38)
     expect(docsRoutes.map((route) => route.path)).toContain('/components/button/')
     expect(guideRoutes).toHaveLength(4)
     expect(resolvePage('/guide/quick-start').heading).toBe('快速开始')

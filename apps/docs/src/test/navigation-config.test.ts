@@ -29,7 +29,7 @@ describe('文档导航配置', () => {
       '导航',
       '反馈与浮层',
     ])
-    expect(orderedDocsNavigationItems).toHaveLength(37)
+    expect(orderedDocsNavigationItems).toHaveLength(38)
     expect(orderedDocsNavigationItems.slice(0, 3).map(item => item.name)).toEqual([
       'Button 按钮',
       'Input 输入框',
