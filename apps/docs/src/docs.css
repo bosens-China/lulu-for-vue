@@ -71,6 +71,22 @@ html:not(.dark) { --lulu-color-text-muted: #667085; }
   overflow-y: auto;
 }
 
+.docs-mobile-nav .lulu-dialog__close {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  outline: none;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.docs-mobile-nav .lulu-dialog__close:hover {
+  background: var(--lulu-color-surface-hover);
+  color: var(--lulu-color-text);
+}
+.docs-mobile-nav .lulu-dialog__close:focus-visible {
+  outline: 2px solid var(--lulu-color-primary);
+  outline-offset: 2px;
+}
+
 .docs-content { overflow-wrap: anywhere; }
 .docs-content pre { max-width: 100%; }
 .docs-content > pre {

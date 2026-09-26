@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue'
-import Prism from 'prismjs'
-import 'prismjs/components/prism-clike'
-import 'prismjs/components/prism-javascript'
-import 'prismjs/components/prism-typescript'
-import 'prismjs/components/prism-markup'
+import Prism from '../prism'
 
 interface Props {
   copiedLabel: string
@@ -25,13 +21,13 @@ const highlightedSource = computed(() => {
   if (!props.source)
     return ''
   try {
-    const grammar = Prism.languages.markup || Prism.languages.javascript
+    const grammar = Prism.languages.vue
     if (!grammar)
-      return props.source
-    return Prism.highlight(props.source, grammar, 'html')
+      return Prism.util.encode(props.source)
+    return Prism.highlight(props.source, grammar, 'vue')
   }
   catch {
-    return props.source
+    return Prism.util.encode(props.source)
   }
 })
 
@@ -84,7 +80,7 @@ async function copySource(): Promise<void> {
 
       <!-- 4. 复制代码控制栏 -->
       <div class="flex justify-between items-center border-t border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-code-bg)] px-6 py-2 text-xs text-[var(--lulu-color-text-muted)]">
-        <span class="font-mono text-[11px]">Vue / HTML</span>
+        <span class="font-mono text-[11px]">Vue / TypeScript</span>
         <button
           class="rounded px-2.5 py-1 text-xs font-medium text-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-selected)] transition-all flex items-center gap-1.5 cursor-pointer border border-transparent active:scale-95"
           type="button"
@@ -102,7 +98,7 @@ async function copySource(): Promise<void> {
       <!-- 5. 经过 Prism 语法高亮的源码展示区 -->
       <pre
         class="m-0 overflow-x-auto border-t border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-code-bg)] px-6 py-4 text-xs font-mono leading-6 text-[var(--lulu-color-text)]"
-      ><code class="language-html" v-html="highlightedSource" /></pre>
+      ><code class="language-vue" v-html="highlightedSource" /></pre>
     </details>
   </section>
 </template>

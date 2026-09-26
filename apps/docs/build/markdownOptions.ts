@@ -2,11 +2,7 @@ import { access } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { container } from '@mdit/plugin-container'
 import type { MarkdownItContainerOptions } from '@mdit/plugin-container'
-import Prism from 'prismjs'
-import 'prismjs/components/prism-css'
-import 'prismjs/components/prism-javascript'
-import 'prismjs/components/prism-typescript'
-import 'prismjs/components/prism-markup'
+import Prism from '../src/prism.ts'
 import type { MarkdownEnv, MarkdownExit, Options } from 'unplugin-vue-markdown/types'
 
 interface DemoReference {
@@ -119,7 +115,7 @@ export function createMarkdownOptions(): Options {
     wrapperDiv: false,
     markdownSetup(markdown) {
       markdown.options.highlight = (code, language) => {
-        const grammarName = { vue: 'markup', html: 'markup', ts: 'typescript', js: 'javascript' }[language] ?? language
+        const grammarName = { html: 'markup', ts: 'typescript', js: 'javascript' }[language] ?? language
         const grammar = Prism.languages[grammarName]
         return grammar ? Prism.highlight(code, grammar, grammarName) : ''
       }

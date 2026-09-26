@@ -49,6 +49,10 @@ function openMenu() {
   </DocsHeader>
 
   <LuluDialog v-if="hasOpenedMenu" v-model:open="menuOpen" title="组件导航" class="docs-mobile-nav">
+    <template #header>
+      <!-- 初始焦点用于读出导航标题，关闭按钮仍可通过 Tab 访问。 -->
+      <span tabindex="-1" autofocus class="outline-none">组件导航</span>
+    </template>
     <SiteSidebar :current-path="currentPath" compact @click="menuOpen = false" />
   </LuluDialog>
   <LuluDialog v-if="paletteOpen" v-model:open="paletteOpen" title="主题调色盘" class="docs-palette-dialog">
