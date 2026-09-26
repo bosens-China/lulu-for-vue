@@ -25,24 +25,59 @@ seo:
 
 ## API
 
-### Props
+### LuluTabs
+
+#### Props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `v-model` | 当前选中标签的值。 | `string \| number` | 必填 |
 
-### Events
+#### Events
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | `update:modelValue` | 选中标签改变时触发。 | `value: string \| number` |
 
-### Slots
+#### Slots
 
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
 | `tabs` | 放置 `LuluTab`。 | — |
 | `default` | 放置 `LuluTabPanel`。 | — |
+
+### LuluTab
+
+`LuluTab` 放在 `LuluTabs` 的 `tabs` 插槽中。`value` 与对应面板的值和类型保持一致。
+
+#### Props
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `value` | 标签唯一值。 | `string \| number` | 必填 |
+| `disabled` | 是否禁用。 | `boolean` | `false` |
+
+#### Slots
+
+| 插槽名 | 说明 | 参数 |
+| --- | --- | --- |
+| `default` | 标签文本。 | — |
+
+### LuluTabPanel
+
+`LuluTabPanel` 的 `value` 与标签相同时显示内容。
+
+#### Props
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `value` | 与标签对应的唯一值。 | `string \| number` | 必填 |
+
+#### Slots
+
+| 插槽名 | 说明 | 参数 |
+| --- | --- | --- |
+| `default` | 面板内容。 | — |
 
 ## CSS Tokens
 

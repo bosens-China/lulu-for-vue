@@ -31,6 +31,7 @@ function componentSourceFromEntry(entryName: string): string {
 }
 
 describe('组件中文文档交付', () => {
+  const compositeParts = new Set(['tab', 'tab-panel'])
   const publicEntries = readdirSync(entriesRoot)
     .filter((fileName) => fileName.endsWith('.ts') && !fileName.startsWith('use-'))
     .map((fileName) => fileName.slice(0, -'.ts'.length))
@@ -38,8 +39,8 @@ describe('组件中文文档交付', () => {
   const readmes = findFiles(componentsRoot, 'README.md')
   const documentNames = readmes.map(componentNameFromDocument).sort()
 
-  it('每个公开组件都有一篇中文 README 和基础 Demo', () => {
-    expect(documentNames).toEqual(publicEntries)
+  it('每个主文档入口都有中文 README 和基础 Demo', () => {
+    expect(documentNames).toEqual(publicEntries.filter(name => !compositeParts.has(name)))
 
     for (const readme of readmes) {
       const document = readFileSync(readme, 'utf8')
@@ -62,6 +63,13 @@ describe('组件中文文档交付', () => {
 
       expect(findFiles(dirname(dirname(readme)), 'BasicDemo.vue')).toHaveLength(1)
     }
+  })
+
+  it('Tabs 主文档包含组合子组件的 API', () => {
+    const tabs = readFileSync(resolve(componentsRoot, 'navigation/tabs/readme/README.md'), 'utf8')
+    expect(tabs).toContain('### LuluTabs')
+    expect(tabs).toContain('### LuluTab\n')
+    expect(tabs).toContain('### LuluTabPanel')
   })
 
   it('不再保留英文 README 副本', () => {

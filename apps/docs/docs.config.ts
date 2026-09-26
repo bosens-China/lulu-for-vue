@@ -58,8 +58,6 @@ export default {
         { component: 'pagination', name: 'Pagination 分页' },
         { component: 'dropdown', name: 'Dropdown 下拉菜单' },
         { component: 'tabs', name: 'Tabs 标签页' },
-        { component: 'tab', name: 'Tab 标签' },
-        { component: 'tab-panel', name: 'TabPanel 标签面板' },
       ],
     },
     {
