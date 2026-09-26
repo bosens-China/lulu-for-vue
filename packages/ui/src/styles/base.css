@@ -57,6 +57,17 @@
   margin: var(--lulu-space-1) 0 0;
 }
 
+.lulu-space {
+  align-items: center;
+  display: flex;
+  gap: var(--lulu-space-3);
+}
+
+.lulu-space[data-size='small'] { gap: var(--lulu-space-2); }
+.lulu-space[data-size='large'] { gap: var(--lulu-space-4); }
+.lulu-space[data-direction='vertical'] { align-items: stretch; flex-direction: column; }
+.lulu-space[data-direction='horizontal'][data-wrap='true'] { flex-wrap: wrap; }
+
 @media (prefers-reduced-motion: reduce) {
   :where(.lulu-button, .lulu-loading__indicator, .lulu-message, .lulu-tabs, .lulu-dialog, .lulu-popover__panel, .lulu-dropdown__menu, .lulu-tooltip) {
     animation-duration: 1ms !important;

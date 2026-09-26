@@ -9,7 +9,7 @@
       <div class="max-w-2xl">
         <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)]/75 px-3 py-1.5 text-xs font-semibold text-[var(--lulu-color-primary)] shadow-sm backdrop-blur">
           <span class="h-1.5 w-1.5 rounded-full bg-[var(--lulu-color-primary)]" />
-          Vue 3 · TypeScript · 38 个组件
+          Vue 3 · TypeScript · 39 个组件
         </div>
 
         <h1 class="m-0 text-5xl font-extrabold leading-[1.08] tracking-tight text-[var(--lulu-color-text-heading)] sm:text-6xl lg:text-7xl">

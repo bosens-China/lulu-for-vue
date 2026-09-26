@@ -12,7 +12,7 @@ describe('文档 SSG 产物', () => {
     const componentFiles = await readdir(resolve(outputDirectory, 'components'), { recursive: true })
     const componentPages = componentFiles.filter((file) => file.endsWith('index.html'))
 
-    expect(componentPages).toHaveLength(36)
+    expect(componentPages).toHaveLength(37)
     expect(rootHtml).toContain('<html lang="zh-CN">')
     expect(rootHtml).toContain('<title>LuLu UI Vue - 简洁、可靠的 Vue 3 组件库</title>')
     expect(rootHtml).toContain('浏览全部组件')

@@ -7,6 +7,7 @@ export default {
       name: '通用',
       items: [
         { component: 'button', name: 'Button 按钮' },
+        { component: 'space', name: 'Space 间距' },
       ],
     },
     {

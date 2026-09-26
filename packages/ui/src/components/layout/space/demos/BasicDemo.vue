@@ -8,10 +8,11 @@ import '@lulu/vue/space/style.css'
 <template>
   <LuluSpace wrap>
     <LuluButton>默认按钮</LuluButton>
-    <LuluButton variant="normal">普通按钮</LuluButton>
     <LuluButton variant="primary">主要按钮</LuluButton>
-    <LuluButton variant="success">成功按钮</LuluButton>
-    <LuluButton variant="warning">警示按钮</LuluButton>
-    <LuluButton variant="danger">危险按钮</LuluButton>
+    <LuluButton variant="normal">普通按钮</LuluButton>
+  </LuluSpace>
+  <LuluSpace direction="vertical" size="large" class="mt-4 max-w-xs">
+    <LuluButton>第一项</LuluButton>
+    <LuluButton>第二项</LuluButton>
   </LuluSpace>
 </template>

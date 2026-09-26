@@ -26,6 +26,7 @@
       "import": "./dist/entries/*.js"
     },
     "./button/style.css": "./dist/styles/action.css",
+    "./space/style.css": "./dist/styles/base.css",
     "./data-table/style.css": "./dist/styles/data.css",
     "./table/style.css": "./dist/styles/data.css",
     "./field-error/style.css": "./dist/styles/base.css",

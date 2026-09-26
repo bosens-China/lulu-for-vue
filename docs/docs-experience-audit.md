@@ -119,6 +119,12 @@
 
 ## 2026-09-26 组件入口复核
 
-当前公开组件为 38 个，文档为 36 个组件页、4 个指南页和首页，共 79 组可运行 Demo。Tab 与 TabPanel 离开 Tabs 无法独立使用，三个页面的基础 Demo 也重复；现已将三者的用法、API 和 CSS Tokens 集中到 Tabs 页，并移除两个独立路由及重复 Demo。组件导出不变。
+该次复核时公开组件为 38 个，文档为 36 个组件页、4 个指南页和首页，共 79 组可运行 Demo。Tab 与 TabPanel 离开 Tabs 无法独立使用，三个页面的基础 Demo 也重复；现已将三者的用法、API 和 CSS Tokens 集中到 Tabs 页，并移除两个独立路由及重复 Demo。组件导出不变。
 
 其余相邻组件按实际职责复核：FormField 可独立组合任意表单控件，FieldError 可独立呈现错误；Table 接受原生行插槽，DataTable 接受列和行数据；Disclosure 管理单个原生 details，Accordion 管理一组受控面板；Select 使用原生选择框，Autocomplete 提供可搜索的候选列表；日期单值、日期范围、数字年份和数字小时的值类型不同；Slider、RangeSlider、Rate 分别处理单值、区间和评分。DialogHost 与 MessageHost 提供命令式调用的宿主和队列，分别有不同于单个 Dialog、Message 的接入流程；LoadingOverlay 在区域中组合 Loading。上述组件目前没有与 Tabs 子组件相同的“必须依附父组件且文档示例重复”问题，保留独立入口。
+
+## 2026-09-26 Space 间距复核
+
+新增 `LuluSpace` 后，公开组件为 39 个，文档为 37 个组件页、4 个指南页和首页，共 80 组可运行 Demo。检查了组件实现和样式、全部组件 Demo、组件 README、文档站 Vue 页面及指南；改动前有 43 个 Demo 文件和 8 个站点 Vue 文件存在 `gap` 写法。
+
+Button 的三组重复操作行和 DialogHost 的操作行改用 Space。其余 Demo 中的 `grid gap-*` 多用于纵向示例编排、表单及标签排版，保留现有 UnoCSS 更直接；短小的 `flex gap-*` 增加 Space 导入后也不会更简洁。站点的导航、搜索、响应式网格和特殊对齐继续使用本地布局样式；组件内部间距继续归属组件自身样式，不依赖额外的 Space DOM 容器。

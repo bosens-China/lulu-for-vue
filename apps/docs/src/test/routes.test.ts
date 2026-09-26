@@ -7,7 +7,7 @@ describe('文档路由', () => {
     expect(resolvePage('/').statusCode).toBe(200)
     expect(resolvePage('/').heading).toBe('LuLu UI Vue')
     expect(resolvePage('/').path).toBe('/')
-    expect(docsRoutes).toHaveLength(36)
+    expect(docsRoutes).toHaveLength(37)
     expect(docsRoutes.map((route) => route.path)).toContain('/components/button/')
     expect(resolvePage('/components/tab/').statusCode).toBe(404)
     expect(resolvePage('/components/tab-panel/').statusCode).toBe(404)

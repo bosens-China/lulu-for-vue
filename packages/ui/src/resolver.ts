@@ -29,6 +29,7 @@ const componentNames = new Set([
   'LuluRate',
   'LuluSelect',
   'LuluSlider',
+  'LuluSpace',
   'LuluSwitch',
   'LuluTab',
   'LuluTabPanel',

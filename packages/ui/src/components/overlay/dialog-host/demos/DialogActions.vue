@@ -3,7 +3,9 @@ import { h, shallowRef } from 'vue'
 import { useDialog } from '@lulu/vue/use-dialog'
 import { useMessage } from '@lulu/vue/use-message'
 import LuluButton from '@lulu/vue/button'
+import LuluSpace from '@lulu/vue/space'
 import '@lulu/vue/button/style.css'
+import '@lulu/vue/space/style.css'
 
 const dialog = useDialog()
 const message = useMessage()
@@ -53,11 +55,11 @@ async function showQueue() {
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-3">
+  <LuluSpace wrap>
     <LuluButton @click="confirmDelete">确认删除</LuluButton>
     <LuluButton @click="openCustom">自定义弹窗</LuluButton>
     <LuluButton @click="confirmAsync">异步确认与重试</LuluButton>
     <LuluButton @click="showQueue">排队告知</LuluButton>
-  </div>
+  </LuluSpace>
   <p role="status" class="mt-3">{{ status }}</p>
 </template>

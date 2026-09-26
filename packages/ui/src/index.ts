@@ -1,4 +1,5 @@
 export { default as LuluButton } from './components/action/LuluButton.vue'
+export { default as LuluSpace } from './components/layout/LuluSpace.vue'
 export { default as LuluDataTable } from './components/data/LuluDataTable.vue'
 export { default as LuluTable } from './components/data/LuluTable.vue'
 export { default as LuluLoading } from './components/feedback/LuluLoading.vue'

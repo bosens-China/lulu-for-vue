@@ -29,11 +29,12 @@ describe('文档导航配置', () => {
       '导航',
       '反馈与浮层',
     ])
-    expect(orderedDocsNavigationItems).toHaveLength(36)
+    expect(orderedDocsNavigationItems).toHaveLength(37)
     expect(orderedDocsNavigationItems.map(item => item.page.path)).not.toContain('/components/tab/')
     expect(orderedDocsNavigationItems.map(item => item.page.path)).not.toContain('/components/tab-panel/')
-    expect(orderedDocsNavigationItems.slice(0, 3).map(item => item.name)).toEqual([
+    expect(orderedDocsNavigationItems.slice(0, 4).map(item => item.name)).toEqual([
       'Button 按钮',
+      'Space 间距',
       'Input 输入框',
       'Textarea 文本域',
     ])
