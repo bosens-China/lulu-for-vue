@@ -44,13 +44,17 @@ export function prerenderPlugin(): Plugin {
       ])
       const manifest = JSON.parse(manifestSource) as SsrManifest
 
-      await Promise.all(serverBundle.routes.map(async (path) => {
+      await Promise.all([...serverBundle.routes, '/404/'].map(async (path) => {
         const result = await serverBundle.render(path)
         const assetLinks = renderAssetLinks(result.modules, manifest)
         const html = template
           .replace('<html lang="en">', `<html lang="${result.locale}">`)
           .replace('<!--app-head-->', [result.headHtml, assetLinks].filter(Boolean).join('\n'))
           .replace('<!--app-html-->', result.appHtml)
+        if (path === '/404/') {
+          await writeFile(resolve(clientDirectory, '404.html'), html)
+          return
+        }
         const outputDirectory = resolve(clientDirectory, path.slice(1))
 
         await mkdir(outputDirectory, { recursive: true })

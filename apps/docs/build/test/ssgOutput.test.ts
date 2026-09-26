@@ -25,6 +25,11 @@ describe('文档 SSG 产物', () => {
     const guideHtml = await readFile(resolve(outputDirectory, 'guide/quick-start/index.html'), 'utf8')
     expect(guideHtml).toContain('快速开始')
     expect(guideHtml).toContain('class="token tag"')
+    const notFoundHtml = await readFile(resolve(outputDirectory, '404.html'), 'utf8')
+    expect(notFoundHtml).toContain('页面不存在')
+    expect(notFoundHtml).toContain('返回首页')
+    expect(notFoundHtml).toContain('href="/"')
+    expect(notFoundHtml).not.toContain('<!--app-html-->')
     await expect(access(resolve(outputDirectory, '.vite'))).rejects.toThrow()
   })
 

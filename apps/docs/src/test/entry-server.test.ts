@@ -14,6 +14,14 @@ describe('文档 SSR', () => {
     expect(result.headHtml).toContain('<title>LuLu UI Vue - 简洁、可靠的 Vue 3 组件库</title>')
   })
 
+  it('为未知路径输出可返回首页的 404 页面', async () => {
+    const result = await render('/components/tab-panel/')
+
+    expect(result.statusCode).toBe(404)
+    expect(result.appHtml).toContain('页面不存在')
+    expect(result.appHtml).toContain('返回首页')
+  })
+
   it('输出可直接阅读的中文页面和 head 信息', async () => {
     const result = await render('/components/button/')
 
