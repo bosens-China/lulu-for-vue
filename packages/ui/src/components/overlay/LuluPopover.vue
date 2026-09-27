@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useId, watch } from 'vue'
+import { computed, nextTick, ref, useAttrs, useId, watch } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
 
 defineOptions({ inheritAttrs: false })
@@ -10,6 +10,10 @@ interface Props {
   disabled?: boolean
   offset?: number
   placement?: FloatingPlacement
+}
+
+export interface LuluPopoverExposed {
+  focusTrigger: () => void
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -25,9 +29,12 @@ const emit = defineEmits<{
   open: []
 }>()
 const open = defineModel<boolean>('open', { default: false })
+const attrs = useAttrs()
 const trigger = ref<HTMLElement | null>(null)
 const panel = ref<HTMLElement | null>(null)
-const panelId = `lulu-popover-${useId()}`
+const id = useId()
+const panelId = `lulu-popover-${id}`
+const triggerId = `${panelId}-trigger`
 let closingFromOutside = false
 
 const { floatingStyle, isMounted, teleportTarget } = useFloatingLayer({
@@ -62,6 +69,11 @@ function focusTrigger() {
   trigger.value?.focus()
 }
 
+function getPanelLabelledBy() {
+  if (attrs['aria-label'] != null) return undefined
+  return typeof attrs['aria-labelledby'] === 'string' ? attrs['aria-labelledby'] : triggerId
+}
+
 defineExpose({ focusTrigger })
 
 function toggle() {
@@ -80,6 +92,7 @@ function handleEscape(event: KeyboardEvent) {
 <template>
   <span class="lulu-popover">
     <button
+      :id="triggerId"
       ref="trigger"
       type="button"
       class="lulu-popover__trigger"
@@ -94,11 +107,12 @@ function handleEscape(event: KeyboardEvent) {
     <Teleport v-if="isMounted" :to="teleportTarget">
       <div
         v-if="open"
+        v-bind="$attrs"
         :id="panelId"
         ref="panel"
-        v-bind="$attrs"
         class="lulu-floating-panel lulu-popover__panel"
         role="dialog"
+        :aria-labelledby="getPanelLabelledBy()"
         :data-placement="props.placement"
         :style="floatingStyle"
         @keydown.esc="handleEscape"

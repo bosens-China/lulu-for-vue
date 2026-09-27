@@ -4,15 +4,19 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+defineSlots<{
+  default?(): unknown
+}>()
 </script>
 
 <template>
   <p
-    v-if="props.message"
+    v-if="$slots.default || props.message"
     class="lulu-field-error"
     role="alert"
     aria-atomic="true"
   >
-    {{ props.message }}
+    <slot>{{ props.message }}</slot>
   </p>
 </template>

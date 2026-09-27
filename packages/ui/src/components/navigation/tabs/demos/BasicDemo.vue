@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import LuluTab from '@lulu/vue/tab'
 import LuluTabPanel from '@lulu/vue/tab-panel'
 import LuluTabs from '@lulu/vue/tabs'
+import '@lulu/vue/tab/style.css'
+import '@lulu/vue/tab-panel/style.css'
 import '@lulu/vue/tabs/style.css'
 
 const active = ref('overview')

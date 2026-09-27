@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import LuluPopconfirm from '@lulu/vue/popconfirm'
+import '@lulu/vue/popover/style.css'
 import '@lulu/vue/popconfirm/style.css'
 
 const message = ref('')

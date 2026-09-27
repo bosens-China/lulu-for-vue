@@ -1,4 +1,4 @@
-# 37 个组件的同类库对照
+# 39 个组件的同类库对照
 
 核对日期：2026-09-25。逐项检查 `packages/ui/src/components` 的实现、公开入口、中文 README、Demo 和现有测试；以 LuLu UI Edge 为视觉基准，以 Element Plus、Naive UI 的官方组件资料及 WAI-ARIA APG 为交互参照。下表记录值得吸收的行为，不把竞品功能数量作为交付目标。
 
@@ -64,9 +64,9 @@
 ## 测试结论与执行顺序
 
 - 第二个 Vue 库参照：[Naive DataTable][n-data-table] 把远程数据、分页、筛选、排序作为显式模式，并强调稳定行键；我们保留稳定行键和受控选择，远程数据交给应用。[Naive DatePicker][n-date] 的多种日期范围与面板类型适合复杂日历需求，当前原生控件先解决常见输入。[Naive Pagination][n-pagination] 支持受控页码及自定义前后项；我们的优先项是让辅助文案可配置。[Naive Dropdown][n-dropdown] 显式提供键盘开关和禁用项；保留键盘操作，重点验焦点归还。[Naive Tooltip][n-tooltip] 复用 Popover API；我们维持轻量 Tooltip，优先解决可交互触发器的焦点问题。
-- 37 个公开组件均有测试直接引用；本轮补了表单校验完整流程，并移除了只读 Textarea 测试中不真实的合成输入假设。静态文档站的真实浏览器验收已覆盖 Form 校验与 Dropdown 的 Escape/选择后焦点归还；其余原生控件、焦点和视觉仍按风险逐项验收。
+- 39 个公开组件均有测试直接引用；本轮补了表单校验完整流程，并移除了只读 Textarea 测试中不真实的合成输入假设。静态文档站的真实浏览器验收已覆盖 Form 校验与 Dropdown 的 Escape/选择后焦点归还；其余原生控件、焦点和视觉仍按风险逐项验收。
 - 本轮完成 DataTable/Pagination 文案、DateRangePicker/RangeSlider 双字段表单契约，并在浏览器验收 Popconfirm、Tooltip 与 Dialog 的关键焦点路径。后续仍需按实际场景覆盖更多原生控件边界和暗色对比度。
-- 尺寸矩阵、虚拟表格、内置排序筛选、完整日历面板、全局消息单例和通用表单引擎均不作为当前 37 项的默认补齐目标。
+- 尺寸矩阵、虚拟表格、内置排序筛选、完整日历面板、全局消息单例和通用表单引擎均不作为当前 39 项的默认补齐目标。
 
 [e-button]: https://github.com/element-plus/element-plus/blob/d47d3f9417f83098aeeb2a0589bf4154c19e5d0a/docs/en-US/component/button.md
 [e-table]: https://github.com/element-plus/element-plus/blob/d47d3f9417f83098aeeb2a0589bf4154c19e5d0a/docs/en-US/component/table.md

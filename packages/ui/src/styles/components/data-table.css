@@ -1,0 +1,8 @@
+.lulu-data-table { background: var(--lulu-color-surface); }
+.lulu-data-table__row:hover td { background: var(--lulu-color-surface-hover); }
+
+.lulu-data-table__selection-header,
+.lulu-data-table__selection-cell {
+  inline-size: 1%;
+  text-align: center !important;
+}

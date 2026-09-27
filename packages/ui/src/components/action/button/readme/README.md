@@ -75,7 +75,7 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 | `--lulu-button-border` | 按钮边框颜色；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
 | `--lulu-button-color` | 按钮文字颜色（CSS `color`）；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
 | `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
-| `--lulu-color-danger` | 危险或错误状态 | `#eb4646` | `#f87171` |
+| `--lulu-color-danger` | 危险或错误状态 | `#c53030` | `#f87171` |
 | `--lulu-color-neutral-solid` | 默认按钮底色 | `#4c5161` | `#52525b` |
 | `--lulu-color-on-neutral` | 默认按钮底色上的文字 | `#ffffff` | `#ffffff` |
 | `--lulu-color-on-status` | 成功、警告按钮底色上的文字 | `#111827` | `#000000` |

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import LuluButton from '@lulu/vue/button'
 import LuluDialog from '@lulu/vue/dialog'
 import '@lulu/vue/button/style.css'
@@ -12,11 +12,17 @@ import SiteSidebar from './SiteSidebar.vue'
 import ThemePlayground from './ThemePlayground.vue'
 
 defineProps<{ currentPath: string }>()
-const { isDark, toggleTheme } = useTheme()
+const { themeMode, toggleTheme } = useTheme()
 const menuOpen = ref(false)
 const hasOpenedMenu = ref(false)
 const paletteOpen = ref(false)
 const githubUrl = import.meta.env.VITE_GITHUB_URL
+const themeAction = computed(() => themeMode.value === 'system'
+  ? '当前跟随系统，切换至浅色模式'
+  : themeMode.value === 'light' ? '切换至深色模式' : '切换至跟随系统')
+const themeIcon = computed(() => themeMode.value === 'system'
+  ? 'i-lucide-monitor'
+  : themeMode.value === 'light' ? 'i-lucide-sun' : 'i-lucide-moon')
 
 function openMenu() {
   hasOpenedMenu.value = true
@@ -38,10 +44,10 @@ function openMenu() {
         <LuluButton class="docs-icon-button" aria-label="设置主色调" title="设置主色调" @click="paletteOpen = true"><span class="i-lucide-palette" aria-hidden="true" /></LuluButton>
         <LuluButton
           class="docs-icon-button"
-          :aria-label="isDark ? '切换至浅色模式' : '切换至深色模式'"
-          :title="isDark ? '切换至浅色模式' : '切换至深色模式'"
+          :aria-label="themeAction"
+          :title="themeAction"
           @click="toggleTheme"
-        ><span :class="isDark ? 'i-lucide-sun' : 'i-lucide-moon'" aria-hidden="true" /></LuluButton>
+        ><span :class="themeIcon" aria-hidden="true" /></LuluButton>
         <a :href="withBase('/components/button/')" class="hidden rounded-lg px-3 py-2 text-xs font-semibold text-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] sm:inline">组件列表</a>
         <a v-if="githubUrl" :href="githubUrl" target="_blank" rel="noopener noreferrer" class="hidden text-xs text-[var(--lulu-color-text-muted)] hover:text-[var(--lulu-color-primary)] sm:inline">GitHub</a>
       </div>

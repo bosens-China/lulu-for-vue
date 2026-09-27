@@ -17,7 +17,11 @@ seo:
 用 `trigger` 插槽提供触发元素，通过 `confirm` 监听确认操作。
 :::
 
+手动按需引入时同时导入 `@lulu/vue/popover/style.css`；自动导入 resolver 会补齐该直接依赖。
+
 打开后焦点先到取消按钮；确认或取消后焦点返回触发按钮。
+
+确认浮层默认使用触发按钮作为辅助名称；可在组件上设置 `aria-label` 覆盖。`@lulu/vue/popconfirm` 同时导出 `FloatingPlacement` 类型。
 
 ## 受控确认与取消反馈
 

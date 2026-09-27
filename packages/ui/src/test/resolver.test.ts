@@ -16,6 +16,19 @@ describe('LuLu 自动导入 resolver', () => {
     })
   })
 
+  it('为组合组件先导入直接依赖样式', () => {
+    expect(componentResolver('LuluPopconfirm')).toEqual({
+      name: 'default',
+      as: 'LuluPopconfirm',
+      from: '@lulu/vue/popconfirm',
+      sideEffects: [
+        '@lulu/vue/base.css',
+        '@lulu/vue/popover/style.css',
+        '@lulu/vue/popconfirm/style.css',
+      ],
+    })
+  })
+
   it('忽略非 LuLu 组件', () => {
     expect(componentResolver('ElButton')).toBeUndefined()
   })

@@ -11,7 +11,7 @@ import { LuluButton, LuluDialog } from '@lulu/vue'
 import '@lulu/vue/style.css'
 ```
 
-业务应用优先按组件引入。组件入口只引用其运行时依赖，`base.css` 在应用入口导入一次，组件样式按所属域单独导入：
+业务应用优先按组件引入。组件入口只引用其运行时依赖，`base.css` 在应用入口导入一次，每个组件再导入自己的独立样式：
 
 ```ts
 import LuluButton from '@lulu/vue/button'
@@ -23,9 +23,11 @@ Composable 同样有稳定入口；例如 `useMessage` 可从 `@lulu/vue/use-mes
 
 包只公开根入口、`resolver`、组件短路径和样式入口。组件 JavaScript 短路径通过受限通配符映射到公共 `entries` 构建目录；不要从 `dist/components` 等内部路径导入。组件入口导向共享的构建模块：例如 `popconfirm` 会引用 `popover`，不会把 Popover 的源码复制进每一个组件入口。最终应用仍会包含该组件的直接依赖，这是正常且必要的依赖图。
 
+手动引入组合组件时，还需引入其直接依赖的样式：`data-table → table`、`dialog-host → dialog`、`form-field → field-error`、`loading-overlay → loading`、`message-host → message`、`popconfirm → popover`。`LuluResolver` 会自动补齐这些依赖。
+
 ## 模板自动导入
 
-自动导入是可选的开发体验，不是 tree-shaking 的前提。应用安装构建插件后，可直接在模板中使用组件，resolver 会同时导入共享基础样式和对应领域样式：
+自动导入是可选的开发体验，不是 tree-shaking 的前提。应用安装构建插件后，可直接在模板中使用组件，resolver 会同时导入共享基础样式、组件样式及其直接依赖样式：
 
 ```ts
 import AutoImport from 'unplugin-auto-import/vite'
@@ -44,7 +46,7 @@ export default {
 
 ## 命令式弹窗
 
-在祖先模板中放置 `LuluDialogHost`，后代 setup 从 `@lulu/vue/use-dialog` 获取 `useDialog()`，事件中调用 `open`、`confirm` 或 `alert`。按需引入 `@lulu/vue/dialog-host/style.css`；根入口同样导出宿主、hook 和类型。
+在祖先模板中放置 `LuluDialogHost`，后代 setup 从 `@lulu/vue/use-dialog` 获取 `useDialog()`，事件中调用 `open`、`confirm` 或 `alert`。按需使用时在应用入口引入一次 `base.css`，再依次引入 `dialog/style.css` 与 `dialog-host/style.css`；resolver 会自动补齐。根入口同样导出宿主、hook 和类型。
 
 `confirm` 等待确认结果，`open` 返回可关闭句柄；同一宿主串行显示，调用者卸载时自动清理。与消息组合时，让 `LuluMessageHost` 包裹 `LuluDialogHost`。完整选项与生命周期见 [DialogHost 文档](./src/components/overlay/dialog-host/readme/README.md)。
 
@@ -64,7 +66,7 @@ import '@lulu/vue/style.css'
 <html data-lulu-theme="dark">
 ```
 
-局部主题使用相同属性。Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的主题容器，继承该容器的变量。局部主题容器应避免设置 `transform` 或裁剪浮层的 `overflow`。
+局部主题使用相同属性。Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `[data-lulu-theme]` 容器，并继承该容器的变量。只有普通 class 的局部容器不会成为传送目标，其中的变量也不会跨 Teleport；需要定制浮层时，请把变量放在最近的 `[data-lulu-theme]` 容器上。局部主题容器应避免设置 `transform` 或裁剪浮层的 `overflow`。
 
 ```html
 <section data-lulu-theme="light">
@@ -88,3 +90,7 @@ Token 分为颜色、排版、尺寸、间距、圆角、阴影、动效和层�
 ## UnoCSS 命名约定
 
 包在构建期使用 UnoCSS，发布的 `base.css` 包含带 `lulu-u-` 前缀的静态 utility，不输出 preflight。使用方无需安装 UnoCSS。`lulu-` 是组件结构类名，`--lulu-*` 是主题 token；主题覆盖通过 CSS 变量完成。
+
+## 许可证与来源
+
+`@lulu/vue` 使用 MIT 许可证。组件的视觉语义参考了 [LuLu UI](https://github.com/yued-fe/lulu)，并保留其原始 MIT 版权声明；Vue API、主题扩展和文档由本项目维护。详见仓库根目录的 `LICENSE`。

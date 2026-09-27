@@ -1,0 +1,8 @@
+.lulu-message-host {
+  display: grid;
+  gap: var(--lulu-space-2);
+  inset: var(--lulu-space-4) var(--lulu-space-4) auto;
+  pointer-events: none;
+  position: fixed;
+  z-index: var(--lulu-z-index-message);
+}

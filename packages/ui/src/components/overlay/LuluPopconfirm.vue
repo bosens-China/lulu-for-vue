@@ -3,6 +3,8 @@ import { useTemplateRef } from 'vue'
 import LuluPopover from './LuluPopover.vue'
 import type { FloatingPlacement } from './useFloatingLayer'
 
+defineOptions({ inheritAttrs: false })
+
 interface Props {
   cancelText?: string
   confirmText?: string
@@ -40,7 +42,7 @@ function confirm() {
 </script>
 
 <template>
-  <LuluPopover ref="popover" v-model:open="open" :disabled="props.disabled" :placement="props.placement">
+  <LuluPopover v-bind="$attrs" ref="popover" v-model:open="open" :disabled="props.disabled" :placement="props.placement">
     <template #trigger><slot name="trigger">Confirm action</slot></template>
     <p class="lulu-popconfirm__message"><slot>{{ props.message }}</slot></p>
     <div class="lulu-popconfirm__actions">

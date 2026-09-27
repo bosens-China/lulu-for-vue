@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, watch } from 'vue'
 import type { MessageType } from './useMessage'
 
 interface Props {
   closable?: boolean
+  closeLabel?: string
   duration?: number
   message: string
   type?: MessageType
@@ -11,6 +12,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   closable: true,
+  closeLabel: '关闭消息',
   duration: 4000,
   type: 'info',
 })
@@ -26,16 +28,10 @@ const ariaLive = computed(() => (props.type === 'error' ? 'assertive' : 'polite'
 
 watch(
   () => props.duration,
-  (duration) => {
-    clearCloseTimer()
-
-    if (Number.isFinite(duration) && duration > 0) {
-      closeTimer = setTimeout(close, duration)
-    }
-  },
-  { immediate: true },
+  scheduleClose,
 )
 
+onMounted(() => scheduleClose(props.duration))
 onBeforeUnmount(clearCloseTimer)
 
 function close() {
@@ -47,6 +43,14 @@ function clearCloseTimer() {
   if (closeTimer !== undefined) {
     clearTimeout(closeTimer)
     closeTimer = undefined
+  }
+}
+
+function scheduleClose(duration: number) {
+  clearCloseTimer()
+
+  if (Number.isFinite(duration) && duration > 0) {
+    closeTimer = setTimeout(close, duration)
   }
 }
 </script>
@@ -64,7 +68,7 @@ function clearCloseTimer() {
       v-if="props.closable"
       type="button"
       class="lulu-message__close"
-      aria-label="Close message"
+      :aria-label="props.closeLabel"
       @click="close"
     >
       ×

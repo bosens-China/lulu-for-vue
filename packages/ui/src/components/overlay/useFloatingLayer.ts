@@ -19,7 +19,7 @@ interface FloatingLayerOptions {
   closeOnOutside: Ref<boolean>
   offset: Ref<number>
   onRequestClose: () => void
-  open: Ref<boolean>
+  open: Readonly<Ref<boolean>>
   panel: Ref<HTMLElement | null>
   placement: Ref<FloatingPlacement>
   trigger: Ref<HTMLElement | null>
@@ -77,6 +77,7 @@ export function useFloatingLayer(options: FloatingLayerOptions): FloatingLayerRe
     const themeRoot = options.trigger.value?.closest<HTMLElement>('[data-lulu-theme]')
     return themeRoot && themeRoot !== document.documentElement ? themeRoot : 'body'
   })
+  let disposed = false
   let listening = false
 
   function updatePosition() {
@@ -124,10 +125,10 @@ export function useFloatingLayer(options: FloatingLayerOptions): FloatingLayerRe
   }
 
   async function addListeners() {
-    if (typeof document === 'undefined' || !options.open.value || listening) return
+    if (typeof document === 'undefined' || disposed || !isMounted.value || !options.open.value || listening) return
 
     await nextTick()
-    if (!options.open.value || listening) return
+    if (disposed || !isMounted.value || !options.open.value || listening) return
 
     updatePosition()
     document.addEventListener('pointerdown', requestCloseForPointer)
@@ -147,10 +148,15 @@ export function useFloatingLayer(options: FloatingLayerOptions): FloatingLayerRe
   )
 
   onMounted(() => {
+    disposed = false
     isMounted.value = true
     if (options.open.value) void addListeners()
   })
-  onBeforeUnmount(removeListeners)
+  onBeforeUnmount(() => {
+    disposed = true
+    isMounted.value = false
+    removeListeners()
+  })
 
   return { floatingStyle, isMounted, teleportTarget, updatePosition }
 }

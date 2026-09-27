@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import LuluDataTable from '@lulu/vue/data-table'
 import LuluCheckbox from '@lulu/vue/checkbox'
 import type { DataTableColumn } from '@lulu/vue/data-table'
+import '@lulu/vue/table/style.css'
 import '@lulu/vue/data-table/style.css'
 import '@lulu/vue/checkbox/style.css'
 interface Row { id: number; name: string; count: number; amount: number }
@@ -29,4 +30,3 @@ const rowKey = (row: Row) => 'order-' + row.id
     </LuluDataTable>
   </div>
 </template>
-

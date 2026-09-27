@@ -1,20 +1,24 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, useId, useSlots, useTemplateRef, watch } from 'vue'
 
-type CloseReason = 'close-button' | 'escape' | 'overlay' | 'native'
+export type CloseReason = 'close-button' | 'escape' | 'overlay' | 'native'
 
 interface Props {
-  title?: string
+  ariaLabel?: string
   closable?: boolean
+  closeLabel?: string
   closeOnOverlay?: boolean
   closeOnEscape?: boolean
+  title?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: '',
+  ariaLabel: 'Dialog',
   closable: true,
+  closeLabel: 'Close dialog',
   closeOnOverlay: true,
   closeOnEscape: true,
+  title: '',
 })
 
 const emit = defineEmits<{
@@ -106,7 +110,7 @@ function handleOverlayClick(event: MouseEvent) {
     ref="dialog"
     class="lulu-dialog"
     tabindex="-1"
-    :aria-label="hasHeaderContent ? undefined : 'Dialog'"
+    :aria-label="hasHeaderContent ? undefined : props.ariaLabel"
     :aria-labelledby="hasHeaderContent ? titleId : undefined"
     @cancel="handleCancel"
     @click="handleOverlayClick"
@@ -125,7 +129,7 @@ function handleOverlayClick(event: MouseEvent) {
           v-if="props.closable"
           type="button"
           class="lulu-dialog__close"
-          aria-label="Close dialog"
+          :aria-label="props.closeLabel"
           @click="requestClose('close-button')"
         >
           ×

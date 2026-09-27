@@ -1,0 +1,3 @@
+.lulu-popover__panel {
+  max-inline-size: min(360px, calc(100vw - 2 * var(--lulu-space-4)));
+}

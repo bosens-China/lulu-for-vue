@@ -20,6 +20,7 @@ interface Props {
   filter?: AutocompleteFilter
   items?: readonly AutocompleteItem[]
   loading?: boolean
+  loadingText?: string
   maxResults?: number
   offset?: number
   placement?: FloatingPlacement
@@ -29,6 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   items: () => [],
   loading: false,
+  loadingText: 'Loading',
   maxResults: 8,
   offset: 4,
   placement: 'bottom-start',
@@ -144,6 +146,11 @@ function handleKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') open.value = false
 }
 
+function handleBlur() {
+  activeIndex.value = -1
+  open.value = false
+}
+
 function setActive(index: number) {
   if (!visibleItems.value[index]?.disabled) activeIndex.value = index
 }
@@ -162,6 +169,7 @@ function setActive(index: number) {
     :aria-controls="listId"
     :aria-expanded="open"
     :disabled="props.disabled"
+    @blur="handleBlur"
     @focus="show"
     @input="updateQuery"
     @keydown="handleKeydown"
@@ -176,7 +184,7 @@ function setActive(index: number) {
       :aria-busy="props.loading || undefined"
       :style="floatingStyle"
     >
-      <li v-if="props.loading" class="lulu-autocomplete__loading" role="status">Loading</li>
+      <li v-if="props.loading" class="lulu-autocomplete__loading" role="status">{{ props.loadingText }}</li>
       <li
         v-for="(item, index) in visibleItems"
         :id="`${listId}-${index}`"

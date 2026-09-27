@@ -13,11 +13,15 @@ import {
 } from './useMessage'
 
 interface Props {
+  closeLabel?: string
   duration?: number
+  label?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  closeLabel: '关闭消息',
   duration: 4000,
+  label: '消息通知',
 })
 
 const messages = shallowRef<MessageEntry[]>([])
@@ -78,12 +82,13 @@ provide(messageKey, messageApi)
     <section
       v-if="messages.length"
       class="lulu-message-host"
-      aria-label="Notifications"
+      :aria-label="props.label"
     >
       <LuluMessage
         v-for="message in messages"
         :key="message.id"
         :duration="message.duration"
+        :close-label="props.closeLabel"
         :message="message.message"
         :type="message.type"
         @close="close(message.id)"

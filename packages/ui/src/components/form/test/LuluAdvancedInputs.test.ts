@@ -38,6 +38,45 @@ describe('LuluAutocomplete', () => {
     await wrapper.setProps({ modelValue: 'banana' })
     expect((input.element as HTMLInputElement).value).toBe('banana')
   })
+
+  it('allows the loading status text to be localized', async () => {
+    const wrapper = mount(LuluAutocomplete, {
+      attachTo: document.body,
+      props: {
+        loading: true,
+        loadingText: '正在加载',
+      },
+    })
+
+    await wrapper.get('input').trigger('focus')
+
+    expect(document.body.querySelector('[role="status"]')?.textContent).toBe('正在加载')
+  })
+
+  it('closes on blur without interrupting pointer selection', async () => {
+    const item = { label: 'Apple', value: 'apple' }
+    const wrapper = mount(LuluAutocomplete, {
+      attachTo: document.body,
+      props: { items: [item] },
+    })
+    const input = wrapper.get('input')
+
+    await input.trigger('focus')
+    await input.trigger('blur')
+    expect(document.body.querySelector('[role="listbox"]')).toBeNull()
+
+    await input.trigger('focus')
+    const option = document.body.querySelector<HTMLElement>('[role="option"]')
+
+    if (!option) throw new Error('自动完成面板应渲染候选项。')
+
+    option.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, cancelable: true }))
+    option.click()
+    await nextTick()
+
+    expect(wrapper.emitted('select')).toEqual([[item]])
+    expect(wrapper.emitted('update:modelValue')).toEqual([['apple']])
+  })
 })
 
 describe('LuluColorPicker', () => {
@@ -45,11 +84,16 @@ describe('LuluColorPicker', () => {
     const wrapper = mount(LuluColorPicker, {
       props: {
         alpha: true,
+        alphaLabel: '透明度',
+        label: '颜色',
         modelValue: '#11223380',
       },
     })
     const color = wrapper.get('.lulu-color-picker__color')
     const alpha = wrapper.get('.lulu-color-picker__alpha')
+
+    expect(color.attributes('aria-label')).toBe('颜色')
+    expect(alpha.attributes('aria-label')).toBe('透明度')
 
     await color.setValue('#ff0000')
     await alpha.setValue('0.25')

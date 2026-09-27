@@ -1,9 +1,11 @@
+import { readdirSync } from 'node:fs'
 import { defineConfig } from 'tsdown'
 import Vue from 'unplugin-vue/rolldown'
 
 const stylesRoot = 'src/entries/styles'
+const componentStylesRoot = 'src/styles/components'
 
-function createStyleConfig(entry: string, fileName: string) {
+function createStyleConfig(entry: string, fileName: string, root = stylesRoot) {
   return {
     clean: false,
     css: {
@@ -15,10 +17,19 @@ function createStyleConfig(entry: string, fileName: string) {
     format: ['esm'] as const,
     outDir: 'dist/styles',
     platform: 'neutral' as const,
-    root: stylesRoot,
+    root,
     target: false,
   }
 }
+
+const componentStyleConfigs = readdirSync(componentStylesRoot)
+  .filter((fileName) => fileName.endsWith('.css'))
+  .sort()
+  .map((fileName) => createStyleConfig(
+    `${componentStylesRoot}/${fileName}`,
+    `components/${fileName}`,
+    componentStylesRoot,
+  ))
 
 export default defineConfig([
   {
@@ -38,10 +49,5 @@ export default defineConfig([
   createStyleConfig(`${stylesRoot}/all.ts`, 'style.css'),
   createStyleConfig(`${stylesRoot}/base.ts`, 'base.css'),
   createStyleConfig(`${stylesRoot}/tokens.ts`, 'tokens.css'),
-  createStyleConfig(`${stylesRoot}/action.ts`, 'action.css'),
-  createStyleConfig(`${stylesRoot}/data.ts`, 'data.css'),
-  createStyleConfig(`${stylesRoot}/feedback.ts`, 'feedback.css'),
-  createStyleConfig(`${stylesRoot}/form.ts`, 'form.css'),
-  createStyleConfig(`${stylesRoot}/navigation.ts`, 'navigation.css'),
-  createStyleConfig(`${stylesRoot}/overlay.ts`, 'overlay.css'),
+  ...componentStyleConfigs,
 ])

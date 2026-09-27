@@ -1,0 +1,4 @@
+.lulu-accordion {
+  display: grid;
+  gap: var(--lulu-space-2);
+}

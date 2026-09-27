@@ -19,6 +19,8 @@ seo:
 
 浮层中存在按钮或输入时，打开后聚焦第一个可操作元素；按 Escape 关闭会把焦点归还触发按钮。点击浮层外关闭不会抢走外部目标的焦点。
 
+组件未声明的 Attributes 会应用到传送后的 `dialog` 面板。面板使用内部稳定 ID 维持 `aria-controls` 关联；可传入 `aria-label` 覆盖默认由触发按钮提供的辅助名称。
+
 ## 位置与关闭策略
 
 ::: demo policy
@@ -52,6 +54,14 @@ seo:
 | --- | --- | --- |
 | `trigger` | 触发按钮内容。 | — |
 | `default` | 浮层内容。 | — |
+
+### Expose
+
+| 方法 | 说明 | 参数 |
+| --- | --- | --- |
+| `focusTrigger` | 将焦点归还到组件的触发按钮。 | — |
+
+`@lulu/vue/popover` 同时导出 `FloatingPlacement` 和 `LuluPopoverExposed` 类型。
 
 ## CSS Tokens
 

@@ -1,6 +1,7 @@
 @import './tokens.css';
 @import './base.css';
 @import './action.css';
+@import './components/space.css';
 @import './feedback.css';
 @import './form.css';
 @import './navigation.css';

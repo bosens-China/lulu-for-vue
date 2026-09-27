@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import LuluButton from '@lulu/vue/button'
 import LuluLoadingOverlay from '@lulu/vue/loading-overlay'
 import '@lulu/vue/button/style.css'
+import '@lulu/vue/loading/style.css'
 import '@lulu/vue/loading-overlay/style.css'
 
 const open = ref(false)

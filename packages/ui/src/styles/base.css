@@ -51,22 +51,157 @@
   z-index: var(--lulu-z-index-popup);
 }
 
-.lulu-field-error {
-  color: var(--lulu-color-danger);
-  font-size: var(--lulu-font-size-sm);
-  margin: var(--lulu-space-1) 0 0;
+:is(
+  .lulu-input,
+  .lulu-textarea,
+  .lulu-select,
+  .lulu-autocomplete,
+  .lulu-date-picker,
+  .lulu-year-picker,
+  .lulu-hour-picker,
+  .lulu-date-range-picker__start,
+  .lulu-date-range-picker__end
+) {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  box-sizing: border-box;
+  color: var(--lulu-color-text);
+  font: inherit;
+  inline-size: 100%;
+  min-block-size: var(--lulu-control-height);
+  padding: 0 var(--lulu-space-3);
+  transition: border-color var(--lulu-transition-duration) var(--lulu-transition-easing), box-shadow var(--lulu-transition-duration) var(--lulu-transition-easing);
 }
 
-.lulu-space {
+:is(.lulu-input, .lulu-textarea, .lulu-autocomplete)::placeholder {
+  color: var(--lulu-color-text-muted);
+  opacity: 1;
+}
+
+:is(
+  .lulu-input,
+  .lulu-textarea,
+  .lulu-select,
+  .lulu-autocomplete,
+  .lulu-date-picker,
+  .lulu-year-picker,
+  .lulu-hour-picker
+):disabled {
+  background: var(--lulu-color-surface-subtle);
+  color: var(--lulu-color-text-muted);
+  cursor: not-allowed;
+}
+
+.lulu-date-range-picker input:disabled {
+  background: var(--lulu-color-surface-subtle);
+  color: var(--lulu-color-text-muted);
+  cursor: not-allowed;
+}
+
+:is(
+  .lulu-input,
+  .lulu-textarea,
+  .lulu-select,
+  .lulu-date-picker,
+  .lulu-year-picker,
+  .lulu-hour-picker
+)[aria-invalid='true'] {
+  border-color: var(--lulu-color-danger);
+}
+
+.lulu-date-range-picker input[aria-invalid='true'] {
+  border-color: var(--lulu-color-danger);
+}
+
+:is(.lulu-checkbox, .lulu-radio, .lulu-switch) {
   align-items: center;
-  display: flex;
-  gap: var(--lulu-space-3);
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
 }
 
-.lulu-space[data-size='small'] { gap: var(--lulu-space-2); }
-.lulu-space[data-size='large'] { gap: var(--lulu-space-4); }
-.lulu-space[data-direction='vertical'] { align-items: stretch; flex-direction: column; }
-.lulu-space[data-direction='horizontal'][data-wrap='true'] { flex-wrap: wrap; }
+:is(.lulu-checkbox, .lulu-radio, .lulu-switch, .lulu-data-table__selection-cell) input {
+  accent-color: var(--lulu-color-primary);
+  block-size: 16px;
+  inline-size: 16px;
+  margin: 0;
+}
+
+:is(.lulu-checkbox__label, .lulu-radio__label, .lulu-switch__label) {
+  line-height: var(--lulu-line-height);
+}
+
+:is(
+  .lulu-slider,
+  .lulu-rate,
+  .lulu-range-slider__start,
+  .lulu-range-slider__end,
+  .lulu-color-picker__alpha
+) {
+  accent-color: var(--lulu-color-primary);
+  cursor: pointer;
+  inline-size: 100%;
+}
+
+:is(.lulu-slider, .lulu-rate):disabled,
+:is(.lulu-range-slider, .lulu-color-picker) input:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+:is(.lulu-data-table__loading-cell, .lulu-table__empty-cell) {
+  color: var(--lulu-color-text-muted);
+  padding-block: calc(var(--lulu-space-4) * 2) !important;
+  text-align: center !important;
+}
+
+:is(.lulu-disclosure, .lulu-accordion__item) {
+  border: 1px solid var(--lulu-color-border-subtle);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text);
+}
+
+:is(.lulu-disclosure__summary, .lulu-accordion__summary) {
+  cursor: pointer;
+  font-weight: 600;
+  padding: var(--lulu-space-3);
+}
+
+:is(.lulu-disclosure__content, .lulu-accordion__content) {
+  border-top: 1px solid var(--lulu-color-border-subtle);
+  padding: var(--lulu-space-3);
+}
+
+:is(.lulu-popover, .lulu-dropdown) {
+  display: inline-flex;
+}
+
+:is(.lulu-popover__trigger, .lulu-dropdown__trigger) {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  min-block-size: var(--lulu-control-height);
+  padding-inline: var(--lulu-space-3);
+}
+
+:is(.lulu-popover__trigger, .lulu-dropdown__trigger):disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+:is(.lulu-message__close, .lulu-dialog__close) {
+  background: transparent;
+  border: 0;
+  color: var(--lulu-color-text-muted);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  padding: var(--lulu-space-1);
+}
 
 @media (prefers-reduced-motion: reduce) {
   :where(.lulu-button, .lulu-loading__indicator, .lulu-message, .lulu-tabs, .lulu-dialog, .lulu-popover__panel, .lulu-dropdown__menu, .lulu-tooltip) {

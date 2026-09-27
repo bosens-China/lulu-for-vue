@@ -1,0 +1,19 @@
+.lulu-message {
+  align-items: center;
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-inline-start: 4px solid var(--lulu-color-primary);
+  border-radius: var(--lulu-radius);
+  box-shadow: var(--lulu-shadow-overlay);
+  color: var(--lulu-color-text);
+  display: flex;
+  gap: var(--lulu-space-3);
+  max-inline-size: min(420px, calc(100vw - 2 * var(--lulu-space-4)));
+  padding: var(--lulu-space-3);
+  pointer-events: auto;
+}
+
+.lulu-message--success { border-inline-start-color: var(--lulu-color-success); }
+.lulu-message--warning { border-inline-start-color: var(--lulu-color-warning); }
+.lulu-message--error { border-inline-start-color: var(--lulu-color-danger); }
+.lulu-message__content { flex: 1; }

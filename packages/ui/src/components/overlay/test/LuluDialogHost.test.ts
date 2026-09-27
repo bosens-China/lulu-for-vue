@@ -37,9 +37,10 @@ describe('LuluDialogHost / useDialog', () => {
     await wrapper.get('.lulu-dialog__footer button').trigger('click')
     await result
 
-    const handle = dialog.open(options)
+    const handle = dialog.open({ ...options, closeLabel: '关闭普通弹窗' })
     await nextTick()
     expect(document.activeElement).toBe(wrapper.get('.lulu-dialog__title').element)
+    expect(wrapper.get('[aria-label="关闭普通弹窗"]').attributes('type')).toBe('button')
     handle.close()
     await handle.closed
   })
@@ -121,6 +122,28 @@ describe('LuluDialogHost / useDialog', () => {
     reject(new Error('保存失败'))
     await flushPromises()
     expect(wrapper.get('[role="alert"]').text()).toBe('保存失败')
+    await wrapper.get('.lulu-dialog__footer button:last-child').trigger('click')
+    await expect(result).resolves.toBe(true)
+  })
+
+  it('允许定制异步状态与非 Error 失败文案', async () => {
+    const { wrapper, dialog } = setup()
+    let reject!: (reason: unknown) => void
+    const onConfirm = vi.fn<() => Promise<void>>()
+      .mockImplementationOnce(() => new Promise((_resolve, fail) => { reject = fail }))
+      .mockResolvedValueOnce(undefined)
+    const result = dialog.confirm({
+      ...options,
+      errorText: '暂时无法保存',
+      pendingText: '保存中…',
+      onConfirm,
+    })
+    await nextTick()
+    await wrapper.get('.lulu-dialog__footer button:last-child').trigger('click')
+    expect(wrapper.get('.lulu-dialog__footer button:last-child').text()).toBe('保存中…')
+    reject('失败')
+    await flushPromises()
+    expect(wrapper.get('[role="alert"]').text()).toBe('暂时无法保存')
     await wrapper.get('.lulu-dialog__footer button:last-child').trigger('click')
     await expect(result).resolves.toBe(true)
   })

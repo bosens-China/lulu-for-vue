@@ -67,13 +67,15 @@ const pageItems = computed<PageItem[]>(() => {
 })
 
 watch(
-  currentPage,
-  (page) => {
+  [modelValue, pageCount],
+  () => {
+    const page = currentPage.value
+
     if (modelValue.value !== page) {
       modelValue.value = page
     }
   },
-  { flush: 'sync' },
+  { flush: 'sync', immediate: true },
 )
 
 function goTo(page: number) {

@@ -55,7 +55,7 @@ seo:
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |
-| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#a2a9b6` | `#a1a1aa` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-control-height-sm` | 紧凑控件高度 | `32px` | `32px` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |

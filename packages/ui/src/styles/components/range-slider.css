@@ -1,0 +1,6 @@
+.lulu-range-slider {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+  inline-size: 100%;
+}

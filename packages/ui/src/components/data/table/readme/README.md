@@ -52,7 +52,7 @@ empty=true 时以空态替代表体；colspan 应与实际列数一致。body �
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
-| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#a2a9b6` | `#a1a1aa` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-font-size-lg` | 标题文字大小 | `16px` | `16px` |

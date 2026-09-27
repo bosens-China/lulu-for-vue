@@ -5,6 +5,7 @@ export interface DialogOptions {
   title: string
   content: string | (() => VNodeChild)
   closable?: boolean
+  closeLabel?: string
   closeOnOverlay?: boolean
   closeOnEscape?: boolean
 }
@@ -12,7 +13,9 @@ export interface DialogOptions {
 export interface DialogConfirmOptions extends DialogOptions {
   confirmText?: string
   cancelText?: string
+  errorText?: string
   onConfirm?: () => void | false | Promise<void | false>
+  pendingText?: string
 }
 
 export interface DialogHandle {

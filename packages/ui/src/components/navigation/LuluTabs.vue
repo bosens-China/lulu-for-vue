@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, useId } from 'vue'
+import { provide, shallowRef, useId } from 'vue'
 import {
   tabsContextKey,
   type TabsContext,
@@ -10,7 +10,7 @@ defineOptions({ inheritAttrs: false })
 
 const modelValue = defineModel<TabsValue>({ required: true })
 const tabsId = `lulu-tabs-${useId()}`
-const registeredTabs: Parameters<TabsContext['registerTab']>[0][] = []
+const registeredTabs = shallowRef<Parameters<TabsContext['registerTab']>[0][]>([])
 
 function select(value: TabsValue) {
   if (!Object.is(modelValue.value, value)) {
@@ -19,19 +19,15 @@ function select(value: TabsValue) {
 }
 
 function registerTab(tab: Parameters<TabsContext['registerTab']>[0]) {
-  registeredTabs.push(tab)
+  registeredTabs.value = [...registeredTabs.value, tab]
 
   return () => {
-    const index = registeredTabs.indexOf(tab)
-
-    if (index >= 0) {
-      registeredTabs.splice(index, 1)
-    }
+    registeredTabs.value = registeredTabs.value.filter((registeredTab) => registeredTab !== tab)
   }
 }
 
 function focusRelative(value: TabsValue, offset: -1 | 1) {
-  const enabledTabs = registeredTabs.filter((tab) => !tab.isDisabled())
+  const enabledTabs = registeredTabs.value.filter((tab) => !tab.isDisabled())
   const currentIndex = enabledTabs.findIndex((tab) => Object.is(tab.getValue(), value))
 
   if (currentIndex < 0 || enabledTabs.length === 0) {
@@ -47,9 +43,23 @@ function focusRelative(value: TabsValue, offset: -1 | 1) {
   }
 }
 
+function isTabbable(value: TabsValue, disabled: boolean) {
+  if (disabled) return false
+
+  const enabledTabs = registeredTabs.value.filter((tab) => !tab.isDisabled())
+  const hasEnabledActiveTab = enabledTabs.some((tab) => Object.is(tab.getValue(), modelValue.value))
+
+  if (hasEnabledActiveTab || enabledTabs.length === 0) {
+    return Object.is(value, modelValue.value)
+  }
+
+  return Object.is(value, enabledTabs[0]?.getValue())
+}
+
 provide(tabsContextKey, {
   activeValue: modelValue,
   focusRelative,
+  isTabbable,
   registerTab,
   select,
   tabsId,

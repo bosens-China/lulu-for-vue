@@ -4,11 +4,14 @@ export type ThemeMode = 'light' | 'dark' | 'system'
 
 const STORAGE_KEY = 'lulu-theme-mode'
 const isDark = ref(false)
+const themeMode = ref<ThemeMode>('system')
 
-function applyTheme(dark: boolean) {
+function applyTheme(mode: ThemeMode, dark = mode === 'dark') {
+  themeMode.value = mode
   isDark.value = dark
   if (typeof document !== 'undefined') {
-    document.documentElement.dataset.luluTheme = dark ? 'dark' : 'light'
+    if (mode === 'system') document.documentElement.removeAttribute('data-lulu-theme')
+    else document.documentElement.dataset.luluTheme = mode
     document.documentElement.classList.toggle('dark', dark)
   }
 }
@@ -17,16 +20,24 @@ export function useTheme() {
   let systemTheme: MediaQueryList | undefined
 
   function syncSystemTheme(event: MediaQueryList | MediaQueryListEvent) {
-    if (document.documentElement.hasAttribute('data-lulu-theme')) return
-    isDark.value = event.matches
-    document.documentElement.classList.toggle('dark', event.matches)
+    if (themeMode.value !== 'system') return
+    applyTheme('system', event.matches)
+  }
+
+  function applyMode(mode: ThemeMode) {
+    const dark = mode === 'system'
+      ? (systemTheme ?? window.matchMedia('(prefers-color-scheme: dark)')).matches
+      : mode === 'dark'
+    applyTheme(mode, dark)
   }
 
   function toggleTheme() {
-    const nextDark = !isDark.value
-    applyTheme(nextDark)
+    const nextMode: ThemeMode = themeMode.value === 'system'
+      ? 'light'
+      : themeMode.value === 'light' ? 'dark' : 'system'
+    applyMode(nextMode)
     try {
-      localStorage.setItem(STORAGE_KEY, nextDark ? 'dark' : 'light')
+      localStorage.setItem(STORAGE_KEY, nextMode)
     } catch {
       // 存储受限时保留当前页面的主题切换能力。
     }
@@ -42,13 +53,7 @@ export function useTheme() {
     } catch {
       // 无法读取偏好时跟随系统。
     }
-    if (saved === 'light' || saved === 'dark') {
-      applyTheme(saved === 'dark')
-    }
-    else {
-      document.documentElement.removeAttribute('data-lulu-theme')
-      syncSystemTheme(systemTheme ?? window.matchMedia('(prefers-color-scheme: dark)'))
-    }
+    applyMode(saved === 'light' || saved === 'dark' || saved === 'system' ? saved : 'system')
   }
 
   onMounted(() => {
@@ -61,6 +66,7 @@ export function useTheme() {
 
   return {
     isDark,
+    themeMode,
     toggleTheme,
   }
 }

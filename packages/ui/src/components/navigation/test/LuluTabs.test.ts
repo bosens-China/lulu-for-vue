@@ -115,4 +115,19 @@ describe('LuluTabs', () => {
 
     expect(document.activeElement).toBe(securityButton)
   })
+
+  it.each(['missing', 'billing'])(
+    'modelValue 为 %s 时仍给首个可用标签保留 Tab 停靠点',
+    async (modelValue) => {
+      const wrapper = mount(LuluTabs, {
+        props: { modelValue },
+        slots: createSlots(),
+      })
+      await wrapper.vm.$nextTick()
+
+      expect(wrapper.get('[data-testid="profile-tab"]').attributes('tabindex')).toBe('0')
+      expect(wrapper.get('[data-testid="security-tab"]').attributes('tabindex')).toBe('-1')
+      expect(wrapper.get('[data-testid="billing-tab"]').attributes('tabindex')).toBe('-1')
+    },
+  )
 })

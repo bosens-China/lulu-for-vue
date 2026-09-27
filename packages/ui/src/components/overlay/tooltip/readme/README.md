@@ -19,6 +19,8 @@ seo:
 
 交互式触发元素请用插槽提供原生按钮或链接，并将插槽的 `triggerProps` 绑定到该元素。组件不会额外增加一个 Tab 停靠点。
 
+未提供 `trigger` 插槽时，组件使用原生按钮作为触发器，`click` 模式也能通过键盘操作。组件未声明的 Attributes 会应用到传送后的 `tooltip` 面板，内部 ID 不会被覆盖。
+
 ## 触发方式
 
 ::: demo triggers
@@ -57,6 +59,8 @@ seo:
 | --- | --- | --- |
 | `trigger` | 触发元素；交互式元素绑定 `triggerProps`。 | `{ triggerProps }` |
 | `default` | 提示内容。 | — |
+
+`@lulu/vue/tooltip` 同时导出 `FloatingPlacement` 和 `TooltipTrigger` 类型。
 
 ## CSS Tokens
 

@@ -1,0 +1,29 @@
+.lulu-dialog {
+  background: var(--lulu-color-surface);
+  border: 0;
+  border-radius: var(--lulu-radius-lg);
+  box-shadow: var(--lulu-shadow-overlay);
+  color: var(--lulu-color-text);
+  inline-size: min(560px, calc(100vw - 2 * var(--lulu-space-4)));
+  max-inline-size: none;
+  margin: auto;
+  padding: 0;
+}
+
+.lulu-dialog::backdrop { background: var(--lulu-color-overlay); }
+.lulu-dialog__surface { display: grid; }
+.lulu-dialog__header,
+.lulu-dialog__footer {
+  align-items: center;
+  display: flex;
+  gap: var(--lulu-space-3);
+  padding: var(--lulu-space-3) var(--lulu-space-4);
+}
+
+.lulu-dialog__header { border-bottom: 1px solid var(--lulu-color-border-subtle); }
+.lulu-dialog__title { flex: 1; font-size: var(--lulu-font-size-lg); font-weight: 600; }
+.lulu-dialog__title:focus { outline: 0; }
+.lulu-dialog:focus:not(:focus-visible) { outline: 0; }
+.lulu-dialog:focus-visible { outline: 2px solid var(--lulu-color-primary-solid); outline-offset: 2px; }
+.lulu-dialog__body { padding: var(--lulu-space-4); }
+.lulu-dialog__footer { border-top: 1px solid var(--lulu-color-border-subtle); justify-content: flex-end; }

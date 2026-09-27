@@ -5,12 +5,14 @@ defineOptions({ inheritAttrs: false })
 
 interface Props {
   alpha?: boolean
+  alphaLabel?: string
   disabled?: boolean
   label?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   alpha: false,
+  alphaLabel: 'Opacity',
   disabled: false,
   label: 'Color',
 })
@@ -83,7 +85,7 @@ function toAlphaHex(value: number) {
       max="1"
       step="0.01"
       :value="alphaValue"
-      aria-label="Opacity"
+      :aria-label="props.alphaLabel"
       :disabled="props.disabled"
       @input="updateAlpha"
     >

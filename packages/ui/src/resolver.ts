@@ -46,6 +46,15 @@ const apiEntries = {
   useMessage: 'use-message',
 } as const
 
+const componentStyleDependencies: Readonly<Record<string, readonly string[]>> = {
+  'data-table': ['table'],
+  'dialog-host': ['dialog'],
+  'form-field': ['field-error'],
+  'loading-overlay': ['loading'],
+  'message-host': ['message'],
+  popconfirm: ['popover'],
+}
+
 export interface LuluComponentResolveResult {
   as: string
   from: string
@@ -72,12 +81,16 @@ export function LuluResolver(): LuluComponentResolver {
     if (!componentNames.has(componentName)) return undefined
 
     const entryName = toKebabCase(componentName.slice('Lulu'.length))
+    const styleEntries = [...(componentStyleDependencies[entryName] ?? []), entryName]
 
     return {
       name: 'default',
       as: componentName,
       from: `@lulu/vue/${entryName}`,
-      sideEffects: ['@lulu/vue/base.css', `@lulu/vue/${entryName}/style.css`],
+      sideEffects: [
+        '@lulu/vue/base.css',
+        ...styleEntries.map((styleEntry) => `@lulu/vue/${styleEntry}/style.css`),
+      ],
     }
   }
 }

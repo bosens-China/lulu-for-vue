@@ -4,7 +4,7 @@
 
 `lulu/theme/edge/css/common/ui` 有 22 个 CSS 文件，其中 `Keyboard.css`、`Placeholder.css` 是辅助样式；余下 20 个文件代表可见 UI 能力。`lulu/theme/edge/js/common/ui` 有 16 个 JS 文件，`ErrorTip.js`、`Validate.js` 补充了两个无独立 CSS 的能力，`Follow.js` 是定位辅助模块。因此首轮迁移核对口径为 **22 项能力**，而不是 22 + 16 个组件。
 
-Vue 包当前有 **37 个 `Lulu*.vue` 组件**。有些 Edge 能力拆成多个 Vue 组件；数量相等不是迁移完成的条件。
+Vue 包当前有 **39 个 `Lulu*.vue` 组件**。有些 Edge 能力拆成多个 Vue 组件；数量相等不是迁移完成的条件。
 
 ## 对照表
 
@@ -39,5 +39,5 @@ Vue 包当前有 **37 个 `Lulu*.vue` 组件**。有些 Edge 能力拆成多个 
 
 - Edge 的 `variables.css` 只提供浅色变量。Vue 包的暗色语义值为新增设计，使用 `[data-lulu-theme='dark']` 或系统偏好启用。
 - Edge 蓝色 `#2a80eb` 配白字约为 3.90:1，因此浅色主题的实心主操作采用 Edge 已有深蓝 `#0057c3`（约 6.66:1）；状态色搭配深色文字。页面级视觉和交互对比仍待逐项验收。
-- 现有按需 CSS 按六个领域输出，单个组件仍可能带入同领域其他组件的规则。共享 token 已单独输出，后续需要拆细样式入口。
+- 按需 CSS 已拆为 39 个组件入口；公共 token、utility 与跨组件共享基座只在 `base.css` 输出。组合组件的直接样式依赖由 resolver 按“依赖 → 自身”顺序引入，领域文件仅保留为源码聚合入口，不进入发布物。
 - 目前 UnoCSS 只用于 Button 的三个布局 utility；其余复杂状态和结构选择器仍为 CSS。迁移时逐项判断，避免为了使用 utility 拆散清晰的状态样式。

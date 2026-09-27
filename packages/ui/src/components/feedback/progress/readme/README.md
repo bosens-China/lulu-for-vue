@@ -45,6 +45,6 @@ seo:
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
-| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#2a80eb` | `#38bdf8` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border-subtle: #ededef`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

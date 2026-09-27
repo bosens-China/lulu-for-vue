@@ -12,6 +12,7 @@ interface TabRegistration {
 export interface TabsContext {
   activeValue: Readonly<Ref<TabsValue>>
   focusRelative: (value: TabsValue, offset: -1 | 1) => void
+  isTabbable: (value: TabsValue, disabled: boolean) => boolean
   registerTab: (tab: TabRegistration) => () => void
   select: (value: TabsValue) => void
   tabsId: string

@@ -52,19 +52,26 @@ for (const entry of ['root', 'button-input']) {
   assert.match(js, /LuluInput/)
   assert.doesNotMatch(js, /__name:\s*"LuluPopover"/)
   assert.doesNotMatch(css, /\.lulu-popover__panel\s*\{/)
-  assert.equal((css.match(/--lulu-color-primary:\s*#2a80eb/g) ?? []).length, 1)
+  assert.equal((css.match(/--lulu-font-family:/g) ?? []).length, 1)
 }
 
 const combined = await bundle('combined')
-assert.equal((combined.css.match(/--lulu-color-primary:\s*#2a80eb/g) ?? []).length, 1,
+assert.equal((combined.css.match(/--lulu-font-family:/g) ?? []).length, 1,
   '多个组件不能重复打包公共 token。')
 assert.equal((combined.js.match(/__name:\s*"LuluPopover"/g) ?? []).length, 1,
   'Popconfirm 和 Popover 必须共享一份组件实现。')
+assert.equal((combined.css.match(/\.lulu-popover__panel\s*\{/g) ?? []).length, 1,
+  '组合组件不得重复打包 Popover 样式。')
+assert.match(combined.css, /\.lulu-popconfirm__actions/)
+assert.doesNotMatch(combined.css, /\.lulu-dropdown__menu\s*\{/)
 
 const resolver = await bundle('resolver')
 assert.match(resolver.js, /LuluButton/)
+assert.match(resolver.js, /LuluPopconfirm/)
 assert.match(resolver.js, /useMessage/)
 assert.match(resolver.css, /\.lulu-button\s*\{/)
 assert.match(resolver.css, /\.lulu-u-inline-flex\s*\{/)
+assert.match(resolver.css, /\.lulu-popover__panel\s*\{/)
+assert.match(resolver.css, /\.lulu-popconfirm__actions\s*\{/)
 
 console.info('单组件、组合组件与自动导入的消费打包验证通过。')

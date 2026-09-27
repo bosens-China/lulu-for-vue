@@ -39,6 +39,7 @@ duration 的单位为毫秒；close 事件由父组件移除消息。重新挂�
 | `type` | 消息类型。 | `'success' \| 'error' \| 'info' \| 'warning'` | `'info'` |
 | `duration` | 自动关闭的等待时间；非正数表示不自动关闭。 | `number` | `4000` |
 | `closable` | 是否显示关闭按钮。 | `boolean` | `true` |
+| `closeLabel` | 关闭按钮的无障碍名称。 | `string` | `'关闭消息'` |
 
 ### Events
 
@@ -53,10 +54,10 @@ duration 的单位为毫秒；close 事件由父组件移除消息。重新挂�
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
-| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#2a80eb` | `#38bdf8` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
-| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#a2a9b6` | `#a1a1aa` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |

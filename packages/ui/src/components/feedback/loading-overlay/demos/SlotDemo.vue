@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import LuluLoadingOverlay from '@lulu/vue/loading-overlay'
 import LuluButton from '@lulu/vue/button'
 
+import '@lulu/vue/loading/style.css'
 import '@lulu/vue/loading-overlay/style.css'
 import '@lulu/vue/button/style.css'
 const open = ref(false)
@@ -17,4 +18,3 @@ const open = ref(false)
     </div>
   </div>
 </template>
-

@@ -35,15 +35,19 @@ export function useFormValidation(
     const rules = toValue(options.rules ?? {})
     const nextErrors: FormValidationErrors = {}
 
-    for (const control of getValidatableControls(formElement)) {
-      const fieldName = control.name || control.id
+    for (const { controls, fieldName } of getValidationFields(formElement)) {
+      if (nextErrors[fieldName]) continue
 
-      if (!fieldName) {
-        continue
-      }
+      const control = controls.find(isCheckedControl) ?? controls[0]
 
-      const nativeError = getNativeError(control)
-      const customError = nativeError ? undefined : rules[fieldName]?.(control.value, control)
+      if (!control) continue
+
+      const nativeError = controls
+        .map(getNativeError)
+        .find((message): message is string => message !== undefined)
+      const customError = nativeError
+        ? undefined
+        : rules[fieldName]?.(getRuleValue(control), control)
       const message = nativeError ?? customError
 
       if (message) {
@@ -69,7 +73,32 @@ export function useFormValidation(
 }
 
 function getValidatableControls(form: HTMLFormElement): ValidatableFormControl[] {
-  return Array.from(form.elements).filter(isValidatableFormControl)
+  return Array.from(form.elements)
+    .filter(isValidatableFormControl)
+    .filter(control => control.willValidate)
+}
+
+function getValidationFields(form: HTMLFormElement) {
+  const fields = new Map<string, {
+    controls: ValidatableFormControl[]
+    fieldName: string
+  }>()
+
+  for (const [index, control] of getValidatableControls(form).entries()) {
+    const fieldName = control.name || control.id
+
+    if (!fieldName) continue
+
+    const key = isChoiceControl(control) && control.name
+      ? `${control.type}:${control.name}`
+      : `${index}:${fieldName}`
+    const field = fields.get(key)
+
+    if (field) field.controls.push(control)
+    else fields.set(key, { controls: [control], fieldName })
+  }
+
+  return fields.values()
 }
 
 function isValidatableFormControl(element: Element): element is ValidatableFormControl {
@@ -79,9 +108,22 @@ function isValidatableFormControl(element: Element): element is ValidatableFormC
 }
 
 function getNativeError(control: ValidatableFormControl) {
-  if (!control.willValidate || control.validity.valid) {
+  if (control.validity.valid) {
     return undefined
   }
 
   return control.validationMessage || 'Invalid value'
+}
+
+function isChoiceControl(control: ValidatableFormControl): control is HTMLInputElement {
+  return control instanceof HTMLInputElement
+    && (control.type === 'checkbox' || control.type === 'radio')
+}
+
+function isCheckedControl(control: ValidatableFormControl) {
+  return isChoiceControl(control) && control.checked
+}
+
+function getRuleValue(control: ValidatableFormControl) {
+  return isChoiceControl(control) && !control.checked ? '' : control.value
 }

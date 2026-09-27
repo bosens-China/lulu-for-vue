@@ -1,0 +1,5 @@
+.lulu-textarea {
+  min-block-size: calc(var(--lulu-control-height) * 2);
+  padding-block: var(--lulu-space-2);
+  resize: vertical;
+}

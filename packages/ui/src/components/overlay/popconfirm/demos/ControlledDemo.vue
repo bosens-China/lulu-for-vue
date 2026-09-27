@@ -4,6 +4,7 @@ import LuluPopconfirm from '@lulu/vue/popconfirm'
 import LuluCheckbox from '@lulu/vue/checkbox'
 import LuluButton from '@lulu/vue/button'
 
+import '@lulu/vue/popover/style.css'
 import '@lulu/vue/popconfirm/style.css'
 import '@lulu/vue/checkbox/style.css'
 import '@lulu/vue/button/style.css'
@@ -23,4 +24,3 @@ const result = ref('尚未操作')
     <output>{{ result }}；展开：{{ open }}</output>
   </div>
 </template>
-

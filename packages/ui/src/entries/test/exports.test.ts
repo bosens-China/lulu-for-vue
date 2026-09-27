@@ -22,7 +22,7 @@ describe('组件子路径导出', () => {
       import: './dist/entries/*.js',
       types: './dist/entries/*.d.ts',
     })
-    expect(packageJson.exports['./button/style.css']).toBe('./dist/styles/action.css')
+    expect(packageJson.exports['./button/style.css']).toBe('./dist/styles/components/button.css')
     expect(packageJson.exports['./style.css']).toBe('./dist/styles/style.css')
     expect(packageJson.exports['./base.css']).toBe('./dist/styles/base.css')
     expect(packageJson.exports['./tokens.css']).toBe('./dist/styles/tokens.css')
@@ -33,5 +33,16 @@ describe('组件子路径导出', () => {
 
     expect(subpaths).toContain('./*')
     expect(subpaths.some((subpath) => subpath.includes('components'))).toBe(false)
+  })
+
+  it('每个组件样式子路径指向独立产物', () => {
+    const componentStyles = Object.entries(packageJson.exports)
+      .filter(([subpath]) => subpath !== './style.css' && subpath.endsWith('/style.css'))
+
+    expect(componentStyles).toHaveLength(39)
+    expect(new Set(componentStyles.map(([, target]) => target)).size).toBe(39)
+    expect(componentStyles.every(([, target]) => (
+      typeof target === 'string' && target.startsWith('./dist/styles/components/')
+    ))).toBe(true)
   })
 })

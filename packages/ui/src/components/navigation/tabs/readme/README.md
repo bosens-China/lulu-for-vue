@@ -17,11 +17,15 @@ seo:
 `LuluTabs`、`LuluTab` 与 `LuluTabPanel` 需要组合使用。
 :::
 
+手动按需引入时分别导入 `tabs`、`tab` 与 `tab-panel` 的样式；自动导入 resolver 会随三个组件分别补齐。
+
 ## 数字值与禁用标签
 
 ::: demo numeric
 数字 value 需使用 :value 绑定，并与面板值类型保持一致；方向键跳过禁用标签。Tab 和 TabPanel 共用此组合示例。
 :::
+
+当受控值暂时不存在或指向禁用标签时，首个可用标签仍保留 Tab 停靠点，但组件不会擅自改写受控值。
 
 ## API
 
@@ -86,9 +90,9 @@ seo:
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
-| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#2a80eb` | `#38bdf8` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
-| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#a2a9b6` | `#a1a1aa` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |

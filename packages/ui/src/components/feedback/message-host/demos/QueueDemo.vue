@@ -4,6 +4,7 @@ import { useMessage, type MessageHandle } from '@lulu/vue/use-message'
 import LuluButton from '@lulu/vue/button'
 import LuluMessageHost from '@lulu/vue/message-host'
 import '@lulu/vue/button/style.css'
+import '@lulu/vue/message/style.css'
 import '@lulu/vue/message-host/style.css'
 
 // 注入必须发生在 Host 的后代中；小型演示沿用基础例子的内联子组件。

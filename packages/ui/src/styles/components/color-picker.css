@@ -1,0 +1,16 @@
+.lulu-color-picker {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+}
+
+.lulu-color-picker__color {
+  background: transparent;
+  border: 0;
+  block-size: var(--lulu-control-height);
+  cursor: pointer;
+  inline-size: var(--lulu-control-height);
+  padding: var(--lulu-space-1);
+}
+
+.lulu-color-picker__alpha { inline-size: 120px; }

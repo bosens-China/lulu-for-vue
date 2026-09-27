@@ -17,6 +17,8 @@ seo:
 通过 `v-model:open` 控制遮罩显示状态。
 :::
 
+手动按需引入时同时导入 `@lulu/vue/loading/style.css`；自动导入 resolver 会补齐该直接依赖。
+
 ## 自定义遮罩内容
 
 ::: demo slot
@@ -52,9 +54,9 @@ default 插槽定制遮罩内文案，message 仍提供加载指示器的可访�
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#2a80eb` | `#38bdf8` |
-| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#a2a9b6` | `#a1a1aa` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-loading-size` | 加载图标尺寸（size 属性会在组件上设定） | `20px` | `20px` |
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
 
-例如在局部容器的 `style` 中设置 `--lulu-color-primary: #2a80eb`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-primary: #1668c7`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

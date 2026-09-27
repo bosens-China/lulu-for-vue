@@ -92,7 +92,7 @@
 <script setup lang="ts">
 import { withBase } from '../siteUrl'
 const features = [
-  { mark: '38', title: '丰富的组件', description: '覆盖表单、反馈、导航与布局等常见产品场景。' },
+  { mark: '39', title: '丰富的组件', description: '覆盖表单、反馈、导航与布局等常见产品场景。' },
   { mark: 'TS', title: '类型友好', description: '基于 Vue 3 与 TypeScript，获得清晰、可靠的开发体验。' },
   { mark: 'SSG', title: '文档即内容', description: '组件文档静态生成，直达页面也能完整阅读与交互。' },
 ] as const

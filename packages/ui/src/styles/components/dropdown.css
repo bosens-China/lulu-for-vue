@@ -1,0 +1,22 @@
+.lulu-dropdown__menu {
+  display: grid;
+  gap: var(--lulu-space-1);
+}
+
+.lulu-dropdown__menu button {
+  background: transparent;
+  border: 0;
+  border-radius: var(--lulu-radius-sm);
+  color: inherit;
+  cursor: pointer;
+  padding: var(--lulu-space-2) var(--lulu-space-3);
+  text-align: start;
+}
+
+.lulu-dropdown__menu button:not(:disabled):hover,
+.lulu-dropdown__menu button:focus-visible {
+  background: var(--lulu-color-surface-hover);
+  outline: 0;
+}
+
+.lulu-dropdown__menu button:disabled { color: var(--lulu-color-text-muted); cursor: not-allowed; }

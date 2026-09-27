@@ -6,7 +6,7 @@
     "paths": {
       "@lulu/vue": ["../../packages/ui/src/index.ts"],
       "@lulu/vue/tokens.css": ["../../packages/ui/src/styles/tokens.css"],
-      "@lulu/vue/*/style.css": ["../../packages/ui/src/styles/index.css"],
+      "@lulu/vue/*/style.css": ["../../packages/ui/src/styles/components/*.css"],
       "@lulu/vue/*": ["../../packages/ui/src/entries/*.ts"]
     },
     "types": ["node", "vite/client"]

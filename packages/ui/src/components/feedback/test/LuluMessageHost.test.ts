@@ -58,6 +58,10 @@ afterEach(() => {
 describe('LuluMessageHost and useMessage', () => {
   it('provides typed message actions and removes a manually closed message', async () => {
     const wrapper = mount(LuluMessageHost, {
+      props: {
+        closeLabel: '关闭这条通知',
+        label: '操作通知',
+      },
       slots: {
         default: () => h(VariantConsumer),
       },
@@ -65,13 +69,14 @@ describe('LuluMessageHost and useMessage', () => {
 
     await wrapper.get('button').trigger('click')
 
+    expect(wrapper.get('section').attributes('aria-label')).toBe('操作通知')
     expect(wrapper.findAll('.lulu-message')).toHaveLength(4)
     expect(wrapper.get('.lulu-message--success').text()).toContain('Saved')
     expect(wrapper.get('.lulu-message--error').text()).toContain('Failed')
     expect(wrapper.get('.lulu-message--info').text()).toContain('Updated')
     expect(wrapper.get('.lulu-message--warning').text()).toContain('Check this')
 
-    await wrapper.get('.lulu-message--success [aria-label="Close message"]').trigger('click')
+    await wrapper.get('.lulu-message--success [aria-label="关闭这条通知"]').trigger('click')
 
     expect(wrapper.findAll('.lulu-message')).toHaveLength(3)
   })

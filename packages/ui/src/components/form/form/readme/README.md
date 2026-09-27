@@ -47,6 +47,27 @@ useFormValidation.reset() 触发表单 reset 并清除错误；reset 事件负�
 | --- | --- | --- |
 | `element` | 原生表单元素，供 `useFormValidation` 或浏览器 Form API 使用。 | `HTMLFormElement \| null` |
 
+### useFormValidation
+
+`useFormValidation(form, options?)` 汇总原生约束与同步业务规则。同名 `radio` 或 `checkbox` 只执行一次业务规则；规则接收已选控件的值和元素，未选择时值为 `''`。禁用、隐藏等 `willValidate` 为 `false` 的控件不会参与校验。
+
+#### 参数
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| `form` | 原生表单元素，支持普通值、Ref 或 getter。 | `MaybeRefOrGetter<HTMLFormElement \| null \| undefined>` | — |
+| `options.rules` | 以控件 `name`（无 `name` 时使用 `id`）为键的同步规则。 | `MaybeRefOrGetter<Record<string, FormValidationRule>>` | `{}` |
+
+`FormValidationRule` 的签名为 `(value, control) => string | undefined`。返回字符串表示校验失败，返回 `undefined` 表示通过。
+
+#### 返回值
+
+| 属性 | 说明 | 类型 |
+| --- | --- | --- |
+| `errors` | 只读错误记录，键与规则字段名一致。 | `Readonly<Ref<Record<string, string>>>` |
+| `validate` | 执行原生约束和业务规则，并返回是否通过。 | `() => boolean` |
+| `reset` | 调用原生 `form.reset()` 并清空错误。 | `() => void` |
+
 ## CSS Tokens
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。

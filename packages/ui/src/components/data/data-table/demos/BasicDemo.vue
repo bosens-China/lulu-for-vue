@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LuluDataTable, { type DataTableColumn } from '@lulu/vue/data-table'
+import '@lulu/vue/table/style.css'
 import '@lulu/vue/data-table/style.css'
 
 interface User {

@@ -1,0 +1,15 @@
+.lulu-date-range-picker {
+  align-items: center;
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+  inline-size: 100%;
+}
+
+.lulu-date-range-picker::before {
+  color: var(--lulu-color-text-muted);
+  content: '–';
+  order: 1;
+}
+
+.lulu-date-range-picker__start { order: 0; }
+.lulu-date-range-picker__end { order: 2; }

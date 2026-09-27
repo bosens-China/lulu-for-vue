@@ -10,6 +10,7 @@
       try {
         const mode = localStorage.getItem('lulu-theme-mode')
         if (mode === 'light' || mode === 'dark') document.documentElement.dataset.luluTheme = mode
+        else delete document.documentElement.dataset.luluTheme
       } catch {}
       document.documentElement.classList.toggle('dark', document.documentElement.dataset.luluTheme
         ? document.documentElement.dataset.luluTheme === 'dark'

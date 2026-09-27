@@ -74,7 +74,8 @@ async function confirm() {
     if (result !== false) finish(entry, true)
   } catch (cause: unknown) {
     if (active.value === entry) {
-      error.value = cause instanceof Error ? cause.message || '操作失败，请重试。' : '操作失败，请重试。'
+      const fallback = entry.options.errorText ?? '操作失败，请重试。'
+      error.value = cause instanceof Error ? cause.message || fallback : fallback
     }
   } finally {
     // 已销毁请求的迟到结果不能修改下一条弹窗。
@@ -94,6 +95,7 @@ provide(dialogKey, create)
     :open="true"
     :title="entry.options.title"
     :closable="!pending && (entry.options.closable ?? true)"
+    :close-label="entry.options.closeLabel ?? 'Close dialog'"
     :close-on-overlay="!pending && (entry.options.closeOnOverlay ?? false)"
     :close-on-escape="!pending && (entry.options.closeOnEscape ?? true)"
     :aria-busy="pending"
@@ -111,7 +113,7 @@ provide(dialogKey, create)
         {{ entry.options.cancelText ?? '取消' }}
       </button>
       <button type="button" :disabled="pending" @click="confirm">
-        {{ pending ? '处理中…' : entry.options.confirmText ?? '确定' }}
+        {{ pending ? entry.options.pendingText ?? '处理中…' : entry.options.confirmText ?? '确定' }}
       </button>
     </template>
   </LuluDialog>

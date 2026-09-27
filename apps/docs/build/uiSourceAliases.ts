@@ -6,7 +6,7 @@ const styleAliases = Object.entries(packageJson.exports)
   .filter(([subpath]) => subpath.endsWith('/style.css'))
   .map(([subpath, target]) => ({
     find: `@lulu/vue/${subpath.slice(2)}`,
-    replacement: resolve(sourceRoot, `styles/${String(target).split('/').at(-1)}`),
+    replacement: resolve(sourceRoot, `styles/components/${String(target).split('/').at(-1)}`),
   }))
 
 export const uiSourceAliases = [

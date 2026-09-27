@@ -24,10 +24,11 @@ describe('文档主题', () => {
 
     const wrapper = mount({
       setup: useTheme,
-      template: '<button @click="toggleTheme">{{ isDark }}</button>',
+      template: '<button @click="toggleTheme">{{ themeMode }}:{{ isDark }}</button>',
     })
 
     expect(document.documentElement.hasAttribute('data-lulu-theme')).toBe(false)
+    expect(wrapper.get('button').text()).toBe('system:false')
     onChange?.({ matches: true } as MediaQueryListEvent)
     expect(document.documentElement.classList.contains('dark')).toBe(true)
 
@@ -36,6 +37,16 @@ describe('文档主题', () => {
     expect(localStorage.getItem('lulu-theme-mode')).toBe('light')
     onChange?.({ matches: true } as MediaQueryListEvent)
     expect(document.documentElement.classList.contains('dark')).toBe(false)
+
+    await wrapper.get('button').trigger('click')
+    expect(document.documentElement.dataset.luluTheme).toBe('dark')
+    expect(localStorage.getItem('lulu-theme-mode')).toBe('dark')
+
+    await wrapper.get('button').trigger('click')
+    expect(document.documentElement.hasAttribute('data-lulu-theme')).toBe(false)
+    expect(localStorage.getItem('lulu-theme-mode')).toBe('system')
+    onChange?.({ matches: true } as MediaQueryListEvent)
+    expect(document.documentElement.classList.contains('dark')).toBe(true)
 
     wrapper.unmount()
     expect(removeEventListener).toHaveBeenCalledOnce()

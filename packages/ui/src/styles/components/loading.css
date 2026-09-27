@@ -1,0 +1,26 @@
+.lulu-loading {
+  align-items: center;
+  color: var(--lulu-color-text-muted);
+  display: inline-flex;
+  gap: var(--lulu-space-2);
+}
+
+.lulu-loading[data-block] { display: flex; justify-content: center; }
+.lulu-loading[data-size='sm'] { --lulu-loading-size: 14px; }
+.lulu-loading[data-size='md'] { --lulu-loading-size: 20px; }
+.lulu-loading[data-size='lg'] { --lulu-loading-size: 28px; }
+
+.lulu-loading__indicator {
+  animation: lulu-loading-spin 700ms linear infinite;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  color: var(--lulu-color-primary);
+  font-size: 0;
+  height: var(--lulu-loading-size, 20px);
+  width: var(--lulu-loading-size, 20px);
+}
+
+@keyframes lulu-loading-spin {
+  to { transform: rotate(1turn); }
+}

@@ -1,0 +1,4 @@
+.lulu-form {
+  display: grid;
+  gap: var(--lulu-space-4);
+}

@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { h, nextTick } from 'vue'
 import LuluDropdown from '../LuluDropdown.vue'
@@ -8,9 +8,57 @@ import LuluTooltip from '../LuluTooltip.vue'
 
 afterEach(() => {
   document.body.replaceChildren()
+  vi.restoreAllMocks()
 })
 
 describe('LuluPopover', () => {
+  it('立即卸载时不会在异步阶段重新注册全局监听', async () => {
+    const documentListener = vi.spyOn(document, 'addEventListener')
+    const windowListener = vi.spyOn(window, 'addEventListener')
+    const wrapper = mount(LuluPopover, {
+      attachTo: document.body,
+      props: { open: true },
+    })
+
+    wrapper.unmount()
+    await nextTick()
+
+    expect(documentListener.mock.calls.some(([type]) => type === 'pointerdown' || type === 'keydown')).toBe(false)
+    expect(windowListener.mock.calls.some(([type]) => type === 'resize' || type === 'scroll')).toBe(false)
+  })
+
+  it('保持内部面板 ID 与触发器关联，并允许 aria-label 覆盖名称', async () => {
+    const wrapper = mount(LuluPopover, {
+      attachTo: document.body,
+      attrs: { id: 'consumer-panel', 'aria-label': '筛选选项' },
+      props: { open: true },
+      slots: { trigger: '筛选' },
+    })
+    await nextTick()
+    const trigger = wrapper.get('.lulu-popover__trigger')
+    const dialog = document.body.querySelector<HTMLElement>('[role="dialog"]')
+
+    expect(dialog?.id).not.toBe('consumer-panel')
+    expect(trigger.attributes('aria-controls')).toBe(dialog?.id)
+    expect(dialog?.getAttribute('aria-label')).toBe('筛选选项')
+    expect(dialog?.hasAttribute('aria-labelledby')).toBe(false)
+    wrapper.unmount()
+  })
+
+  it('默认使用触发按钮作为浮层名称', async () => {
+    const wrapper = mount(LuluPopover, {
+      attachTo: document.body,
+      props: { open: true },
+      slots: { trigger: '筛选' },
+    })
+    await nextTick()
+    const trigger = wrapper.get('.lulu-popover__trigger')
+    const dialog = document.body.querySelector<HTMLElement>('[role="dialog"]')
+
+    expect(dialog?.getAttribute('aria-labelledby')).toBe(trigger.attributes('id'))
+    wrapper.unmount()
+  })
+
   it('外部受控关闭时从浮层操作恢复到触发器', async () => {
     const wrapper = mount(LuluPopover, {
       attachTo: document.body,
@@ -78,6 +126,53 @@ describe('LuluPopover', () => {
 })
 
 describe('LuluTooltip', () => {
+  it('默认 click 触发器使用原生按钮并可打开提示', async () => {
+    const wrapper = mount(LuluTooltip, {
+      attachTo: document.body,
+      props: { trigger: 'click' },
+      slots: { default: '提示内容' },
+    })
+    const trigger = wrapper.get('.lulu-tooltip__trigger button')
+
+    expect(trigger.element).toBeInstanceOf(HTMLButtonElement)
+    expect(trigger.attributes('type')).toBe('button')
+    await trigger.trigger('click')
+    expect(document.body.querySelector('[role="tooltip"]')?.textContent).toBe('提示内容')
+    wrapper.unmount()
+  })
+
+  it('外部 ID 不会破坏 aria-describedby 关联', async () => {
+    const wrapper = mount(LuluTooltip, {
+      attachTo: document.body,
+      attrs: { id: 'consumer-tooltip' },
+      props: { open: true, trigger: 'manual' },
+      slots: { default: '提示内容', trigger: '帮助' },
+    })
+    await nextTick()
+    const tooltip = document.body.querySelector<HTMLElement>('[role="tooltip"]')
+
+    expect(tooltip?.id).not.toBe('consumer-tooltip')
+    expect(wrapper.get('.lulu-tooltip__trigger').attributes('aria-describedby')).toBe(tooltip?.id)
+    wrapper.unmount()
+  })
+
+  it('打开后禁用会立即隐藏，并请求同步受控状态', async () => {
+    const wrapper = mount(LuluTooltip, {
+      attachTo: document.body,
+      props: { open: true, trigger: 'manual' },
+      slots: { default: '提示内容' },
+    })
+    await nextTick()
+    expect(document.body.querySelector('[role="tooltip"]')).not.toBeNull()
+
+    await wrapper.setProps({ disabled: true })
+
+    expect(document.body.querySelector('[role="tooltip"]')).toBeNull()
+    expect(wrapper.emitted('update:open')).toEqual([[false]])
+    expect(wrapper.emitted('close')).toEqual([[]])
+    wrapper.unmount()
+  })
+
   it('交互式触发器只保留一个 Tab 停靠点并接收描述关联', async () => {
     const wrapper = mount(LuluTooltip, {
       attachTo: document.body,
@@ -127,6 +222,7 @@ describe('LuluDropdown', () => {
     await wrapper.get('.lulu-dropdown__trigger').trigger('click')
     const menu = document.body.querySelector('[role="menu"]')
     expect(menu?.textContent).toContain('Disabled')
+    expect(menu?.getAttribute('aria-labelledby')).toBe(wrapper.get('.lulu-dropdown__trigger').attributes('id'))
 
     ;(menu?.querySelector('[role="menuitem"]') as HTMLButtonElement).click()
     await nextTick()
@@ -134,6 +230,23 @@ describe('LuluDropdown', () => {
     expect(wrapper.emitted('select')).toEqual([[items[0]]])
     expect(document.body.querySelector('[role="menu"]')).toBeNull()
     expect(document.activeElement).toBe(wrapper.get('.lulu-dropdown__trigger').element)
+  })
+
+  it('允许 aria-label 命名菜单且保持内部 ID 关联', async () => {
+    const wrapper = mount(LuluDropdown, {
+      attachTo: document.body,
+      attrs: { id: 'consumer-menu', 'aria-label': '导出操作' },
+      props: { items: [{ label: 'PDF', value: 'pdf' }] },
+    })
+
+    await wrapper.get('.lulu-dropdown__trigger').trigger('click')
+    const menu = document.body.querySelector<HTMLElement>('[role="menu"]')
+
+    expect(menu?.id).not.toBe('consumer-menu')
+    expect(menu?.getAttribute('aria-label')).toBe('导出操作')
+    expect(menu?.hasAttribute('aria-labelledby')).toBe(false)
+    expect(wrapper.get('.lulu-dropdown__trigger').attributes('aria-controls')).toBe(menu?.id)
+    wrapper.unmount()
   })
 
   it('按 Escape 关闭菜单后将焦点交还触发按钮', async () => {
@@ -161,6 +274,8 @@ describe('LuluPopconfirm', () => {
     })
     await wrapper.get('.lulu-popover__trigger').trigger('click')
     expect(document.activeElement?.textContent).toBe('Cancel')
+    expect(document.body.querySelector('[role="dialog"]')?.getAttribute('aria-labelledby'))
+      .toBe(wrapper.get('.lulu-popover__trigger').attributes('id'))
 
     const confirm = [...document.body.querySelectorAll('button')].find(button => button.textContent === 'Confirm')
     confirm?.click()

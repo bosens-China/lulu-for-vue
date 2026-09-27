@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LuluFormField from '@lulu/vue/form-field'
 import LuluInput from '@lulu/vue/input'
+import '@lulu/vue/field-error/style.css'
 import '@lulu/vue/form-field/style.css'
 import '@lulu/vue/input/style.css'
 </script>

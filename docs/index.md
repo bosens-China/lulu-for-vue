@@ -10,4 +10,4 @@
 
 - [Edge 基准的 Vue 组件库重构](./work/edge-vue-refactor/PRD.md)
 - [Edge 组件盘点与迁移核对](./work/edge-vue-refactor/AUDIT.md)
-- [37 个组件同类库对照](./work/edge-vue-refactor/COMPONENT-BENCHMARK.md)
+- [39 个组件同类库对照](./work/edge-vue-refactor/COMPONENT-BENCHMARK.md)

@@ -13,10 +13,14 @@ export type DataTableRowKey<Row extends TableRow> =
 
 export interface LuluDataTableProps<Row extends TableRow> {
   columns: readonly DataTableColumn<Row>[]
+  emptyText?: string
   loading?: boolean
+  loadingText?: string
   rowKey: DataTableRowKey<Row>
+  rowSelectionLabel?: (row: Row, rowIndex: number) => string
   rows: readonly Row[]
   selectable?: boolean
+  selectionLabel?: string
 }
 
 export interface DataTableCellSlot<Row extends TableRow> {

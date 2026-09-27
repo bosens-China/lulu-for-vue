@@ -107,4 +107,20 @@ describe('LuluPagination', () => {
 
     expect(wrapper.emitted('update:modelValue')).toEqual([[2]])
   })
+
+  it('normalizes an invalid initial value once', async () => {
+    const wrapper = mount(LuluPagination, {
+      props: {
+        modelValue: 0,
+        total: 100,
+        pageSize: 20,
+      },
+    })
+
+    expect(wrapper.emitted('update:modelValue')).toEqual([[1]])
+
+    await wrapper.setProps({ modelValue: 1 })
+
+    expect(wrapper.emitted('update:modelValue')).toEqual([[1]])
+  })
 })

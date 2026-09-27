@@ -26,7 +26,7 @@ const isCollapsed = shallowRef(false)
       <!-- 菜单分类标题 -->
       <div v-if="!isCollapsed" class="px-3 mb-2 flex items-center justify-between">
         <span class="text-xs font-bold tracking-wider text-[var(--lulu-color-text-muted)] uppercase">
-          UI 组件列表
+          UI 组件文档
         </span>
         <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[var(--lulu-color-surface-subtle)] text-[var(--lulu-color-text-muted)] border border-[var(--lulu-color-border-subtle)]">
           {{ orderedDocsNavigationItems.length }}

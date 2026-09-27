@@ -47,11 +47,11 @@ seo:
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
-| `--lulu-color-danger` | 危险或错误状态 | `#eb4646` | `#f87171` |
+| `--lulu-color-danger` | 危险或错误状态 | `#c53030` | `#f87171` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
-| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#a2a9b6` | `#a1a1aa` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |

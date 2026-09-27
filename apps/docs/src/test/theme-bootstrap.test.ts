@@ -7,7 +7,7 @@ const html = readFileSync(resolve(import.meta.dirname, '../../index.html'), 'utf
 const script = html.match(/<script>([\s\S]*?)<\/script>/)?.[1] ?? ''
 
 describe('首屏主题初始化', () => {
-  it.each(['dark', 'light', 'blocked'])('恢复 %s 偏好并在模块前禁用 Prism 自动扫描', (mode) => {
+  it.each(['dark', 'light', 'system', 'blocked'])('恢复 %s 偏好并在模块前禁用 Prism 自动扫描', (mode) => {
     const toggle = vi.fn()
     const root = { dataset: {} as Record<string, string>, classList: { toggle } }
     const browser: { Prism?: { manual: boolean } } = {}
@@ -22,7 +22,7 @@ describe('首屏主题初始化', () => {
     })
     expect(browser.Prism?.manual).toBe(true)
     expect(toggle).toHaveBeenCalledWith('dark', mode !== 'light')
-    expect(root.dataset.luluTheme).toBe(mode === 'blocked' ? undefined : mode)
+    expect(root.dataset.luluTheme).toBe(mode === 'light' || mode === 'dark' ? mode : undefined)
   })
 
   it('在首屏绘制前恢复并校验自定义主色', () => {

@@ -41,11 +41,12 @@ async function remove() {
 
 ## 宿主与按需引入
 
-在应用入口引入一次 `@lulu/vue/base.css`，宿主样式引入 `@lulu/vue/dialog-host/style.css`。JavaScript 不自动注入样式。
+在应用入口引入一次 `@lulu/vue/base.css`，并依次引入 `@lulu/vue/dialog/style.css` 与 `@lulu/vue/dialog-host/style.css`。自动导入 resolver 会补齐 Dialog 样式；JavaScript 不自动注入样式。
 
 ```vue
 <script setup lang="ts">
 import LuluDialogHost from '@lulu/vue/dialog-host'
+import '@lulu/vue/dialog/style.css'
 import '@lulu/vue/dialog-host/style.css'
 import AppContent from './AppContent.vue'
 </script>
@@ -108,6 +109,7 @@ await handle.closed
 | `title` | 必填，非空的可访问标题。 | `string` | — |
 | `content` | 必填，纯文本或响应式渲染函数。 | `string \| (() => VNodeChild)` | — |
 | `closable` | 显示关闭按钮。 | `boolean` | `true` |
+| `closeLabel` | 关闭按钮的无障碍标签。 | `string` | `Close dialog` |
 | `closeOnOverlay` | 点击遮罩关闭。 | `boolean` | `false` |
 | `closeOnEscape` | Escape 关闭。 | `boolean` | `true` |
 
@@ -119,6 +121,8 @@ await handle.closed
 | --- | --- | --- | --- |
 | `confirmText` | 确认按钮文案。 | `string` | `确定` |
 | `cancelText` | 取消按钮文案，仅 confirm 使用。 | `string` | `取消` |
+| `pendingText` | 等待异步确认时的按钮文案。 | `string` | `处理中…` |
+| `errorText` | 非 Error 异常或空错误消息的回退文案。 | `string` | `操作失败，请重试。` |
 | `onConfirm` | 异步业务操作或同步校验。 | `() => void \| false \| Promise<void \| false>` | — |
 
 ### DialogHandle

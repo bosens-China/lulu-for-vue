@@ -1,0 +1,3 @@
+.lulu-form-field { display: grid; gap: var(--lulu-space-1); }
+.lulu-form-field__label { color: var(--lulu-color-text); font-weight: 600; }
+.lulu-form-field__control { min-inline-size: 0; }

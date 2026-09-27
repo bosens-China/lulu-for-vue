@@ -2,12 +2,12 @@
 [data-lulu-theme='light'] {
   color-scheme: light;
   /* 基础调色板 (Light 模式) */
-  --lulu-color-primary: #2a80eb;
+  --lulu-color-primary: #1668c7;
   --lulu-color-primary-hover: #1c6ed4;
   --lulu-color-primary-solid: #0057c3;
   --lulu-color-success: #1cad70;
   --lulu-color-warning: #f59b00;
-  --lulu-color-danger: #eb4646;
+  --lulu-color-danger: #c53030;
   --lulu-color-on-status: #111827;
   --lulu-color-neutral-solid: #4c5161;
   --lulu-color-on-neutral: #ffffff;
@@ -17,7 +17,7 @@
   --lulu-color-bg-container: #ffffff;
   --lulu-color-text: #4c5161;
   --lulu-color-text-heading: #2f3442;
-  --lulu-color-text-muted: #a2a9b6;
+  --lulu-color-text-muted: #667085;
   --lulu-color-text-inverse: #ffffff;
   --lulu-color-surface: #ffffff;
   --lulu-color-surface-subtle: #f7f9fa;

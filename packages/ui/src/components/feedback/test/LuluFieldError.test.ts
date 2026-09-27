@@ -16,4 +16,14 @@ describe('LuluFieldError', () => {
 
     expect(wrapper.find('[role="alert"]').exists()).toBe(false)
   })
+
+  it('renders the default slot before the message fallback', () => {
+    const wrapper = mount(LuluFieldError, {
+      props: { message: 'Fallback message' },
+      slots: { default: '<strong>Custom error</strong>' },
+    })
+
+    expect(wrapper.get('[role="alert"]').text()).toBe('Custom error')
+    expect(wrapper.find('strong').exists()).toBe(true)
+  })
 })

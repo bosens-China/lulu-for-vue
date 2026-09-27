@@ -37,6 +37,7 @@ async function confirmAsync() {
   let attempts = 0
   const confirmed = await dialog.confirm({
     title: '异步保存', content: '第一次保存模拟失败，再点一次确定即可成功。',
+    pendingText: '保存中…',
     async onConfirm() {
       await new Promise((resolve) => setTimeout(resolve, 700))
       if (attempts++ === 0) {

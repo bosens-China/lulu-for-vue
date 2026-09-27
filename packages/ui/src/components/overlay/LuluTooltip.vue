@@ -4,7 +4,7 @@ import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
 
 defineOptions({ inheritAttrs: false })
 
-type TooltipTrigger = 'click' | 'focus' | 'hover' | 'manual'
+export type TooltipTrigger = 'click' | 'focus' | 'hover' | 'manual'
 
 interface Props {
   disabled?: boolean
@@ -25,6 +25,7 @@ const emit = defineEmits<{
   open: []
 }>()
 const open = defineModel<boolean>('open', { default: false })
+const visible = computed(() => open.value && !props.disabled)
 defineSlots<{
   default?(): unknown
   trigger?(props: { triggerProps: { 'aria-describedby': string | undefined } }): unknown
@@ -40,17 +41,25 @@ const { floatingStyle, isMounted, teleportTarget } = useFloatingLayer({
   onRequestClose: () => {
     open.value = false
   },
-  open,
+  open: visible,
   panel,
   placement: computed(() => props.placement),
   trigger: triggerElement,
 })
 
-watch(open, (value, previousValue) => {
+watch(visible, (value, previousValue) => {
   if (value === previousValue) return
   if (value) emit('open')
   else emit('close')
 })
+
+watch(
+  () => props.disabled,
+  (disabled) => {
+    if (disabled && open.value) open.value = false
+  },
+  { flush: 'sync' },
+)
 
 function showsOn(type: TooltipTrigger) {
   if (props.disabled || props.trigger === 'manual') return false
@@ -75,22 +84,23 @@ function toggle() {
   <span
     ref="triggerElement"
     class="lulu-tooltip__trigger"
-    :aria-describedby="open ? panelId : undefined"
-    :tabindex="!$slots.trigger && (props.trigger === 'focus' || props.trigger === 'hover') ? 0 : undefined"
+    :aria-describedby="visible ? panelId : undefined"
     @click="toggle"
     @focusin="show('focus')"
     @focusout="hide('focus')"
     @mouseenter="show('hover')"
     @mouseleave="hide('hover')"
   >
-    <slot name="trigger" :trigger-props="{ 'aria-describedby': open ? panelId : undefined }">Tooltip trigger</slot>
+    <slot name="trigger" :trigger-props="{ 'aria-describedby': visible ? panelId : undefined }">
+      <button type="button" :aria-describedby="visible ? panelId : undefined">Tooltip trigger</button>
+    </slot>
   </span>
   <Teleport v-if="isMounted" :to="teleportTarget">
     <div
-      v-if="open"
+      v-if="visible"
+      v-bind="$attrs"
       :id="panelId"
       ref="panel"
-      v-bind="$attrs"
       class="lulu-tooltip"
       role="tooltip"
       :data-placement="props.placement"

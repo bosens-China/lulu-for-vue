@@ -1,43 +1,25 @@
 <script lang="ts">
-export type TableKey = string | number
-
-export interface DataTableColumn<Row extends object> {
-  align?: 'start' | 'center' | 'end'
-  key: keyof Row
-  label: string
-}
-
-export type DataTableRowKey<Row extends object> = keyof Row | ((row: Row) => TableKey)
-
-export interface LuluDataTableRuntimeProps<Row extends object> {
-  columns: readonly DataTableColumn<Row>[]
-  loading?: boolean
-  loadingText?: string
-  emptyText?: string
-  rowKey: DataTableRowKey<Row>
-  rowSelectionLabel?: (row: Row, rowIndex: number) => string
-  rows: readonly Row[]
-  selectable?: boolean
-  selectionLabel?: string
-}
-
-export interface DataTableCellSlot<Row extends object> {
-  column: DataTableColumn<Row>
-  row: Row
-  rowIndex: number
-  value: unknown
-}
-
-export interface DataTableSelection<Row extends object> {
-  key: TableKey
-  row: Row
-  selected: boolean
-}
+export type {
+  DataTableCellSlot,
+  DataTableColumn,
+  DataTableRowKey,
+  DataTableSelection,
+  LuluDataTableProps,
+  TableKey,
+  TableRow,
+} from './types'
 </script>
 
 <script setup lang="ts" generic="Row extends object">
 import { computed } from 'vue'
 import LuluTable from './LuluTable.vue'
+import type {
+  DataTableCellSlot,
+  DataTableColumn,
+  DataTableSelection,
+  LuluDataTableProps,
+  TableKey,
+} from './types'
 
 interface TableRowData {
   key: TableKey
@@ -45,7 +27,7 @@ interface TableRowData {
   rowIndex: number
 }
 
-const props = withDefaults(defineProps<LuluDataTableRuntimeProps<Row>>(), {
+const props = withDefaults(defineProps<LuluDataTableProps<Row>>(), {
   loading: false,
   selectable: false,
 })

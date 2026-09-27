@@ -17,6 +17,8 @@ seo:
 输入内容后可用键盘或鼠标选择候选项。选中后输入框与 `v-model` 会显示同一值；父组件修改该值时，输入框也会更新。
 :::
 
+按 `Tab` 将焦点移出输入框时，候选面板会关闭。
+
 ## 筛选、受控展开与候选项
 
 ::: demo advanced
@@ -34,6 +36,7 @@ seo:
 | `items` | 候选项数组。 | `readonly AutocompleteItem[]` | `[]` |
 | `filter` | 用于过滤候选项的函数。 | `AutocompleteFilter` | — |
 | `loading` | 是否显示加载状态。 | `boolean` | `false` |
+| `loadingText` | 加载状态文案。 | `string` | `'Loading'` |
 | `maxResults` | 最多展示的候选项数量。 | `number` | `8` |
 | `placement` | 候选面板相对输入框的位置。 | `FloatingPlacement` | `'bottom-start'` |
 | `offset` | 候选面板与输入框的间距。 | `number` | `4` |
@@ -65,7 +68,7 @@ seo:
 | `--lulu-color-surface-selected` | 选中背景 | `#e0f0ff` | `rgb(56 189 248 / 0.16)` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
-| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#a2a9b6` | `#a1a1aa` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |

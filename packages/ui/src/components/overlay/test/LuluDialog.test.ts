@@ -84,6 +84,19 @@ describe('LuluDialog', () => {
     expect(wrapper.emitted('close')).toEqual([['close-button']])
   })
 
+  it('支持定制无标题对话框和关闭按钮的辅助名称', () => {
+    const wrapper = mount(LuluDialog, {
+      props: {
+        ariaLabel: '图片预览',
+        closeLabel: '关闭预览',
+        open: true,
+      },
+    })
+
+    expect(wrapper.get('dialog').attributes('aria-label')).toBe('图片预览')
+    expect(wrapper.get('.lulu-dialog__close').attributes('aria-label')).toBe('关闭预览')
+  })
+
   it('only closes from an overlay click when enabled', async () => {
     const enabled = mount(LuluDialog, {
       props: {

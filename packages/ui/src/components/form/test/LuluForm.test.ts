@@ -117,4 +117,60 @@ describe('useFormValidation', () => {
     expect(email.value).toBe('default@example.com')
     expect(errors.value).toEqual({})
   })
+
+  it('skips non-validatable controls and validates choice groups once', () => {
+    const form = document.createElement('form')
+    const firstRadio = document.createElement('input')
+    const secondRadio = document.createElement('input')
+    const firstCheckbox = document.createElement('input')
+    const secondCheckbox = document.createElement('input')
+    const hidden = document.createElement('input')
+    const disabled = document.createElement('input')
+    const radioRule = vi.fn((value: string) => value ? undefined : '请选择角色')
+    const checkboxRule = vi.fn((value: string) => value ? undefined : '请选择通知方式')
+    const hiddenRule = vi.fn(() => '不应校验隐藏控件')
+    const disabledRule = vi.fn(() => '不应校验禁用控件')
+
+    for (const [control, type, name, value] of [
+      [firstRadio, 'radio', 'role', 'reader'],
+      [secondRadio, 'radio', 'role', 'editor'],
+      [firstCheckbox, 'checkbox', 'channel', 'email'],
+      [secondCheckbox, 'checkbox', 'channel', 'sms'],
+      [hidden, 'hidden', 'hidden', 'secret'],
+    ] as const) {
+      control.type = type
+      control.name = name
+      control.value = value
+    }
+    disabled.name = 'disabled'
+    disabled.disabled = true
+    form.append(firstRadio, secondRadio, firstCheckbox, secondCheckbox, hidden, disabled)
+
+    const { errors, validate } = useFormValidation(form, {
+      rules: {
+        channel: checkboxRule,
+        disabled: disabledRule,
+        hidden: hiddenRule,
+        role: radioRule,
+      },
+    })
+
+    expect(validate()).toBe(false)
+    expect(errors.value).toEqual({
+      channel: '请选择通知方式',
+      role: '请选择角色',
+    })
+    expect(radioRule).toHaveBeenCalledOnce()
+    expect(checkboxRule).toHaveBeenCalledOnce()
+    expect(hiddenRule).not.toHaveBeenCalled()
+    expect(disabledRule).not.toHaveBeenCalled()
+
+    secondRadio.checked = true
+    secondCheckbox.checked = true
+
+    expect(validate()).toBe(true)
+    expect(errors.value).toEqual({})
+    expect(radioRule).toHaveBeenLastCalledWith('editor', secondRadio)
+    expect(checkboxRule).toHaveBeenLastCalledWith('sms', secondCheckbox)
+  })
 })

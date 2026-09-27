@@ -1,0 +1,23 @@
+.lulu-popconfirm__message { margin: 0 0 var(--lulu-space-3); }
+
+.lulu-popconfirm__actions {
+  display: flex;
+  gap: var(--lulu-space-2);
+  justify-content: end;
+}
+
+.lulu-popconfirm__actions button {
+  background: var(--lulu-color-surface);
+  border: 1px solid var(--lulu-color-border);
+  border-radius: var(--lulu-radius);
+  color: var(--lulu-color-text);
+  cursor: pointer;
+  min-block-size: var(--lulu-control-height-sm);
+  padding-inline: var(--lulu-space-3);
+}
+
+.lulu-popconfirm__actions button:last-child {
+  background: var(--lulu-color-primary-solid);
+  border-color: var(--lulu-color-primary-solid);
+  color: var(--lulu-color-text-inverse);
+}

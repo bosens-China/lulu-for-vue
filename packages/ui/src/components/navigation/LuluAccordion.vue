@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-interface LuluAccordionItem {
+export interface LuluAccordionItem {
   value: string
   title: string
   content?: string

@@ -64,7 +64,7 @@ function moveFocus(event: KeyboardEvent) {
     :aria-disabled="props.disabled || undefined"
     :aria-selected="isActive"
     :disabled="props.disabled"
-    :tabindex="isActive && !props.disabled ? 0 : -1"
+    :tabindex="context.isTabbable(props.value, props.disabled) ? 0 : -1"
     @click="select"
     @keydown="moveFocus"
   >

@@ -10,7 +10,7 @@ interface PrimaryColor {
 }
 
 const storageKey = 'lulu-docs-primary-v1'
-const defaultColor = '#2a80eb'
+const defaultColor = '#1668c7'
 const color = ref(defaultColor)
 const storageStatus = ref('')
 

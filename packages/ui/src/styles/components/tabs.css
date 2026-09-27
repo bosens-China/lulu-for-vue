@@ -1,0 +1,8 @@
+.lulu-tabs { color: var(--lulu-color-text); }
+
+.lulu-tabs__list {
+  border-bottom: 1px solid var(--lulu-color-border);
+  display: flex;
+  gap: var(--lulu-space-1);
+  overflow-x: auto;
+}

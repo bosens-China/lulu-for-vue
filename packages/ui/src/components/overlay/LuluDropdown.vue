@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useId, watch } from 'vue'
+import { computed, nextTick, ref, useAttrs, useId, watch } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
+
+defineOptions({ inheritAttrs: false })
 
 export interface DropdownItem {
   disabled?: boolean
@@ -30,9 +32,11 @@ const emit = defineEmits<{
   select: [item: DropdownItem]
 }>()
 const open = defineModel<boolean>('open', { default: false })
+const attrs = useAttrs()
 const trigger = ref<HTMLElement | null>(null)
 const panel = ref<HTMLElement | null>(null)
 const panelId = `lulu-dropdown-${useId()}`
+const triggerId = `${panelId}-trigger`
 
 const { floatingStyle, isMounted, teleportTarget } = useFloatingLayer({
   closeOnEscape: computed(() => true),
@@ -112,11 +116,17 @@ function handleTriggerKeydown(event: KeyboardEvent) {
     void show(true)
   }
 }
+
+function getPanelLabelledBy() {
+  if (attrs['aria-label'] != null) return undefined
+  return typeof attrs['aria-labelledby'] === 'string' ? attrs['aria-labelledby'] : triggerId
+}
 </script>
 
 <template>
   <span class="lulu-dropdown">
     <button
+      :id="triggerId"
       ref="trigger"
       type="button"
       class="lulu-dropdown__trigger"
@@ -132,10 +142,12 @@ function handleTriggerKeydown(event: KeyboardEvent) {
     <Teleport v-if="isMounted" :to="teleportTarget">
       <div
         v-if="open"
+        v-bind="$attrs"
         :id="panelId"
         ref="panel"
         class="lulu-floating-panel lulu-dropdown__menu"
         role="menu"
+        :aria-labelledby="getPanelLabelledBy()"
         :data-placement="props.placement"
         :style="floatingStyle"
         @keydown="moveFocus"

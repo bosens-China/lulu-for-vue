@@ -4,6 +4,7 @@ import { useMessage } from '@lulu/vue'
 import LuluButton from '@lulu/vue/button'
 import LuluMessageHost from '@lulu/vue/message-host'
 import '@lulu/vue/button/style.css'
+import '@lulu/vue/message/style.css'
 import '@lulu/vue/message-host/style.css'
 
 const MessageAction = defineComponent({

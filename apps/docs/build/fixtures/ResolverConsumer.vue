@@ -6,4 +6,7 @@ const message = useMessage()
 
 <template>
   <LuluButton @click="message.success('done')">Auto import</LuluButton>
+  <LuluPopconfirm>
+    <template #trigger>Delete</template>
+  </LuluPopconfirm>
 </template>
