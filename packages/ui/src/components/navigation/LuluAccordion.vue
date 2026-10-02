@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
+export type AccordionValue = string | number
+
 export interface LuluAccordionItem {
-  value: string
+  value: AccordionValue
   title: string
   content?: string
 }
@@ -12,19 +14,19 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-const modelValue = defineModel<string | string[]>({ required: true })
+const modelValue = defineModel<AccordionValue | AccordionValue[] | null>({ required: true })
 
 const openValues = computed(() => {
   const value = modelValue.value
 
-  return Array.isArray(value) ? value : value ? [value] : []
+  return Array.isArray(value) ? value : value === null ? [] : [value]
 })
 
-function isOpen(value: string) {
+function isOpen(value: AccordionValue) {
   return openValues.value.includes(value)
 }
 
-function toggleItem(value: string) {
+function toggleItem(value: AccordionValue) {
   const currentValue = modelValue.value
 
   if (Array.isArray(currentValue)) {
@@ -36,7 +38,7 @@ function toggleItem(value: string) {
     return
   }
 
-  modelValue.value = currentValue === value ? '' : value
+  modelValue.value = currentValue === value ? null : value
 }
 </script>
 

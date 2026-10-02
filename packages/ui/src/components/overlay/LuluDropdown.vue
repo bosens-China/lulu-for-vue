@@ -137,7 +137,7 @@ function getPanelLabelledBy() {
       @click="toggle"
       @keydown="handleTriggerKeydown"
     >
-      <slot name="trigger">Toggle menu</slot>
+      <slot name="trigger">切换菜单</slot>
     </button>
     <Teleport v-if="isMounted" :to="teleportTarget">
       <div

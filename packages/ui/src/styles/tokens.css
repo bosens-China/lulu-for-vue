@@ -3,8 +3,7 @@
   color-scheme: light;
   /* 基础调色板 (Light 模式) */
   --lulu-color-primary: #1668c7;
-  --lulu-color-primary-hover: #1c6ed4;
-  --lulu-color-primary-solid: #0057c3;
+  --lulu-color-primary-solid: var(--lulu-color-primary);
   --lulu-color-success: #1cad70;
   --lulu-color-warning: #f59b00;
   --lulu-color-danger: #c53030;
@@ -28,7 +27,6 @@
   --lulu-color-border: #d0d0d5;
   --lulu-color-border-strong: #ababaf;
   --lulu-color-border-subtle: #ededef;
-  --lulu-color-disabled: #ccd0d7;
 
   /* 代码块与 demo 卡片 */
   --lulu-color-code-bg: #f1f5f9;
@@ -55,13 +53,11 @@
   --lulu-space-4: 16px;
 
   /* 阴影与过渡 */
-  --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --lulu-shadow-focus: 0 0 0 3px rgb(42 128 235 / 24%);
   --lulu-shadow-overlay: 0 8px 24px rgb(15 23 42 / 16%);
   --lulu-transition-duration: 160ms;
   --lulu-transition-easing: ease;
   --lulu-z-index-popup: 1000;
-  --lulu-z-index-dialog: 1100;
   --lulu-z-index-message: 1200;
 }
 
@@ -69,8 +65,7 @@
 [data-lulu-theme='dark'] {
   color-scheme: dark;
   --lulu-color-primary: #38bdf8;
-  --lulu-color-primary-hover: #60a5fa;
-  --lulu-color-primary-solid: #38bdf8;
+  --lulu-color-primary-solid: var(--lulu-color-primary);
   --lulu-color-success: #34d399;
   --lulu-color-warning: #fbbf24;
   --lulu-color-danger: #f87171;
@@ -93,13 +88,11 @@
   --lulu-color-border: #3f3f46;
   --lulu-color-border-strong: #52525b;
   --lulu-color-border-subtle: #27272a;
-  --lulu-color-disabled: #3f3f46;
 
   --lulu-color-code-bg: #0d0d10;
   --lulu-color-card-bg: #121215;
   --lulu-color-overlay: rgb(0 0 0 / 75%);
   --lulu-color-loading-overlay: rgb(9 9 11 / 80%);
-  --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.6);
   --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
   --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);
 }
@@ -108,8 +101,7 @@
   :root:where(:not([data-lulu-theme])) {
     color-scheme: dark;
     --lulu-color-primary: #38bdf8;
-    --lulu-color-primary-hover: #60a5fa;
-    --lulu-color-primary-solid: #38bdf8;
+    --lulu-color-primary-solid: var(--lulu-color-primary);
     --lulu-color-success: #34d399;
     --lulu-color-warning: #fbbf24;
     --lulu-color-danger: #f87171;
@@ -129,12 +121,10 @@
     --lulu-color-border: #3f3f46;
     --lulu-color-border-strong: #52525b;
     --lulu-color-border-subtle: #27272a;
-    --lulu-color-disabled: #3f3f46;
     --lulu-color-code-bg: #0d0d10;
     --lulu-color-card-bg: #121215;
     --lulu-color-overlay: rgb(0 0 0 / 75%);
     --lulu-color-loading-overlay: rgb(9 9 11 / 80%);
-    --lulu-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.6);
     --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
     --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);
   }

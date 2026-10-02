@@ -19,11 +19,11 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
-  endLabel: 'Maximum value',
+  endLabel: '最大值',
   invalid: false,
   max: 100,
   min: 0,
-  startLabel: 'Minimum value',
+  startLabel: '最小值',
   step: 1,
 })
 

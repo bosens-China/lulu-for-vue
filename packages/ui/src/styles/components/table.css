@@ -1,9 +1,20 @@
+.lulu-table-scroll {
+  max-inline-size: 100%;
+  overflow-x: auto;
+}
+
+.lulu-table-scroll:focus-visible {
+  outline: 2px solid var(--lulu-color-primary);
+  outline-offset: 2px;
+}
+
 .lulu-table {
   border: 1px solid var(--lulu-color-border-subtle);
   border-collapse: collapse;
   border-radius: var(--lulu-radius);
   color: var(--lulu-color-text);
-  inline-size: 100%;
+  inline-size: max-content;
+  min-inline-size: 100%;
   overflow: hidden;
 }
 

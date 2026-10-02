@@ -33,9 +33,9 @@ header 插槽自定义标题；关闭策略只在确有需要的流程中使用�
 | --- | --- | --- | --- |
 | `v-model:open` | 是否显示对话框。 | `boolean` | `false` |
 | `title` | 对话框标题。 | `string` | `''` |
-| `ariaLabel` | 没有标题时的对话框辅助名称。 | `string` | `'Dialog'` |
+| `ariaLabel` | 没有标题时的对话框辅助名称。 | `string` | `'对话框'` |
 | `closable` | 是否显示关闭按钮。 | `boolean` | `true` |
-| `closeLabel` | 关闭按钮的辅助名称。 | `string` | `'Close dialog'` |
+| `closeLabel` | 关闭按钮的辅助名称。 | `string` | `'关闭对话框'` |
 | `closeOnOverlay` | 点击遮罩是否请求关闭。 | `boolean` | `true` |
 | `closeOnEscape` | 按下 Escape 是否请求关闭。 | `boolean` | `true` |
 
@@ -64,6 +64,7 @@ header 插槽自定义标题；关闭策略只在确有需要的流程中使用�
 | --- | --- | --- | --- |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
 | `--lulu-color-overlay` | 模态遮罩 | `rgb(15 23 42 / 45%)` | `rgb(0 0 0 / 75%)` |
+| `--lulu-color-primary-solid` | 关闭按钮悬停强调色，默认继承主色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |

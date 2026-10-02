@@ -32,7 +32,7 @@ default 插槽定制遮罩内文案，message 仍提供加载指示器的可访�
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `v-model:open` | 是否显示遮罩。 | `boolean` | `false` |
-| `message` | 加载提示文本。 | `string` | `'Loading'` |
+| `message` | 加载提示文本。 | `string` | `'加载中'` |
 
 ### Events
 

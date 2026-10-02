@@ -23,6 +23,8 @@ seo:
 empty=true 时以空态替代表体；colspan 应与实际列数一致。body 可替代默认插槽，foot 放置合计。
 :::
 
+表格宽度超过容器时会横向滚动；滚动区域可通过键盘聚焦并使用方向键查看隐藏列，不会把原生表格转换为卡片结构。
+
 ## API
 
 ### Props
@@ -31,6 +33,7 @@ empty=true 时以空态替代表体；colspan 应与实际列数一致。body �
 | --- | --- | --- | --- |
 | `empty` | 是否显示空数据状态。 | `boolean` | `false` |
 | `colspan` | 空状态单元格跨列数。 | `number` | `1` |
+| `scrollLabel` | 横向滚动区域的可访问名称。 | `string` | `'表格滚动区域'` |
 
 ### Slots
 
@@ -50,6 +53,7 @@ empty=true 时以空态替代表体；colspan 应与实际列数一致。body �
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
+| `--lulu-color-primary` | 滚动区域键盘焦点色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |

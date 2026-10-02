@@ -21,10 +21,10 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
-  endLabel: 'End date',
+  endLabel: '结束日期',
   invalid: false,
   required: false,
-  startLabel: 'Start date',
+  startLabel: '开始日期',
   type: 'date',
 })
 

@@ -43,11 +43,11 @@ seo:
 | `rows` | 受控的表格行数据。 | `readonly Row[]` | 必填 |
 | `rowKey` | 行唯一键字段或取值函数；结果必须为字符串或数字。 | `keyof Row \| (row: Row) => string \| number` | 必填 |
 | `loading` | 是否展示加载状态。 | `boolean` | `false` |
-| `loadingText` | 默认加载文案；`loading` 插槽优先。 | `string` | `'Loading…'` |
-| `emptyText` | 默认空态文案；`empty` 插槽优先。 | `string` | `'No data'` |
+| `loadingText` | 默认加载文案；`loading` 插槽优先。 | `string` | `'加载中…'` |
+| `emptyText` | 默认空态文案；`empty` 插槽优先。 | `string` | `'暂无数据'` |
 | `selectable` | 是否显示行选择框。 | `boolean` | `false` |
-| `selectionLabel` | 选择列表头文案。 | `string` | `'Select'` |
-| `rowSelectionLabel` | 每行选择框的可访问名称。 | `(row: Row, rowIndex: number) => string` | `Select row N` |
+| `selectionLabel` | 选择列表头文案。 | `string` | `'选择'` |
+| `rowSelectionLabel` | 每行选择框的可访问名称。 | `(row: Row, rowIndex: number) => string` | `选择第 N 行` |
 | `v-model:selectedKeys` | 已选择行的键集合。 | `Array<string \| number>` | `[]` |
 
 ### Events

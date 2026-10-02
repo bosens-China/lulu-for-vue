@@ -79,8 +79,8 @@ describe('LuluRangeSlider', () => {
     expect(wrapper.emitted('update:modelValue')).toEqual([[[80, 80]]])
     expect(startInput.attributes('max')).toBe('80')
     expect(endInput.attributes('min')).toBe('80')
-    expect(startInput.attributes('aria-label')).toBe('Minimum value')
-    expect(endInput.attributes('aria-label')).toBe('Maximum value')
+    expect(startInput.attributes('aria-label')).toBe('最小值')
+    expect(endInput.attributes('aria-label')).toBe('最大值')
   })
 
   it('submits both range values and describes each native thumb', () => {
@@ -108,7 +108,7 @@ describe('LuluRate', () => {
     await wrapper.get('input').setValue(4)
 
     expect(wrapper.get('input').attributes('type')).toBe('range')
-    expect(wrapper.get('input').attributes('aria-label')).toBe('Rating')
+    expect(wrapper.get('input').attributes('aria-label')).toBe('评分')
     expect(wrapper.emitted('update:modelValue')).toEqual([[4]])
   })
 

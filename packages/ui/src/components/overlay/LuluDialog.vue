@@ -13,9 +13,9 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  ariaLabel: 'Dialog',
+  ariaLabel: '对话框',
   closable: true,
-  closeLabel: 'Close dialog',
+  closeLabel: '关闭对话框',
   closeOnOverlay: true,
   closeOnEscape: true,
   title: '',

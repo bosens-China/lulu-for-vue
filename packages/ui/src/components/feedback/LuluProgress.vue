@@ -25,6 +25,6 @@ const value = computed(() => {
 
 <template>
   <progress class="lulu-progress" :max="max" :value="value">
-    <slot>{{ value === undefined ? 'Loading' : `${value}/${max}` }}</slot>
+    <slot>{{ value === undefined ? '加载中' : `${value}/${max}` }}</slot>
   </progress>
 </template>

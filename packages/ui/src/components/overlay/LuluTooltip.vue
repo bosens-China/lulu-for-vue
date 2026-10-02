@@ -92,7 +92,7 @@ function toggle() {
     @mouseleave="hide('hover')"
   >
     <slot name="trigger" :trigger-props="{ 'aria-describedby': visible ? panelId : undefined }">
-      <button type="button" :aria-describedby="visible ? panelId : undefined">Tooltip trigger</button>
+      <button type="button" :aria-describedby="visible ? panelId : undefined">提示触发器</button>
     </slot>
   </span>
   <Teleport v-if="isMounted" :to="teleportTarget">

@@ -33,9 +33,9 @@ seo:
 | `total` | 数据总数。 | `number` | 必填 |
 | `pageSize` | 每页数量。 | `number` | `20` |
 | `disabled` | 是否禁用分页操作。 | `boolean` | `false` |
-| `ariaLabel` | 分页导航的可访问名称。 | `string` | `'Pagination'` |
-| `previousLabel` | 上一页按钮的可访问名称。 | `string` | `'Previous page'` |
-| `nextLabel` | 下一页按钮的可访问名称。 | `string` | `'Next page'` |
+| `ariaLabel` | 分页导航的可访问名称。 | `string` | `'分页'` |
+| `previousLabel` | 上一页按钮的可访问名称。 | `string` | `'上一页'` |
+| `nextLabel` | 下一页按钮的可访问名称。 | `string` | `'下一页'` |
 | `pageLabel` | 页码按钮的可访问名称。 | `(page: number) => string` | `Page N` |
 
 ### Events
@@ -51,7 +51,7 @@ seo:
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
-| `--lulu-color-primary-solid` | 主要操作底色 | `#0057c3` | `#38bdf8` |
+| `--lulu-color-primary-solid` | 主要操作底色，默认继承主色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |

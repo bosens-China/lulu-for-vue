@@ -14,10 +14,10 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  cancelText: 'Cancel',
-  confirmText: 'Confirm',
+  cancelText: '取消',
+  confirmText: '确认',
   disabled: false,
-  message: 'Are you sure?',
+  message: '确定要继续吗？',
   placement: 'bottom-start',
 })
 
@@ -43,7 +43,7 @@ function confirm() {
 
 <template>
   <LuluPopover v-bind="$attrs" ref="popover" v-model:open="open" :disabled="props.disabled" :placement="props.placement">
-    <template #trigger><slot name="trigger">Confirm action</slot></template>
+    <template #trigger><slot name="trigger">确认操作</slot></template>
     <p class="lulu-popconfirm__message"><slot>{{ props.message }}</slot></p>
     <div class="lulu-popconfirm__actions">
       <button type="button" @click="cancel">{{ props.cancelText }}</button>

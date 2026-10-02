@@ -6,7 +6,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  message: 'Loading',
+  message: '加载中',
 })
 
 const open = defineModel<boolean>('open', { default: false })

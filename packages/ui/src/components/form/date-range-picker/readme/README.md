@@ -39,8 +39,8 @@ seo:
 | --- | --- | --- | --- |
 | `v-model` | 开始和结束日期。 | `[start: string, end: string]` | 必填 |
 | `type` | 日期范围输入类型。 | `'date' \| 'month' \| 'week'` | `'date'` |
-| `startLabel` | 开始日期输入的标签。 | `string` | `'Start date'` |
-| `endLabel` | 结束日期输入的标签。 | `string` | `'End date'` |
+| `startLabel` | 开始日期输入的标签。 | `string` | `'开始日期'` |
+| `endLabel` | 结束日期输入的标签。 | `string` | `'结束日期'` |
 | `startName` | 开始日期的原生表单字段名。 | `string` | — |
 | `endName` | 结束日期的原生表单字段名。 | `string` | — |
 | `min` | 允许的最小日期。 | `string` | — |

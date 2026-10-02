@@ -36,7 +36,7 @@ seo:
 | `items` | 候选项数组。 | `readonly AutocompleteItem[]` | `[]` |
 | `filter` | 用于过滤候选项的函数。 | `AutocompleteFilter` | — |
 | `loading` | 是否显示加载状态。 | `boolean` | `false` |
-| `loadingText` | 加载状态文案。 | `string` | `'Loading'` |
+| `loadingText` | 加载状态文案。 | `string` | `'加载中'` |
 | `maxResults` | 最多展示的候选项数量。 | `number` | `8` |
 | `placement` | 候选面板相对输入框的位置。 | `FloatingPlacement` | `'bottom-start'` |
 | `offset` | 候选面板与输入框的间距。 | `number` | `4` |

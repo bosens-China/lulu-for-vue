@@ -100,11 +100,11 @@ function clamp(value: number, minimum: number, maximum: number) {
 </script>
 
 <template>
-  <nav v-if="pageCount > 1" class="lulu-pagination" :aria-label="props.ariaLabel ?? 'Pagination'">
+  <nav v-if="pageCount > 1" class="lulu-pagination" :aria-label="props.ariaLabel ?? '分页'">
     <button
       type="button"
       class="lulu-pagination__button"
-      :aria-label="props.previousLabel ?? 'Previous page'"
+      :aria-label="props.previousLabel ?? '上一页'"
       :disabled="props.disabled || currentPage === 1"
       @click="goTo(currentPage - 1)"
     >
@@ -125,7 +125,7 @@ function clamp(value: number, minimum: number, maximum: number) {
         class="lulu-pagination__button"
         :aria-current="item.page === currentPage ? 'page' : undefined"
         :disabled="props.disabled || item.page === currentPage"
-        :aria-label="props.pageLabel?.(item.page) ?? `Page ${item.page}`"
+        :aria-label="props.pageLabel?.(item.page) ?? `第 ${item.page} 页`"
         @click="goTo(item.page)"
       >
         {{ item.page }}
@@ -135,7 +135,7 @@ function clamp(value: number, minimum: number, maximum: number) {
     <button
       type="button"
       class="lulu-pagination__button"
-      :aria-label="props.nextLabel ?? 'Next page'"
+      :aria-label="props.nextLabel ?? '下一页'"
       :disabled="props.disabled || currentPage === pageCount"
       @click="goTo(currentPage + 1)"
     >

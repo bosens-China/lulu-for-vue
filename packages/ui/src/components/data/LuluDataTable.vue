@@ -112,7 +112,7 @@ function toggleSelection(row: Row, key: TableKey) {
     <template #head>
       <tr>
         <th v-if="props.selectable" scope="col" class="lulu-data-table__selection-header">
-          {{ props.selectionLabel ?? 'Select' }}
+          {{ props.selectionLabel ?? '选择' }}
         </th>
         <th
           v-for="column in props.columns"
@@ -128,7 +128,7 @@ function toggleSelection(row: Row, key: TableKey) {
     <template #body>
       <tr v-if="props.loading" class="lulu-data-table__loading-row">
         <td :colspan="columnCount" class="lulu-data-table__loading-cell" data-testid="data-table-loading">
-          <slot name="loading">{{ props.loadingText ?? 'Loading…' }}</slot>
+          <slot name="loading">{{ props.loadingText ?? '加载中…' }}</slot>
         </td>
       </tr>
 
@@ -142,7 +142,7 @@ function toggleSelection(row: Row, key: TableKey) {
         <td v-if="props.selectable" class="lulu-data-table__selection-cell">
           <input
             type="checkbox"
-            :aria-label="props.rowSelectionLabel?.(item.row, item.rowIndex) ?? `Select row ${item.rowIndex + 1}`"
+            :aria-label="props.rowSelectionLabel?.(item.row, item.rowIndex) ?? `选择第 ${item.rowIndex + 1} 行`"
             :checked="isSelected(item.key)"
             @change="toggleSelection(item.row, item.key)"
           >
@@ -166,7 +166,7 @@ function toggleSelection(row: Row, key: TableKey) {
     </template>
 
     <template #empty>
-      <span data-testid="data-table-empty"><slot name="empty">{{ props.emptyText ?? 'No data' }}</slot></span>
+      <span data-testid="data-table-empty"><slot name="empty">{{ props.emptyText ?? '暂无数据' }}</slot></span>
     </template>
   </LuluTable>
 </template>

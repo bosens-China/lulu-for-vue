@@ -95,7 +95,7 @@ provide(dialogKey, create)
     :open="true"
     :title="entry.options.title"
     :closable="!pending && (entry.options.closable ?? true)"
-    :close-label="entry.options.closeLabel ?? 'Close dialog'"
+    :close-label="entry.options.closeLabel ?? '关闭对话框'"
     :close-on-overlay="!pending && (entry.options.closeOnOverlay ?? false)"
     :close-on-escape="!pending && (entry.options.closeOnEscape ?? true)"
     :aria-busy="pending"

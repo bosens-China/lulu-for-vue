@@ -79,13 +79,12 @@ import '@lulu/vue/style.css'
 ```css
 .admin-theme {
   --lulu-color-primary: #7c3aed;
-  --lulu-color-primary-hover: #6d28d9;
   --lulu-radius: 8px;
   --lulu-control-height: 44px;
 }
 ```
 
-Token 分为颜色、排版、尺寸、间距、圆角、阴影、动效和层级。组件使用 `--lulu-*` 变量；不支持旧版 `--ui-*` 变量、`.ui-*` 选择器或 `[is]` Custom Element 结构。自定义值若要覆盖显式主题，选择器需要至少与 `[data-lulu-theme]` 一样具体，并放在主题 CSS 之后。
+`--lulu-color-primary-solid` 默认继承 `--lulu-color-primary`，因此修改主色会同时影响强调文字、选中态和实心主操作；只有需要区分两者时才单独覆盖 `primary-solid`。Token 分为颜色、排版、尺寸、间距、圆角、阴影、动效和层级。组件使用 `--lulu-*` 变量；不支持旧版 `--ui-*` 变量、`.ui-*` 选择器或 `[is]` Custom Element 结构。自定义值若要覆盖显式主题，选择器需要至少与 `[data-lulu-theme]` 一样具体，并放在主题 CSS 之后。
 
 ## UnoCSS 命名约定
 

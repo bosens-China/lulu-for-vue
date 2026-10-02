@@ -109,7 +109,7 @@ await handle.closed
 | `title` | 必填，非空的可访问标题。 | `string` | — |
 | `content` | 必填，纯文本或响应式渲染函数。 | `string \| (() => VNodeChild)` | — |
 | `closable` | 显示关闭按钮。 | `boolean` | `true` |
-| `closeLabel` | 关闭按钮的无障碍标签。 | `string` | `Close dialog` |
+| `closeLabel` | 关闭按钮的无障碍标签。 | `string` | `关闭对话框` |
 | `closeOnOverlay` | 点击遮罩关闭。 | `boolean` | `false` |
 | `closeOnEscape` | Escape 关闭。 | `boolean` | `true` |
 
@@ -136,14 +136,22 @@ await handle.closed
 
 ## CSS Tokens
 
-沿用 Dialog 的主题变量，不新增独立主题体系。
+沿用 Dialog 的主题变量，不新增独立主题体系。以下变量覆盖宿主按钮、错误与组合后的 Dialog 样式。
 
-| Token | 用途 |
-| --- | --- |
-| `--lulu-color-surface` | 弹窗与次要按钮背景 |
-| `--lulu-color-text` | 正文颜色 |
-| `--lulu-color-primary-solid` | 确认按钮背景 |
-| `--lulu-color-danger` | 异步错误文本 |
-| `--lulu-shadow-overlay` | 弹窗阴影 |
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-border` | 次要按钮边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-danger` | 异步错误文本 | `#c53030` | `#f87171` |
+| `--lulu-color-primary` | 次要按钮悬停文字 | `#1668c7` | `#38bdf8` |
+| `--lulu-color-primary-solid` | 确认按钮背景，默认继承主色 | `#1668c7` | `#38bdf8` |
+| `--lulu-color-surface` | 弹窗与次要按钮背景 | `#ffffff` | `#09090b` |
+| `--lulu-color-surface-hover` | 次要按钮悬停背景 | `#f0f7ff` | `#18181b` |
+| `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-color-text-inverse` | 确认按钮文字 | `#ffffff` | `#000000` |
+| `--lulu-color-text-muted` | 次要文字 | `#667085` | `#a1a1aa` |
+| `--lulu-control-height` | 操作按钮高度 | `40px` | `40px` |
+| `--lulu-radius` | 操作按钮圆角 | `4px` | `4px` |
+| `--lulu-shadow-overlay` | 弹窗阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+| `--lulu-space-3` | 操作按钮间距 | `12px` | `12px` |
 
 与旧 LuLu 构造器 API 的区别：实例归属于 Vue 作用域和宿主，不创建 document 全局单例。

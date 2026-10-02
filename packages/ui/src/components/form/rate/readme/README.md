@@ -33,7 +33,7 @@ seo:
 | `min` | 最低评分。 | `number` | `0` |
 | `max` | 最高评分。 | `number` | `5` |
 | `step` | 评分步长。 | `number` | `0.5` |
-| `label` | 评分控件的可访问名称。 | `string` | `'Rating'` |
+| `label` | 评分控件的可访问名称。 | `string` | `'评分'` |
 | `disabled` | 是否禁用。 | `boolean` | `false` |
 | `readonly` | 是否只读。 | `boolean` | `false` |
 

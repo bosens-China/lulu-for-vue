@@ -32,6 +32,28 @@ function getCheckbox(wrapper: ReturnType<typeof mount>, key: number) {
 }
 
 describe('LuluTable', () => {
+  it('在可访问的横向滚动区域中保留表格属性', () => {
+    const wrapper = mount(LuluTable, {
+      attrs: {
+        'aria-label': '成员数据',
+        'class': 'member-table',
+        'data-testid': 'members',
+      },
+      props: { scrollLabel: '成员表格滚动区域' },
+    })
+
+    expect(wrapper.get('.lulu-table-scroll').attributes()).toMatchObject({
+      'aria-label': '成员表格滚动区域',
+      'role': 'region',
+      'tabindex': '0',
+    })
+    expect(wrapper.get('table').attributes()).toMatchObject({
+      'aria-label': '成员数据',
+      'data-testid': 'members',
+    })
+    expect(wrapper.get('table').classes()).toContain('member-table')
+  })
+
   it('renders semantic caption, head, body, foot, and empty slots', () => {
     const wrapper = mount(LuluTable, {
       slots: {

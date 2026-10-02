@@ -1,19 +1,16 @@
-<script setup lang="ts">
-defineOptions({ inheritAttrs: false })
-
-interface Props {
+<script lang="ts">
+export interface LuluSelectProps<Multiple extends boolean = false> {
   disabled?: boolean
   invalid?: boolean
-  multiple?: boolean
+  multiple?: Multiple
 }
+</script>
 
-const props = withDefaults(defineProps<Props>(), {
-  disabled: false,
-  invalid: false,
-  multiple: false,
-})
+<script setup lang="ts" generic="Multiple extends boolean = false">
+defineOptions({ inheritAttrs: false })
 
-const modelValue = defineModel<string | string[]>({ required: true })
+const props = defineProps<LuluSelectProps<Multiple>>()
+const modelValue = defineModel<Multiple extends true ? string[] : string>({ required: true })
 </script>
 
 <template>

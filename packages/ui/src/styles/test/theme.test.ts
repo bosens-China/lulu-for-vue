@@ -54,10 +54,14 @@ describe('Lulu CSS theme', () => {
     const tokens = readStyle('tokens.css')
 
     expect(tokens).toContain('--lulu-color-primary: #1668c7')
+    expect(tokens).toContain('--lulu-color-primary-solid: var(--lulu-color-primary)')
     expect(tokens).toContain('--lulu-control-height: 40px')
     expect(tokens).toContain('--lulu-transition-duration: 160ms')
     expect(tokens).toContain(':root:where(:not([data-lulu-theme]))')
     expect(tokens).not.toContain('--ui-blue')
+    for (const unused of ['--lulu-color-primary-hover', '--lulu-color-disabled', '--lulu-shadow-sm', '--lulu-z-index-dialog']) {
+      expect(tokens).not.toContain(unused)
+    }
   })
 
   it('keeps normal text colors above the WCAG AA contrast threshold', () => {
@@ -66,6 +70,7 @@ describe('Lulu CSS theme', () => {
 
     expect(contrast(lightToken(tokens, 'lulu-color-text-muted'), surface)).toBeGreaterThanOrEqual(4.5)
     expect(contrast(lightToken(tokens, 'lulu-color-primary'), surface)).toBeGreaterThanOrEqual(4.5)
+    expect(contrast(lightToken(tokens, 'lulu-color-text-inverse'), lightToken(tokens, 'lulu-color-primary'))).toBeGreaterThanOrEqual(4.5)
     expect(contrast(lightToken(tokens, 'lulu-color-primary'), lightToken(tokens, 'lulu-color-surface-selected'))).toBeGreaterThanOrEqual(4.5)
     expect(contrast(lightToken(tokens, 'lulu-color-text-inverse'), lightToken(tokens, 'lulu-color-danger'))).toBeGreaterThanOrEqual(4.5)
   })

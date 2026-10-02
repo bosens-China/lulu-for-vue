@@ -78,7 +78,7 @@ describe('LuluDialog', () => {
       },
     })
 
-    await wrapper.get('[aria-label="Close dialog"]').trigger('click')
+    await wrapper.get('[aria-label="关闭对话框"]').trigger('click')
 
     expect(wrapper.emitted('update:open')).toEqual([[false]])
     expect(wrapper.emitted('close')).toEqual([['close-button']])

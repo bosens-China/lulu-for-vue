@@ -35,8 +35,8 @@ seo:
 | `min` | 最小值。 | `number` | `0` |
 | `max` | 最大值。 | `number` | `100` |
 | `step` | 步长。 | `number` | `1` |
-| `startLabel` | 起始滑块的可访问名称。 | `string` | `'Minimum value'` |
-| `endLabel` | 结束滑块的可访问名称。 | `string` | `'Maximum value'` |
+| `startLabel` | 起始滑块的可访问名称。 | `string` | `'最小值'` |
+| `endLabel` | 结束滑块的可访问名称。 | `string` | `'最大值'` |
 | `startName` | 起始滑块的原生表单字段名。 | `string` | — |
 | `endName` | 结束滑块的原生表单字段名。 | `string` | — |
 | `disabled` | 是否禁用。 | `boolean` | `false` |

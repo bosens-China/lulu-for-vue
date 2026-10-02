@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   items: () => [],
   loading: false,
-  loadingText: 'Loading',
+  loadingText: '加载中',
   maxResults: 8,
   offset: 4,
   placement: 'bottom-start',

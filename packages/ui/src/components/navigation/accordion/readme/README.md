@@ -29,14 +29,14 @@ seo:
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `v-model` | 当前展开项；传入数组时可同时展开多项。 | `string \| string[]` | 必填 |
-| `items` | 面板数据；类型可从 `@lulu/vue/accordion` 导入。 | `readonly LuluAccordionItem[]` | 必填 |
+| `v-model` | 当前展开项；单选关闭时为 `null`，传入数组时可同时展开多项。 | `string \| number \| Array<string \| number> \| null` | 必填 |
+| `items` | 面板数据；`AccordionValue` 和 `LuluAccordionItem` 可从 `@lulu/vue/accordion` 导入。 | `readonly LuluAccordionItem[]` | 必填 |
 
 ### Events
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| `update:modelValue` | 展开项改变时触发。 | `value: string \| string[]` |
+| `update:modelValue` | 展开项改变时触发。 | `value: string \| number \| Array<string \| number> \| null` |
 
 ### Slots
 

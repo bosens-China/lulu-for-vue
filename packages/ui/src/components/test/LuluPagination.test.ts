@@ -53,7 +53,7 @@ describe('LuluPagination', () => {
       },
     })
 
-    await wrapper.get('[aria-label="Next page"]').trigger('click')
+    await wrapper.get('[aria-label="下一页"]').trigger('click')
 
     expect(wrapper.emitted('update:modelValue')).toEqual([[3]])
   })
@@ -75,8 +75,8 @@ describe('LuluPagination', () => {
       },
     })
 
-    await firstPage.get('[aria-label="Previous page"]').trigger('click')
-    await disabled.get('[aria-label="Next page"]').trigger('click')
+    await firstPage.get('[aria-label="上一页"]').trigger('click')
+    await disabled.get('[aria-label="下一页"]').trigger('click')
 
     expect(firstPage.emitted('update:modelValue')).toBeUndefined()
     expect(disabled.emitted('update:modelValue')).toBeUndefined()

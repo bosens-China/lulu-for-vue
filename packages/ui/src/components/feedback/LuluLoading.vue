@@ -7,7 +7,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   block: false,
-  label: 'Loading',
+  label: '加载中',
   size: 'md',
 })
 </script>

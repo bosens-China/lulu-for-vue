@@ -29,8 +29,8 @@ multiple 使用字符串数组；禁用与错误状态独立展示。
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| `v-model` | 选中的值或值数组。 | `string \| string[]` | 必填 |
-| `multiple` | 是否多选。 | `boolean` | `false` |
+| `v-model` | 选中的值；`multiple` 为 `true` 时使用字符串数组。 | `multiple=false: string`；`multiple=true: string[]` | 必填 |
+| `multiple` | 是否多选；同时决定 `v-model` 类型。 | `boolean` | `false` |
 | `disabled` | 是否禁用。 | `boolean` | `false` |
 | `invalid` | 是否显示错误状态。 | `boolean` | `false` |
 
@@ -38,7 +38,7 @@ multiple 使用字符串数组；禁用与错误状态独立展示。
 
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
-| `update:modelValue` | 选中值改变时触发。 | `value: string \| string[]` |
+| `update:modelValue` | 选中值改变时触发，参数类型随 `multiple` 变化。 | `value: string` 或 `value: string[]` |
 
 ### Slots
 

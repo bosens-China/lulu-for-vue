@@ -30,7 +30,7 @@ seo:
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `block` | 是否以块级方式排列。 | `boolean` | `false` |
-| `label` | 加载提示文本。 | `string` | `'Loading'` |
+| `label` | 加载提示文本。 | `string` | `'加载中'` |
 | `size` | 加载图标尺寸。 | `'sm' \| 'md' \| 'lg'` | `'md'` |
 
 ### Slots

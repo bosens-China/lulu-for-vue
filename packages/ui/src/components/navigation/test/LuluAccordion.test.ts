@@ -16,7 +16,7 @@ const items = [
   },
 ]
 
-function getDetails(wrapper: ReturnType<typeof mount>, value: string) {
+function getDetails(wrapper: ReturnType<typeof mount>, value: string | number) {
   return wrapper.get<HTMLDetailsElement>(`details[data-value="${value}"]`)
 }
 
@@ -37,6 +37,11 @@ describe('LuluAccordion', () => {
     await security.get('summary').trigger('click')
 
     expect(wrapper.emitted('update:modelValue')).toContainEqual(['security'])
+
+    await wrapper.setProps({ modelValue: 'security' })
+    await security.get('summary').trigger('click')
+
+    expect(wrapper.emitted('update:modelValue')).toContainEqual([null])
   })
 
   it('uses an array v-model to allow multiple items to be open', async () => {
@@ -63,7 +68,7 @@ describe('LuluAccordion', () => {
     const wrapper = mount(LuluAccordion, {
       props: {
         items,
-        modelValue: '',
+        modelValue: null,
       },
       slots: {
         default: ({ item }: { item: { content?: string } }) => h('p', `Content: ${item.content}`),
@@ -73,5 +78,18 @@ describe('LuluAccordion', () => {
 
     expect(wrapper.get('summary').text()).toBe('Section: Profile')
     expect(wrapper.get('.lulu-accordion__content').text()).toBe('Content: Profile settings')
+  })
+
+  it('支持数字键', async () => {
+    const wrapper = mount(LuluAccordion, {
+      props: {
+        items: [{ content: '第一项', title: '一', value: 1 }],
+        modelValue: null,
+      },
+    })
+
+    await getDetails(wrapper, 1).get('summary').trigger('click')
+
+    expect(wrapper.emitted('update:modelValue')).toEqual([[1]])
   })
 })

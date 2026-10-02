@@ -36,9 +36,9 @@ confirm 和 cancel 分别提供反馈；默认插槽定制消息，外部按钮�
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `v-model:open` | 是否显示确认浮层。 | `boolean` | `false` |
-| `message` | 确认提示。 | `string` | `'Are you sure?'` |
-| `confirmText` | 确认按钮文字。 | `string` | `'Confirm'` |
-| `cancelText` | 取消按钮文字。 | `string` | `'Cancel'` |
+| `message` | 确认提示。 | `string` | `'确定要继续吗？'` |
+| `confirmText` | 确认按钮文字。 | `string` | `'确认'` |
+| `cancelText` | 取消按钮文字。 | `string` | `'取消'` |
 | `placement` | 浮层相对触发器的位置。 | `FloatingPlacement` | `'bottom-start'` |
 | `disabled` | 是否禁用触发器。 | `boolean` | `false` |
 
@@ -64,7 +64,7 @@ confirm 和 cancel 分别提供反馈；默认插槽定制消息，外部按钮�
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
-| `--lulu-color-primary-solid` | 主要操作底色 | `#0057c3` | `#38bdf8` |
+| `--lulu-color-primary-solid` | 主要操作底色，默认继承主色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |

@@ -12,9 +12,9 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   alpha: false,
-  alphaLabel: 'Opacity',
+  alphaLabel: '透明度',
   disabled: false,
-  label: 'Color',
+  label: '颜色',
 })
 
 const emit = defineEmits<{

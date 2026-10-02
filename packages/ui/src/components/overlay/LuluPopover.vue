@@ -102,7 +102,7 @@ function handleEscape(event: KeyboardEvent) {
       :disabled="props.disabled"
       @click="toggle"
     >
-      <slot name="trigger">Toggle popover</slot>
+      <slot name="trigger">切换浮层</slot>
     </button>
     <Teleport v-if="isMounted" :to="teleportTarget">
       <div

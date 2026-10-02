@@ -273,11 +273,11 @@ describe('LuluPopconfirm', () => {
       slots: { trigger: '删除' },
     })
     await wrapper.get('.lulu-popover__trigger').trigger('click')
-    expect(document.activeElement?.textContent).toBe('Cancel')
+    expect(document.activeElement?.textContent).toBe('取消')
     expect(document.body.querySelector('[role="dialog"]')?.getAttribute('aria-labelledby'))
       .toBe(wrapper.get('.lulu-popover__trigger').attributes('id'))
 
-    const confirm = [...document.body.querySelectorAll('button')].find(button => button.textContent === 'Confirm')
+    const confirm = [...document.body.querySelectorAll('button')].find(button => button.textContent === '确认')
     confirm?.click()
     await nextTick()
     expect(document.activeElement).toBe(wrapper.get('.lulu-popover__trigger').element)
@@ -292,7 +292,7 @@ describe('LuluPopconfirm', () => {
 
     await wrapper.get('.lulu-popover__trigger').trigger('click')
     const confirm = [...document.body.querySelectorAll('button')].find(
-      (button) => button.textContent === 'Confirm',
+      (button) => button.textContent === '确认',
     )
     confirm?.click()
     await nextTick()

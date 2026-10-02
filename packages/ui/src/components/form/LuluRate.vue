@@ -14,7 +14,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
-  label: 'Rating',
+  label: '评分',
   max: 5,
   min: 0,
   readonly: false,
@@ -31,7 +31,7 @@ const maximum = computed(() => {
 })
 const step = computed(() => Number.isFinite(props.step) && props.step > 0 ? props.step : 0.5)
 const value = computed(() => clamp(modelValue.value, minimum.value, maximum.value))
-const valueText = computed(() => `${value.value} out of ${maximum.value}`)
+const valueText = computed(() => `${value.value} / ${maximum.value}`)
 
 function updateValue(event: Event) {
   const input = event.target

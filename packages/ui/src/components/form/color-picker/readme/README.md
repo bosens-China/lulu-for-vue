@@ -31,9 +31,9 @@ alpha 开启透明度滑块；更改颜色或透明度后返回八位十六进�
 | --- | --- | --- | --- |
 | `v-model` | 当前颜色值。 | `string` | `'#000000'` |
 | `alpha` | 是否允许编辑透明度。 | `boolean` | `false` |
-| `alphaLabel` | 透明度滑块的可访问名称。 | `string` | `'Opacity'` |
+| `alphaLabel` | 透明度滑块的可访问名称。 | `string` | `'透明度'` |
 | `disabled` | 是否禁用。 | `boolean` | `false` |
-| `label` | 颜色输入的可访问名称。 | `string` | `'Color'` |
+| `label` | 颜色输入的可访问名称。 | `string` | `'颜色'` |
 
 ### Events
 
