@@ -3,8 +3,12 @@
 ## 现行产品决策
 
 - [产品 PRD](./PRD.md)
+
+## 其他文档
+
 - [组件 API 映射](./components.md)
 - [文档与交互走查](./docs-experience-audit.md)
+- [Rspress 借鉴与组件 API、Token 审查](./rspress-api-token-audit.md)
 
 ## 进行中的需求
 

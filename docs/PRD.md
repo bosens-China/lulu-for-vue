@@ -15,7 +15,11 @@
 - 顶部提供跟随系统、亮色、深色三态切换与主色调选择。主色选择立即作用于整个文档站，按模式自动调整明度；背景和文字保留各模式默认配色，选择保存在当前浏览器，可恢复默认主色。
 - 导航区分输入选择、日期时间与表单校验，组合组件相邻排列；Tabs、Tab、TabPanel 作为一个 Tabs 文档入口，集中展示组合示例与三个公开 API。每个文档页提供实际样式使用的 CSS Tokens、用途、明暗默认值及覆盖方式；示例覆盖有意义的属性状态、边界和自定义插槽，场景入口见[文档走查](./docs-experience-audit.md)。
 - 手机导航打开后聚焦标题，静态标题不显示初始焦点装饰；关闭按钮等可操作控件保留可见键盘焦点，关闭后还原触发按钮焦点。手机搜索框采用至少 16px 字号，避免 iOS 输入聚焦时页面自动放大；侧栏折叠按钮保留可见键盘焦点。
-- 浮层共用位置语义说明。所有 Demo 使用公开入口且可查看源码；表单复位同步业务模型与校验错误，消息示例展示自动关闭和手动清理。
+- 浮层共用位置语义说明。所有 Demo 使用公开入口且可查看源码；普通 Markdown 代码块提供复制按钮和成功反馈；Callout 支持提示、警告、危险和可折叠说明，安装指南可切换 npm、yarn、pnpm、bun、deno 命令。表单复位同步业务模型与校验错误，消息示例展示自动关闭和手动清理。
+- 宽表格在窄屏内使用带无障碍名称、可键盘聚焦的横向滚动区域，保留原生表格语义且不造成页面级横向溢出；非溢出表格至少铺满容器。
+- Markdown 标题在 SSG 阶段生成稳定 ID；生产构建校验站内 HTML 路由和锚点，遇到死链时失败。
+- 搜索覆盖导航名、标题、描述、Markdown 正文、普通代码块和 Demo 源码，索引按需加载。组件与指南页面在配置仓库地址时提供 GitHub 源文件入口。
+- 生产构建按导航输出 `llms.txt`，并为每个指南和组件页面输出 `index.md`，为搜索引擎、Agent 和其他机器读取方保留 Markdown 入口。
 - `main` 分支通过 [Docs Pages 工作流](../.github/workflows/docs-pages.yml)发布到 GitHub Pages；每个路由生成可直接访问的静态 HTML、独立 SEO 信息和站点地图。新增公开组件须在对应主文档入口提供中文说明和 Vue Demo，组合子组件可合并展示。
 
 ## 构建与兼容性
@@ -23,6 +27,7 @@
 - 仓库使用 pnpm monorepo；初期只发布一个 ESM 包 `@lulu/vue`，并生成 TypeScript 声明文件。
 - 源码目标为 `ESNext`，tsdown 不做语法降级。只采用已标准化的能力；新增运行时 API 前必须确认使用方的兼容基线或提供已确认的 polyfill。
 - 默认主题由 `@lulu/vue/style.css` 独立发布；组件 JavaScript 不注入 CSS，应用按需显式导入。主题通过 `--lulu-*` CSS 变量覆盖，详细接入方式见[包 README](../packages/ui/README.md)。
+- `--lulu-color-primary-solid` 默认继承 `--lulu-color-primary`，覆盖一个主色即可同步影响文本、选中态与实心操作；仍可按需单独覆盖实心主色。全局 Token 只保留实际消费且具有稳定语义的变量。
 - 支持 `@lulu/vue` 完整入口和 `@lulu/vue/button` 等组件入口；全量样式使用 `style.css`，按需样式先在应用入口导入一次 `base.css`，再从 `@lulu/vue/button/style.css` 等入口导入。根、主题、resolver 与样式入口显式导出，组件 JavaScript 只通过指向公共 `dist/entries/*` 的通配符导出；禁止依赖 `dist/components` 深层路径。
 - `@lulu/vue/resolver` 提供组件与 composable 的自动导入规则，分别接入 `unplugin-vue-components` 与 `unplugin-auto-import`。这两个插件由应用在构建期安装，不属于组件包运行时依赖。
 - tsdown 以多入口和 `unbundle` 构建分层 ESM 模块。单组件入口复用内部构建模块，直接依赖仍随该组件进入应用依赖图，Vue 保持 peer dependency。
@@ -32,6 +37,8 @@
 
 - 使用 Vue 3 Composition API 与 `<script setup lang="ts">`。
 - props 只读，状态变化通过 `v-model` 和语义化事件向上传递。只有必要的命令式能力才使用 `defineExpose`。
+- 用户可见内置文案默认使用中文，并保留 Props、插槽或回调覆盖能力；确有多语言宿主需求后再引入统一文案配置。
+- `LuluSelect` 的模型类型随 `multiple` 变化：单选为 `string`，多选为 `string[]`。`LuluAccordion` 使用 `string | number` 键，单选模式以 `null` 表示未展开。
 - 不提供旧 Custom Elements、自动 DOM 扫描、全局原型扩展、浏览器直引、旧深层导入或构造器式 API。
 - 优先使用 Vue 响应式机制和原生 HTML 语义，避免移植旧版的 DOM 观察与手写状态同步。
 - `LuluSpace` 提供横向与纵向的统一间距、三档尺寸和横向换行；仅用于普通内容排列，列表、表单语义和网格布局由原生容器与 CSS 负责。
