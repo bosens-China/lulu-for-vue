@@ -11,7 +11,7 @@ seo:
 
 ## 如何读变量名
 
-- `--lulu-color-*` 是跨组件的语义色。`primary` 用于强调文字和选中态，`primary-solid` 用于实色按钮等背景；`on-neutral`、`on-status` 表示叠在对应底色上的文字颜色。
+- `--lulu-color-*` 是跨组件的语义色。`primary` 是全局主色入口，用于强调文字、选中态和实色主操作；`primary-solid` 默认继承它，仅在需要区分实色背景时单独覆盖。`on-neutral`、`on-status` 表示叠在对应底色上的文字颜色。
 - `--lulu-font-*`、`--lulu-radius*`、`--lulu-space-*` 是共用排版、圆角与间距。间距的 `1`、`2`、`3`、`4` 是从小到大的档位，默认分别为 4、8、12、16px。
 - `--lulu-button-*`、`--lulu-loading-size` 等以组件名开头的变量控制该组件。其中 `--lulu-button-color` 对应 CSS 的 `color`，控制按钮文字颜色。
 - `--lulu-z-index-popup` 控制贴近触发元素的浮层（下拉菜单、提示等）的层级；模态弹窗和消息各有独立层级。
@@ -43,7 +43,6 @@ seo:
 ```css
 :root {
   --lulu-color-primary: #245edb;
-  --lulu-color-primary-solid: #245edb;
   --lulu-radius: 8px;
 }
 
@@ -60,7 +59,7 @@ seo:
 }
 ```
 
-`--lulu-color-primary` 用于强调色，`--lulu-color-bg-page` 用于页面背景，`--lulu-color-text` 与 `--lulu-color-text-heading` 用于正文和标题，`--lulu-color-border` 用于边框。变量定义可在组件包的 `tokens.css` 中查看。在线选色只修改文档站；业务项目仍可按需覆盖 CSS 变量。
+`--lulu-color-primary` 会同时影响强调文字、选中态和默认实心主操作；`--lulu-color-bg-page` 用于页面背景，`--lulu-color-text` 与 `--lulu-color-text-heading` 用于正文和标题，`--lulu-color-border` 用于边框。变量定义可在组件包的 `tokens.css` 中查看。在线选色只修改文档站；业务项目仍可按需覆盖 CSS 变量。
 
 需要分别覆盖显式深色主题和跟随系统的深色主题；上面的媒体查询用于后者。
 

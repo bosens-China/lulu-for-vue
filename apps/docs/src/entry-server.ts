@@ -1,6 +1,7 @@
 import { renderToString } from 'vue/server-renderer'
 import { createDocsApp } from './createApp'
 import { docsRoutes, guideRoutes } from './routes'
+import { guideNavigation, orderedDocsNavigationItems } from './navigation'
 import type { RenderResult } from './types'
 import { absolutePageUrl } from './siteUrl'
 
@@ -9,6 +10,14 @@ function escapeHtml(value: string): string {
 }
 
 export const routes = ['/', ...guideRoutes.map(page => page.path), ...docsRoutes.map(page => page.path)]
+const { markdownDocuments } = await import('./searchDocuments')
+const markdownByPath = new Map(markdownDocuments.map(document => [document.path, document.markdown]))
+
+export const markdownPages = [...guideNavigation, ...orderedDocsNavigationItems].map(({ name, page }) => {
+  const markdown = markdownByPath.get(page.path)
+  if (!markdown) throw new Error(`[docs] ${page.path}: 缺少 Markdown 源文件。`)
+  return { description: page.description, markdown, path: page.path, title: name }
+})
 
 export async function render(url: string): Promise<RenderResult> {
   const { app, page } = createDocsApp(url)

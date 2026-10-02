@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 const componentsRoot = resolve(import.meta.dirname, '../../../../packages/ui/src/components')
 const entriesRoot = resolve(import.meta.dirname, '../../../../packages/ui/src/entries')
+const componentStylesRoot = resolve(import.meta.dirname, '../../../../packages/ui/src/styles/components')
 
 function findFiles(directory: string, fileName: string): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -83,6 +84,20 @@ describe('组件中文文档交付', () => {
       for (const row of rows) {
         const codeSpans = [...row.matchAll(/`([^`]+)`/g)]
         expect(codeSpans.every(([, code]) => !/(?<!\\)\|/.test(code ?? '')), `${readme}: ${row}`).toBe(true)
+      }
+    }
+  })
+
+  it('组件专属 CSS 直接使用的 Token 均列入对应文档', () => {
+    for (const readme of readmes) {
+      const componentName = componentNameFromDocument(readme)
+      const stylePath = resolve(componentStylesRoot, `${componentName}.css`)
+      const style = readFileSync(stylePath, 'utf8')
+      const document = readFileSync(readme, 'utf8')
+      const tokens = new Set([...style.matchAll(/--lulu-[\w-]+/g)].map(match => match[0]))
+
+      for (const token of tokens) {
+        expect(document, `${readme}: 缺少 ${token}`).toContain(`\`${token}\``)
       }
     }
   })

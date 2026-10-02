@@ -25,6 +25,7 @@ describe('组件文档清单', () => {
     expect(routes.map((route) => route.path)).toEqual(['/components/button/'])
     expect(routes[0]?.title).toBe('SEO Button')
     expect(routes[0]?.seo.keywords).toEqual(['Vue Button'])
+    expect(routes[0]?.sourcePath).toBe('packages/ui/src/components/action/button/readme/README.md')
   })
 
   it('拒绝重复路由或字段类型错误的文档', () => {

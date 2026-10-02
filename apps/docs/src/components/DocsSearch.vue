@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { computed, nextTick, onMounted, onUnmounted, ref, shallowRef } from 'vue'
 import LuluDialog from '@lulu/vue/dialog'
 import LuluInput from '@lulu/vue/input'
 import '@lulu/vue/dialog/style.css'
@@ -10,15 +10,25 @@ import { withBase } from '../siteUrl'
 const open = ref(false)
 const query = ref('')
 const selected = ref(0)
+const searchTextByPath = shallowRef<ReadonlyMap<string, string>>(new Map())
+let searchIndexPromise: Promise<ReadonlyMap<string, string>> | undefined
 
 const results = computed(() => {
   const term = query.value.trim().toLocaleLowerCase()
   const items = [...guideNavigation, ...orderedDocsNavigationItems]
   if (!term) return items
   return items.filter(({ name, page }) =>
-    `${name} ${page.heading} ${page.description}`.toLocaleLowerCase().includes(term),
+    `${name} ${page.heading} ${page.description} ${searchTextByPath.value.get(page.path) ?? ''}`
+      .toLocaleLowerCase()
+      .includes(term),
   )
 })
+
+function loadSearchIndex() {
+  searchIndexPromise ??= import('../searchDocuments').then(({ markdownDocuments }) =>
+    new Map(markdownDocuments.map(document => [document.path, document.searchText])))
+  return searchIndexPromise
+}
 
 async function showSearch() {
   query.value = ''
@@ -26,6 +36,12 @@ async function showSearch() {
   open.value = true
   await nextTick()
   document.getElementById('docs-search-input')?.focus()
+  try {
+    searchTextByPath.value = await loadSearchIndex()
+  }
+  catch {
+    // 索引分块加载失败时仍保留标题与描述搜索。
+  }
 }
 
 function onGlobalKeydown(event: KeyboardEvent) {
@@ -71,7 +87,7 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown))
       autofocus
       v-model="query"
       class="w-full"
-      placeholder="输入组件名称或描述"
+      placeholder="搜索标题、正文或代码"
       aria-controls="docs-search-results"
       @input="selected = 0"
       @keydown="onSearchKeydown"
@@ -89,7 +105,7 @@ onUnmounted(() => window.removeEventListener('keydown', onGlobalKeydown))
           <span class="ml-2 text-xs text-[var(--lulu-color-text-muted)]">{{ item.page.description }}</span>
         </a>
       </li>
-      <li v-if="results.length === 0" class="px-3 py-4 text-sm text-[var(--lulu-color-text-muted)]">没有找到匹配的组件</li>
+      <li v-if="results.length === 0" class="px-3 py-4 text-sm text-[var(--lulu-color-text-muted)]">没有找到匹配的文档</li>
     </ul>
   </LuluDialog>
 </template>

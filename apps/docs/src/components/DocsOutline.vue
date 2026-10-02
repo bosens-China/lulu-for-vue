@@ -12,7 +12,7 @@ async function refresh() {
     const stem = text.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || 'section'
     const count = used.get(stem) ?? 0
     used.set(stem, count + 1)
-    heading.id = count ? `${stem}-${count + 1}` : stem
+    heading.id ||= count ? `${stem}-${count + 1}` : stem
     return { id: heading.id, text, level: Number(heading.tagName[1]) }
   })
   if (window.location.hash) {

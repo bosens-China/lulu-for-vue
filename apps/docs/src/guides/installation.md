@@ -11,11 +11,11 @@ LuLu UI Vue 面向 Vue 3 项目。安装后可以整体引入，也可以按组�
 
 ## 安装依赖
 
-```bash
-pnpm add @lulu/vue
-```
+<PackageManagerTabs package-name="@lulu/vue" />
 
+:::note Vue 版本
 Vue 3 是 peer dependency；项目中还需要安装 `vue`。
+:::
 
 ## 引入样式
 

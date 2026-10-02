@@ -15,6 +15,51 @@ interface DemoReference {
 const demosByDocument = new Map<string, DemoReference[]>()
 const demoIdPattern = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/
 type MarkdownExitPlugin<T> = (markdown: MarkdownExit, options?: T) => void
+type CalloutType = 'note' | 'tip' | 'important' | 'info' | 'warning' | 'danger' | 'details'
+
+const calloutTitles: Record<CalloutType, string> = {
+  danger: '危险',
+  details: '详情',
+  important: '重要',
+  info: '信息',
+  note: '注意',
+  tip: '提示',
+  warning: '警告',
+}
+
+export function wrapCodeBlock(html: string): string {
+  return `<div class="docs-code-block"><button type="button" class="docs-code-copy" data-docs-copy data-copy-text="复制代码" data-copied-text="已复制" aria-label="复制代码" aria-live="polite">复制代码</button>${html}</div>`
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+}
+
+export function renderCalloutOpen(type: CalloutType, info: string): string {
+  const title = escapeHtml(info.trim().slice(type.length).trim() || calloutTitles[type])
+
+  return type === 'details'
+    ? `<details class="docs-callout docs-callout--details"><summary>${title}</summary>`
+    : `<aside class="docs-callout docs-callout--${type}"><p class="docs-callout__title">${title}</p>`
+}
+
+export function createHeadingId(text: string, duplicateIndex = 0): string {
+  const stem = text.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '') || 'section'
+  return duplicateIndex === 0 ? stem : `${stem}-${duplicateIndex + 1}`
+}
+
+function createCalloutOptions(type: CalloutType): MarkdownItContainerOptions {
+  return {
+    name: type,
+    validate: params => params.trim().split(/\s+/, 1)[0] === type,
+    openRender: (tokens, index) => renderCalloutOpen(type, tokens[index]?.info ?? ''),
+    closeRender: () => type === 'details' ? '</details>' : '</aside>',
+  }
+}
 
 export function parseDemoId(info: string, documentId: string): string {
   const [name, id, ...rest] = info.trim().split(/\s+/)
@@ -119,8 +164,31 @@ export function createMarkdownOptions(): Options {
         const grammar = Prism.languages[grammarName]
         return grammar ? Prism.highlight(code, grammar, grammarName) : ''
       }
+      const fence = markdown.renderer.rules.fence
+      if (fence) {
+        markdown.renderer.rules.fence = (tokens, index, options, env, self) => {
+          const rendered = fence(tokens, index, options, env, self)
+          return typeof rendered === 'string' ? wrapCodeBlock(rendered) : rendered.then(wrapCodeBlock)
+        }
+      }
+      const headingOpen = markdown.renderer.rules.heading_open
+      markdown.renderer.rules.heading_open = (tokens, index, options, env, self) => {
+        const headingEnv = env as MarkdownEnv & { docsHeadingIds?: Map<string, number> }
+        const title = tokens[index + 1]?.content ?? ''
+        const stem = createHeadingId(title)
+        const duplicateIndex = headingEnv.docsHeadingIds?.get(stem) ?? 0
+        headingEnv.docsHeadingIds ??= new Map()
+        headingEnv.docsHeadingIds.set(stem, duplicateIndex + 1)
+        tokens[index]?.attrSet('id', createHeadingId(title, duplicateIndex))
+        return headingOpen
+          ? headingOpen(tokens, index, options, env, self)
+          : self.renderToken(tokens, index, options)
+      }
       const compatibleContainer = container as unknown as MarkdownExitPlugin<MarkdownItContainerOptions>
       markdown.use(compatibleContainer, demoContainerOptions)
+      for (const type of Object.keys(calloutTitles) as CalloutType[]) {
+        markdown.use(compatibleContainer, createCalloutOptions(type))
+      }
     },
     transforms: {
       before(code, id) {

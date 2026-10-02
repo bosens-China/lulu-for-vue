@@ -14,6 +14,7 @@ export interface DocsPage {
   heading: string
   component: Component | null
   seo: DocsSeo
+  sourcePath: string | null
   statusCode: 200 | 404
 }
 

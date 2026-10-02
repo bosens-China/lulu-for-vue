@@ -20,7 +20,6 @@ export default defineConfig({
       luluPage: 'var(--lulu-color-bg-page)',
       luluContainer: 'var(--lulu-color-bg-container)',
       luluPrimary: 'var(--lulu-color-primary)',
-      luluPrimaryHover: 'var(--lulu-color-primary-hover)',
       luluText: 'var(--lulu-color-text)',
       luluHeading: 'var(--lulu-color-text-heading)',
       luluMuted: 'var(--lulu-color-text-muted)',

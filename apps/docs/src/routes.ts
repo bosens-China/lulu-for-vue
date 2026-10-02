@@ -24,6 +24,7 @@ const homePage: DocsPage = {
     keywords: ['Vue 3', 'Vue 组件库', 'LuLu UI'],
     title: null,
   },
+  sourcePath: null,
   statusCode: 200,
 }
 
@@ -53,6 +54,7 @@ export function resolvePage(url: string): DocsPage {
     heading: '页面不存在',
     component: null,
     seo: { description: null, image: null, keywords: [], title: null },
+    sourcePath: null,
     statusCode: 404,
   }
 }

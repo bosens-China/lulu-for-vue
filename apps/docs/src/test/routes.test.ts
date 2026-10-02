@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { docsRoutes, guideRoutes, resolvePage } from '../routes'
+import { githubSourceUrl } from '../siteUrl'
 
 describe('文档路由', () => {
   it('解析中文组件页面并规范化尾斜杠', () => {
@@ -13,6 +14,10 @@ describe('文档路由', () => {
     expect(resolvePage('/components/tab-panel/').statusCode).toBe(404)
     expect(guideRoutes).toHaveLength(4)
     expect(resolvePage('/guide/quick-start').heading).toBe('快速开始')
+    expect(githubSourceUrl(
+      resolvePage('/guide/quick-start').sourcePath,
+      'https://github.com/example/lulu-for-vue/',
+    )).toBe('https://github.com/example/lulu-for-vue/blob/main/apps/docs/src/guides/quick-start.md')
   })
 
   it('为未知页面提供中文 404 内容', () => {

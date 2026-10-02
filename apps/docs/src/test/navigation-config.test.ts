@@ -13,6 +13,7 @@ function createPage(component: string): DocsPage {
     heading: component,
     path: `/components/${component}/`,
     seo: { description: null, image: null, keywords: [], title: null },
+    sourcePath: null,
     statusCode: 200,
     title: component,
   }

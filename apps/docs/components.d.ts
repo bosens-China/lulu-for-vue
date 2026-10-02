@@ -22,6 +22,7 @@ declare module 'vue' {
     HomePage: typeof import('./src/components/HomePage.vue')['default']
     LuluButton: typeof import('@lulu/vue/button')['default']
     LuluPopconfirm: typeof import('@lulu/vue/popconfirm')['default']
+    PackageManagerTabs: typeof import('./src/components/PackageManagerTabs.vue')['default']
     PlaceholderPage: typeof import('./src/components/PlaceholderPage.vue')['default']
     SiteHeader: typeof import('./src/components/SiteHeader.vue')['default']
     SiteSidebar: typeof import('./src/components/SiteSidebar.vue')['default']

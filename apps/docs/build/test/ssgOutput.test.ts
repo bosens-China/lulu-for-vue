@@ -30,6 +30,14 @@ describe('文档 SSG 产物', () => {
     expect(notFoundHtml).toContain('返回首页')
     expect(notFoundHtml).toContain('href="/"')
     expect(notFoundHtml).not.toContain('<!--app-html-->')
+    const llms = await readFile(resolve(outputDirectory, 'llms.txt'), 'utf8')
+    expect(llms).toContain('# LuLu UI Vue')
+    expect(llms).toContain('/guide/installation/index.md')
+    const installationMarkdown = await readFile(
+      resolve(outputDirectory, 'guide/installation/index.md'),
+      'utf8',
+    )
+    expect(installationMarkdown).toContain('# 安装')
     await expect(access(resolve(outputDirectory, '.vite'))).rejects.toThrow()
   })
 

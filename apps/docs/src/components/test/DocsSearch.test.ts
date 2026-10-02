@@ -1,5 +1,5 @@
-import { mount } from '@vue/test-utils'
-import { expect, it } from 'vitest'
+import { flushPromises, mount } from '@vue/test-utils'
+import { expect, it, vi } from 'vitest'
 import DocsSearch from '../DocsSearch.vue'
 
 it('Enter 选择结果时阻止默认激活，避免焦点归还后再次打开搜索', async () => {
@@ -18,6 +18,35 @@ it('Enter 选择结果时阻止默认激活，避免焦点归还后再次打开�
     await wrapper.vm.$nextTick()
     expect(enter.defaultPrevented).toBe(true)
     expect(document.querySelector('#docs-search-input')).toBeNull()
+  } finally {
+    wrapper.unmount()
+  }
+})
+
+it('可以搜索正文和代码块内容', async () => {
+  const wrapper = mount(DocsSearch, { attachTo: document.body })
+  try {
+    await wrapper.get('button').trigger('click')
+    await flushPromises()
+    const input = document.querySelector<HTMLInputElement>('#docs-search-input')!
+
+    input.value = 'peer dependency'
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    await vi.waitFor(() => {
+      expect(document.querySelector('#docs-search-results')?.textContent).toContain('安装')
+    })
+
+    input.value = 'const name = ref'
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    await vi.waitFor(() => {
+      expect(document.querySelector('#docs-search-results')?.textContent).toContain('快速开始')
+    })
+
+    input.value = 'const selected = ref<string[]>'
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+    await vi.waitFor(() => {
+      expect(document.querySelector('#docs-search-results')?.textContent).toContain('Select 选择器')
+    })
   } finally {
     wrapper.unmount()
   }

@@ -14,3 +14,9 @@ export function withoutBase(path: string): string {
 export function absolutePageUrl(path: string): string | null {
   return siteUrl ? new URL(path.replace(/^\//, ''), siteUrl).href : null
 }
+
+export function githubSourceUrl(sourcePath: string | null, repositoryUrl = import.meta.env.VITE_GITHUB_URL): string | null {
+  return sourcePath && repositoryUrl
+    ? `${repositoryUrl.replace(/\/$/, '')}/blob/main/${sourcePath}`
+    : null
+}

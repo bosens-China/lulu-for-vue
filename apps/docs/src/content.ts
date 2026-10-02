@@ -66,12 +66,13 @@ function createPage(
     heading,
     path: `/components/${slug}/`,
     seo,
+    sourcePath: repositorySourcePath(sourcePath),
     statusCode: 200,
     title: seo.title ?? `${heading} - LuLu UI Vue`,
   }
 }
 
-function parseDocumentPath(sourcePath: string): string {
+export function parseDocumentPath(sourcePath: string): string {
   const normalizedPath = sourcePath.replaceAll('\\', '/')
   const match = normalizedPath.match(/\/components\/(?:[^/]+\/)*([^/]+)\/readme\/README\.md$/)
 
@@ -80,6 +81,26 @@ function parseDocumentPath(sourcePath: string): string {
   }
 
   return match[1]
+}
+
+export function parseGuidePath(sourcePath: string): string {
+  const slug = sourcePath.replaceAll('\\', '/').match(/\/guides\/([a-z][a-z-]*)\.md$/)?.[1]
+  if (!slug) throw new Error(`[docs] 无法从指南路径生成路由：${sourcePath}`)
+  return slug
+}
+
+function repositorySourcePath(sourcePath: string): string {
+  const normalizedPath = sourcePath.replaceAll('\\', '/')
+  const packageIndex = normalizedPath.indexOf('packages/')
+  if (packageIndex >= 0) return normalizedPath.slice(packageIndex)
+
+  const componentPath = normalizedPath.match(/(?:^|\/)(components\/.*\/README\.md)$/)?.[1]
+  if (componentPath) return `packages/ui/src/${componentPath}`
+
+  const guidePath = normalizedPath.match(/(?:^|\/)(guides\/[^/]+\.md)$/)?.[1]
+  if (guidePath) return `apps/docs/src/${guidePath}`
+
+  throw new Error(`[docs] 无法生成仓库源码路径：${sourcePath}`)
 }
 
 export function createDocsRoutes(modules: Record<string, MarkdownPageModule>): readonly DocsPage[] {
@@ -102,8 +123,7 @@ export function createDocsRoutes(modules: Record<string, MarkdownPageModule>): r
 
 export function createGuideRoutes(modules: Record<string, MarkdownPageModule>): readonly DocsPage[] {
   return Object.entries(modules).map(([sourcePath, pageModule]) => {
-    const slug = sourcePath.replaceAll('\\', '/').match(/\/guides\/([a-z][a-z-]*)\.md$/)?.[1]
-    if (!slug) throw new Error(`[docs] 无法从指南路径生成路由：${sourcePath}`)
+    const slug = parseGuidePath(sourcePath)
     const heading = requireText(pageModule.title, 'title', sourcePath)
     const description = requireText(pageModule.description, 'description', sourcePath)
     const seo = parseSeo(pageModule.seo, sourcePath)
@@ -113,6 +133,7 @@ export function createGuideRoutes(modules: Record<string, MarkdownPageModule>): 
       heading,
       path: `/guide/${slug}/`,
       seo,
+      sourcePath: repositorySourcePath(sourcePath),
       statusCode: 200 as const,
       title: seo.title ?? `${heading} - LuLu UI Vue`,
     }
