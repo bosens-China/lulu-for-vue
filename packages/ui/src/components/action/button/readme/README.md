@@ -44,6 +44,12 @@ seo:
 native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-model，避免显示值与业务状态不一致。
 :::
 
+## 链接按钮
+
+::: demo link
+传入 `href` 后渲染为原生 `<a>`，保留按钮外观；`target`、`rel` 等原生属性直接透传。禁用或加载时移除 `href` 并阻止跳转。
+:::
+
 ## API
 
 ### Props
@@ -51,9 +57,10 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `variant` | 按钮的视觉类型。 | `'default' \| 'normal' \| 'primary' \| 'success' \| 'warning' \| 'danger'` | `'default'` |
-| `disabled` | 是否禁用原生按钮。 | `boolean` | `false` |
+| `href` | 传入后渲染为链接（`<a>`），保留按钮外观。 | `string` | — |
+| `disabled` | 是否禁用原生按钮；链接形态下移除 `href` 并标记 `aria-disabled`。 | `boolean` | `false` |
 | `loading` | 是否显示加载状态；加载时会阻止重复操作。 | `boolean` | `false` |
-| `nativeType` | 原生 `<button>` 的 `type`。 | `'button' \| 'submit' \| 'reset'` | `'button'` |
+| `nativeType` | 原生 `<button>` 的 `type`，链接形态下无效。 | `'button' \| 'submit' \| 'reset'` | `'button'` |
 
 ### Slots
 
