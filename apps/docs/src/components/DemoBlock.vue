@@ -46,9 +46,9 @@ async function copySource(): Promise<void> {
 </script>
 
 <template>
-  <section class="my-8 overflow-hidden rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-card-bg)] text-[var(--lulu-color-text)]">
+  <section class="my-8 overflow-hidden rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] text-[var(--lulu-color-text)]">
     <!-- 1. 组件实际展示与操作演示区 -->
-    <div v-if="$slots.default" class="min-h-28 min-w-0 overflow-x-auto flex flex-col justify-center px-6 py-6 sm:px-8 bg-[var(--lulu-color-card-bg)]">
+    <div v-if="$slots.default" class="min-h-28 min-w-0 overflow-x-auto flex flex-col justify-center px-6 py-6 sm:px-8 bg-[var(--docs-color-card)]">
       <slot />
     </div>
 
@@ -63,7 +63,7 @@ async function copySource(): Promise<void> {
     <!-- 3. 源码折叠入口 -->
     <details class="group">
       <summary
-        class="flex h-10 cursor-pointer list-none select-none items-center justify-center gap-2 border-t border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-card-bg)] text-xs font-medium text-[var(--lulu-color-text-muted)] transition-colors hover:bg-[var(--lulu-color-surface-subtle)] hover:text-[var(--lulu-color-primary)] group-open:text-[var(--lulu-color-primary)]"
+        class="flex h-10 cursor-pointer list-none select-none items-center justify-center gap-2 border-t border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] text-xs font-medium text-[var(--lulu-color-text-muted)] transition-colors hover:bg-[var(--lulu-color-surface-subtle)] hover:text-[var(--lulu-color-primary)] group-open:text-[var(--lulu-color-primary)]"
       >
         <!-- 代码图标 -->
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@ async function copySource(): Promise<void> {
       </summary>
 
       <!-- 4. 复制代码控制栏 -->
-      <div class="flex justify-between items-center border-t border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-code-bg)] px-6 py-2 text-xs text-[var(--lulu-color-text-muted)]">
+      <div class="flex justify-between items-center border-t border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-code)] px-6 py-2 text-xs text-[var(--lulu-color-text-muted)]">
         <span class="font-mono text-[11px]">Vue / TypeScript</span>
         <button
           class="rounded px-2.5 py-1 text-xs font-medium text-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-selected)] transition-all flex items-center gap-1.5 cursor-pointer border border-transparent active:scale-95"
@@ -97,7 +97,7 @@ async function copySource(): Promise<void> {
 
       <!-- 5. 经过 Prism 语法高亮的源码展示区 -->
       <pre
-        class="m-0 overflow-x-auto border-t border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-code-bg)] px-6 py-4 text-xs font-mono leading-6 text-[var(--lulu-color-text)]"
+        class="m-0 overflow-x-auto border-t border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-code)] px-6 py-4 text-xs font-mono leading-6 text-[var(--lulu-color-text)]"
       ><code class="language-vue" v-html="highlightedSource" /></pre>
     </details>
   </section>

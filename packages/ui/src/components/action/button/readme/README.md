@@ -74,7 +74,7 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 | `--lulu-button-background` | 按钮背景颜色；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
 | `--lulu-button-border` | 按钮边框颜色；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
 | `--lulu-button-color` | 按钮文字颜色（CSS `color`）；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-danger` | 危险或错误状态 | `#c53030` | `#f87171` |
 | `--lulu-color-neutral-solid` | 默认按钮底色 | `#4c5161` | `#52525b` |
 | `--lulu-color-on-neutral` | 默认按钮底色上的文字 | `#ffffff` | `#ffffff` |
@@ -89,8 +89,9 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-opacity-disabled` | 禁用态透明度 | `0.55` | `0.55` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
-| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px rgb(42 128 235 / 24%)` | `0 0 0 3px rgb(56 189 248 / 35%)` |
+| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px #1668c7` | `0 0 0 3px #38bdf8` |
 | `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
 | `--lulu-transition-duration` | 过渡时长 | `160ms` | `160ms` |
@@ -98,4 +99,4 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 
 `--lulu-button-*` 未显式设置时按 `variant` 回退到对应语义色，可直接在按钮上覆盖。
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

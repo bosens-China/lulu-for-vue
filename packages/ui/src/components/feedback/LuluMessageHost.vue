@@ -12,6 +12,8 @@ import {
   type MessageType,
 } from './useMessage'
 
+defineOptions({ inheritAttrs: false })
+
 interface Props {
   closeLabel?: string
   duration?: number
@@ -81,6 +83,7 @@ provide(messageKey, messageApi)
   <Teleport :to="messageTarget ?? 'body'" :disabled="!messageTarget">
     <section
       v-if="messages.length"
+      v-bind="$attrs"
       class="lulu-message-host"
       :aria-label="props.label"
     >

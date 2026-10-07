@@ -38,7 +38,7 @@ const nextItem = computed(() => {
       <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
         ← 上一页
       </span>
-      <span class="text-sm font-semibold text-[var(--lulu-color-text-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
+      <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
         {{ prevItem.name }}
       </span>
     </a>
@@ -53,7 +53,7 @@ const nextItem = computed(() => {
       <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
         下一页 →
       </span>
-      <span class="text-sm font-semibold text-[var(--lulu-color-text-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
+      <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
         {{ nextItem.name }}
       </span>
     </a>

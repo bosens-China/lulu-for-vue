@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useAttrs, useId, watch } from 'vue'
+import { computed, nextTick, ref, useAttrs, useId, watch, type CSSProperties } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
 
 defineOptions({ inheritAttrs: false })
@@ -9,6 +9,7 @@ interface Props {
   closeOnOutside?: boolean
   disabled?: boolean
   offset?: number
+  panelStyle?: CSSProperties | undefined
   placement?: FloatingPlacement
 }
 
@@ -114,7 +115,7 @@ function handleEscape(event: KeyboardEvent) {
         role="dialog"
         :aria-labelledby="getPanelLabelledBy()"
         :data-placement="props.placement"
-        :style="floatingStyle"
+        :style="[props.panelStyle, floatingStyle]"
         @keydown.esc="handleEscape"
       >
         <slot />

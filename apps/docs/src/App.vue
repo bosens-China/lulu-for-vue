@@ -20,7 +20,7 @@ const pageSourceUrl = computed(() => githubSourceUrl(currentPage.value.sourcePat
 </script>
 
 <template>
-  <div class="min-h-screen bg-[var(--lulu-color-bg-page)] text-[var(--lulu-color-text)] flex flex-col font-sans transition-colors duration-200">
+  <div class="min-h-screen bg-[var(--docs-color-page)] text-[var(--lulu-color-text)] flex flex-col font-sans transition-colors duration-200">
     <!-- 1. 顶部 Header -->
     <SiteHeader :current-path="currentPage.path" />
 
@@ -29,7 +29,7 @@ const pageSourceUrl = computed(() => githubSourceUrl(currentPage.value.sourcePat
 
     <!-- 组件文档主布局体 -->
     <div v-else class="flex-1 w-full max-w-7xl mx-auto flex">
-      <DocsLayout class="bg-[var(--lulu-color-bg-container)] min-h-[calc(100vh-4rem)] border-x border-[var(--lulu-color-border-subtle)]">
+      <DocsLayout class="bg-[var(--docs-color-container)] min-h-[calc(100vh-4rem)] border-x border-[var(--lulu-color-border-subtle)]">
         <!-- 侧边栏 Sider -->
         <SiteSidebar :current-path="currentPage.path" class="hidden lg:block" />
 

@@ -61,7 +61,7 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-danger` | 危险或错误状态 | `#c53030` | `#f87171` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |
@@ -72,10 +72,10 @@ seo:
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
-| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px rgb(42 128 235 / 24%)` | `0 0 0 3px rgb(56 189 248 / 35%)` |
+| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px #1668c7` | `0 0 0 3px #38bdf8` |
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-transition-duration` | 过渡时长 | `160ms` | `160ms` |
 | `--lulu-transition-easing` | 过渡曲线 | `ease` | `ease` |
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

@@ -52,6 +52,11 @@ empty=true 时以空态替代表体；colspan 应与实际列数一致。body �
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
+| `--lulu-table-border` | 表格边框与分隔线 | 回退到 `--lulu-color-border-subtle` | 回退到 `--lulu-color-border-subtle` |
+| `--lulu-table-cell-padding-block` | 单元格块方向内边距 | 回退到 `--lulu-space-2` | 回退到 `--lulu-space-2` |
+| `--lulu-table-cell-padding-inline` | 单元格行方向内边距 | 回退到 `--lulu-space-3` | 回退到 `--lulu-space-3` |
+| `--lulu-table-color` | 表格文字 | 回退到 `--lulu-color-text` | 回退到 `--lulu-color-text` |
+| `--lulu-table-header-background` | 表头背景 | 回退到 `--lulu-color-surface-subtle` | 回退到 `--lulu-color-surface-subtle` |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
 | `--lulu-color-primary` | 滚动区域键盘焦点色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |

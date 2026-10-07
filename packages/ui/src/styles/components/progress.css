@@ -1,12 +1,12 @@
 .lulu-progress {
   appearance: none;
-  block-size: 8px;
+  block-size: var(--lulu-progress-height, 8px);
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--lulu-progress-radius, 999px);
   inline-size: 100%;
   overflow: hidden;
 }
 
-.lulu-progress::-webkit-progress-bar { background: var(--lulu-color-border-subtle); }
-.lulu-progress::-webkit-progress-value { background: var(--lulu-color-primary); }
-.lulu-progress::-moz-progress-bar { background: var(--lulu-color-primary); }
+.lulu-progress::-webkit-progress-bar { background: var(--lulu-progress-track, var(--lulu-color-border-subtle)); }
+.lulu-progress::-webkit-progress-value { background: var(--lulu-progress-value, var(--lulu-color-primary)); }
+.lulu-progress::-moz-progress-bar { background: var(--lulu-progress-value, var(--lulu-color-primary)); }

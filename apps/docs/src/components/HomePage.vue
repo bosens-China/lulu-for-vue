@@ -1,5 +1,5 @@
 <template>
-  <main class="home-page relative flex-1 overflow-hidden bg-[var(--lulu-color-bg-page)]">
+  <main class="home-page relative flex-1 overflow-hidden bg-[var(--docs-color-page)]">
     <div class="pointer-events-none absolute inset-x-0 top-0 h-112 overflow-hidden" aria-hidden="true">
       <div class="absolute -left-24 top-10 h-72 w-72 rounded-full bg-[var(--lulu-color-primary)] opacity-10 blur-3xl" />
       <div class="absolute -right-16 top-28 h-80 w-80 rounded-full bg-[var(--lulu-color-primary)] opacity-10 blur-3xl" />
@@ -7,12 +7,12 @@
 
     <section class="relative mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-14 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
       <div class="max-w-2xl">
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)]/75 px-3 py-1.5 text-xs font-semibold text-[var(--lulu-color-primary)] shadow-sm backdrop-blur">
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)]/75 px-3 py-1.5 text-xs font-semibold text-[var(--lulu-color-primary)] shadow-sm backdrop-blur">
           <span class="h-1.5 w-1.5 rounded-full bg-[var(--lulu-color-primary)]" />
           Vue 3 · TypeScript · 39 个组件
         </div>
 
-        <h1 class="m-0 text-5xl font-extrabold leading-[1.08] tracking-tight text-[var(--lulu-color-text-heading)] sm:text-6xl lg:text-7xl">
+        <h1 class="m-0 text-5xl font-extrabold leading-[1.08] tracking-tight text-[var(--docs-color-heading)] sm:text-6xl lg:text-7xl">
           简洁、可靠的
           <span class="block text-[var(--lulu-color-primary)]">
             Vue 组件库
@@ -33,7 +33,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6-6" />
             </svg>
           </a>
-          <code class="inline-flex h-11 items-center rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] px-4 text-xs text-[var(--lulu-color-text)] shadow-sm">
+          <code class="inline-flex h-11 items-center rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] px-4 text-xs text-[var(--lulu-color-text)] shadow-sm">
             pnpm add @lulu/vue
           </code>
         </div>
@@ -41,7 +41,7 @@
 
       <div class="relative mx-auto w-full max-w-lg lg:mx-0" aria-hidden="true">
         <div class="absolute -inset-6 rounded-[2.5rem] bg-[var(--lulu-color-primary)] opacity-10 blur-2xl" aria-hidden="true" />
-        <div class="relative overflow-hidden rounded-3xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)]/92 p-5 shadow-[0_28px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7">
+        <div class="relative overflow-hidden rounded-3xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)]/92 p-5 shadow-[0_28px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7">
           <div class="mb-7 flex items-center justify-between">
             <div class="flex gap-1.5" aria-hidden="true">
               <span class="h-2.5 w-2.5 rounded-full bg-[#ff7875]" />
@@ -51,16 +51,16 @@
             <span class="text-[11px] font-medium text-[var(--lulu-color-text-muted)]">COMPONENT PREVIEW</span>
           </div>
 
-          <div class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-page)] p-5 sm:p-6">
-            <p class="m-0 text-sm font-semibold text-[var(--lulu-color-text-heading)]">创建项目</p>
+          <div class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-page)] p-5 sm:p-6">
+            <p class="m-0 text-sm font-semibold text-[var(--docs-color-heading)]">创建项目</p>
             <p class="mb-5 mt-1 text-xs leading-5 text-[var(--lulu-color-text-muted)]">填写基本信息，开始搭建你的新应用。</p>
             <label class="mb-2 block text-xs font-medium text-[var(--lulu-color-text)]">项目名称</label>
-            <div class="flex h-10 items-center rounded-lg border border-solid border-[var(--lulu-color-primary)] bg-[var(--lulu-color-bg-container)] px-3 text-sm text-[var(--lulu-color-text-heading)] shadow-sm">
+            <div class="flex h-10 items-center rounded-lg border border-solid border-[var(--lulu-color-primary)] bg-[var(--docs-color-container)] px-3 text-sm text-[var(--docs-color-heading)] shadow-sm">
               LuLu Design
             </div>
-            <div class="mt-5 flex items-center justify-between rounded-xl bg-[var(--lulu-color-bg-container)] px-3.5 py-3">
+            <div class="mt-5 flex items-center justify-between rounded-xl bg-[var(--docs-color-container)] px-3.5 py-3">
               <div>
-                <p class="m-0 text-xs font-medium text-[var(--lulu-color-text-heading)]">公开项目</p>
+                <p class="m-0 text-xs font-medium text-[var(--docs-color-heading)]">公开项目</p>
                 <p class="mb-0 mt-0.5 text-[11px] text-[var(--lulu-color-text-muted)]">允许团队成员访问</p>
               </div>
               <span class="relative h-5 w-9 rounded-full bg-[var(--lulu-color-primary)]" aria-hidden="true">
@@ -77,11 +77,11 @@
 
     <section class="relative mx-auto max-w-7xl px-6 pb-22">
       <div class="grid gap-4 md:grid-cols-3">
-        <article v-for="feature in features" :key="feature.title" class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1">
+        <article v-for="feature in features" :key="feature.title" class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1">
           <div class="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-[var(--lulu-color-surface-selected)] text-lg font-bold text-[var(--lulu-color-primary)]">
             {{ feature.mark }}
           </div>
-          <h2 class="m-0 text-base font-bold text-[var(--lulu-color-text-heading)]">{{ feature.title }}</h2>
+          <h2 class="m-0 text-base font-bold text-[var(--docs-color-heading)]">{{ feature.title }}</h2>
           <p class="mb-0 mt-2 text-sm leading-6 text-[var(--lulu-color-text)]">{{ feature.description }}</p>
         </article>
       </div>

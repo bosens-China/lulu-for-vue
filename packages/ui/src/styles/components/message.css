@@ -1,11 +1,11 @@
 .lulu-message {
   align-items: center;
-  background: var(--lulu-color-surface);
-  border: 1px solid var(--lulu-color-border);
-  border-inline-start: 4px solid var(--lulu-color-primary);
-  border-radius: var(--lulu-radius);
-  box-shadow: var(--lulu-shadow-overlay);
-  color: var(--lulu-color-text);
+  background: var(--lulu-message-background, var(--lulu-color-surface));
+  border: 1px solid var(--lulu-message-border, var(--lulu-color-border));
+  border-inline-start: 4px solid var(--lulu-message-accent, var(--lulu-color-primary));
+  border-radius: var(--lulu-message-radius, var(--lulu-radius));
+  box-shadow: var(--lulu-message-shadow, var(--lulu-shadow-overlay));
+  color: var(--lulu-message-color, var(--lulu-color-text));
   display: flex;
   gap: var(--lulu-space-3);
   max-inline-size: min(420px, calc(100vw - 2 * var(--lulu-space-4)));
@@ -13,7 +13,7 @@
   pointer-events: auto;
 }
 
-.lulu-message--success { border-inline-start-color: var(--lulu-color-success); }
-.lulu-message--warning { border-inline-start-color: var(--lulu-color-warning); }
-.lulu-message--error { border-inline-start-color: var(--lulu-color-danger); }
+.lulu-message--success { border-inline-start-color: var(--lulu-message-success-accent, var(--lulu-color-success)); }
+.lulu-message--warning { border-inline-start-color: var(--lulu-message-warning-accent, var(--lulu-color-warning)); }
+.lulu-message--error { border-inline-start-color: var(--lulu-message-error-accent, var(--lulu-color-danger)); }
 .lulu-message__content { flex: 1; }

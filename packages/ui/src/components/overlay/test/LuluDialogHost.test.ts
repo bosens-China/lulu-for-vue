@@ -10,7 +10,7 @@ import { useMessage, type MessageApi } from '../../feedback/useMessage'
 enableAutoUnmount(afterEach)
 const options = { title: '确认删除', content: '删除后无法恢复' }
 
-function setup() {
+function setup(attrs: Record<string, unknown> = {}) {
   let dialog!: DialogApi
   let message!: MessageApi
   const visible = shallowRef(true)
@@ -23,7 +23,7 @@ function setup() {
   })
   const wrapper = mount(LuluMessageHost, {
     attachTo: document.body,
-    slots: { default: () => h(LuluDialogHost, null, { default: () => visible.value ? h(Consumer) : null }) },
+    slots: { default: () => h(LuluDialogHost, attrs, { default: () => visible.value ? h(Consumer) : null }) },
   })
   return { wrapper, dialog, message, visible }
 }
@@ -205,6 +205,23 @@ describe('LuluDialogHost / useDialog', () => {
     await nextTick()
     expect(first.wrapper.find('dialog').exists()).toBe(true)
     expect(second.wrapper.find('dialog').exists()).toBe(false)
+    handle.close()
+    await handle.closed
+  })
+
+  it('把 Host 属性和单实例 token 传给实际对话框', async () => {
+    const { wrapper, dialog } = setup({
+      class: 'custom-dialog-host',
+      'data-lulu-theme': 'dark',
+      style: { '--lulu-dialog-width': '30rem' },
+    })
+    const handle = dialog.open(options)
+    await nextTick()
+    const modal = wrapper.get('dialog')
+
+    expect(modal.classes()).toContain('custom-dialog-host')
+    expect(modal.attributes('data-lulu-theme')).toBe('dark')
+    expect((modal.element as HTMLElement).style.getPropertyValue('--lulu-dialog-width')).toBe('30rem')
     handle.close()
     await handle.closed
   })

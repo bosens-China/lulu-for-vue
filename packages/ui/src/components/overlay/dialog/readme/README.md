@@ -62,6 +62,12 @@ header 插槽自定义标题；关闭策略只在确有需要的流程中使用�
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
+| `--lulu-dialog-background` | 弹窗背景 | 回退到 `--lulu-color-surface` | 回退到 `--lulu-color-surface` |
+| `--lulu-dialog-backdrop` | 模态遮罩 | 回退到 `--lulu-color-overlay` | 回退到 `--lulu-color-overlay` |
+| `--lulu-dialog-color` | 弹窗文字 | 回退到 `--lulu-color-text` | 回退到 `--lulu-color-text` |
+| `--lulu-dialog-radius` | 弹窗圆角 | 回退到 `--lulu-radius-lg` | 回退到 `--lulu-radius-lg` |
+| `--lulu-dialog-shadow` | 弹窗阴影 | 回退到 `--lulu-shadow-overlay` | 回退到 `--lulu-shadow-overlay` |
+| `--lulu-dialog-width` | 弹窗宽度上限 | `560px` | `560px` |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
 | `--lulu-color-overlay` | 模态遮罩 | `rgb(15 23 42 / 45%)` | `rgb(0 0 0 / 75%)` |
 | `--lulu-color-primary-solid` | 关闭按钮悬停强调色，默认继承主色 | `#1668c7` | `#38bdf8` |

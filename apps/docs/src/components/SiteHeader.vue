@@ -31,12 +31,12 @@ function openMenu() {
 </script>
 
 <template>
-  <DocsHeader class="h-16 border-b border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)]/90 backdrop-blur-md">
+  <DocsHeader class="h-16 border-b border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)]/90 backdrop-blur-md">
     <div class="mx-auto flex h-full max-w-7xl items-center gap-3 px-4 sm:px-6">
       <LuluButton class="docs-icon-button lg:hidden" aria-label="打开组件导航" @click="openMenu"><span class="i-lucide-menu" aria-hidden="true" /></LuluButton>
       <a :href="withBase('/')" class="flex min-w-0 items-center gap-3 text-decoration-none" aria-label="LuLu UI Vue 首页">
         <img :src="withBase('/favicon.svg')" alt="" width="32" height="32" class="h-8 w-8 shrink-0 rounded-xl" />
-        <span class="truncate text-base font-bold text-[var(--lulu-color-text-heading)]">LuLu UI Vue</span>
+        <span class="truncate text-base font-bold text-[var(--docs-color-heading)]">LuLu UI Vue</span>
       </a>
 
       <div class="ml-auto flex items-center gap-2 sm:gap-3">

@@ -50,7 +50,7 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-primary-solid` | 主要操作底色，默认继承主色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
@@ -64,4 +64,4 @@ seo:
 | `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

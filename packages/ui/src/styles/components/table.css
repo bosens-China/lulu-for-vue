@@ -9,10 +9,10 @@
 }
 
 .lulu-table {
-  border: 1px solid var(--lulu-color-border-subtle);
+  border: 1px solid var(--lulu-table-border, var(--lulu-color-border-subtle));
   border-collapse: collapse;
   border-radius: var(--lulu-radius);
-  color: var(--lulu-color-text);
+  color: var(--lulu-table-color, var(--lulu-color-text));
   inline-size: max-content;
   min-inline-size: 100%;
   overflow: hidden;
@@ -29,12 +29,12 @@
 
 .lulu-table th,
 .lulu-table td {
-  border-bottom: 1px solid var(--lulu-color-border-subtle);
-  padding: var(--lulu-space-2) var(--lulu-space-3);
+  border-bottom: 1px solid var(--lulu-table-border, var(--lulu-color-border-subtle));
+  padding: var(--lulu-table-cell-padding-block, var(--lulu-space-2)) var(--lulu-table-cell-padding-inline, var(--lulu-space-3));
   text-align: start;
 }
 
-.lulu-table th { background: var(--lulu-color-surface-subtle); font-weight: 600; }
+.lulu-table th { background: var(--lulu-table-header-background, var(--lulu-color-surface-subtle)); font-weight: 600; }
 .lulu-table td[data-align='center'],
 .lulu-table th[data-align='center'] { text-align: center; }
 .lulu-table td[data-align='end'],

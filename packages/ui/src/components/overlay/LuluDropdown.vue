@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useAttrs, useId, watch } from 'vue'
+import { computed, nextTick, ref, useAttrs, useId, watch, type CSSProperties } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
 
 defineOptions({ inheritAttrs: false })
@@ -15,6 +15,7 @@ interface Props {
   disabled?: boolean
   items?: readonly DropdownItem[]
   offset?: number
+  panelStyle?: CSSProperties | undefined
   placement?: FloatingPlacement
 }
 
@@ -149,7 +150,7 @@ function getPanelLabelledBy() {
         role="menu"
         :aria-labelledby="getPanelLabelledBy()"
         :data-placement="props.placement"
-        :style="floatingStyle"
+        :style="[props.panelStyle, floatingStyle]"
         @keydown="moveFocus"
       >
         <button

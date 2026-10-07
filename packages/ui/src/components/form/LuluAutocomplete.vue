@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useId } from 'vue'
+import { computed, ref, useId, type CSSProperties } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from '../overlay/useFloatingLayer'
 
 defineOptions({ inheritAttrs: false })
@@ -23,6 +23,7 @@ interface Props {
   loadingText?: string
   maxResults?: number
   offset?: number
+  panelStyle?: CSSProperties | undefined
   placement?: FloatingPlacement
 }
 
@@ -182,7 +183,7 @@ function setActive(index: number) {
       class="lulu-floating-panel lulu-autocomplete__list"
       role="listbox"
       :aria-busy="props.loading || undefined"
-      :style="floatingStyle"
+      :style="[props.panelStyle, floatingStyle]"
     >
       <li v-if="props.loading" class="lulu-autocomplete__loading" role="status">{{ props.loadingText }}</li>
       <li

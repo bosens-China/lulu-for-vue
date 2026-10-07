@@ -105,6 +105,22 @@ describe('LuluPopover', () => {
     wrapper.unmount()
   })
 
+  it('通过 panelStyle 覆盖单个 Teleport 浮层的 token', async () => {
+    const wrapper = mount(LuluPopover, {
+      attachTo: document.body,
+      props: {
+        open: true,
+        panelStyle: { '--lulu-floating-background': '#312e81' },
+      },
+      slots: { default: '一次性样式', trigger: '打开' },
+    })
+    await nextTick()
+
+    expect(document.body.querySelector<HTMLElement>('[role="dialog"]')?.style
+      .getPropertyValue('--lulu-floating-background')).toBe('#312e81')
+    wrapper.unmount()
+  })
+
   it('通过触发器打开，并在外部按下时关闭', async () => {
     const wrapper = mount(LuluPopover, {
       attachTo: document.body,

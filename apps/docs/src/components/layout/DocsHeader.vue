@@ -14,7 +14,7 @@ const props = withDefaults(
 <template>
   <component
     :is="tag"
-    class="docs-header w-full shrink-0 border-b border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-bg-container)] text-[var(--lulu-color-text-heading)] transition-colors duration-200 z-30 shadow-2xs"
+    class="docs-header w-full shrink-0 border-b border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] text-[var(--docs-color-heading)] transition-colors duration-200 z-30 shadow-2xs"
     :class="[props.sticky ? 'sticky top-0 backdrop-blur-md' : '']"
   >
     <slot />

@@ -54,6 +54,7 @@ default 插槽定制遮罩内文案，message 仍提供加载指示器的可访�
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
+| `--lulu-loading-overlay-background` | 遮罩背景 | 回退到 `--lulu-color-loading-overlay` | 回退到 `--lulu-color-loading-overlay` |
 | `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-loading-size` | 加载图标尺寸（size 属性会在组件上设定） | `20px` | `20px` |

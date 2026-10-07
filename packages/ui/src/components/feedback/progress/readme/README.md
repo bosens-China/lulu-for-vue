@@ -44,6 +44,10 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
+| `--lulu-progress-height` | 进度条高度 | `8px` | `8px` |
+| `--lulu-progress-radius` | 进度条圆角 | `999px` | `999px` |
+| `--lulu-progress-track` | 轨道颜色 | 回退到 `--lulu-color-border-subtle` | 回退到 `--lulu-color-border-subtle` |
+| `--lulu-progress-value` | 进度颜色 | 回退到 `--lulu-color-primary` | 回退到 `--lulu-color-primary` |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
 | `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 

@@ -7,7 +7,7 @@ const { tag = 'main' } = defineProps<{
 <template>
   <component
     :is="tag"
-    class="docs-content flex-1 min-w-0 bg-[var(--lulu-color-bg-container)] text-[var(--lulu-color-text)] transition-colors duration-200"
+    class="docs-content flex-1 min-w-0 bg-[var(--docs-color-container)] text-[var(--lulu-color-text)] transition-colors duration-200"
   >
     <slot />
   </component>

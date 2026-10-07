@@ -13,7 +13,8 @@ seo:
 
 - `--lulu-color-*` 是跨组件的语义色。`primary` 是全局主色入口，用于强调文字、选中态和实色主操作；`primary-solid` 默认继承它，仅在需要区分实色背景时单独覆盖。`on-neutral`、`on-status` 表示叠在对应底色上的文字颜色。
 - `--lulu-font-*`、`--lulu-radius*`、`--lulu-space-*` 是共用排版、圆角与间距。间距的 `1`、`2`、`3`、`4` 是从小到大的档位，默认分别为 4、8、12、16px。
-- `--lulu-button-*`、`--lulu-loading-size` 等以组件名开头的变量控制该组件。其中 `--lulu-button-color` 对应 CSS 的 `color`，控制按钮文字颜色。
+- `--lulu-button-*`、`--lulu-dialog-*`、`--lulu-loading-*` 等以组件名开头的变量控制该组件，并回退到全局语义变量。其中 `--lulu-button-color` 对应 CSS 的 `color`，控制按钮文字颜色。
+- `--lulu-control-*`、`--lulu-floating-*` 分别控制输入控件家族和浮层面板；适合统一调整一类组件，不需要逐个创建重复别名。
 - `--lulu-z-index-popup` 控制贴近触发元素的浮层（下拉菜单、提示等）的层级；模态弹窗和消息各有独立层级。
 
 各组件文档的 CSS Tokens 表只列该组件样式实际读取的变量。调整整站外观时优先覆盖共用语义变量；仅调整一个组件时再覆盖组件专用变量。
@@ -48,18 +49,16 @@ seo:
 
 [data-lulu-theme='dark'] {
   --lulu-color-primary: #73c8ff;
-  --lulu-color-bg-page: #0b1220;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-lulu-theme])) {
     --lulu-color-primary: #73c8ff;
-    --lulu-color-bg-page: #0b1220;
   }
 }
 ```
 
-`--lulu-color-primary` 会同时影响强调文字、选中态和默认实心主操作；`--lulu-color-bg-page` 用于页面背景，`--lulu-color-text` 与 `--lulu-color-text-heading` 用于正文和标题，`--lulu-color-border` 用于边框。变量定义可在组件包的 `tokens.css` 中查看。在线选色只修改文档站；业务项目仍可按需覆盖 CSS 变量。
+`--lulu-color-primary` 会同时影响强调文字、选中态和默认实心主操作；`--lulu-color-text` 用于正文，`--lulu-color-border` 用于控件边框。变量定义可在组件包的 `tokens.css` 中查看；页面、标题、代码块和 Demo 卡片颜色属于文档站私有 Token，不进入组件包主题契约。在线选色只修改文档站；业务项目仍可按需覆盖 CSS 变量。
 
 需要分别覆盖显式深色主题和跟随系统的深色主题；上面的媒体查询用于后者。
 
@@ -79,4 +78,14 @@ seo:
 }
 ```
 
-Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `data-lulu-theme` 容器。要覆盖浮层变量，请将它们设置在该容器上；只设置在触发组件上的变量不会传给浮层。修改主色时，也要检查文字与暗色主题的对比度。
+Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖请将变量设置在该容器上；单实例覆盖使用 `panelStyle`：
+
+```vue
+<LuluTooltip
+  :panel-style="{ '--lulu-tooltip-background': '#312e81' }"
+>
+  说明
+</LuluTooltip>
+```
+
+`LuluMessageHost` 和 `LuluDialogHost` 会把 `style`、`class`、`data-lulu-theme` 等 Attributes 转交给实际视觉层。修改主色时，也要检查文字与暗色主题的对比度。

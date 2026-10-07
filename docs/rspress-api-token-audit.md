@@ -45,9 +45,11 @@ Rspress 提供 9 类可直接用于 MDX 的文档组件。组件清单来自 [Rs
 
 ## CSS Token 审查
 
-全局 Token 已按颜色、表面、边框、排版、尺寸、间距、阴影和层级分组，并提供显式与系统深色模式。`--lulu-color-primary-solid` 默认继承 `--lulu-color-primary`，业务修改一个主色即可覆盖强调文字、选中态和实心主操作，仍可按需单独覆盖实色背景。审查中删除了 `primary-hover`、`disabled`、`shadow-sm`、`z-index-dialog` 四个没有运行时消费者的预设；原生 Dialog 位于顶层，无需应用层 z-index。
+全局 Token 已按颜色、表面、边框、排版、尺寸、间距、阴影和层级分组，并提供显式与系统深色模式。`--lulu-color-primary-solid` 默认继承 `--lulu-color-primary`，业务修改一个主色即可覆盖强调文字、选中态和实心主操作，仍可按需单独覆盖实色背景。审查中删除了无运行时消费者的预设和文档站专用颜色；文档页背景、标题、代码块及 Demo 卡片改用 `--docs-*` 私有变量，不再污染组件包契约。
 
-本轮发现 Message、Dialog、DialogHost 文档漏列组件专属 CSS 直接使用的 Token，已补齐浅色和深色默认值，并增加自动检查。Button 与 Loading 已有局部组件 Token，其余组件主要复用全局语义 Token。继续为每个组件预设大量别名会扩大维护面，建议只在真实的局部定制需求无法由语义 Token 解决时增加。
+共享输入控件、浮层、触发器、选择控件和关闭按钮提供家族级 Token；Button、Loading、Dialog、Message、Progress、Table、Tooltip 等高频视觉槽提供组件级 Token，并统一以全局语义 Token 作为回退。普通组件可在组件根元素用 `style` 一次性覆盖；Teleport 浮层使用 `panelStyle`；`LuluMessageHost` 与 `LuluDialogHost` 会把属性传给实际渲染层。实现没有增加运行时主题 Provider，也没有为每条 CSS 声明机械创建别名。
+
+浅色和深色边框、焦点色与对应表面的对比度均达到 3:1，并由测试锁定；组件文档继续自动校验直接使用的 Token，避免实现与文档漂移。
 
 Table 已增加保留原生表格语义的横向滚动容器，宽列在移动端不再被强行压缩；没有引入依赖业务字段含义的通用卡片化布局。
 

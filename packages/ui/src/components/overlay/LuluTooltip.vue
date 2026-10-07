@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useId, watch } from 'vue'
+import { computed, ref, useId, watch, type CSSProperties } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
 
 defineOptions({ inheritAttrs: false })
@@ -9,6 +9,7 @@ export type TooltipTrigger = 'click' | 'focus' | 'hover' | 'manual'
 interface Props {
   disabled?: boolean
   offset?: number
+  panelStyle?: CSSProperties | undefined
   placement?: FloatingPlacement
   trigger?: TooltipTrigger
 }
@@ -104,7 +105,7 @@ function toggle() {
       class="lulu-tooltip"
       role="tooltip"
       :data-placement="props.placement"
-      :style="floatingStyle"
+      :style="[props.panelStyle, floatingStyle]"
       @mouseenter="show('hover')"
       @mouseleave="hide('hover')"
     >

@@ -92,7 +92,7 @@ await handle.closed
 
 ### Host
 
-无专有 Props、Models 或 Events；`default` 插槽为可调用 `useDialog()` 的后代组件。不提供全局静态 API。
+无专有 Props、Models 或 Events；`default` 插槽为可调用 `useDialog()` 的后代组件。不提供全局静态 API。Host 的 `class`、`style`、`data-lulu-theme` 等 Attributes 会应用到实际弹窗。
 
 ### DialogApi
 
@@ -140,7 +140,7 @@ await handle.closed
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 次要按钮边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 次要按钮边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-danger` | 异步错误文本 | `#c53030` | `#f87171` |
 | `--lulu-color-primary` | 次要按钮悬停文字 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-primary-solid` | 确认按钮背景，默认继承主色 | `#1668c7` | `#38bdf8` |

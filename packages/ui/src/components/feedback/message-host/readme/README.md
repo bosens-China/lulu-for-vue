@@ -43,6 +43,8 @@ seo:
 | --- | --- | --- |
 | `default` | 可使用 `useMessage` 的后代内容。 | — |
 
+Host 的 `class`、`style`、`data-lulu-theme` 等 Attributes 会应用到实际消息层，可用于单实例 Token 覆盖。
+
 ### useMessage
 
 `useMessage()` 必须在 `LuluMessageHost` 的后代组件 `setup` 中调用。可从 `@lulu/vue/use-message` 具名导入；每个显示方法都返回可单独关闭该消息的句柄。
@@ -68,7 +70,7 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
@@ -84,4 +86,4 @@ seo:
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
 | `--lulu-z-index-message` | 消息层级 | `1200` | `1200` |
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

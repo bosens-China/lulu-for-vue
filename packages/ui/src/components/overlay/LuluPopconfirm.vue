@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTemplateRef } from 'vue'
+import { useTemplateRef, type CSSProperties } from 'vue'
 import LuluPopover from './LuluPopover.vue'
 import type { FloatingPlacement } from './useFloatingLayer'
 
@@ -10,6 +10,7 @@ interface Props {
   confirmText?: string
   disabled?: boolean
   message?: string
+  panelStyle?: CSSProperties | undefined
   placement?: FloatingPlacement
 }
 
@@ -42,7 +43,14 @@ function confirm() {
 </script>
 
 <template>
-  <LuluPopover v-bind="$attrs" ref="popover" v-model:open="open" :disabled="props.disabled" :placement="props.placement">
+  <LuluPopover
+    v-bind="$attrs"
+    ref="popover"
+    v-model:open="open"
+    :disabled="props.disabled"
+    :panel-style="props.panelStyle"
+    :placement="props.placement"
+  >
     <template #trigger><slot name="trigger">确认操作</slot></template>
     <p class="lulu-popconfirm__message"><slot>{{ props.message }}</slot></p>
     <div class="lulu-popconfirm__actions">

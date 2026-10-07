@@ -43,6 +43,7 @@ seo:
 | `trigger` | 触发方式。 | `'click' \| 'focus' \| 'hover' \| 'manual'` | `'hover'` |
 | `placement` | 提示相对触发器的位置。 | `FloatingPlacement` | `'top'` |
 | `offset` | 提示与触发器的间距。 | `number` | `6` |
+| `panelStyle` | 单次覆盖传送后面板的样式或 CSS Token。 | `CSSProperties` | — |
 | `disabled` | 是否禁用提示。 | `boolean` | `false` |
 
 ### Events
@@ -68,6 +69,10 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
+| `--lulu-tooltip-background` | 提示背景 | 回退到 `--lulu-color-text` | 回退到 `--lulu-color-text` |
+| `--lulu-tooltip-color` | 提示文字 | 回退到 `--lulu-color-text-inverse` | 回退到 `--lulu-color-text-inverse` |
+| `--lulu-tooltip-max-width` | 提示最大宽度 | `280px` | `280px` |
+| `--lulu-tooltip-radius` | 提示圆角 | 回退到 `--lulu-radius` | 回退到 `--lulu-radius` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
@@ -76,12 +81,12 @@ seo:
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-radius-sm` | 小圆角 | `4px` | `4px` |
-| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px rgb(42 128 235 / 24%)` | `0 0 0 3px rgb(56 189 248 / 35%)` |
+| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px #1668c7` | `0 0 0 3px #38bdf8` |
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
 | `--lulu-z-index-popup` | 提示浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器，请在该容器上覆盖变量，不能只设置在触发器上。
+浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
 
 例如在局部容器的 `style` 中设置 `--lulu-color-text: #4c5161`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

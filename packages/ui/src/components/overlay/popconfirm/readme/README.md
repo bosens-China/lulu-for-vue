@@ -40,6 +40,7 @@ confirm 和 cancel 分别提供反馈；默认插槽定制消息，外部按钮�
 | `confirmText` | 确认按钮文字。 | `string` | `'确认'` |
 | `cancelText` | 取消按钮文字。 | `string` | `'取消'` |
 | `placement` | 浮层相对触发器的位置。 | `FloatingPlacement` | `'bottom-start'` |
+| `panelStyle` | 单次覆盖传送后面板的样式或 CSS Token。 | `CSSProperties` | — |
 | `disabled` | 是否禁用触发器。 | `boolean` | `false` |
 
 ### Events
@@ -63,7 +64,7 @@ confirm 和 cancel 分别提供反馈；默认插槽定制消息，外部按钮�
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-primary-solid` | 主要操作底色，默认继承主色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
@@ -81,6 +82,6 @@ confirm 和 cancel 分别提供反馈；默认插槽定制消息，外部按钮�
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
 | `--lulu-z-index-popup` | 气泡浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器，请在该容器上覆盖变量，不能只设置在触发器上。
+浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

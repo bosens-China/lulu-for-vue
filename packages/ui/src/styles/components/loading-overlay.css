@@ -1,6 +1,6 @@
 .lulu-loading-overlay {
   align-items: center;
-  background: var(--lulu-color-loading-overlay);
+  background: var(--lulu-loading-overlay-background, var(--lulu-color-loading-overlay));
   display: flex;
   inset: 0;
   justify-content: center;

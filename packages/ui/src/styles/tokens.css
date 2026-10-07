@@ -12,10 +12,7 @@
   --lulu-color-on-neutral: #ffffff;
 
   /* 语义化色彩与背景 (Light) */
-  --lulu-color-bg-page: #f7f9fa;
-  --lulu-color-bg-container: #ffffff;
   --lulu-color-text: #4c5161;
-  --lulu-color-text-heading: #2f3442;
   --lulu-color-text-muted: #667085;
   --lulu-color-text-inverse: #ffffff;
   --lulu-color-surface: #ffffff;
@@ -24,13 +21,10 @@
   --lulu-color-surface-selected: #e0f0ff;
 
   /* 边框 */
-  --lulu-color-border: #d0d0d5;
-  --lulu-color-border-strong: #ababaf;
+  --lulu-color-border: #8b8f98;
   --lulu-color-border-subtle: #ededef;
 
-  /* 代码块与 demo 卡片 */
-  --lulu-color-code-bg: #f1f5f9;
-  --lulu-color-card-bg: #ffffff;
+  /* 遮罩 */
   --lulu-color-overlay: rgb(15 23 42 / 45%);
   --lulu-color-loading-overlay: rgb(255 255 255 / 72%);
 
@@ -53,8 +47,9 @@
   --lulu-space-4: 16px;
 
   /* 阴影与过渡 */
-  --lulu-shadow-focus: 0 0 0 3px rgb(42 128 235 / 24%);
+  --lulu-shadow-focus: 0 0 0 3px var(--lulu-color-primary);
   --lulu-shadow-overlay: 0 8px 24px rgb(15 23 42 / 16%);
+  --lulu-opacity-disabled: 0.55;
   --lulu-transition-duration: 160ms;
   --lulu-transition-easing: ease;
   --lulu-z-index-popup: 1000;
@@ -74,10 +69,7 @@
   --lulu-color-on-neutral: #ffffff;
 
   /* 贴近纯黑的极致深度配色 */
-  --lulu-color-bg-page: #000000;
-  --lulu-color-bg-container: #09090b;
   --lulu-color-text: #f4f4f5;
-  --lulu-color-text-heading: #ffffff;
   --lulu-color-text-muted: #a1a1aa;
   --lulu-color-text-inverse: #000000;
   --lulu-color-surface: #09090b;
@@ -85,15 +77,11 @@
   --lulu-color-surface-hover: #18181b;
   --lulu-color-surface-selected: rgb(56 189 248 / 0.16);
 
-  --lulu-color-border: #3f3f46;
-  --lulu-color-border-strong: #52525b;
+  --lulu-color-border: #62626b;
   --lulu-color-border-subtle: #27272a;
 
-  --lulu-color-code-bg: #0d0d10;
-  --lulu-color-card-bg: #121215;
   --lulu-color-overlay: rgb(0 0 0 / 75%);
   --lulu-color-loading-overlay: rgb(9 9 11 / 80%);
-  --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
   --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);
 }
 
@@ -108,24 +96,17 @@
     --lulu-color-on-status: #000000;
     --lulu-color-neutral-solid: #52525b;
     --lulu-color-on-neutral: #ffffff;
-    --lulu-color-bg-page: #000000;
-    --lulu-color-bg-container: #09090b;
     --lulu-color-text: #f4f4f5;
-    --lulu-color-text-heading: #ffffff;
     --lulu-color-text-muted: #a1a1aa;
     --lulu-color-text-inverse: #000000;
     --lulu-color-surface: #09090b;
     --lulu-color-surface-subtle: #121215;
     --lulu-color-surface-hover: #18181b;
     --lulu-color-surface-selected: rgb(56 189 248 / 0.16);
-    --lulu-color-border: #3f3f46;
-    --lulu-color-border-strong: #52525b;
+    --lulu-color-border: #62626b;
     --lulu-color-border-subtle: #27272a;
-    --lulu-color-code-bg: #0d0d10;
-    --lulu-color-card-bg: #121215;
     --lulu-color-overlay: rgb(0 0 0 / 75%);
     --lulu-color-loading-overlay: rgb(9 9 11 / 80%);
-    --lulu-shadow-focus: 0 0 0 3px rgb(56 189 248 / 35%);
     --lulu-shadow-overlay: 0 8px 24px rgb(0 0 0 / 70%);
   }
 }

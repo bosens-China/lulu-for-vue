@@ -26,7 +26,7 @@ watch(() => props.currentPath, refresh)
 
 <template>
   <aside class="sticky top-16 h-[calc(100vh-4rem)] w-52 shrink-0 overflow-y-auto border-l border-[var(--lulu-color-border-subtle)] px-5 py-8 text-sm" aria-label="页内目录">
-    <p class="mb-3 font-semibold text-[var(--lulu-color-text-heading)]">本页目录</p>
+    <p class="mb-3 font-semibold text-[var(--docs-color-heading)]">本页目录</p>
     <nav>
       <a
         v-for="heading in headings"

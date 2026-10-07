@@ -45,6 +45,9 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
+| `--lulu-loading-color` | 加载文案颜色 | 回退到 `--lulu-color-text-muted` | 回退到 `--lulu-color-text-muted` |
+| `--lulu-loading-gap` | 图标与文案间距 | 回退到 `--lulu-space-2` | 回退到 `--lulu-space-2` |
+| `--lulu-loading-indicator-color` | 加载图标颜色 | 回退到 `--lulu-color-primary` | 回退到 `--lulu-color-primary` |
 | `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
 | `--lulu-loading-size` | 加载图标尺寸（size 属性会在组件上设定） | `20px` | `20px` |

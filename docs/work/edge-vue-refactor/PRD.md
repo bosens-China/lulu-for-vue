@@ -38,6 +38,7 @@ Edge 的 `js/common/ui` 有 16 个 JS 文件，`css/common/ui` 有 22 个 CSS �
 - 包内以 UnoCSS 构建静态样式，复杂状态、伪元素和结构选择器使用 CSS。生成后的样式随 npm 包发布，使用方不需要安装或运行 UnoCSS。
 - 组件结构类名使用 `lulu-`，内部 utility 使用 `lulu-u-` 前缀；不输出影响使用方全局元素的 preflight。
 - 以 Edge 的颜色、字号、控件尺寸和交互状态为浅色基准，整理基础值、语义 token、必要的组件 token 三层 `--lulu-*` CSS 变量。避免把文档站专用 token 混入组件公共主题契约。
+- 全局语义 token 提供可访问的默认值；必要的组件 token 使用全局语义 token 作为回退，不为每个 CSS 声明建立重复别名。普通组件允许在实例 `style` 上覆盖，Teleport 浮层通过显式面板样式覆盖，命令式 Host 将 Attributes 转交给实际视觉层。
 - 提供完整的浅色与深色 token 表，支持显式局部主题和系统深色偏好；显式选择优先于系统偏好。原 Edge 不提供完整深色主题，深色配色按相同语义重新设计并验证对比度、焦点、禁用态和原生控件。普通文本及控件文字至少满足 WCAG AA 对比度。
 - 浮层若传送到 `body`，必须保持其所属局部主题；主题切换不得造成 SSR hydration 错误。
 
@@ -60,6 +61,7 @@ Edge 的 `js/common/ui` 有 16 个 JS 文件，`css/common/ui` 有 22 个 CSS �
 - Edge 的 22 项核对能力均有明确的 Vue API、原生替代或不迁移理由，映射与代码一致。
 - 使用方无需 UnoCSS 配置即可使用打包样式；产物中的 utility 都带 `lulu-u-` 前缀，且不含全局 preflight。
 - 覆盖 `--lulu-*` 能改变全局和局部主题；浅色、深色、系统偏好及显式覆盖均可工作，浮层与原生控件保持一致。
+- 控件边界与焦点指示的默认颜色达到 3:1 对比度；组件 token 未设置时继承全局语义 token，普通组件、Teleport 面板和命令式 Host 均能完成单实例覆盖。
 - 真实消费者分别只引入 Button、同时引入 Button 和 Input、同时引入 Popconfirm 和 Popover，并分别从根入口、组件子路径和 resolver 构建；检查无关组件排除、公共 CSS 与共享 JS 去重、运行时行为和类型声明。
 - `pnpm typecheck`、`pnpm lint`、`pnpm test` 和 `pnpm verify:package` 通过。
 - `pnpm audit --prod` 无已知漏洞，开发依赖不保留已有修复版本的安全公告；发布包包含版本、仓库、许可证和公开发布元数据。

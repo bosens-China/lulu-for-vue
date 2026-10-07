@@ -33,8 +33,17 @@ function contrast(foreground: string, background: string): number {
 
 function lightToken(tokens: string, name: string): string {
   const lightTheme = tokens.slice(0, tokens.indexOf("[data-lulu-theme='dark']"))
-  const value = lightTheme.match(new RegExp(`--${name}:\\s*(#[\\da-f]{6})`, 'i'))?.[1]
-  if (!value) throw new Error(`找不到浅色主题变量：--${name}`)
+  return hexToken(lightTheme, name, '浅色')
+}
+
+function darkToken(tokens: string, name: string): string {
+  const darkTheme = tokens.match(/\[data-lulu-theme='dark'\] \{([\s\S]*?)\n\}/)?.[1] ?? ''
+  return hexToken(darkTheme, name, '深色')
+}
+
+function hexToken(theme: string, name: string, label: string): string {
+  const value = theme.match(new RegExp(`--${name}:\\s*(#[\\da-f]{6})`, 'i'))?.[1]
+  if (!value) throw new Error(`找不到${label}主题变量：--${name}`)
   return value
 }
 
@@ -47,7 +56,7 @@ function customProperties(block: string): Record<string, string> {
 
 describe('Lulu CSS theme', () => {
   it('加载遮罩在显式与系统深色模式使用主题变量', () => {
-    expect(readStyle('components/loading-overlay.css')).toContain('background: var(--lulu-color-loading-overlay)')
+    expect(readStyle('components/loading-overlay.css')).toContain('background: var(--lulu-loading-overlay-background, var(--lulu-color-loading-overlay))')
     expect(readStyle('tokens.css').match(/--lulu-color-loading-overlay: rgb\(9 9 11 \/ 80%\)/g)).toHaveLength(2)
   })
   it('publishes the Edge-compatible semantic token baseline', () => {
@@ -56,9 +65,13 @@ describe('Lulu CSS theme', () => {
     expect(tokens).toContain('--lulu-color-primary: #1668c7')
     expect(tokens).toContain('--lulu-color-primary-solid: var(--lulu-color-primary)')
     expect(tokens).toContain('--lulu-control-height: 40px')
+    expect(tokens).toContain('--lulu-opacity-disabled: 0.55')
     expect(tokens).toContain('--lulu-transition-duration: 160ms')
     expect(tokens).toContain(':root:where(:not([data-lulu-theme]))')
     expect(tokens).not.toContain('--ui-blue')
+    for (const docsOnly of ['bg-page', 'bg-container', 'text-heading', 'border-strong', 'code-bg', 'card-bg']) {
+      expect(tokens).not.toContain(`--lulu-color-${docsOnly}`)
+    }
     for (const unused of ['--lulu-color-primary-hover', '--lulu-color-disabled', '--lulu-shadow-sm', '--lulu-z-index-dialog']) {
       expect(tokens).not.toContain(unused)
     }
@@ -73,6 +86,32 @@ describe('Lulu CSS theme', () => {
     expect(contrast(lightToken(tokens, 'lulu-color-text-inverse'), lightToken(tokens, 'lulu-color-primary'))).toBeGreaterThanOrEqual(4.5)
     expect(contrast(lightToken(tokens, 'lulu-color-primary'), lightToken(tokens, 'lulu-color-surface-selected'))).toBeGreaterThanOrEqual(4.5)
     expect(contrast(lightToken(tokens, 'lulu-color-text-inverse'), lightToken(tokens, 'lulu-color-danger'))).toBeGreaterThanOrEqual(4.5)
+  })
+
+  it('keeps control boundaries and focus indicators visibly distinct', () => {
+    const tokens = readStyle('tokens.css')
+
+    expect(contrast(lightToken(tokens, 'lulu-color-border'), lightToken(tokens, 'lulu-color-surface'))).toBeGreaterThanOrEqual(3)
+    expect(contrast(darkToken(tokens, 'lulu-color-border'), darkToken(tokens, 'lulu-color-surface'))).toBeGreaterThanOrEqual(3)
+    expect(contrast(lightToken(tokens, 'lulu-color-primary'), lightToken(tokens, 'lulu-color-surface'))).toBeGreaterThanOrEqual(3)
+    expect(contrast(darkToken(tokens, 'lulu-color-primary'), darkToken(tokens, 'lulu-color-surface'))).toBeGreaterThanOrEqual(3)
+    expect(tokens).toContain('--lulu-shadow-focus: 0 0 0 3px var(--lulu-color-primary)')
+  })
+
+  it('lets component and family tokens fall back to global semantics', () => {
+    const style = `${readStyle('base.css')}\n${readComponentStyles()}`
+
+    for (const fallback of [
+      'var(--lulu-control-background, var(--lulu-color-surface))',
+      'var(--lulu-floating-background, var(--lulu-color-surface))',
+      'var(--lulu-dialog-background, var(--lulu-color-surface))',
+      'var(--lulu-message-background, var(--lulu-color-surface))',
+      'var(--lulu-progress-value, var(--lulu-color-primary))',
+      'var(--lulu-table-border, var(--lulu-color-border-subtle))',
+      'var(--lulu-tooltip-background, var(--lulu-color-text))',
+    ]) {
+      expect(style).toContain(fallback)
+    }
   })
 
   it('keeps explicit and system dark theme tokens in sync', () => {

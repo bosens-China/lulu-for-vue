@@ -53,7 +53,16 @@ duration 的单位为毫秒；close 事件由父组件移除消息。重新挂�
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-message-accent` | 普通消息强调色 | 回退到 `--lulu-color-primary` | 回退到 `--lulu-color-primary` |
+| `--lulu-message-background` | 消息背景 | 回退到 `--lulu-color-surface` | 回退到 `--lulu-color-surface` |
+| `--lulu-message-border` | 消息边框 | 回退到 `--lulu-color-border` | 回退到 `--lulu-color-border` |
+| `--lulu-message-color` | 消息文字 | 回退到 `--lulu-color-text` | 回退到 `--lulu-color-text` |
+| `--lulu-message-error-accent` | 错误消息强调色 | 回退到 `--lulu-color-danger` | 回退到 `--lulu-color-danger` |
+| `--lulu-message-radius` | 消息圆角 | 回退到 `--lulu-radius` | 回退到 `--lulu-radius` |
+| `--lulu-message-shadow` | 消息阴影 | 回退到 `--lulu-shadow-overlay` | 回退到 `--lulu-shadow-overlay` |
+| `--lulu-message-success-accent` | 成功消息强调色 | 回退到 `--lulu-color-success` | 回退到 `--lulu-color-success` |
+| `--lulu-message-warning-accent` | 警告消息强调色 | 回退到 `--lulu-color-warning` | 回退到 `--lulu-color-warning` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-danger` | 错误消息强调色 | `#c53030` | `#f87171` |
 | `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-success` | 成功消息强调色 | `#1cad70` | `#34d399` |
@@ -70,4 +79,4 @@ duration 的单位为毫秒；close 事件由父组件移除消息。重新挂�
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

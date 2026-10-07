@@ -36,6 +36,7 @@ seo:
 | `v-model:open` | 是否显示浮层。 | `boolean` | `false` |
 | `placement` | 浮层相对触发器的位置。 | `FloatingPlacement` | `'bottom-start'` |
 | `offset` | 浮层与触发器的间距。 | `number` | `8` |
+| `panelStyle` | 单次覆盖传送后面板的样式或 CSS Token。 | `CSSProperties` | — |
 | `closeOnOutside` | 点击外部是否关闭。 | `boolean` | `true` |
 | `closeOnEscape` | 按下 Escape 是否关闭。 | `boolean` | `true` |
 | `disabled` | 是否禁用触发器。 | `boolean` | `false` |
@@ -69,7 +70,7 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
@@ -83,6 +84,6 @@ seo:
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
 | `--lulu-z-index-popup` | 气泡浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器，请在该容器上覆盖变量，不能只设置在触发器上。
+浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

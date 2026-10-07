@@ -40,6 +40,7 @@ seo:
 | `maxResults` | 最多展示的候选项数量。 | `number` | `8` |
 | `placement` | 候选面板相对输入框的位置。 | `FloatingPlacement` | `'bottom-start'` |
 | `offset` | 候选面板与输入框的间距。 | `number` | `4` |
+| `panelStyle` | 单次覆盖传送后面板的样式或 CSS Token。 | `CSSProperties` | — |
 | `disabled` | 是否禁用输入。 | `boolean` | `false` |
 
 ### Events
@@ -63,7 +64,7 @@ seo:
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 控件边框 | `#d0d0d5` | `#3f3f46` |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-surface-selected` | 选中背景 | `#e0f0ff` | `rgb(56 189 248 / 0.16)` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |
@@ -75,7 +76,7 @@ seo:
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-radius-sm` | 小圆角 | `4px` | `4px` |
-| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px rgb(42 128 235 / 24%)` | `0 0 0 3px rgb(56 189 248 / 35%)` |
+| `--lulu-shadow-focus` | 键盘聚焦光圈 | `0 0 0 3px #1668c7` | `0 0 0 3px #38bdf8` |
 | `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
 | `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
@@ -84,6 +85,6 @@ seo:
 | `--lulu-transition-easing` | 过渡曲线 | `ease` | `ease` |
 | `--lulu-z-index-popup` | 候选浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器，请在该容器上覆盖变量，不能只设置在触发器上。
+浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
 
-例如在局部容器的 `style` 中设置 `--lulu-color-border: #d0d0d5`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。
+例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

@@ -66,7 +66,7 @@ import '@lulu/vue/style.css'
 <html data-lulu-theme="dark">
 ```
 
-局部主题使用相同属性。Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `[data-lulu-theme]` 容器，并继承该容器的变量。只有普通 class 的局部容器不会成为传送目标，其中的变量也不会跨 Teleport；需要定制浮层时，请把变量放在最近的 `[data-lulu-theme]` 容器上。局部主题容器应避免设置 `transform` 或裁剪浮层的 `overflow`。
+局部主题使用相同属性。Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `[data-lulu-theme]` 容器，并继承该容器的变量。只有普通 class 的局部容器不会成为传送目标，其中的变量也不会跨 Teleport；区域级定制请把变量放在最近的 `[data-lulu-theme]` 容器上，单个浮层实例使用 `panelStyle`。局部主题容器应避免设置 `transform` 或裁剪浮层的 `overflow`。
 
 ```html
 <section data-lulu-theme="light">
@@ -85,6 +85,20 @@ import '@lulu/vue/style.css'
 ```
 
 `--lulu-color-primary-solid` 默认继承 `--lulu-color-primary`，因此修改主色会同时影响强调文字、选中态和实心主操作；只有需要区分两者时才单独覆盖 `primary-solid`。Token 分为颜色、排版、尺寸、间距、圆角、阴影、动效和层级。组件使用 `--lulu-*` 变量；不支持旧版 `--ui-*` 变量、`.ui-*` 选择器或 `[is]` Custom Element 结构。自定义值若要覆盖显式主题，选择器需要至少与 `[data-lulu-theme]` 一样具体，并放在主题 CSS 之后。
+
+必要的组件 Token 使用全局语义 Token 作为回退，例如 `--lulu-dialog-background` 回退到 `--lulu-color-surface`。全局主题优先改语义 Token；只定制一类组件时改组件 Token；只定制一个普通组件实例时可直接在组件 `style` 上设置。输入控件家族还支持 `--lulu-control-background`、`--lulu-control-border`、`--lulu-control-color`、`--lulu-control-radius`、`--lulu-control-padding-inline` 与 `--lulu-control-focus-shadow`，浮层面板支持对应的 `--lulu-floating-*` Token。
+
+Teleport 面板使用 `panelStyle` 做单实例覆盖：
+
+```vue
+<LuluTooltip
+  :panel-style="{ '--lulu-tooltip-background': '#312e81' }"
+>
+  说明
+</LuluTooltip>
+```
+
+`LuluMessageHost` 和 `LuluDialogHost` 会把 class、style、`data-lulu-theme` 等 Attributes 转交给实际消息层或弹窗，因此也可直接设置单实例 Token。
 
 ## UnoCSS 命名约定
 

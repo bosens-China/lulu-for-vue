@@ -1,16 +1,16 @@
 .lulu-dialog {
-  background: var(--lulu-color-surface);
+  background: var(--lulu-dialog-background, var(--lulu-color-surface));
   border: 0;
-  border-radius: var(--lulu-radius-lg);
-  box-shadow: var(--lulu-shadow-overlay);
-  color: var(--lulu-color-text);
-  inline-size: min(560px, calc(100vw - 2 * var(--lulu-space-4)));
+  border-radius: var(--lulu-dialog-radius, var(--lulu-radius-lg));
+  box-shadow: var(--lulu-dialog-shadow, var(--lulu-shadow-overlay));
+  color: var(--lulu-dialog-color, var(--lulu-color-text));
+  inline-size: min(var(--lulu-dialog-width, 560px), calc(100vw - 2 * var(--lulu-space-4)));
   max-inline-size: none;
   margin: auto;
   padding: 0;
 }
 
-.lulu-dialog::backdrop { background: var(--lulu-color-overlay); }
+.lulu-dialog::backdrop { background: var(--lulu-dialog-backdrop, var(--lulu-color-overlay)); }
 .lulu-dialog__surface { display: grid; }
 .lulu-dialog__header,
 .lulu-dialog__footer {

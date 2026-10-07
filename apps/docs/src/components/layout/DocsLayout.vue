@@ -38,7 +38,7 @@ provide(LAYOUT_CONTEXT_KEY, {
 <template>
   <component
     :is="tag"
-    class="docs-layout flex flex-1 w-full min-h-0 bg-[var(--lulu-color-bg-page)] text-[var(--lulu-color-text)] transition-colors duration-200"
+    class="docs-layout flex flex-1 w-full min-h-0 bg-[var(--docs-color-page)] text-[var(--lulu-color-text)] transition-colors duration-200"
     :class="[computedHasSider ? 'flex-row' : 'flex-col']"
   >
     <slot />

@@ -17,17 +17,17 @@ export default defineConfig({
   ],
   theme: {
     colors: {
-      luluPage: 'var(--lulu-color-bg-page)',
-      luluContainer: 'var(--lulu-color-bg-container)',
+      luluPage: 'var(--docs-color-page)',
+      luluContainer: 'var(--docs-color-container)',
       luluPrimary: 'var(--lulu-color-primary)',
       luluText: 'var(--lulu-color-text)',
-      luluHeading: 'var(--lulu-color-text-heading)',
+      luluHeading: 'var(--docs-color-heading)',
       luluMuted: 'var(--lulu-color-text-muted)',
       luluBorder: 'var(--lulu-color-border-subtle)',
       luluBorderStrong: 'var(--lulu-color-border)',
       luluHover: 'var(--lulu-color-surface-hover)',
       luluActive: 'var(--lulu-color-surface-selected)',
-      luluCode: 'var(--lulu-color-code-bg)',
+      luluCode: 'var(--docs-color-code)',
     },
   },
 })

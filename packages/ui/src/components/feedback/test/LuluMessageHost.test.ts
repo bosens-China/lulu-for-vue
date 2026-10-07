@@ -111,4 +111,22 @@ describe('LuluMessageHost and useMessage', () => {
     await wrapper.get('button').trigger('click')
     expect(wrapper.find('.lulu-message').exists()).toBe(false)
   })
+
+  it('把 Host 属性和单实例 token 传给实际消息层', async () => {
+    const wrapper = mount(LuluMessageHost, {
+      attrs: {
+        class: 'custom-message-host',
+        'data-lulu-theme': 'dark',
+        style: { '--lulu-message-background': '#18181b' },
+      },
+      slots: { default: () => h(VariantConsumer) },
+    })
+
+    await wrapper.get('button').trigger('click')
+    const host = wrapper.get('section')
+
+    expect(host.classes()).toContain('custom-message-host')
+    expect(host.attributes('data-lulu-theme')).toBe('dark')
+    expect((host.element as HTMLElement).style.getPropertyValue('--lulu-message-background')).toBe('#18181b')
+  })
 })

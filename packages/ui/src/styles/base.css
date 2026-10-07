@@ -32,7 +32,7 @@
 
 :where(.lulu-button, .lulu-input, .lulu-textarea, .lulu-select, .lulu-autocomplete, .lulu-date-picker, .lulu-year-picker, .lulu-hour-picker, .lulu-date-range-picker__start, .lulu-date-range-picker__end):focus-visible {
   outline: 0;
-  box-shadow: var(--lulu-shadow-focus);
+  box-shadow: var(--lulu-control-focus-shadow, var(--lulu-shadow-focus));
 }
 
 :where(.lulu-button, .lulu-dropdown__trigger, .lulu-popover__trigger, .lulu-dialog__close, .lulu-message__close, .lulu-pagination__button, .lulu-popconfirm__actions button, .lulu-dropdown__menu button) {
@@ -40,14 +40,14 @@
 }
 
 .lulu-floating-panel {
-  background: var(--lulu-color-surface);
-  border: 1px solid var(--lulu-color-border);
-  border-radius: var(--lulu-radius);
-  box-shadow: var(--lulu-shadow-overlay);
-  color: var(--lulu-color-text);
+  background: var(--lulu-floating-background, var(--lulu-color-surface));
+  border: 1px solid var(--lulu-floating-border, var(--lulu-color-border));
+  border-radius: var(--lulu-floating-radius, var(--lulu-radius));
+  box-shadow: var(--lulu-floating-shadow, var(--lulu-shadow-overlay));
+  color: var(--lulu-floating-color, var(--lulu-color-text));
   margin: 0;
-  min-inline-size: 180px;
-  padding: var(--lulu-space-1);
+  min-inline-size: var(--lulu-floating-min-width, 180px);
+  padding: var(--lulu-floating-padding, var(--lulu-space-1));
   z-index: var(--lulu-z-index-popup);
 }
 
@@ -62,20 +62,20 @@
   .lulu-date-range-picker__start,
   .lulu-date-range-picker__end
 ) {
-  background: var(--lulu-color-surface);
-  border: 1px solid var(--lulu-color-border);
-  border-radius: var(--lulu-radius);
+  background: var(--lulu-control-background, var(--lulu-color-surface));
+  border: 1px solid var(--lulu-control-border, var(--lulu-color-border));
+  border-radius: var(--lulu-control-radius, var(--lulu-radius));
   box-sizing: border-box;
-  color: var(--lulu-color-text);
+  color: var(--lulu-control-color, var(--lulu-color-text));
   font: inherit;
   inline-size: 100%;
   min-block-size: var(--lulu-control-height);
-  padding: 0 var(--lulu-space-3);
+  padding: 0 var(--lulu-control-padding-inline, var(--lulu-space-3));
   transition: border-color var(--lulu-transition-duration) var(--lulu-transition-easing), box-shadow var(--lulu-transition-duration) var(--lulu-transition-easing);
 }
 
 :is(.lulu-input, .lulu-textarea, .lulu-autocomplete)::placeholder {
-  color: var(--lulu-color-text-muted);
+  color: var(--lulu-control-placeholder-color, var(--lulu-color-text-muted));
   opacity: 1;
 }
 
@@ -88,14 +88,14 @@
   .lulu-year-picker,
   .lulu-hour-picker
 ):disabled {
-  background: var(--lulu-color-surface-subtle);
-  color: var(--lulu-color-text-muted);
+  background: var(--lulu-control-disabled-background, var(--lulu-color-surface-subtle));
+  color: var(--lulu-control-disabled-color, var(--lulu-color-text-muted));
   cursor: not-allowed;
 }
 
 .lulu-date-range-picker input:disabled {
-  background: var(--lulu-color-surface-subtle);
-  color: var(--lulu-color-text-muted);
+  background: var(--lulu-control-disabled-background, var(--lulu-color-surface-subtle));
+  color: var(--lulu-control-disabled-color, var(--lulu-color-text-muted));
   cursor: not-allowed;
 }
 
@@ -123,7 +123,7 @@
 }
 
 :is(.lulu-checkbox, .lulu-radio, .lulu-switch, .lulu-data-table__selection-cell) input {
-  accent-color: var(--lulu-color-primary);
+  accent-color: var(--lulu-choice-accent, var(--lulu-color-primary));
   block-size: 16px;
   inline-size: 16px;
   margin: 0;
@@ -140,7 +140,7 @@
   .lulu-range-slider__end,
   .lulu-color-picker__alpha
 ) {
-  accent-color: var(--lulu-color-primary);
+  accent-color: var(--lulu-range-accent, var(--lulu-color-primary));
   cursor: pointer;
   inline-size: 100%;
 }
@@ -148,7 +148,7 @@
 :is(.lulu-slider, .lulu-rate):disabled,
 :is(.lulu-range-slider, .lulu-color-picker) input:disabled {
   cursor: not-allowed;
-  opacity: 0.55;
+  opacity: var(--lulu-opacity-disabled);
 }
 
 :is(.lulu-data-table__loading-cell, .lulu-table__empty-cell) {
@@ -179,10 +179,10 @@
 }
 
 :is(.lulu-popover__trigger, .lulu-dropdown__trigger) {
-  background: var(--lulu-color-surface);
-  border: 1px solid var(--lulu-color-border);
-  border-radius: var(--lulu-radius);
-  color: var(--lulu-color-text);
+  background: var(--lulu-trigger-background, var(--lulu-color-surface));
+  border: 1px solid var(--lulu-trigger-border, var(--lulu-color-border));
+  border-radius: var(--lulu-trigger-radius, var(--lulu-radius));
+  color: var(--lulu-trigger-color, var(--lulu-color-text));
   cursor: pointer;
   min-block-size: var(--lulu-control-height);
   padding-inline: var(--lulu-space-3);
@@ -190,13 +190,13 @@
 
 :is(.lulu-popover__trigger, .lulu-dropdown__trigger):disabled {
   cursor: not-allowed;
-  opacity: 0.55;
+  opacity: var(--lulu-opacity-disabled);
 }
 
 :is(.lulu-message__close, .lulu-dialog__close) {
   background: transparent;
   border: 0;
-  color: var(--lulu-color-text-muted);
+  color: var(--lulu-close-color, var(--lulu-color-text-muted));
   cursor: pointer;
   font-size: 20px;
   line-height: 1;

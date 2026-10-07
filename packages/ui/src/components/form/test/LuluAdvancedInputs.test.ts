@@ -77,6 +77,21 @@ describe('LuluAutocomplete', () => {
     expect(wrapper.emitted('select')).toEqual([[item]])
     expect(wrapper.emitted('update:modelValue')).toEqual([['apple']])
   })
+
+  it('通过 panelStyle 覆盖单个候选浮层的 token', async () => {
+    const wrapper = mount(LuluAutocomplete, {
+      attachTo: document.body,
+      props: {
+        items: [{ label: 'Apple', value: 'apple' }],
+        panelStyle: { '--lulu-floating-background': '#312e81' },
+      },
+    })
+
+    await wrapper.get('input').trigger('focus')
+
+    expect(document.body.querySelector<HTMLElement>('[role="listbox"]')?.style
+      .getPropertyValue('--lulu-floating-background')).toBe('#312e81')
+  })
 })
 
 describe('LuluColorPicker', () => {

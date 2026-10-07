@@ -28,6 +28,7 @@
 - 源码目标为 `ESNext`，tsdown 不做语法降级。只采用已标准化的能力；新增运行时 API 前必须确认使用方的兼容基线或提供已确认的 polyfill。
 - 默认主题由 `@lulu/vue/style.css` 独立发布；组件 JavaScript 不注入 CSS，应用按需显式导入。主题通过 `--lulu-*` CSS 变量覆盖，详细接入方式见[包 README](../packages/ui/README.md)。
 - `--lulu-color-primary-solid` 默认继承 `--lulu-color-primary`，覆盖一个主色即可同步影响文本、选中态与实心操作；仍可按需单独覆盖实心主色。全局 Token 只保留实际消费且具有稳定语义的变量。
+- 组件和共享家族 Token 以全局语义 Token 为默认回退。普通组件通过根元素 `style`、Teleport 浮层通过 `panelStyle`、命令式 Host 通过透传属性支持单实例覆盖；不提供运行时主题 Provider。
 - 支持 `@lulu/vue` 完整入口和 `@lulu/vue/button` 等组件入口；全量样式使用 `style.css`，按需样式先在应用入口导入一次 `base.css`，再从 `@lulu/vue/button/style.css` 等入口导入。根、主题、resolver 与样式入口显式导出，组件 JavaScript 只通过指向公共 `dist/entries/*` 的通配符导出；禁止依赖 `dist/components` 深层路径。
 - `@lulu/vue/resolver` 提供组件与 composable 的自动导入规则，分别接入 `unplugin-vue-components` 与 `unplugin-auto-import`。这两个插件由应用在构建期安装，不属于组件包运行时依赖。
 - tsdown 以多入口和 `unbundle` 构建分层 ESM 模块。单组件入口复用内部构建模块，直接依赖仍随该组件进入应用依赖图，Vue 保持 peer dependency。

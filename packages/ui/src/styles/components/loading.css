@@ -1,8 +1,8 @@
 .lulu-loading {
   align-items: center;
-  color: var(--lulu-color-text-muted);
+  color: var(--lulu-loading-color, var(--lulu-color-text-muted));
   display: inline-flex;
-  gap: var(--lulu-space-2);
+  gap: var(--lulu-loading-gap, var(--lulu-space-2));
 }
 
 .lulu-loading[data-block] { display: flex; justify-content: center; }
@@ -15,7 +15,7 @@
   border: 2px solid currentcolor;
   border-right-color: transparent;
   border-radius: 50%;
-  color: var(--lulu-color-primary);
+  color: var(--lulu-loading-indicator-color, var(--lulu-color-primary));
   font-size: 0;
   height: var(--lulu-loading-size, 20px);
   width: var(--lulu-loading-size, 20px);

@@ -4,6 +4,8 @@ import LuluDialog from './LuluDialog.vue'
 import { dialogKey, type DialogConfirmOptions, type DialogMode, type DialogRequest } from './useDialog'
 import { messageLayerKey } from '../feedback/useMessage'
 
+defineOptions({ inheritAttrs: false })
+
 interface Entry {
   id: number
   options: DialogConfirmOptions
@@ -90,6 +92,7 @@ provide(dialogKey, create)
   <slot />
   <LuluDialog
     v-for="entry in queue.slice(0, 1)"
+    v-bind="$attrs"
     :key="entry.id"
     class="lulu-dialog-host"
     :open="true"
