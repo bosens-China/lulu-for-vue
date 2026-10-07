@@ -89,16 +89,16 @@ function toggleCollapse() {
         <slot :collapsed="isCollapsed" />
       </div>
 
-      <!-- 折叠 Trigger 按钮 (固定在 Sider 底部，Antd 风格图标与交互) -->
+      <!-- 折叠 Trigger 按钮 (精致紧凑的底部控制栏) -->
       <button
         v-if="collapsible"
         type="button"
-        class="docs-sider-toggle shrink-0 h-12 w-full border-t border-[var(--lulu-color-border-subtle)] px-4 flex items-center justify-center cursor-pointer text-[var(--lulu-color-text-muted)] hover:text-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all duration-200 group bg-[var(--docs-color-container)]"
+        class="docs-sider-toggle shrink-0 h-10 w-full border-t border-[var(--lulu-color-border-subtle)] px-3 flex items-center justify-center cursor-pointer text-[var(--lulu-color-text-muted)] hover:text-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-all duration-200 group bg-[var(--docs-color-container)]"
         :title="isCollapsed ? '展开侧边栏' : '收起侧边栏'"
         @click="toggleCollapse"
       >
-        <div class="flex items-center gap-2 text-xs font-semibold">
-          <!-- 展开态: 双左箭头 Icon -->
+        <div class="flex items-center gap-1.5 text-xs font-medium">
+          <!-- 展开态: 侧栏收起 Icon -->
           <svg
             v-if="!isCollapsed"
             class="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-0.5"
@@ -109,7 +109,7 @@ function toggleCollapse() {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
           </svg>
 
-          <!-- 折叠态: 双右箭头 Icon -->
+          <!-- 折叠态: 侧栏展开 Icon -->
           <svg
             v-else
             class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -120,7 +120,7 @@ function toggleCollapse() {
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
           </svg>
 
-          <span v-if="!isCollapsed" class="truncate">收起侧边栏</span>
+          <span v-if="!isCollapsed" class="truncate text-[11px]">收起侧边栏</span>
         </div>
       </button>
     </div>

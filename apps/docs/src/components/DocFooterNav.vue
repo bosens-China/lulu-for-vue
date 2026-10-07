@@ -36,7 +36,8 @@ const nextItem = computed(() => {
       class="group flex min-h-20 min-w-0 flex-col items-start rounded-lg border border-[var(--lulu-color-border)] bg-[var(--lulu-color-surface-subtle)] p-3 text-decoration-none transition-colors hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] sm:p-4"
     >
       <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
-        ← 上一页
+        <span class="i-lucide-arrow-left transition-transform group-hover:-translate-x-0.5" aria-hidden="true" />
+        上一页
       </span>
       <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
         {{ prevItem.name }}
@@ -51,7 +52,8 @@ const nextItem = computed(() => {
       class="group flex min-h-20 min-w-0 flex-col items-end rounded-lg border border-[var(--lulu-color-border)] bg-[var(--lulu-color-surface-subtle)] p-3 text-right text-decoration-none transition-colors hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] sm:p-4"
     >
       <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
-        下一页 →
+        下一页
+        <span class="i-lucide-arrow-right transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
       </span>
       <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
         {{ nextItem.name }}

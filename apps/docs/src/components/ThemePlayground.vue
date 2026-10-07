@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import LuluButton from '@lulu/vue/button'
+import LuluColorPicker from '@lulu/vue/color-picker'
+import '@lulu/vue/button/style.css'
+import '@lulu/vue/color-picker/style.css'
 
 interface PrimaryColor {
   hex: string
@@ -70,11 +74,9 @@ function applyPrimary(primary: PrimaryColor): void {
   root.style.setProperty('--docs-primary-lightness-dark', `${primary.lightnessDark}%`)
 }
 
-function updateColor(event: Event): void {
-  const target = event.target
-  if (!(target instanceof HTMLInputElement) || !/^#[\da-f]{6}$/i.test(target.value)) return
-  color.value = target.value
-  const primary = primaryFromHex(target.value)
+function updateColor(value: string): void {
+  if (!/^#[\da-f]{6}$/i.test(value)) return
+  const primary = primaryFromHex(value)
   applyPrimary(primary)
   try {
     localStorage.setItem(storageKey, JSON.stringify(primary))
@@ -119,10 +121,12 @@ onMounted(() => {
       <span class="font-medium">主色调</span>
       <span class="flex items-center gap-3">
         <code class="text-sm">{{ color }}</code>
-        <input type="color" aria-label="主色调" :value="color" class="h-9 w-12 cursor-pointer border-0 bg-transparent p-0" @input="updateColor">
+        <LuluColorPicker v-model="color" label="主色调" @change="updateColor" />
       </span>
     </label>
-    <button type="button" class="rounded-lg border border-solid border-[var(--lulu-color-border)] px-4 py-2 text-sm hover:bg-[var(--lulu-color-surface-hover)]" @click="resetColor">恢复默认主色</button>
+    <LuluButton variant="normal" @click="resetColor">
+      恢复默认主色
+    </LuluButton>
     <p v-if="storageStatus" role="status" class="text-sm text-[var(--lulu-color-text-muted)]">{{ storageStatus }}</p>
   </section>
 </template>

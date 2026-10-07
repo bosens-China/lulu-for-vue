@@ -1,3 +1,49 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import LuluButton from '@lulu/vue/button'
+import LuluInput from '@lulu/vue/input'
+import LuluSwitch from '@lulu/vue/switch'
+import '@lulu/vue/button/style.css'
+import '@lulu/vue/input/style.css'
+import '@lulu/vue/switch/style.css'
+import { withBase } from '../siteUrl'
+
+const features = [
+  { mark: '39', title: '丰富的组件', description: '覆盖表单、反馈、导航与布局等常见产品场景。' },
+  { mark: 'TS', title: '类型友好', description: '基于 Vue 3 与 TypeScript，获得清晰、可靠的开发体验。' },
+  { mark: 'SSG', title: '文档即内容', description: '组件文档静态生成，直达页面也能完整阅读与交互。' },
+] as const
+
+// 首页预览卡片直接使用真实组件，可交互即最好的演示
+const projectName = ref('LuLu Design')
+const isPublic = ref(true)
+const created = ref(false)
+
+function createProject() {
+  if (created.value) return
+  created.value = true
+  setTimeout(() => {
+    created.value = false
+  }, 2000)
+}
+
+const installCommand = 'pnpm add @lulu/vue'
+const copiedInstall = ref(false)
+
+async function copyInstallCommand() {
+  try {
+    await navigator.clipboard.writeText(installCommand)
+    copiedInstall.value = true
+    setTimeout(() => {
+      copiedInstall.value = false
+    }, 2000)
+  }
+  catch {
+    copiedInstall.value = false
+  }
+}
+</script>
+
 <template>
   <main class="home-page relative flex-1 overflow-hidden bg-[var(--docs-color-page)]">
     <div class="pointer-events-none absolute inset-x-0 top-0 h-112 overflow-hidden" aria-hidden="true">
@@ -24,22 +70,34 @@
         </p>
 
         <div class="mt-9 flex flex-wrap items-center gap-3">
-          <a
+          <LuluButton
+            variant="primary"
             :href="withBase('/components/button/')"
-            class="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-[var(--lulu-color-primary-solid)] px-5 text-sm font-semibold text-[var(--lulu-color-text-inverse)] shadow-lg text-decoration-none transition-all duration-200 hover:-translate-y-0.5 hover:brightness-105"
+            class="!min-h-11 !rounded-xl !px-5 font-semibold shadow-lg transition-transform duration-200 hover:-translate-y-0.5"
           >
             浏览全部组件
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 18 6-6-6-6" />
-            </svg>
-          </a>
-          <code class="inline-flex h-11 items-center rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] px-4 text-xs text-[var(--lulu-color-text)] shadow-sm">
-            pnpm add @lulu/vue
-          </code>
+            <span class="i-lucide-arrow-right" aria-hidden="true" />
+          </LuluButton>
+          <button
+            type="button"
+            class="group inline-flex h-11 items-center gap-2.5 rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] px-4 font-mono text-xs text-[var(--lulu-color-text)] shadow-sm cursor-pointer transition-colors hover:border-[var(--lulu-color-primary)]/50"
+            :aria-label="copiedInstall ? '已复制安装命令' : '复制安装命令'"
+            aria-live="polite"
+            @click="copyInstallCommand"
+          >
+            <span class="text-[var(--lulu-color-primary)]">$</span>
+            {{ installCommand }}
+            <span
+              class="text-sm text-[var(--lulu-color-text-muted)] transition-colors group-hover:text-[var(--lulu-color-primary)]"
+              :class="copiedInstall ? 'i-lucide-check text-[var(--lulu-color-success)]' : 'i-lucide-copy'"
+              aria-hidden="true"
+            />
+          </button>
         </div>
       </div>
 
-      <div class="relative mx-auto w-full max-w-lg lg:mx-0" aria-hidden="true">
+      <!-- 组件预览卡片：直接使用真实的 LuluInput / LuluSwitch / LuluButton，可交互 -->
+      <div class="relative mx-auto w-full max-w-lg lg:mx-0">
         <div class="absolute -inset-6 rounded-[2.5rem] bg-[var(--lulu-color-primary)] opacity-10 blur-2xl" aria-hidden="true" />
         <div class="relative overflow-hidden rounded-3xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)]/92 p-5 shadow-[0_28px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7">
           <div class="mb-7 flex items-center justify-between">
@@ -51,26 +109,31 @@
             <span class="text-[11px] font-medium text-[var(--lulu-color-text-muted)]">COMPONENT PREVIEW</span>
           </div>
 
-          <div class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-page)] p-5 sm:p-6">
+          <form class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-page)] p-5 sm:p-6" @submit.prevent="createProject">
             <p class="m-0 text-sm font-semibold text-[var(--docs-color-heading)]">创建项目</p>
             <p class="mb-5 mt-1 text-xs leading-5 text-[var(--lulu-color-text-muted)]">填写基本信息，开始搭建你的新应用。</p>
-            <label class="mb-2 block text-xs font-medium text-[var(--lulu-color-text)]">项目名称</label>
-            <div class="flex h-10 items-center rounded-lg border border-solid border-[var(--lulu-color-primary)] bg-[var(--docs-color-container)] px-3 text-sm text-[var(--docs-color-heading)] shadow-sm">
-              LuLu Design
-            </div>
+
+            <label for="home-project-name" class="mb-2 block text-xs font-medium text-[var(--lulu-color-text)]">项目名称</label>
+            <LuluInput id="home-project-name" v-model="projectName" class="w-full" placeholder="请输入项目名称" />
+
             <div class="mt-5 flex items-center justify-between rounded-xl bg-[var(--docs-color-container)] px-3.5 py-3">
               <div>
                 <p class="m-0 text-xs font-medium text-[var(--docs-color-heading)]">公开项目</p>
                 <p class="mb-0 mt-0.5 text-[11px] text-[var(--lulu-color-text-muted)]">允许团队成员访问</p>
               </div>
-              <span class="relative h-5 w-9 rounded-full bg-[var(--lulu-color-primary)]" aria-hidden="true">
-                <span class="absolute right-0.5 top-0.5 h-4 w-4 rounded-full bg-white shadow-sm" />
-              </span>
+              <LuluSwitch v-model="isPublic" aria-label="公开项目" />
             </div>
-            <div class="mt-5 h-10 w-full rounded-lg bg-[var(--lulu-color-primary-solid)] text-sm font-semibold text-[var(--lulu-color-text-inverse)] shadow-sm flex items-center justify-center">
-              创建项目
-            </div>
-          </div>
+
+            <LuluButton
+              variant="primary"
+              native-type="submit"
+              class="mt-5 w-full"
+              :disabled="!projectName.trim()"
+            >
+              <span v-if="created" class="i-lucide-check" aria-hidden="true" />
+              {{ created ? '创建成功' : '创建项目' }}
+            </LuluButton>
+          </form>
         </div>
       </div>
     </section>
@@ -88,12 +151,3 @@
     </section>
   </main>
 </template>
-
-<script setup lang="ts">
-import { withBase } from '../siteUrl'
-const features = [
-  { mark: '39', title: '丰富的组件', description: '覆盖表单、反馈、导航与布局等常见产品场景。' },
-  { mark: 'TS', title: '类型友好', description: '基于 Vue 3 与 TypeScript，获得清晰、可靠的开发体验。' },
-  { mark: 'SSG', title: '文档即内容', description: '组件文档静态生成，直达页面也能完整阅读与交互。' },
-] as const
-</script>

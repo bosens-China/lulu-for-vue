@@ -91,6 +91,23 @@ body {
   .docs-search-dialog .lulu-input { font-size: 16px; }
 }
 
+.docs-search-dialog.lulu-dialog {
+  width: min(580px, calc(100vw - 32px));
+  max-height: calc(100dvh - 48px);
+  border-radius: var(--lulu-radius-xl, 14px);
+  overflow: hidden;
+}
+
+.docs-search-dialog .lulu-dialog__surface {
+  padding: 0;
+  border-radius: inherit;
+}
+
+.docs-search-dialog .lulu-dialog__body {
+  padding: 0;
+  min-height: 0;
+}
+
 .docs-mobile-nav.lulu-dialog {
   width: min(360px, calc(100vw - 24px));
   max-height: calc(100dvh - 24px);
@@ -244,7 +261,8 @@ canvas {
 
 /* Markdown 文档内容渲染区 */
 .docs-content {
-  max-width: 920px;
+  width: 100%;
+  max-width: 1160px;
 }
 
 .docs-content h1 {
