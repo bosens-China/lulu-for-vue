@@ -13,12 +13,12 @@ Edge 的 `js/common/ui` 有 16 个 JS 文件，`css/common/ui` 有 22 个 CSS �
 
 | Edge 能力（22 项） | 当前 Vue 对应 API |
 | --- | --- |
-| Button、Loading、Progress、Table | Button；Loading、LoadingOverlay；Progress；Table、DataTable |
+| Button、Loading、Progress、Table | Button；Loading、LoadingOverlay；Progress；Table |
 | Input、Textarea、Checkbox、Radio、Switch、Select | 同名组件 |
-| Range、Color、Date、Datalist | Slider、RangeSlider、Rate；ColorPicker；DatePicker、DateRangePicker、YearPicker、HourPicker；Autocomplete |
+| Range、Color、Date、Datalist | Slider、RangeSlider、Rate；ColorPicker；DatePicker、DateRangePicker、TimePicker、TimeRangePicker；Autocomplete |
 | Pagination、Tab | Pagination；Tabs、Tab、TabPanel、Disclosure、Accordion |
 | Dialog、Drop、Tips | Dialog；Popover、Dropdown、Popconfirm；Tooltip |
-| LightTip、ErrorTip、Validate | Message、MessageHost、useMessage；FieldError；Form、FormField、useFormValidation |
+| LightTip、ErrorTip、Validate | Message、MessageHost、useMessage；Form、FormItem（内置字段错误） |
 
 表中的 Vue 名称均省略 `Lulu` 前缀。此表只表示功能归属，尚不代表行为和视觉已经通过验收。
 

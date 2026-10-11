@@ -8,7 +8,9 @@
 
 - [组件 API 映射](./components.md)
 - [文档与交互走查](./docs-experience-audit.md)
+- [文档站视觉走查](./docs-visual-audit.md)
 - [Rspress 借鉴与组件 API、Token 审查](./rspress-api-token-audit.md)
+- [全量组件 API 与主题复审](./component-api-theme-audit.md)
 
 ## 进行中的需求
 

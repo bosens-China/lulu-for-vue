@@ -1,5 +1,7 @@
 # 39 个组件的同类库对照
 
+2026-10-10 更新：下表保留迁移期判断；当前主题、表单、浮层与 API 修复结果见[全量复审](../../component-api-theme-audit.md)，其中 Popconfirm 已支持异步确认，Switch 已补轨道与滑块样式。
+
 核对日期：2026-09-25。逐项检查 `packages/ui/src/components` 的实现、公开入口、中文 README、Demo 和现有测试；以 LuLu UI Edge 为视觉基准，以 Element Plus、Naive UI 的官方组件资料及 WAI-ARIA APG 为交互参照。下表记录值得吸收的行为，不把竞品功能数量作为交付目标。
 
 判定：“保持”表示现有原生或组合方案足够；“已改”表示本轮处理；“待验”表示需要真实浏览器与边界测试；“按需”表示只有实际使用场景出现时再扩展。
@@ -9,9 +11,7 @@
 | 组件 | 当前能力与对照 | 判定与下一步 |
 | --- | --- | --- |
 | Button | 原生按钮、类型、禁用和加载；[Element Button][e-button] 还有尺寸、图标、链接与分组。 | 保持。尺寸与分组没有当前需求；继续核对加载中防重复提交和主题对比度。 |
-| Table | 原生表格、caption/thead/tbody/tfoot 插槽和空态；[Element Table][e-table] 面向数据操作。 | 保持独立的语义表格，不把 DataTable 功能并入。 |
-| DataTable | 类型化列、稳定行键、受控行选择、加载和空态；[Element Table][e-table] 还支持排序、筛选、固定列。 | 已改。表头、行选择、空态与加载文案可配置；已验选择重排、重复键和中文可访问名称。排序与筛选仍由应用管理。 |
-| FieldError | 以 `role="alert"` 呈现字段错误；[Element Form][e-form] 由 FormItem 呈现错误。 | 保持与 FormField 分离，校验状态由调用方传入。 |
+| Table | 类型化列、稳定行键、受控行选择、加载和空态；[Element Table][e-table] 还支持排序、筛选、固定列。 | 已改。表头、行选择、空态与加载文案可配置；已验选择重排、重复键和中文可访问名称。排序与筛选仍由应用管理。 |
 | Loading | 有状态语义与尺寸；[Element Loading][e-loading] 提供容器和全屏加载。 | 保持轻量状态指示，避免加入命令式全屏服务。 |
 | LoadingOverlay | `v-model:open` 控制遮罩；[Element Loading][e-loading] 可绑定目标容器。 | 待验。核对遮罩期间目标区的焦点与 `aria-busy` 语义；无目标容器需求前不加指令。 |
 | Message | 定时关闭、状态通知和关闭按钮；[Element Message][e-message] 还提供合并与位置选项。 | 保持。补计时器清理、关闭一次及屏幕阅读器通知测试。 |
@@ -28,8 +28,7 @@
 | DatePicker | 原生 date/month/week/time/datetime-local；[Element DatePicker][e-date] 有快捷项和禁用日期。 | 保持原生边界并在文档说清浏览器外观差异；复杂日历作为独立需求。 |
 | DateRangePicker | 两个原生输入和有序双值模型；[Element DatePicker][e-date] 提供范围与快捷项。 | 已改。两个输入分别配置字段名和可访问名称，并共享错误描述；FormData 与浏览器属性已验。复杂范围边界继续按需验收。 |
 | Form | 原生提交透传、可取到底层表单元素；[Element Form][e-form] 使用 model/rules，[Naive Form][n-form] 也提供规则。 | 已改。新增原生约束加同步业务规则的完整 Demo；复杂异步表单建议应用层使用 [vee-validate][v-form]，不内置第二套状态引擎。 |
-| FormField | 关联 label、控件与错误；[Element Form][e-form] 用 FormItem 同时管理布局和校验。 | 保持展示职责；待验自定义插槽和不同控件的 ARIA 透传。 |
-| HourPicker | 原生数字输入，模型为 0–23 的小时；[Element TimePicker][e-time] 包含分钟、秒和面板。 | 保持“小时”范围，文档明确不是完整时间选择器。 |
+| FormItem | 关联 label、控件与错误；[Element Form][e-form] 用 FormItem 同时管理布局和校验。 | 内聚标签、帮助与错误显示，关联 Form 模型；支持自定义插槽和不同控件的 ARIA 透传。 |
 | Input | 原生输入和 `v-model`；[Element Input][e-input] 有清空、密码显示、格式化等增强。 | 保持原生属性透传；清空按钮与格式化器暂不内置。 |
 | Radio | 类型化选项值和原生同名分组；[Element Radio][e-radio] 另有 RadioGroup。 | 保持原生分组；待验多个同名组件的键盘与受控更新。 |
 | RangeSlider | 双原生滑块和有序元组；[Element Slider][e-slider] 也支持范围和刻度。 | 已改。两个滑块分别配置字段名，共享错误描述；FormData 与浏览器属性已验。刻度与输入框按需增加。 |
@@ -38,7 +37,6 @@
 | Slider | 原生 range，限制值域与步长；[Element Slider][e-slider] 有垂直和刻度模式。 | 保持。按需加入垂直视觉，不提前实现刻度系统。 |
 | Switch | 原生 checkbox 加 switch 语义；[Element Switch][e-switch] 有加载与切换前拦截。 | 保持受控布尔模型；异步请求期间由应用传 `disabled`，不把业务 Promise 内置到控件。 |
 | Textarea | 原生 textarea 和 `v-model`；[Element Input][e-input] 有自动高度。 | 已改测试：可编辑状态验证模型，`readonly` 单独验证原生属性；自动高度按需。 |
-| YearPicker | 原生数字年份输入；[Element DatePicker][e-date] 有年份面板。 | 保持数字输入，文档明确它不是日历面板。 |
 
 ## 导航与展开（6 项）
 

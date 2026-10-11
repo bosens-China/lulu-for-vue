@@ -6,7 +6,7 @@
 
 原走查清单中的剩余场景已补齐：新增 34 组可运行示例，覆盖禁用、错误、只读、加载、空态、关闭策略及自定义插槽。Tab/TabPanel 复用 Tabs 的数字值与禁用组合示例，Loading 沿用已完整的尺寸示例。37 个组件页均保留 CSS Tokens。覆盖的是清单中的行为场景，不意味着枚举任意字符串、数值或所有属性组合。
 
-导航已将原“表单与输入”拆成“输入与选择”“日期与时间”“表单与校验”。没有足够依据删除公开组件：多数相似组件是基础组件与组合组件的关系。文档应突出组合使用，避免把每个导出都解释成独立产品。
+导航已将原“表单与输入”拆成“输入与选择”“日期与时间”“表单与校验”。表单现已收敛为 Form 与 FormItem，字段错误内聚；其他多数相似组件是基础组件与组合组件的关系。文档应突出组合使用，避免把每个导出都解释成独立产品。
 
 ## 参考方式
 
@@ -37,14 +37,12 @@
 | Rate | 默认 0–5、半分步长的数值评分 | [只读与自定义评分](../packages/ui/src/components/form/rate/demos/StatesDemo.vue) | 已覆盖 |
 | ColorPicker | 颜色绑定 | [透明度与禁用](../packages/ui/src/components/form/color-picker/demos/StatesDemo.vue) | 已覆盖 |
 | DatePicker | 基础用法；新增 date/datetime-local/month/time/week | [日期约束与状态](../packages/ui/src/components/form/date-picker/demos/StatesDemo.vue) | 已覆盖 |
-| DateRangePicker | 双值绑定；新增 date/month/week | [范围约束与状态](../packages/ui/src/components/form/date-range-picker/demos/StatesDemo.vue) | 已覆盖 |
-| YearPicker | 年份与范围 | [必填与清空](../packages/ui/src/components/form/year-picker/demos/StatesDemo.vue) | 已覆盖 |
-| HourPicker | 小时数绑定 | [步长与清空](../packages/ui/src/components/form/hour-picker/demos/StatesDemo.vue) | 已覆盖 |
+| DateRangePicker | 双值绑定；新增 date/month/week | [范围约束与状态](../packages/ui/src/components/form/date-picker/demos/RangeStatesDemo.vue) | 已覆盖 |
+| DatePicker 年份模式 | 年份与范围 | [必填与清空](../packages/ui/src/components/form/date-picker/demos/FamilyDemo.vue) | 已覆盖 |
+| Input 数值模式 | 小时数绑定 | [步长与清空](../packages/ui/src/components/form/input/demos/StatesDemo.vue) | 已覆盖 |
 | Form | 原生提交、业务校验 | [重置数据与校验](../packages/ui/src/components/form/form/demos/ResetDemo.vue) | 已覆盖 |
-| FormField | label、required、controlProps；错误在 Form 页演示 | [错误与自定义插槽](../packages/ui/src/components/form/form-field/demos/ErrorDemo.vue) | 已覆盖 |
-| FieldError | message 文本 | [自定义错误内容](../packages/ui/src/components/feedback/field-error/demos/SlotDemo.vue) | 已覆盖 |
-| Table | caption、表头与默认内容 | [空态、表体与表尾](../packages/ui/src/components/data/table/demos/SlotsDemo.vue) | 已覆盖 |
-| DataTable | 行列与行键、受控行选择 | [加载、空态与单元格](../packages/ui/src/components/data/data-table/demos/StatesDemo.vue) | 已覆盖 |
+| FormItem | 标签、必填、帮助与错误关联 | [自定义标签、帮助与错误](../packages/ui/src/components/form/form/demos/FieldSlotsDemo.vue) | 已覆盖 |
+| Table | 行列与行键、受控行选择 | [加载、空态与单元格](../packages/ui/src/components/data/table/demos/StatesDemo.vue) | 已覆盖 |
 | Accordion | 单项展开 | [多项展开与自定义内容](../packages/ui/src/components/navigation/accordion/demos/MultipleDemo.vue) | 已覆盖 |
 | Disclosure | 基础展开与内容 | [自定义标题](../packages/ui/src/components/navigation/disclosure/demos/SummaryDemo.vue) | 已覆盖 |
 | Progress | 确定进度 | [不确定进度与自定义上限](../packages/ui/src/components/feedback/progress/demos/StatesDemo.vue) | 已覆盖 |
@@ -66,16 +64,16 @@
 
 | 组件族 | 判断与建议 |
 | --- | --- |
-| Form / FormField / FieldError | 保留三个 API；同组相邻，以 Form 页作为完整校验流程入口。 |
+| Form / FormItem | Form 管理模型校验与提交，FormItem 内聚字段标签、帮助和错误；仅保留这两个公开组件，共用 Form 文档与导航入口。 |
 | Tabs / Tab / TabPanel | 是容器与子组件；保留三个公开导出，示例与 API 集中在 Tabs 文档入口。 |
-| Table / DataTable | 前者负责插槽式原生表格，后者负责数据映射、状态与选择；保留。 |
+| Table | 数据映射、Loading、空态、行选择与可选分页统一为公开 Table；原生表格为内部实现。 |
 | Message / MessageHost | 单条展示与全局消息宿主职责不同；应在同一场景中说明组合。 |
 | Loading / LoadingOverlay | 行内指示器与区域遮罩不同；保留相邻条目。 |
 | Disclosure / Accordion | 单面板与多面板状态管理不同；保留并互相引用。 |
 | Slider / RangeSlider / Rate | 单值、双值与评分语义不同。Rate 当前是范围输入，不是星形评分；需要明确这一预期，不能仅凭相似外观删除。 |
-| DatePicker / DateRangePicker / YearPicker / HourPicker | 单值、范围及数字输入边界不同；放入同一日期时间组。Year/Hour 不应被描述成复杂日历选择器。 |
+| DatePicker / DateRangePicker / TimePicker / TimeRangePicker | 保留四个导出，文档只有日期和时间两个入口；年份由 picker 表达，小时数使用 Input。 |
 
-已实施分组、相邻排序及 Tabs 组合示例链接；折叠导航、组件重命名和 API 删除不在本次示例补全范围。
+已实施分组、相邻排序及 Tabs 组合示例链接；原示例补全不涉及 API 删除；2026-10-11 的入口收敛已落地，见文末更新。
 
 ## CSS Token 与主题
 
@@ -121,7 +119,7 @@
 
 该次复核时公开组件为 38 个，文档为 36 个组件页、4 个指南页和首页，共 79 组可运行 Demo。Tab 与 TabPanel 离开 Tabs 无法独立使用，三个页面的基础 Demo 也重复；现已将三者的用法、API 和 CSS Tokens 集中到 Tabs 页，并移除两个独立路由及重复 Demo。组件导出不变。
 
-其余相邻组件按实际职责复核：FormField 可独立组合任意表单控件，FieldError 可独立呈现错误；Table 接受原生行插槽，DataTable 接受列和行数据；Disclosure 管理单个原生 details，Accordion 管理一组受控面板；Select 使用原生选择框，Autocomplete 提供可搜索的候选列表；日期单值、日期范围、数字年份和数字小时的值类型不同；Slider、RangeSlider、Rate 分别处理单值、区间和评分。DialogHost 与 MessageHost 提供命令式调用的宿主和队列，分别有不同于单个 Dialog、Message 的接入流程；LoadingOverlay 在区域中组合 Loading。上述组件目前没有与 Tabs 子组件相同的“必须依附父组件且文档示例重复”问题，保留独立入口。
+其余相邻组件按实际职责复核：FormItem 可独立组合任意表单控件并呈现外部错误；Table 接受原生行插槽，DataTable 接受列和行数据；Disclosure 管理单个原生 details，Accordion 管理一组受控面板；Select 使用原生选择框，Autocomplete 提供可搜索的候选列表；日期单值、日期范围、数字年份和数字小时的值类型不同；Slider、RangeSlider、Rate 分别处理单值、区间和评分。DialogHost 与 MessageHost 提供命令式调用的宿主和队列，分别有不同于单个 Dialog、Message 的接入流程；LoadingOverlay 在区域中组合 Loading。上述组件目前没有与 Tabs 子组件相同的“必须依附父组件且文档示例重复”问题，保留独立入口。
 
 ## 2026-09-26 Space 间距复核
 
@@ -140,3 +138,7 @@ Button 的三组重复操作行和 DialogHost 的操作行改用 Space。其余 
 后续用户提供线上 iPhone 截图，指出上次未打开的 DialogHost“自定义弹窗”内容按钮贴合。线上浏览器复现“增加 / 完成”按钮间距为 0px；示例的动态内容直接并排渲染两个按钮。已改用示例原本引入的 `LuluSpace` 包裹操作按钮。修正后在 390px 和 320px 视口实测间距均为 12px，计数更新、关闭与焦点归还正常。此处说明前述逐页扫描只覆盖静态预览布局，没有覆盖所有动态弹窗内容。
 
 提交前进一步检查了全部 81 个示例 Vue 文件，包括 DialogHost 的 `DialogActions.vue`，重点核对渲染函数、操作按钮容器与窄屏排列。MessageHost 渲染函数已有换行与间距；分页边界、表单重置和按钮重置的操作行补 `flex-wrap`，避免窄屏时把按钮挤入单行。320px 浏览器复验三组操作行均无页面级溢出，长文案按钮正常换行。
+
+## 2026-10-11 入口收敛
+
+现行公开组件 37 个、主组件文档 32 份。FormItem 的字段示例、API 与 Token 并入 Form；DateRangePicker 与 TimeRangePicker 的范围示例并入日期与时间页。原 DataTable 升为唯一公开 Table，保留状态、选择与受控分页，基础语义表格内置。删除 YearPicker 和 HourPicker，分别使用 DatePicker 年份模式与数值 Input；不提供旧入口兼容。早期走查数量与当时的独立入口判断仅作为历史快照。

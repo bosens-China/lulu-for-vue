@@ -4,7 +4,7 @@
 
 `lulu/theme/edge/css/common/ui` 有 22 个 CSS 文件，其中 `Keyboard.css`、`Placeholder.css` 是辅助样式；余下 20 个文件代表可见 UI 能力。`lulu/theme/edge/js/common/ui` 有 16 个 JS 文件，`ErrorTip.js`、`Validate.js` 补充了两个无独立 CSS 的能力，`Follow.js` 是定位辅助模块。因此首轮迁移核对口径为 **22 项能力**，而不是 22 + 16 个组件。
 
-Vue 包当前有 **39 个 `Lulu*.vue` 组件**。有些 Edge 能力拆成多个 Vue 组件；数量相等不是迁移完成的条件。
+Vue 包当前有 **37 个公开组件**（另含内部实现）。有些 Edge 能力拆成多个 Vue 组件；数量相等不是迁移完成的条件。
 
 ## 对照表
 
@@ -14,7 +14,7 @@ Vue 包当前有 **39 个 `Lulu*.vue` 组件**。有些 Edge 能力拆成多个 
 | Checkbox | Checkbox.css | Checkbox | 原生表单事件和半选态 |
 | Color | Color.css、Color.js | ColorPicker | 颜色与透明度输入 |
 | Datalist | Datalist.css、Datalist.js | Autocomplete | 建议列表、键盘导航、异步数据 |
-| Date | Date.css、DateTime.js | DatePicker、DateRangePicker、YearPicker、HourPicker | 日期格式、范围和原生输入差异 |
+| Date | Date.css、DateTime.js | DatePicker、DateRangePicker、TimePicker、TimeRangePicker | 日期格式、范围和原生输入差异 |
 | Dialog | Dialog.css、Dialog.js | Dialog | 焦点管理、关闭条件、滚动锁定 |
 | Drop | Drop.css、Drop.js | Popover、Dropdown、Popconfirm | 定位、局部主题、组合依赖 |
 | Input | Input.css | Input | 校验态、占位符、禁用态 |
@@ -27,11 +27,11 @@ Vue 包当前有 **39 个 `Lulu*.vue` 组件**。有些 Edge 能力拆成多个 
 | Select | Select.css、Select.js | Select | 原生选择器与旧增强行为差异 |
 | Switch | Switch.css | Switch | 开关语义与表单提交 |
 | Tab | Tab.css、Tab.js | Tabs、Tab、TabPanel、Disclosure、Accordion | 标签键盘规则；折叠能力需单独确认来源 |
-| Table | Table.css | Table、DataTable | 排序、选择、加载、空态 |
+| Table | Table.css | Table | 排序、选择、加载、空态 |
 | Textarea | Textarea.css | Textarea | 自适应高度与校验态 |
 | Tips | Tips.css、Tips.js | Tooltip | 触发方式、定位与无障碍描述 |
-| ErrorTip | ErrorTip.js | FieldError | 错误显示、字段关联 |
-| Validate | Validate.js | Form、FormField、useFormValidation | 原生约束校验与错误呈现 |
+| ErrorTip | ErrorTip.js | FormItem 内置错误 | 错误显示、字段关联 |
+| Validate | Validate.js | Form、FormItem | 原生约束校验与错误呈现 |
 
 `Keyboard.css`、`Keyboard.js`、`Placeholder.css`、`Follow.js` 作为辅助能力核对，不单独计入 22 项。表中“当前 Vue 对应”表示已有 API，并不表示已达到 Edge 的视觉或交互一致性；每项仍需在组件 Demo 与测试中核对。旧版 `Custom Element`、`[is]` 和直接操作全局 DOM 的 API 不进入 Vue 公共契约。
 
@@ -39,5 +39,5 @@ Vue 包当前有 **39 个 `Lulu*.vue` 组件**。有些 Edge 能力拆成多个 
 
 - Edge 的 `variables.css` 只提供浅色变量。Vue 包的暗色语义值为新增设计，使用 `[data-lulu-theme='dark']` 或系统偏好启用。
 - Edge 蓝色 `#2a80eb` 配白字约为 3.90:1，因此浅色主题统一使用 `#1668c7` 作为强调文字与实心主操作（配白字约 5.47:1）；状态色搭配深色文字。页面级视觉和交互对比仍待逐项验收。
-- 按需 CSS 已拆为 39 个组件入口；公共 token、utility 与跨组件共享基座只在 `base.css` 输出。组合组件的直接样式依赖由 resolver 按“依赖 → 自身”顺序引入，领域文件仅保留为源码聚合入口，不进入发布物。
+- 按需 CSS 已拆为 37 个组件入口；公共 token、utility 与跨组件共享基座只在 `base.css` 输出。组合组件的直接样式依赖由 resolver 按“依赖 → 自身”顺序引入，领域文件仅保留为源码聚合入口，不进入发布物。
 - 目前 UnoCSS 只用于 Button 的三个布局 utility；其余复杂状态和结构选择器仍为 CSS。迁移时逐项判断，避免为了使用 utility 拆散清晰的状态样式。
