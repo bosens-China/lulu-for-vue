@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, useId, type CSSProperties } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from '../overlay/useFloatingLayer'
+import { controlInvalid, useControlAttrs } from './control-attrs'
 
 defineOptions({ inheritAttrs: false })
+const attrs = useControlAttrs()
 
 export interface AutocompleteItem {
   disabled?: boolean
@@ -18,6 +20,7 @@ export type AutocompleteFilter = (
 interface Props {
   disabled?: boolean
   filter?: AutocompleteFilter
+  invalid?: boolean
   items?: readonly AutocompleteItem[]
   loading?: boolean
   loadingText?: string
@@ -29,6 +32,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   disabled: false,
+  invalid: false,
   items: () => [],
   loading: false,
   loadingText: '加载中',
@@ -46,6 +50,7 @@ const open = defineModel<boolean>('open', { default: false })
 const input = ref<HTMLInputElement | null>(null)
 const panel = ref<HTMLElement | null>(null)
 const activeIndex = ref(-1)
+const composing = ref(false)
 const listId = `lulu-autocomplete-${useId()}`
 
 const visibleItems = computed(() => {
@@ -89,12 +94,17 @@ function show() {
 function updateQuery(event: Event) {
   const target = event.target
 
-  if (!(target instanceof HTMLInputElement)) return
+  if (!(target instanceof HTMLInputElement) || composing.value || target.value === modelValue.value) return
 
   modelValue.value = target.value
   activeIndex.value = -1
   emit('search', target.value)
   show()
+}
+
+function finishComposition(event: CompositionEvent) {
+  composing.value = false
+  updateQuery(event)
 }
 
 function select(item: AutocompleteItem) {
@@ -126,6 +136,7 @@ function moveActive(offset: -1 | 1) {
 }
 
 function handleKeydown(event: KeyboardEvent) {
+  if (composing.value || event.isComposing) return
   if (event.key === 'ArrowDown') {
     event.preventDefault()
     show()
@@ -137,6 +148,7 @@ function handleKeydown(event: KeyboardEvent) {
     moveActive(-1)
   }
   if (event.key === 'Enter') {
+    if (!open.value) return
     const item = visibleItems.value[activeIndex.value]
 
     if (item) {
@@ -160,7 +172,7 @@ function setActive(index: number) {
 <template>
   <input
     ref="input"
-    v-bind="$attrs"
+    v-bind="attrs($attrs)"
     class="lulu-autocomplete"
     type="text"
     role="combobox"
@@ -169,9 +181,12 @@ function setActive(index: number) {
     :aria-activedescendant="activeId"
     :aria-controls="listId"
     :aria-expanded="open"
+    :aria-invalid="controlInvalid(props.invalid, attrs($attrs))"
     :disabled="props.disabled"
     @blur="handleBlur"
     @focus="show"
+    @compositionstart="composing = true"
+    @compositionend="finishComposition"
     @input="updateQuery"
     @keydown="handleKeydown"
   >

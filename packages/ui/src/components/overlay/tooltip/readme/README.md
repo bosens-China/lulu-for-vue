@@ -67,12 +67,32 @@ seo:
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-tooltip-background` | 提示背景 | 回退到 `--lulu-color-text` | 回退到 `--lulu-color-text` |
-| `--lulu-tooltip-color` | 提示文字 | 回退到 `--lulu-color-text-inverse` | 回退到 `--lulu-color-text-inverse` |
+| `--lulu-tooltip-background` | 提示背景 | `#4c5161` | `#f4f4f5` |
+| `--lulu-tooltip-color` | 提示文字 | `#ffffff` | `#000000` |
+| `--lulu-tooltip-font-size` | 提示字体尺寸 | `12px` | `12px` |
 | `--lulu-tooltip-max-width` | 提示最大宽度 | `280px` | `280px` |
-| `--lulu-tooltip-radius` | 提示圆角 | 回退到 `--lulu-radius` | 回退到 `--lulu-radius` |
+| `--lulu-tooltip-padding` | 提示内边距 | `8px 12px` | `8px 12px` |
+| `--lulu-tooltip-radius` | 提示圆角 | `4px` | `4px` |
+| `--lulu-tooltip-z-index` | 提示层叠层级 | `1000` | `1000` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
@@ -85,8 +105,12 @@ seo:
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
-| `--lulu-z-index-popup` | 提示浮层层级 | `1000` | `1000` |
+| `--lulu-z-index-popup` | 候选浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
+</div>
+
+</details>
+
+浮层传送到最近的 `data-lulu-theme` 容器；Dialog 内优先留在该 Dialog 内。区域级覆盖放在对应容器；单实例覆盖使用 `panelStyle`。
 
 例如在局部容器的 `style` 中设置 `--lulu-color-text: #4c5161`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

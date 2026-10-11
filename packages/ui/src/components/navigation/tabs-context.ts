@@ -4,7 +4,7 @@ import type { InjectionKey, Ref } from 'vue'
 export type TabsValue = string | number
 
 interface TabRegistration {
-  focus: () => void
+  getElement: () => HTMLButtonElement | null
   getValue: () => TabsValue
   isDisabled: () => boolean
 }

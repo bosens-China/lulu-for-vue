@@ -1,7 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { assertInternalLinks, renderLlmsText } from '../prerenderPlugin'
+import { assertInternalLinks, renderAssetLinks, renderLlmsText } from '../prerenderPlugin'
 
 describe('文档死链检查', () => {
+  it('保留 SSR manifest 的绝对资源路径并兼容部署子路径', () => {
+    const output = renderAssetLinks(new Set(['page', 'shared']), {
+      page: ['/lulu-for-vue/assets/page.css', '/lulu-for-vue/assets/page.js'],
+      shared: ['/lulu-for-vue/assets/page.css', 'assets/shared.js'],
+    }, '/lulu-for-vue/')
+    expect(output).toContain('href="/lulu-for-vue/assets/page.css"')
+    expect(output).toContain('href="/lulu-for-vue/assets/page.js"')
+    expect(output).toContain('href="/lulu-for-vue/assets/shared.js"')
+    expect(output.match(/rel="stylesheet"/g)).toHaveLength(1)
+    expect(output).not.toContain('href="//')
+  })
   const pages = [
     { html: '<a href="/guide/#install">安装</a>', path: '/' },
     { html: '<h2 id="install">安装</h2><a href="../">首页</a>', path: '/guide/' },

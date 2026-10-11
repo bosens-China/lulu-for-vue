@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useTemplateRef, watch } from 'vue'
+import { nativeControlAttrs, useControlAttrs, controlLayoutAttrs } from './control-attrs'
 
 defineOptions({ inheritAttrs: false })
+const attrs = useControlAttrs()
 
 interface Props {
   disabled?: boolean
@@ -36,10 +38,10 @@ function updateValue(event: Event) {
 </script>
 
 <template>
-  <label class="lulu-checkbox" :data-indeterminate="indeterminate || undefined">
+  <label v-bind="controlLayoutAttrs($attrs)" class="lulu-checkbox" :data-indeterminate="indeterminate || undefined">
     <input
       ref="input"
-      v-bind="$attrs"
+      v-bind="nativeControlAttrs(attrs($attrs))"
       type="checkbox"
       :checked="modelValue"
       :disabled="props.disabled"

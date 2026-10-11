@@ -67,6 +67,8 @@ import AppContent from './AppContent.vue'
 
 `content` 接受字符串或 `() => VNodeChild`。字符串按纯文本渲染，不解析 HTML。渲染函数读取响应式业务状态即可更新内容，其余选项在打开时取快照。
 
+单次调用可以传入 `class` 与 `style`，与 Host 的样式合并；例如 `style: { '--lulu-dialog-width': '32rem' }` 仅影响这次弹窗。
+
 ```ts
 const handle = dialog.open({
   title: '编辑用户',
@@ -112,6 +114,8 @@ await handle.closed
 | `closeLabel` | 关闭按钮的无障碍标签。 | `string` | `关闭对话框` |
 | `closeOnOverlay` | 点击遮罩关闭。 | `boolean` | `false` |
 | `closeOnEscape` | Escape 关闭。 | `boolean` | `true` |
+| `class` | 当前弹窗的 CSS 类，与 Host 的 class 合并。 | `string` | — |
+| `style` | 当前弹窗的样式或 CSS Token，与 Host 的 style 合并。 | `CSSProperties` | — |
 
 ### DialogConfirmOptions
 
@@ -138,20 +142,68 @@ await handle.closed
 
 沿用 Dialog 的主题变量，不新增独立主题体系。以下变量覆盖宿主按钮、错误与组合后的 Dialog 样式。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-color-border` | 次要按钮边框 | `#8b8f98` | `#62626b` |
-| `--lulu-color-danger` | 异步错误文本 | `#c53030` | `#f87171` |
-| `--lulu-color-primary` | 次要按钮悬停文字 | `#1668c7` | `#38bdf8` |
-| `--lulu-color-primary-solid` | 确认按钮背景，默认继承主色 | `#1668c7` | `#38bdf8` |
-| `--lulu-color-surface` | 弹窗与次要按钮背景 | `#ffffff` | `#09090b` |
-| `--lulu-color-surface-hover` | 次要按钮悬停背景 | `#f0f7ff` | `#18181b` |
+| `--lulu-close-color` | 关闭按钮文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-dialog-backdrop` | 模态遮罩 | `rgb(15 23 42 / 45%)` | `rgb(0 0 0 / 75%)` |
+| `--lulu-dialog-background` | 弹窗背景 | `#ffffff` | `#09090b` |
+| `--lulu-dialog-body-padding` | 弹窗正文内边距 | `16px` | `16px` |
+| `--lulu-dialog-border-color` | 弹窗边框文字颜色 | `#ededef` | `#27272a` |
+| `--lulu-dialog-close-color` | 弹窗关闭按钮文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-dialog-color` | 弹窗文字 | `#4c5161` | `#f4f4f5` |
+| `--lulu-dialog-confirm-background` | 弹窗确认按钮背景 | `#1668c7` | `#38bdf8` |
+| `--lulu-dialog-confirm-color` | 弹窗确认按钮文字颜色 | `#ffffff` | `#000000` |
+| `--lulu-dialog-error-color` | 弹窗错误文字颜色 | `#c53030` | `#f87171` |
+| `--lulu-dialog-footer-padding` | 弹窗页脚内边距 | `12px 16px` | `12px 16px` |
+| `--lulu-dialog-gap` | 弹窗间距 | `12px` | `12px` |
+| `--lulu-dialog-header-padding` | 弹窗页头内边距 | `12px 16px` | `12px 16px` |
+| `--lulu-dialog-radius` | 弹窗圆角 | `10px` | `10px` |
+| `--lulu-dialog-shadow` | 弹窗阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+| `--lulu-dialog-title-font-size` | 弹窗标题字体尺寸 | `16px` | `16px` |
+| `--lulu-dialog-width` | 弹窗宽度上限 | `560px` | `560px` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
+| `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
+| `--lulu-color-danger` | 危险或错误状态 | `#c53030` | `#f87171` |
+| `--lulu-color-overlay` | 模态遮罩 | `rgb(15 23 42 / 45%)` | `rgb(0 0 0 / 75%)` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
+| `--lulu-color-primary-solid` | 主要操作底色，默认继承主色 | `#1668c7` | `#38bdf8` |
+| `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
+| `--lulu-color-surface-hover` | 悬停背景 | `#f0f7ff` | `#18181b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
-| `--lulu-color-text-inverse` | 确认按钮文字 | `#ffffff` | `#000000` |
-| `--lulu-color-text-muted` | 次要文字 | `#667085` | `#a1a1aa` |
-| `--lulu-control-height` | 操作按钮高度 | `40px` | `40px` |
-| `--lulu-radius` | 操作按钮圆角 | `4px` | `4px` |
-| `--lulu-shadow-overlay` | 弹窗阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
-| `--lulu-space-3` | 操作按钮间距 | `12px` | `12px` |
+| `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |
+| `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
+| `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
+| `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--lulu-font-size` | 正文大小 | `14px` | `14px` |
+| `--lulu-font-size-lg` | 标题文字大小 | `16px` | `16px` |
+| `--lulu-font-weight-strong` | 字体字重强调 | `600` | `600` |
+| `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-opacity-disabled` | 禁用态透明度 | `0.55` | `0.55` |
+| `--lulu-radius` | 圆角 | `4px` | `4px` |
+| `--lulu-radius-lg` | 大圆角 | `10px` | `10px` |
+| `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+| `--lulu-space-1` | 最小间距 | `4px` | `4px` |
+| `--lulu-space-3` | 中等间距 | `12px` | `12px` |
+| `--lulu-space-4` | 大间距 | `16px` | `16px` |
+
+</div>
+
+</details>
 
 与旧 LuLu 构造器 API 的区别：实例归属于 Vue 作用域和宿主，不创建 document 全局单例。

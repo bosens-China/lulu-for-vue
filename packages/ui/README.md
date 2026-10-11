@@ -1,6 +1,6 @@
 # @lulu/vue
 
-Vue 3 组件库，API 以现代 Vue 受控组件为中心，并提供基于 LuLu UI Edge 默认调色板的可覆盖主题。
+Vue 3 组件库，API 以现代 Vue 受控组件为中心，并提供基于 LuLu UI Edge 默认调色板的可覆盖主题。当前公开 42 个组件，提供 40 份主组件文档；Tab、TabPanel 与 Tabs 合并展示。
 
 ## 导入组件
 
@@ -19,11 +19,21 @@ import '@lulu/vue/base.css'
 import '@lulu/vue/button/style.css'
 ```
 
-Composable 同样有稳定入口；例如 `useMessage` 可从 `@lulu/vue/use-message` 具名导入。需要消息视觉样式时，在应用入口导入 `base.css` 和 `@lulu/vue/message/style.css`。
+Composable 同样有稳定入口；例如 `useMessage` 可从 `@lulu/vue/use-message` 具名导入。消息在应用根部配置一次 `LuluMessageHost`，按需引入时同时导入 `base.css`、`@lulu/vue/message/style.css` 和 `@lulu/vue/message-host/style.css`。
 
 包只公开根入口、`resolver`、组件短路径和样式入口。组件 JavaScript 短路径通过受限通配符映射到公共 `entries` 构建目录；不要从 `dist/components` 等内部路径导入。组件入口导向共享的构建模块：例如 `popconfirm` 会引用 `popover`，不会把 Popover 的源码复制进每一个组件入口。最终应用仍会包含该组件的直接依赖，这是正常且必要的依赖图。
 
-手动引入组合组件时，还需引入其直接依赖的样式：`data-table → table`、`dialog-host → dialog`、`form-field → field-error`、`loading-overlay → loading`、`message-host → message`、`popconfirm → popover`。`LuluResolver` 会自动补齐这些依赖。
+手动引入组合组件时，还需导入下表中的依赖样式。每个名称对应 `@lulu/vue/<名称>/style.css`；`LuluResolver` 会自动补齐。
+
+| 组件入口 | 依赖样式入口 |
+| --- | --- |
+| `table` | `loading`、`pagination` |
+| `dialog-host` | `dialog` |
+| `time-picker` | `date-picker` |
+| `time-range-picker` | `date-range-picker` |
+| `loading-overlay` | `loading` |
+| `message-host` | `message` |
+| `popconfirm` | `popover` |
 
 ## 模板自动导入
 
@@ -42,7 +52,25 @@ export default {
 }
 ```
 
-`LuluResolver` 只解析 `Lulu*` 公开组件；`LuluApiResolver` 解析 `useMessage`、`useDialog` 和 `useFormValidation`。插件由应用作为开发依赖安装，`@lulu/vue` 不会把它们带入运行时。
+`LuluResolver` 只解析 `Lulu*` 公开组件；`LuluApiResolver` 解析 `useMessage` 和 `useDialog`。插件由应用作为开发依赖安装，`@lulu/vue` 不会把它们带入运行时。
+
+## 数值与日期输入
+
+`LuluSlider` 默认绑定数值，设置 `range` 后绑定有序 `[number, number]`，两个滑块共用一条轨道。`LuluRangeSlider` 保留为范围模式的兼容入口。`LuluRate` 展示星形评分，默认五颗星、半分步长，支持指针预览、只读、清空和自定义图形。详见 [Slider 文档](./src/components/form/slider/readme/README.md)与 [Rate 文档](./src/components/form/rate/readme/README.md)。
+
+日期家族使用 `picker` 选择日期、周、月或年份，`showTime` 组合日期与时间；`picker` 优先于兼容的 `type`。纯时间使用 `LuluTimePicker` 或 `LuluTimeRangePicker`，时间范围默认保留跨午夜顺序。四个日期与时间组件都使用原生字符串模型；年份使用 `DatePicker picker="year"`，仅输入小时数使用带 0–23 约束的数值 Input。面板由浏览器提供，详见 [DatePicker 文档](./src/components/form/date-picker/readme/README.md)。
+
+## 模型表单与数据表
+
+`LuluForm` 的 `model` 接收可变对象，`LuluFormItem name` 连接顶层字段。模型模式集成同步/异步规则、错误、提交和重置；库内控件自动获得字段关联，原生或第三方控件使用 `controlProps` 插槽。错误显示内聚在 FormItem；手动按需引入只需各自的样式，不需要额外错误组件。未传 model 时保留原生表单。完整 API 见 [Form 文档](./src/components/form/form/readme/README.md)与其中的 [FormItem API](./src/components/form/form/readme/README.md#luluformitem)。
+
+`LuluTable` 组合 Loading、空态和可选受控分页。`pagination` 默认关闭；启用后传入 `total/pageSize` 并绑定 `v-model:page`，`rows` 始终是当前页数据，组件不会再次切片或发起请求。首载展示加载行，刷新保留已有数据并覆盖加载状态。详见 [Table 文档](./src/components/data/table/readme/README.md)。
+
+## 消息提示
+
+在应用根部放置一次 `LuluMessageHost`，业务后代组件调用 `useMessage()`，再使用 `message.success('保存成功')` 等方法。默认顶部居中；`placement` 支持 `top`、`top-start`、`top-end`、`bottom`、`bottom-start`、`bottom-end`，start/end 遵循文字方向。
+
+`newOnTop` 默认为 false，消息按到达顺序从上到下排列；设为 true 时最新消息位于最上方。队列超出可用高度时可滚动，独立 Host 的队列互不影响。完整配置见 [MessageHost 文档](./src/components/feedback/message-host/readme/README.md)。
 
 ## 命令式弹窗
 
@@ -66,7 +94,7 @@ import '@lulu/vue/style.css'
 <html data-lulu-theme="dark">
 ```
 
-局部主题使用相同属性。Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `[data-lulu-theme]` 容器，并继承该容器的变量。只有普通 class 的局部容器不会成为传送目标，其中的变量也不会跨 Teleport；区域级定制请把变量放在最近的 `[data-lulu-theme]` 容器上，单个浮层实例使用 `panelStyle`。局部主题容器应避免设置 `transform` 或裁剪浮层的 `overflow`。
+局部主题使用相同属性。Popover、Dropdown、Tooltip 和 Autocomplete 的浮层会传送到最近的 `[data-lulu-theme]` 容器，并继承该容器的变量；Dialog 内浮层优先留在所属 Dialog 内。只有普通 class 的局部容器不会成为传送目标，其中的变量也不会跨 Teleport；区域级定制请把变量放在对应主题容器或 Dialog 上，单个浮层实例使用 `panelStyle`。局部主题容器应避免设置 `transform` 或裁剪浮层的 `overflow`。
 
 ```html
 <section data-lulu-theme="light">
@@ -84,7 +112,7 @@ import '@lulu/vue/style.css'
 }
 ```
 
-`--lulu-color-primary-solid` 默认继承 `--lulu-color-primary`，因此修改主色会同时影响强调文字、选中态和实心主操作；只有需要区分两者时才单独覆盖 `primary-solid`。Token 分为颜色、排版、尺寸、间距、圆角、阴影、动效和层级。组件使用 `--lulu-*` 变量；不支持旧版 `--ui-*` 变量、`.ui-*` 选择器或 `[is]` Custom Element 结构。自定义值若要覆盖显式主题，选择器需要至少与 `[data-lulu-theme]` 一样具体，并放在主题 CSS 之后。
+`--lulu-color-primary-solid` 与 `--lulu-shadow-focus` 是可选覆盖值，在组件使用处回退当前容器的主色，保证局部主色影响实心主操作与焦点光圈。业务 CSS 直接读取时也需写回退，例如 `var(--lulu-color-primary-solid, var(--lulu-color-primary))`、`var(--lulu-shadow-focus, 0 0 0 3px var(--lulu-color-primary))`。Token 分为颜色、排版、尺寸、间距、圆角、阴影、动效和层级。组件使用 `--lulu-*` 变量；不支持旧版 `--ui-*` 变量、`.ui-*` 选择器或 `[is]` Custom Element 结构。自定义值若要覆盖显式主题，选择器需要至少与 `[data-lulu-theme]` 一样具体，并放在主题 CSS 之后。
 
 必要的组件 Token 使用全局语义 Token 作为回退，例如 `--lulu-dialog-background` 回退到 `--lulu-color-surface`。全局主题优先改语义 Token；只定制一类组件时改组件 Token；只定制一个普通组件实例时可直接在组件 `style` 上设置。输入控件家族还支持 `--lulu-control-background`、`--lulu-control-border`、`--lulu-control-color`、`--lulu-control-radius`、`--lulu-control-padding-inline` 与 `--lulu-control-focus-shadow`，浮层面板支持对应的 `--lulu-floating-*` Token。
 

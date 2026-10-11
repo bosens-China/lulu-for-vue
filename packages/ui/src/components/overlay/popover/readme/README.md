@@ -19,6 +19,8 @@ seo:
 
 浮层中存在按钮或输入时，打开后聚焦第一个可操作元素；按 Escape 关闭会把焦点归还触发按钮。点击浮层外关闭不会抢走外部目标的焦点。
 
+`trigger` 插槽可继续直接填写按钮内容。需要复用 `LuluButton` 或原生交互元素时，使用 `#trigger="{ triggerProps }"` 并在该元素上绑定 `v-bind="triggerProps"`；组件保留它作为唯一触发元素，不再包裹按钮。可直接在这个元素上覆盖触发器样式。
+
 组件未声明的 Attributes 会应用到传送后的 `dialog` 面板。面板使用内部稳定 ID 维持 `aria-controls` 关联；可传入 `aria-label` 覆盖默认由触发按钮提供的辅助名称。
 
 ## 位置与关闭策略
@@ -53,7 +55,7 @@ seo:
 
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
-| `trigger` | 触发按钮内容。 | — |
+| `trigger` | 触发按钮内容，或绑定 triggerProps 的自定义触发元素。 | `{ triggerProps }` |
 | `default` | 浮层内容。 | — |
 
 ### Expose
@@ -68,6 +70,36 @@ seo:
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-floating-background` | 浮层背景 | `#ffffff` | `#09090b` |
+| `--lulu-floating-border` | 浮层边框 | `#8b8f98` | `#62626b` |
+| `--lulu-floating-color` | 浮层文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-floating-min-width` | 浮层最小宽度 | `180px` | `180px` |
+| `--lulu-floating-padding` | 浮层内边距 | `4px` | `4px` |
+| `--lulu-floating-radius` | 浮层圆角 | `4px` | `4px` |
+| `--lulu-floating-shadow` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+| `--lulu-popover-max-width` | 气泡最大宽度 | `360px` | `360px` |
+| `--lulu-trigger-background` | 触发器背景 | `#ffffff` | `#09090b` |
+| `--lulu-trigger-border` | 触发器边框 | `#8b8f98` | `#62626b` |
+| `--lulu-trigger-color` | 触发器文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-trigger-height` | 触发器高度 | `40px` | `40px` |
+| `--lulu-trigger-padding-inline` | 触发器内边距水平方向 | `12px` | `12px` |
+| `--lulu-trigger-radius` | 触发器圆角 | `4px` | `4px` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
@@ -77,13 +109,20 @@ seo:
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-opacity-disabled` | 禁用态透明度 | `0.55` | `0.55` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
 | `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
-| `--lulu-z-index-popup` | 气泡浮层层级 | `1000` | `1000` |
+| `--lulu-z-index-popup` | 候选浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
+</div>
+
+</details>
+
+浮层传送到最近的 `data-lulu-theme` 容器；Dialog 内优先留在该 Dialog 内。区域级覆盖放在对应容器；单实例覆盖使用 `panelStyle`。
+
+对话框中的浮层保留在所属原生 `dialog` 内，避免被模态层遮挡。展开期间修改 `placement` 或 `offset` 会重新定位。
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

@@ -25,7 +25,7 @@ let unregister: (() => void) | undefined
 
 onMounted(() => {
   unregister = context.registerTab({
-    focus: () => tabButton.value?.focus(),
+    getElement: () => tabButton.value,
     getValue: () => props.value,
     isDisabled: () => props.disabled,
   })

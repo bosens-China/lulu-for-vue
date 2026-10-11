@@ -30,7 +30,10 @@ describe('文档导航配置', () => {
       '导航',
       '反馈与浮层',
     ])
-    expect(orderedDocsNavigationItems).toHaveLength(37)
+    expect(orderedDocsNavigationItems).toHaveLength(32)
+    expect(docsNavigation.find(group => group.name === '表单与校验')?.items.map(item => item.name)).toEqual([
+      'Form 表单',
+    ])
     expect(orderedDocsNavigationItems.map(item => item.page.path)).not.toContain('/components/tab/')
     expect(orderedDocsNavigationItems.map(item => item.page.path)).not.toContain('/components/tab-panel/')
     expect(orderedDocsNavigationItems.slice(0, 4).map(item => item.name)).toEqual([

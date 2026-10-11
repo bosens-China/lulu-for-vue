@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useAttrs, useId, watch, type CSSProperties } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
+import FloatingTrigger, { type FloatingTriggerProps } from './FloatingTrigger'
 
 defineOptions({ inheritAttrs: false })
 
@@ -31,6 +32,10 @@ const emit = defineEmits<{
 }>()
 const open = defineModel<boolean>('open', { default: false })
 const attrs = useAttrs()
+defineSlots<{
+  default?(): unknown
+  trigger?(props: { triggerProps: FloatingTriggerProps }): unknown
+}>()
 const trigger = ref<HTMLElement | null>(null)
 const panel = ref<HTMLElement | null>(null)
 const id = useId()
@@ -88,23 +93,24 @@ function handleEscape(event: KeyboardEvent) {
   open.value = false
   focusTrigger()
 }
+
+const triggerProps = computed<FloatingTriggerProps>(() => ({
+  id: triggerId,
+  type: 'button',
+  class: 'lulu-popover__trigger',
+  'aria-controls': panelId,
+  'aria-expanded': open.value,
+  'aria-haspopup': 'dialog',
+  disabled: props.disabled,
+  onClick: toggle,
+}))
 </script>
 
 <template>
   <span class="lulu-popover">
-    <button
-      :id="triggerId"
-      ref="trigger"
-      type="button"
-      class="lulu-popover__trigger"
-      :aria-controls="panelId"
-      :aria-expanded="open"
-      aria-haspopup="dialog"
-      :disabled="props.disabled"
-      @click="toggle"
-    >
-      <slot name="trigger">切换浮层</slot>
-    </button>
+    <FloatingTrigger :trigger-props="triggerProps" label="切换浮层" @element="trigger = $event">
+      <template v-if="$slots.trigger" #default="scope"><slot name="trigger" v-bind="scope" /></template>
+    </FloatingTrigger>
     <Teleport v-if="isMounted" :to="teleportTarget">
       <div
         v-if="open"

@@ -2,29 +2,73 @@
 import { ref } from 'vue'
 import LuluButton from '@lulu/vue/button'
 import LuluInput from '@lulu/vue/input'
+import LuluProgress from '@lulu/vue/progress'
 import LuluSwitch from '@lulu/vue/switch'
+import LuluTab from '@lulu/vue/tab'
+import LuluTabPanel from '@lulu/vue/tab-panel'
+import LuluTabs from '@lulu/vue/tabs'
+import LuluTooltip from '@lulu/vue/tooltip'
+import { useMessage } from '@lulu/vue/use-message'
 import '@lulu/vue/button/style.css'
 import '@lulu/vue/input/style.css'
+import '@lulu/vue/progress/style.css'
 import '@lulu/vue/switch/style.css'
+import '@lulu/vue/tabs/style.css'
+import '@lulu/vue/tooltip/style.css'
 import { withBase } from '../siteUrl'
 
+const message = useMessage()
+
+function notify(text: string) {
+  message.success(text)
+}
+
 const features = [
-  { mark: '39', title: '丰富的组件', description: '覆盖表单、反馈、导航与布局等常见产品场景。' },
-  { mark: 'TS', title: '类型友好', description: '基于 Vue 3 与 TypeScript，获得清晰、可靠的开发体验。' },
-  { mark: 'SSG', title: '文档即内容', description: '组件文档静态生成，直达页面也能完整阅读与交互。' },
+  {
+    icon: 'i-lucide-box',
+    title: '覆盖日常产品场景',
+    description: '从按钮与表单，到数据展示和交互反馈，按需组合你的产品界面。',
+  },
+  {
+    icon: 'i-lucide-file-code-2',
+    title: 'TypeScript 优先',
+    description: '基于 Vue 3 组合式 API，提供清晰的类型声明与编辑器提示。',
+  },
+  {
+    icon: 'i-lucide-palette',
+    title: '原生 CSS Tokens',
+    description: '用 CSS 变量调整主色、尺寸与状态样式，支持亮色和深色主题。',
+  },
+  {
+    icon: 'i-lucide-zap',
+    title: '文档与示例同行',
+    description: '直接体验组件，展开查看 Vue 源码，从示例到使用少走一步。',
+  },
 ] as const
 
-// 首页预览卡片直接使用真实组件，可交互即最好的演示
-const projectName = ref('LuLu Design')
+// 交互式组件控制台状态
+const activeTab = ref<'form' | 'feedback'>('form')
+const projectName = ref('LuLu Vue App')
 const isPublic = ref(true)
 const created = ref(false)
+
+const demoProgress = ref(68)
+
+function triggerToast() {
+  notify('消息提示触发成功')
+}
+
+function increaseProgress() {
+  demoProgress.value = (demoProgress.value + 15) % 100
+}
 
 function createProject() {
   if (created.value) return
   created.value = true
+  notify('项目创建成功！')
   setTimeout(() => {
     created.value = false
-  }, 2000)
+  }, 2200)
 }
 
 const installCommand = 'pnpm add @lulu/vue'
@@ -34,6 +78,7 @@ async function copyInstallCommand() {
   try {
     await navigator.clipboard.writeText(installCommand)
     copiedInstall.value = true
+    notify('已复制安装命令到剪贴板！')
     setTimeout(() => {
       copiedInstall.value = false
     }, 2000)
@@ -46,49 +91,58 @@ async function copyInstallCommand() {
 
 <template>
   <main class="home-page relative flex-1 overflow-hidden bg-[var(--docs-color-page)]">
-    <div class="pointer-events-none absolute inset-x-0 top-0 h-112 overflow-hidden" aria-hidden="true">
-      <div class="absolute -left-24 top-10 h-72 w-72 rounded-full bg-[var(--lulu-color-primary)] opacity-10 blur-3xl" />
-      <div class="absolute -right-16 top-28 h-80 w-80 rounded-full bg-[var(--lulu-color-primary)] opacity-10 blur-3xl" />
-    </div>
+    <div class="home-glow" aria-hidden="true" />
 
-    <section class="relative mx-auto grid min-h-[calc(100vh-4rem)] max-w-7xl items-center gap-14 px-6 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
+    <!-- 1. Hero 区域：左侧标语 + 右侧交互组件展示台 -->
+    <section class="home-hero relative mx-auto grid max-w-[1200px] items-center gap-12 px-6 py-14 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:py-24">
       <div class="max-w-2xl">
-        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)]/75 px-3 py-1.5 text-xs font-semibold text-[var(--lulu-color-primary)] shadow-sm backdrop-blur">
+        <!-- 徽章标签 -->
+        <div class="mb-5 flex items-center gap-2 text-sm font-medium text-[var(--lulu-color-text-muted)]">
           <span class="h-1.5 w-1.5 rounded-full bg-[var(--lulu-color-primary)]" />
-          Vue 3 · TypeScript · 39 个组件
+          <span>Vue 3 · TypeScript · LuLu UI</span>
         </div>
 
-        <h1 class="m-0 text-5xl font-extrabold leading-[1.08] tracking-tight text-[var(--docs-color-heading)] sm:text-6xl lg:text-7xl">
-          简洁、可靠的
-          <span class="block text-[var(--lulu-color-primary)]">
-            Vue 组件库
-          </span>
+        <!-- 主标题 -->
+        <h1 class="home-title m-0 font-bold tracking-tight text-[var(--docs-color-heading)]">
+          <span class="home-brand block mb-3">LuLu UI Vue</span>
+          简洁、可靠的<br />Vue 组件库
         </h1>
 
-        <p class="mb-0 mt-7 max-w-xl text-base leading-7 text-[var(--lulu-color-text)] sm:text-lg sm:leading-8">
-          将 LuLu UI 清晰、克制的交互体验带到 Vue 3。提供类型完备、开箱即用的组件，让产品界面更快成形。
+        <!-- 副标题描述 -->
+        <p class="mb-0 mt-6 max-w-[440px] text-base leading-relaxed text-[var(--lulu-color-text-muted)] sm:text-lg">
+          将 LuLu UI 清晰、克制的交互体验带到 Vue 3。类型友好，按需使用，让界面自然成形。
         </p>
 
-        <div class="mt-9 flex flex-wrap items-center gap-3">
+        <!-- 动作操作区 -->
+        <div class="mt-8 flex flex-wrap items-center gap-3">
           <LuluButton
             variant="primary"
             :href="withBase('/components/button/')"
-            class="!min-h-11 !rounded-xl !px-5 font-semibold shadow-lg transition-transform duration-200 hover:-translate-y-0.5"
+            class="home-primary !min-h-11 !rounded-full !px-6 font-semibold"
           >
             浏览全部组件
-            <span class="i-lucide-arrow-right" aria-hidden="true" />
+            <span class="i-lucide-arrow-right ml-1 text-sm" aria-hidden="true" />
           </LuluButton>
+
+          <a
+            :href="withBase('/guide/installation/')"
+            class="inline-flex h-11 items-center px-6 rounded-full border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] text-sm font-medium text-[var(--lulu-color-text)] hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] transition-colors no-underline"
+          >
+            快速开始
+          </a>
+
+          <!-- 安装命令快速复制 -->
           <button
             type="button"
-            class="group inline-flex h-11 items-center gap-2.5 rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] px-4 font-mono text-xs text-[var(--lulu-color-text)] shadow-sm cursor-pointer transition-colors hover:border-[var(--lulu-color-primary)]/50"
+            class="group mt-2 inline-flex h-11 basis-full max-w-[320px] items-center gap-3 rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-code)] px-4 font-mono text-sm text-[var(--lulu-color-text)] cursor-pointer transition-colors hover:border-[var(--lulu-color-primary)]"
             :aria-label="copiedInstall ? '已复制安装命令' : '复制安装命令'"
             aria-live="polite"
             @click="copyInstallCommand"
           >
-            <span class="text-[var(--lulu-color-primary)]">$</span>
-            {{ installCommand }}
+            <span class="text-[var(--lulu-color-primary)] font-bold">$</span>
+            <span>{{ installCommand }}</span>
             <span
-              class="text-sm text-[var(--lulu-color-text-muted)] transition-colors group-hover:text-[var(--lulu-color-primary)]"
+              class="ml-auto text-sm text-[var(--lulu-color-text-muted)] transition-colors group-hover:text-[var(--lulu-color-primary)]"
               :class="copiedInstall ? 'i-lucide-check text-[var(--lulu-color-success)]' : 'i-lucide-copy'"
               aria-hidden="true"
             />
@@ -96,56 +150,110 @@ async function copyInstallCommand() {
         </div>
       </div>
 
-      <!-- 组件预览卡片：直接使用真实的 LuluInput / LuluSwitch / LuluButton，可交互 -->
+      <!-- 右侧：交互式 Bento Grid 组件画廊展示台 -->
       <div class="relative mx-auto w-full max-w-lg lg:mx-0">
-        <div class="absolute -inset-6 rounded-[2.5rem] bg-[var(--lulu-color-primary)] opacity-10 blur-2xl" aria-hidden="true" />
-        <div class="relative overflow-hidden rounded-3xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)]/92 p-5 shadow-[0_28px_80px_rgba(15,23,42,0.14)] backdrop-blur sm:p-7">
-          <div class="mb-7 flex items-center justify-between">
+        <div class="home-preview relative overflow-hidden rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] p-5 sm:p-6">
+          <!-- 顶部窗口栏 -->
+          <div class="mb-5 flex items-center justify-between">
             <div class="flex gap-1.5" aria-hidden="true">
               <span class="h-2.5 w-2.5 rounded-full bg-[#ff7875]" />
               <span class="h-2.5 w-2.5 rounded-full bg-[#ffc53d]" />
               <span class="h-2.5 w-2.5 rounded-full bg-[#73d13d]" />
             </div>
-            <span class="text-[11px] font-medium text-[var(--lulu-color-text-muted)]">COMPONENT PREVIEW</span>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-[var(--lulu-color-text-muted)]">组件 · 即刻体验</span>
+            </div>
           </div>
 
-          <form class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-page)] p-5 sm:p-6" @submit.prevent="createProject">
-            <p class="m-0 text-sm font-semibold text-[var(--docs-color-heading)]">创建项目</p>
-            <p class="mb-5 mt-1 text-xs leading-5 text-[var(--lulu-color-text-muted)]">填写基本信息，开始搭建你的新应用。</p>
+          <!-- 模式切换 Tabs -->
+          <LuluTabs v-model="activeTab" class="mb-5" style="--lulu-tabs-border: var(--lulu-color-border-subtle)">
+            <template #tabs>
+              <LuluTab value="form">表单与输入</LuluTab>
+              <LuluTab value="feedback">状态与反馈</LuluTab>
+            </template>
 
-            <label for="home-project-name" class="mb-2 block text-xs font-medium text-[var(--lulu-color-text)]">项目名称</label>
-            <LuluInput id="home-project-name" v-model="projectName" class="w-full" placeholder="请输入项目名称" />
+            <!-- 面板 1：表单控件联动演示 -->
+            <LuluTabPanel value="form">
+              <form class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] p-4 sm:p-5" @submit.prevent="createProject">
+                <p class="m-0 text-sm font-semibold text-[var(--docs-color-heading)]">新建产品项目</p>
+                <p class="mb-4 mt-1 text-xs text-[var(--lulu-color-text-muted)]">填写配置信息，体验原生可控输入。</p>
 
-            <div class="mt-5 flex items-center justify-between rounded-xl bg-[var(--docs-color-container)] px-3.5 py-3">
-              <div>
-                <p class="m-0 text-xs font-medium text-[var(--docs-color-heading)]">公开项目</p>
-                <p class="mb-0 mt-0.5 text-[11px] text-[var(--lulu-color-text-muted)]">允许团队成员访问</p>
+                <label for="home-project-name" class="mb-1.5 block text-xs font-medium text-[var(--lulu-color-text)]">应用名称</label>
+                <LuluInput id="home-project-name" v-model="projectName" class="w-full !rounded-xl !h-9 text-xs" placeholder="请输入项目名称" />
+
+                <div class="mt-4 flex items-center justify-between rounded-xl bg-[var(--docs-color-card-muted)]/60 px-3.5 py-2.5 border border-[var(--lulu-color-border-subtle)]">
+                  <div>
+                    <p class="m-0 text-xs font-medium text-[var(--docs-color-heading)]">公开访问</p>
+                    <p class="mb-0 mt-0.5 text-[10px] text-[var(--lulu-color-text-muted)]">允许团队成员查看并协作</p>
+                  </div>
+                  <LuluSwitch v-model="isPublic" aria-label="公开项目" />
+                </div>
+
+                <LuluButton
+                  variant="primary"
+                  native-type="submit"
+                  class="mt-4 w-full !h-9.5 !rounded-xl text-xs font-medium"
+                  :disabled="!projectName.trim()"
+                >
+                  <span v-if="created" class="i-lucide-check mr-1" aria-hidden="true" />
+                  {{ created ? '创建成功' : '立即创建' }}
+                </LuluButton>
+              </form>
+            </LuluTabPanel>
+
+            <!-- 面板 2：反馈与浮层演示 -->
+            <LuluTabPanel value="feedback">
+              <div class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] p-4 sm:p-5 space-y-4">
+                <div>
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-medium text-[var(--docs-color-heading)]">任务处理进度</span>
+                    <span class="text-xs font-mono font-semibold text-[var(--lulu-color-primary)]">{{ demoProgress }}%</span>
+                  </div>
+                  <LuluProgress :value="demoProgress" :max="100" class="w-full h-2 rounded-full" />
+                </div>
+
+                <div class="flex items-center gap-2 pt-1">
+                  <LuluButton class="text-xs flex-1 !rounded-xl" @click="increaseProgress">
+                    推进进度
+                  </LuluButton>
+                  <LuluTooltip placement="top">
+                    <template #trigger="{ triggerProps }">
+                      <LuluButton
+                        v-bind="triggerProps"
+                        variant="primary"
+                        class="text-xs flex-1 !rounded-xl"
+                        @click="triggerToast"
+                      >
+                        弹出轻提示
+                      </LuluButton>
+                    </template>
+                    使用 useMessage 触发 Toast
+                  </LuluTooltip>
+                </div>
               </div>
-              <LuluSwitch v-model="isPublic" aria-label="公开项目" />
-            </div>
-
-            <LuluButton
-              variant="primary"
-              native-type="submit"
-              class="mt-5 w-full"
-              :disabled="!projectName.trim()"
-            >
-              <span v-if="created" class="i-lucide-check" aria-hidden="true" />
-              {{ created ? '创建成功' : '创建项目' }}
-            </LuluButton>
-          </form>
+            </LuluTabPanel>
+          </LuluTabs>
         </div>
       </div>
     </section>
 
-    <section class="relative mx-auto max-w-7xl px-6 pb-22">
-      <div class="grid gap-4 md:grid-cols-3">
-        <article v-for="feature in features" :key="feature.title" class="rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] p-6 shadow-sm transition-transform duration-200 hover:-translate-y-1">
-          <div class="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-[var(--lulu-color-surface-selected)] text-lg font-bold text-[var(--lulu-color-primary)]">
-            {{ feature.mark }}
+    <!-- 2. 特性亮点网格区域 (Bento Grid) -->
+    <section class="relative mx-auto max-w-[1200px] px-6 sm:px-8 pb-20 pt-4" aria-label="产品特性">
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <article
+          v-for="feature in features"
+          :key="feature.title"
+          class="group rounded-2xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] p-6 transition-colors hover:border-[var(--lulu-color-primary)]"
+        >
+          <div class="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--lulu-color-surface-selected)] text-[var(--lulu-color-primary)] text-xl transition-transform group-hover:scale-105">
+            <span :class="feature.icon" aria-hidden="true" />
           </div>
-          <h2 class="m-0 text-base font-bold text-[var(--docs-color-heading)]">{{ feature.title }}</h2>
-          <p class="mb-0 mt-2 text-sm leading-6 text-[var(--lulu-color-text)]">{{ feature.description }}</p>
+          <h2 class="m-0 text-base font-bold text-[var(--docs-color-heading)] tracking-tight">
+            {{ feature.title }}
+          </h2>
+          <p class="mb-0 mt-3 text-sm leading-relaxed text-[var(--lulu-color-text-muted)]">
+            {{ feature.description }}
+          </p>
         </article>
       </div>
     </section>

@@ -1,0 +1,51 @@
+/* 首页用低饱和光晕区分品牌区，避免干扰组件的真实颜色。 */
+.home-glow {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 640px;
+  pointer-events: none;
+  opacity: var(--docs-home-glow-opacity);
+  background: radial-gradient(ellipse at 22% 0%, #9b81ff, transparent 65%),
+    radial-gradient(ellipse at 80% 15%, var(--lulu-color-primary), transparent 60%);
+  mask-image: linear-gradient(#000, transparent);
+}
+
+.home-title {
+  font-size: clamp(36px, 4.2vw, 56px);
+  line-height: 1.18;
+  letter-spacing: -0.04em;
+}
+
+.home-brand {
+  background: linear-gradient(110deg, var(--lulu-color-primary) 10%, #9b81ff 90%);
+  background-clip: text;
+  color: transparent;
+}
+
+.home-primary.lulu-button {
+  background: linear-gradient(110deg, var(--lulu-color-primary), color-mix(in srgb, var(--lulu-color-primary), #9b81ff 55%));
+}
+
+.home-preview {
+  box-shadow: var(--docs-home-shadow);
+}
+
+.home-preview .lulu-tabs__list {
+  overflow-y: hidden;
+}
+
+@media (max-width: 1023px) {
+  .home-hero > :first-child {
+    max-width: 600px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .home-hero > :first-child > div {
+    justify-content: center;
+  }
+
+  .home-hero > :first-child > p {
+    margin-inline: auto;
+  }
+}

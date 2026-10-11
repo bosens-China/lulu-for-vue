@@ -1,4 +1,9 @@
 /* Base & UnoCSS Reset */
+@import './styles/markdown.css';
+@import './styles/home.css';
+@import './styles/shell.css';
+@import './styles/dialogs.css';
+
 *,
 *::before,
 *::after {
@@ -7,33 +12,60 @@
   padding: 0;
 }
 
+/* 与 utility 的单边边框配合，防止浏览器默认 medium 边框渗入其余三边。 */
+:where(*, *::before, *::after) {
+  border-width: 0;
+  border-style: solid;
+}
+
 :root,
 [data-lulu-theme='light'] {
-  --docs-color-page: #f7f9fa;
+  --docs-color-page: #ffffff;
   --docs-color-container: #ffffff;
-  --docs-color-heading: #2f3442;
-  --docs-color-border-strong: #ababaf;
-  --docs-color-code: #f1f5f9;
+  --docs-color-heading: #202127;
+  --docs-color-text: #303038;
+  --docs-color-muted: #65656f;
+  --docs-color-border-strong: #94a3b8;
+  --docs-color-code: #f6f7f9;
   --docs-color-card: #ffffff;
+  --docs-color-card-muted: #f6f7f9;
+  --docs-home-glow-opacity: 0.07;
+  --docs-home-shadow: 0 16px 48px -24px rgb(30 41 59 / 22%);
+  --docs-glass-bg: rgba(255, 255, 255, 0.85);
+  --docs-glow-color: rgba(22, 104, 199, 0.08);
 }
 
 [data-lulu-theme='dark'] {
-  --docs-color-page: #000000;
-  --docs-color-container: #09090b;
-  --docs-color-heading: #ffffff;
-  --docs-color-border-strong: #52525b;
-  --docs-color-code: #0d0d10;
-  --docs-color-card: #121215;
+  --docs-color-page: #141416;
+  --docs-color-container: #141416;
+  --docs-color-heading: #f8fafc;
+  --docs-color-text: #d5d5dc;
+  --docs-color-muted: #a0a0ab;
+  --docs-color-border-strong: #3f3f46;
+  --docs-color-code: #1c1c20;
+  --docs-color-card: #19191d;
+  --docs-color-card-muted: #202024;
+  --docs-home-glow-opacity: 0.09;
+  --docs-home-shadow: 0 16px 48px -24px rgb(0 0 0 / 45%);
+  --docs-glass-bg: rgba(14, 14, 17, 0.85);
+  --docs-glow-color: rgba(56, 189, 248, 0.06);
 }
 
 @media (prefers-color-scheme: dark) {
   :root:where(:not([data-lulu-theme])) {
-    --docs-color-page: #000000;
-    --docs-color-container: #09090b;
-    --docs-color-heading: #ffffff;
-    --docs-color-border-strong: #52525b;
-    --docs-color-code: #0d0d10;
-    --docs-color-card: #121215;
+    --docs-color-page: #141416;
+    --docs-color-container: #141416;
+    --docs-color-heading: #f8fafc;
+    --docs-color-text: #d5d5dc;
+    --docs-color-muted: #a0a0ab;
+    --docs-color-border-strong: #3f3f46;
+    --docs-color-code: #1c1c20;
+    --docs-color-card: #19191d;
+    --docs-color-card-muted: #202024;
+    --docs-home-glow-opacity: 0.09;
+    --docs-home-shadow: 0 16px 48px -24px rgb(0 0 0 / 45%);
+    --docs-glass-bg: rgba(14, 14, 17, 0.85);
+    --docs-glow-color: rgba(56, 189, 248, 0.06);
   }
 }
 
@@ -54,7 +86,51 @@ body {
   min-height: 100vh;
 }
 
-/* 文档站只定制主色；明暗模式继续使用组件库各自的背景和文字配色。 */
+:where(button, input, select, textarea) {
+  font: inherit;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--lulu-color-primary);
+  outline-offset: 3px;
+}
+
+/* 进度条固定覆盖顶部，避免占据正文布局。 */
+.docs-reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  height: 2px;
+  pointer-events: none;
+  --lulu-progress-height: 2px;
+  --lulu-progress-radius: 0;
+  --lulu-progress-track: transparent;
+}
+
+.docs-reading-progress .lulu-progress {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 主题 View Transition 动效 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 文档站主色定制支持 */
 :root[data-docs-primary] {
   --lulu-color-primary: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) var(--docs-primary-lightness-light));
   --lulu-color-surface-hover: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) 97%);
@@ -67,7 +143,16 @@ body {
   --lulu-color-surface-selected: hsl(var(--docs-primary-hue) var(--docs-primary-saturation) var(--docs-primary-lightness-dark) / 16%);
 }
 
+/* 图标按钮统一样式 */
 .docs-icon-button.lulu-button {
+  --lulu-button-background: transparent;
+  --lulu-button-border: transparent;
+  --lulu-button-hover-background: var(--docs-color-card-muted);
+  --lulu-button-hover-border: transparent;
+  --lulu-button-hover-filter: none;
+  --lulu-button-active-background: var(--docs-color-card-muted);
+  --lulu-button-active-border: transparent;
+  --lulu-button-active-shadow: none;
   min-width: 36px;
   min-height: 36px;
   padding: 0;
@@ -75,6 +160,11 @@ body {
   border-color: transparent;
   color: var(--lulu-color-text-muted);
   font-size: 18px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 150ms ease;
 }
 
 .docs-icon-button.lulu-button:hover {
@@ -82,20 +172,68 @@ body {
   color: var(--lulu-color-primary);
 }
 
-.docs-sider-toggle:focus-visible {
-  outline: 2px solid var(--lulu-color-primary);
-  outline-offset: -2px;
+/* DemoBlock 预览画布背景模式 */
+.docs-canvas--clean {
+  background: var(--docs-color-card);
 }
 
-@media (max-width: 640px) {
-  .docs-search-dialog .lulu-input { font-size: 16px; }
+.docs-canvas--dot {
+  background-color: var(--docs-color-card);
+  background-image: radial-gradient(var(--lulu-color-border-subtle) 1px, transparent 1px);
+  background-size: 16px 16px;
 }
 
+.docs-canvas--grid {
+  background-color: var(--docs-color-card);
+  background-image: linear-gradient(var(--lulu-color-border-subtle) 1px, transparent 1px),
+                    linear-gradient(to right, var(--lulu-color-border-subtle) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.docs-canvas--checkerboard {
+  background-color: var(--docs-color-card);
+  background-image:
+    linear-gradient(45deg, var(--docs-color-card-muted) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--docs-color-card-muted) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--docs-color-card-muted) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--docs-color-card-muted) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/* 导航抽屉复用 Dialog，内容区独立滚动。 */
+.docs-navigation-dialog.lulu-dialog {
+  position: fixed;
+  inset: 0 auto 0 0;
+  margin: 0;
+  inline-size: min(320px, 88vw);
+  height: 100dvh;
+  max-height: 100dvh;
+  --lulu-dialog-background: var(--docs-color-container);
+  --lulu-dialog-radius: 0;
+  --lulu-dialog-body-padding: 0;
+}
+
+.docs-navigation-dialog .lulu-dialog__surface {
+  height: 100%;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+
+.docs-navigation-dialog .lulu-dialog__body {
+  overflow-y: auto;
+}
+
+.docs-navigation-dialog .site-sidebar {
+  border-right: 0;
+}
+
+/* 搜索与调色盘弹窗调整 */
 .docs-search-dialog.lulu-dialog {
-  width: min(580px, calc(100vw - 32px));
+  width: min(640px, calc(100vw - 32px));
   max-height: calc(100dvh - 48px);
-  border-radius: var(--lulu-radius-xl, 14px);
+  border-radius: 14px;
   overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
 
 .docs-search-dialog .lulu-dialog__surface {
@@ -108,136 +246,20 @@ body {
   min-height: 0;
 }
 
-.docs-mobile-nav.lulu-dialog {
-  width: min(360px, calc(100vw - 24px));
-  max-height: calc(100dvh - 24px);
-  overflow: hidden;
-}
-
 .docs-palette-dialog.lulu-dialog {
-  width: min(420px, calc(100vw - 24px));
+  width: min(680px, calc(100vw - 24px));
   max-height: calc(100dvh - 24px);
+  border-radius: 14px;
 }
 
 .docs-palette-dialog .lulu-dialog__surface {
   max-height: calc(100dvh - 24px);
   grid-template-rows: auto minmax(0, 1fr);
 }
-.docs-palette-dialog .lulu-dialog__body { min-width: 0; overflow-y: auto; }
 
-.docs-mobile-nav .lulu-dialog__surface {
-  display: flex;
-  flex-direction: column;
-  max-height: calc(100dvh - 24px);
-}
-
-.docs-mobile-nav .lulu-dialog__body {
-  min-height: 0;
-  padding: 0;
+.docs-palette-dialog .lulu-dialog__body {
+  min-width: 0;
   overflow-y: auto;
-}
-
-.docs-mobile-nav .lulu-dialog__close {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  outline: none;
-  transition: background-color 150ms ease, color 150ms ease;
-}
-.docs-mobile-nav .lulu-dialog__close:hover {
-  background: var(--lulu-color-surface-hover);
-  color: var(--lulu-color-text);
-}
-.docs-mobile-nav .lulu-dialog__close:focus-visible {
-  outline: 2px solid var(--lulu-color-primary);
-  outline-offset: 2px;
-}
-
-.docs-content { overflow-wrap: anywhere; }
-.docs-content pre { max-width: 100%; }
-.docs-code-block {
-  position: relative;
-  margin: 20px 0;
-  border: 1px solid var(--lulu-color-border-subtle);
-  border-radius: var(--lulu-radius-lg);
-  background: var(--docs-color-code);
-  overflow: hidden;
-}
-.docs-code-block > pre {
-  margin: 0;
-  overflow-x: auto;
-  padding: 44px 16px 16px;
-  font-size: 13px;
-  line-height: 1.65;
-}
-.docs-code-copy {
-  position: absolute;
-  z-index: 1;
-  top: 8px;
-  right: 8px;
-  cursor: pointer;
-  border: 1px solid var(--lulu-color-border);
-  border-radius: var(--lulu-radius-sm);
-  background: var(--lulu-color-surface);
-  color: var(--lulu-color-text-muted);
-  padding: 4px 8px;
-  font-size: 12px;
-}
-.docs-code-copy:hover { color: var(--lulu-color-primary); }
-.docs-code-copy:focus-visible {
-  outline: 2px solid var(--lulu-color-primary);
-  outline-offset: 2px;
-}
-.docs-content > ul { list-style: disc; padding-left: 24px; }
-.docs-content > ol { list-style: decimal; padding-left: 24px; }
-.docs-callout {
-  --docs-callout-color: var(--lulu-color-primary);
-  margin: 20px 0;
-  padding: 14px 16px;
-  border: 1px solid color-mix(in srgb, var(--docs-callout-color) 35%, var(--lulu-color-border-subtle));
-  border-left: 4px solid var(--docs-callout-color);
-  border-radius: var(--lulu-radius-lg);
-  background: color-mix(in srgb, var(--docs-callout-color) 7%, var(--lulu-color-surface));
-}
-.docs-callout--tip { --docs-callout-color: var(--lulu-color-success); }
-.docs-callout--important { --docs-callout-color: var(--lulu-color-primary); }
-.docs-callout--info { --docs-callout-color: var(--lulu-color-primary); }
-.docs-callout--warning { --docs-callout-color: var(--lulu-color-warning); }
-.docs-callout--danger { --docs-callout-color: var(--lulu-color-danger); }
-.docs-callout__title,
-.docs-callout > summary {
-  color: var(--docs-callout-color);
-  font-weight: 700;
-}
-.docs-callout > summary { cursor: pointer; }
-.docs-callout > :last-child { margin-bottom: 0; }
-.docs-package-manager + .lulu-tabs__panels .lulu-tab-panel { padding-block: 0; }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-  background: transparent;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-img,
-svg,
-video,
-canvas {
-  display: block;
-  max-width: 100%;
 }
 
 /* 优雅暗黑/浅色 Thin 滚动条 */
@@ -251,153 +273,10 @@ canvas {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--lulu-color-border);
+  background: var(--lulu-color-border-subtle);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--docs-color-border-strong);
-}
-
-/* Markdown 文档内容渲染区 */
-.docs-content {
-  width: 100%;
-  max-width: 1160px;
-}
-
-.docs-content h1 {
-  color: var(--docs-color-heading);
-  font-size: 32px;
-  line-height: 1.3;
-  margin: 0 0 20px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.docs-content h2 {
-  border-top: 1px solid var(--lulu-color-border-subtle);
-  color: var(--docs-color-heading);
-  font-size: 22px;
-  line-height: 1.4;
-  margin: 48px 0 16px;
-  padding-top: 32px;
-  font-weight: 600;
-}
-
-.docs-content h3 {
-  color: var(--docs-color-heading);
-  font-size: 17px;
-  margin: 28px 0 12px;
-  font-weight: 600;
-}
-
-.docs-content p,
-.docs-content li {
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--lulu-color-text);
-}
-
-.docs-content code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-}
-
-.docs-content :not(pre) > code {
-  background: var(--docs-color-code);
-  border-radius: 4px;
-  color: var(--lulu-color-danger);
-  padding: 2px 6px;
-  font-size: 13px;
-  border: 1px solid var(--lulu-color-border-subtle);
-}
-
-.docs-demo-description > :first-child {
-  margin-top: 0;
-}
-
-.docs-demo-description > :last-child {
-  margin-bottom: 0;
-}
-
-/* Ant Design 5 风格 Markdown API 表格样式 */
-.docs-content table:not(.lulu-table) {
-  width: 100%;
-  table-layout: fixed;
-  margin: 24px 0;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-size: 13px;
-  line-height: 1.6;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid var(--lulu-color-border-subtle);
-  background: var(--docs-color-card);
-}
-
-.docs-content table:not(.lulu-table) th {
-  background: var(--lulu-color-surface-subtle);
-  color: var(--docs-color-heading);
-  font-weight: 600;
-  text-align: left;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--lulu-color-border-subtle);
-  border-right: 1px solid var(--lulu-color-border-subtle);
-  white-space: nowrap;
-}
-
-.docs-content table:not(.lulu-table) th:last-child {
-  border-right: none;
-}
-
-.docs-content table:not(.lulu-table) td {
-  padding: 12px 16px;
-  color: var(--lulu-color-text);
-  border-bottom: 1px solid var(--lulu-color-border-subtle);
-  border-right: 1px solid var(--lulu-color-border-subtle);
-  transition: background-color 150ms ease;
-}
-
-.docs-content table:not(.lulu-table) td:last-child {
-  border-right: none;
-}
-
-.docs-content table:not(.lulu-table) tr:last-child td {
-  border-bottom: none;
-}
-
-.docs-content table:not(.lulu-table) tbody tr:hover td {
-  background: var(--lulu-color-surface-hover);
-}
-
-.docs-content table:not(.lulu-table) td code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 12px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  background: var(--lulu-color-surface-selected);
-  color: var(--lulu-color-primary);
-  border: 1px solid var(--lulu-color-border-subtle);
-}
-
-@media (max-width: 640px) {
-  .docs-content table:not(.lulu-table) {
-    display: block;
-    overflow-x: auto;
-    table-layout: auto;
-  }
-
-  .docs-content table:not(.lulu-table) th,
-  .docs-content table:not(.lulu-table) td {
-    min-width: 128px;
-  }
-
-  .docs-content table:not(.lulu-table) th:nth-child(2),
-  .docs-content table:not(.lulu-table) td:nth-child(2) {
-    min-width: 180px;
-  }
-
-  .docs-content table:not(.lulu-table) th:nth-child(3),
-  .docs-content table:not(.lulu-table) td:nth-child(3) {
-    min-width: 220px;
-  }
 }

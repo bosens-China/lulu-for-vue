@@ -1,13 +1,13 @@
-:where(
+:is(
   .lulu-button,
   .lulu-input,
   .lulu-textarea,
   .lulu-select,
   .lulu-autocomplete,
   .lulu-date-picker,
-  .lulu-year-picker,
-  .lulu-hour-picker,
   .lulu-date-range-picker,
+  .lulu-date-range-picker__start,
+  .lulu-date-range-picker__end,
   .lulu-slider,
   .lulu-range-slider,
   .lulu-rate,
@@ -15,14 +15,25 @@
   .lulu-radio,
   .lulu-switch,
   .lulu-form,
+  .lulu-form-item,
+  .lulu-color-picker,
+  .lulu-space,
   .lulu-table,
+  .lulu-table-container,
   .lulu-tabs,
+  .lulu-accordion,
+  .lulu-disclosure,
   .lulu-pagination,
   .lulu-dialog,
   .lulu-popover,
   .lulu-dropdown,
   .lulu-tooltip,
-  .lulu-message
+  .lulu-message,
+  .lulu-floating-panel,
+  .lulu-loading,
+  .lulu-progress,
+  .lulu-loading-overlay,
+  .lulu-form-item__error
 ) {
   box-sizing: border-box;
   font-family: var(--lulu-font-family);
@@ -30,12 +41,12 @@
   line-height: var(--lulu-line-height);
 }
 
-:where(.lulu-button, .lulu-input, .lulu-textarea, .lulu-select, .lulu-autocomplete, .lulu-date-picker, .lulu-year-picker, .lulu-hour-picker, .lulu-date-range-picker__start, .lulu-date-range-picker__end):focus-visible {
+:where(.lulu-button, .lulu-input, .lulu-textarea, .lulu-select, .lulu-autocomplete, .lulu-date-picker, .lulu-date-range-picker__start, .lulu-date-range-picker__end):focus-visible {
   outline: 0;
-  box-shadow: var(--lulu-control-focus-shadow, var(--lulu-shadow-focus));
+  box-shadow: var(--lulu-control-focus-shadow, var(--lulu-shadow-focus, 0 0 0 3px var(--lulu-color-primary)));
 }
 
-:where(.lulu-button, .lulu-dropdown__trigger, .lulu-popover__trigger, .lulu-dialog__close, .lulu-message__close, .lulu-pagination__button, .lulu-popconfirm__actions button, .lulu-dropdown__menu button) {
+:where(.lulu-dropdown__trigger, .lulu-popover__trigger, .lulu-dialog__close, .lulu-message__close, .lulu-pagination__button, .lulu-popconfirm__actions button, .lulu-dropdown__menu button) {
   font: inherit;
 }
 
@@ -57,8 +68,6 @@
   .lulu-select,
   .lulu-autocomplete,
   .lulu-date-picker,
-  .lulu-year-picker,
-  .lulu-hour-picker,
   .lulu-date-range-picker__start,
   .lulu-date-range-picker__end
 ) {
@@ -67,7 +76,6 @@
   border-radius: var(--lulu-control-radius, var(--lulu-radius));
   box-sizing: border-box;
   color: var(--lulu-control-color, var(--lulu-color-text));
-  font: inherit;
   inline-size: 100%;
   min-block-size: var(--lulu-control-height);
   padding: 0 var(--lulu-control-padding-inline, var(--lulu-space-3));
@@ -84,9 +92,7 @@
   .lulu-textarea,
   .lulu-select,
   .lulu-autocomplete,
-  .lulu-date-picker,
-  .lulu-year-picker,
-  .lulu-hour-picker
+  .lulu-date-picker
 ):disabled {
   background: var(--lulu-control-disabled-background, var(--lulu-color-surface-subtle));
   color: var(--lulu-control-disabled-color, var(--lulu-color-text-muted));
@@ -103,15 +109,14 @@
   .lulu-input,
   .lulu-textarea,
   .lulu-select,
-  .lulu-date-picker,
-  .lulu-year-picker,
-  .lulu-hour-picker
+  .lulu-autocomplete,
+  .lulu-date-picker
 )[aria-invalid='true'] {
-  border-color: var(--lulu-color-danger);
+  border-color: var(--lulu-control-invalid-border, var(--lulu-color-danger));
 }
 
 .lulu-date-range-picker input[aria-invalid='true'] {
-  border-color: var(--lulu-color-danger);
+  border-color: var(--lulu-control-invalid-border, var(--lulu-color-danger));
 }
 
 :is(.lulu-checkbox, .lulu-radio, .lulu-switch) {
@@ -122,10 +127,10 @@
   gap: var(--lulu-space-2);
 }
 
-:is(.lulu-checkbox, .lulu-radio, .lulu-switch, .lulu-data-table__selection-cell) input {
+:is(.lulu-checkbox, .lulu-radio, .lulu-table__selection-cell) input {
   accent-color: var(--lulu-choice-accent, var(--lulu-color-primary));
-  block-size: 16px;
-  inline-size: 16px;
+  block-size: var(--lulu-choice-size, 16px);
+  inline-size: var(--lulu-choice-size, 16px);
   margin: 0;
 }
 
@@ -151,27 +156,31 @@
   opacity: var(--lulu-opacity-disabled);
 }
 
-:is(.lulu-data-table__loading-cell, .lulu-table__empty-cell) {
-  color: var(--lulu-color-text-muted);
-  padding-block: calc(var(--lulu-space-4) * 2) !important;
+:is(.lulu-slider, .lulu-rate, .lulu-range-slider input)[aria-invalid='true'] {
+  accent-color: var(--lulu-range-invalid-accent, var(--lulu-color-danger));
+}
+
+:is(.lulu-table__loading-cell, .lulu-table__empty-cell) {
+  color: var(--lulu-table-empty-color, var(--lulu-color-text-muted));
+  padding-block: var(--lulu-table-empty-padding-block, calc(var(--lulu-space-4) * 2)) !important;
   text-align: center !important;
 }
 
 :is(.lulu-disclosure, .lulu-accordion__item) {
-  border: 1px solid var(--lulu-color-border-subtle);
-  border-radius: var(--lulu-radius);
-  color: var(--lulu-color-text);
+  border: 1px solid var(--lulu-disclosure-border, var(--lulu-color-border-subtle));
+  border-radius: var(--lulu-disclosure-radius, var(--lulu-radius));
+  color: var(--lulu-disclosure-color, var(--lulu-color-text));
 }
 
 :is(.lulu-disclosure__summary, .lulu-accordion__summary) {
   cursor: pointer;
-  font-weight: 600;
-  padding: var(--lulu-space-3);
+  font-weight: var(--lulu-font-weight-strong);
+  padding: var(--lulu-disclosure-summary-padding, var(--lulu-space-3));
 }
 
 :is(.lulu-disclosure__content, .lulu-accordion__content) {
-  border-top: 1px solid var(--lulu-color-border-subtle);
-  padding: var(--lulu-space-3);
+  border-top: 1px solid var(--lulu-disclosure-border, var(--lulu-color-border-subtle));
+  padding: var(--lulu-disclosure-content-padding, var(--lulu-space-3));
 }
 
 :is(.lulu-popover, .lulu-dropdown) {
@@ -184,8 +193,8 @@
   border-radius: var(--lulu-trigger-radius, var(--lulu-radius));
   color: var(--lulu-trigger-color, var(--lulu-color-text));
   cursor: pointer;
-  min-block-size: var(--lulu-control-height);
-  padding-inline: var(--lulu-space-3);
+  min-block-size: var(--lulu-trigger-height, var(--lulu-control-height));
+  padding-inline: var(--lulu-trigger-padding-inline, var(--lulu-space-3));
 }
 
 :is(.lulu-popover__trigger, .lulu-dropdown__trigger):disabled {
@@ -208,4 +217,5 @@
     animation-duration: 1ms !important;
     transition-duration: 1ms !important;
   }
+  .lulu-loading__indicator { animation: none; }
 }

@@ -5,7 +5,10 @@ import './prism.css'
 import { installCodeCopy } from './codeCopy'
 import { createDocsApp } from './createApp'
 
-const { app } = createDocsApp(window.location.pathname)
+async function mount() {
+  const { app } = await createDocsApp(window.location.pathname)
+  installCodeCopy()
+  app.mount('#app')
+}
 
-installCodeCopy()
-app.mount('#app')
+void mount().catch(console.error)

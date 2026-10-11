@@ -89,16 +89,17 @@ export function renderLlmsText(
   ].join('\n')
 }
 
-function renderAssetLinks(modules: Set<string>, manifest: SsrManifest): string {
+export function renderAssetLinks(modules: Set<string>, manifest: SsrManifest, base = '/'): string {
   const files = new Set([...modules].flatMap((moduleId) => manifest[moduleId] ?? []))
 
   return [...files].map((file) => {
+    const href = /^(?:\/|https?:\/\/)/.test(file) ? file : `${base}${file}`
     if (file.endsWith('.css')) {
-      return `<link rel="stylesheet" href="/${file}">`
+      return `<link rel="stylesheet" href="${href}">`
     }
 
     if (file.endsWith('.js')) {
-      return `<link rel="modulepreload" href="/${file}">`
+      return `<link rel="modulepreload" href="${href}">`
     }
 
     return ''
@@ -129,7 +130,7 @@ export function prerenderPlugin(): Plugin {
 
       const pages = await Promise.all([...serverBundle.routes, '/404/'].map(async (path) => {
         const result = await serverBundle.render(path)
-        const assetLinks = renderAssetLinks(result.modules, manifest)
+        const assetLinks = renderAssetLinks(result.modules, manifest, base)
         const html = template
           .replace('<html lang="en">', `<html lang="${result.locale}">`)
           .replace('<!--app-head-->', [result.headHtml, assetLinks].filter(Boolean).join('\n'))

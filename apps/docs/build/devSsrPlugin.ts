@@ -26,9 +26,12 @@ export function docsDevSsrPlugin(): Plugin {
             const template = await server.transformIndexHtml(url, rawTemplate)
             const entry = await server.ssrLoadModule('/src/entry-server.ts') as ServerEntry
             const result = await entry.render(url)
+            const styles = ['__uno.css', 'src/dev.css']
+              .map(path => `<link rel="stylesheet" href="${server.config.base}${path}?direct">`)
+              .join('\n')
             const html = template
               .replace('<html lang="en">', `<html lang="${result.locale}">`)
-              .replace('<!--app-head-->', result.headHtml)
+              .replace('<!--app-head-->', `${result.headHtml}\n${styles}`)
               .replace('<!--app-html-->', result.appHtml)
 
             response.statusCode = result.statusCode

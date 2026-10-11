@@ -41,9 +41,7 @@
     },
     "./button/style.css": "./dist/styles/components/button.css",
     "./space/style.css": "./dist/styles/components/space.css",
-    "./data-table/style.css": "./dist/styles/components/data-table.css",
     "./table/style.css": "./dist/styles/components/table.css",
-    "./field-error/style.css": "./dist/styles/components/field-error.css",
     "./loading/style.css": "./dist/styles/components/loading.css",
     "./loading-overlay/style.css": "./dist/styles/components/loading-overlay.css",
     "./message/style.css": "./dist/styles/components/message.css",
@@ -55,8 +53,6 @@
     "./date-picker/style.css": "./dist/styles/components/date-picker.css",
     "./date-range-picker/style.css": "./dist/styles/components/date-range-picker.css",
     "./form/style.css": "./dist/styles/components/form.css",
-    "./form-field/style.css": "./dist/styles/components/form-field.css",
-    "./hour-picker/style.css": "./dist/styles/components/hour-picker.css",
     "./input/style.css": "./dist/styles/components/input.css",
     "./radio/style.css": "./dist/styles/components/radio.css",
     "./range-slider/style.css": "./dist/styles/components/range-slider.css",
@@ -65,7 +61,6 @@
     "./slider/style.css": "./dist/styles/components/slider.css",
     "./switch/style.css": "./dist/styles/components/switch.css",
     "./textarea/style.css": "./dist/styles/components/textarea.css",
-    "./year-picker/style.css": "./dist/styles/components/year-picker.css",
     "./accordion/style.css": "./dist/styles/components/accordion.css",
     "./disclosure/style.css": "./dist/styles/components/disclosure.css",
     "./tab/style.css": "./dist/styles/components/tab.css",
@@ -77,7 +72,10 @@
     "./dropdown/style.css": "./dist/styles/components/dropdown.css",
     "./popconfirm/style.css": "./dist/styles/components/popconfirm.css",
     "./popover/style.css": "./dist/styles/components/popover.css",
-    "./tooltip/style.css": "./dist/styles/components/tooltip.css"
+    "./tooltip/style.css": "./dist/styles/components/tooltip.css",
+    "./time-picker/style.css": "./dist/styles/components/time-picker.css",
+    "./time-range-picker/style.css": "./dist/styles/components/time-range-picker.css",
+    "./form-item/style.css": "./dist/styles/components/form-item.css"
   },
   "types": "./dist/index.d.ts",
   "peerDependencies": {

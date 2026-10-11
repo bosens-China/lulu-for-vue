@@ -10,7 +10,7 @@ const open = ref(false)
 
 <template>
   <LuluPopover v-model:open="open">
-    <template #trigger>查看提示</template>
+    <template #trigger="{ triggerProps }"><LuluButton v-bind="triggerProps">查看提示</LuluButton></template>
     <p>此组件可以承载简短说明或补充操作。</p>
     <LuluButton variant="normal" @click="open = false">了解了</LuluButton>
   </LuluPopover>

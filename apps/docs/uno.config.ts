@@ -15,6 +15,11 @@ export default defineConfig({
       },
     }),
   ],
+  shortcuts: {
+    'docs-card': 'rounded-xl border border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] shadow-xs transition-all',
+    'docs-card-hover': 'hover:border-[var(--lulu-color-primary)]/40 hover:shadow-md transition-all duration-200',
+    'docs-glass': 'backdrop-blur-md bg-[var(--docs-glass-bg)] border border-solid border-[var(--lulu-color-border-subtle)]',
+  },
   theme: {
     colors: {
       luluPage: 'var(--docs-color-page)',

@@ -19,6 +19,8 @@ seo:
 
 按 `Tab` 将焦点移出输入框时，候选面板会关闭。
 
+中文、日文等输入法组合输入期间保留选词键行为，确认文字后再更新模型并触发 `search`。错误状态可使用 `invalid`，也可直接接收 `LuluFormItem` 提供的 ARIA 属性。
+
 ## 筛选、受控展开与候选项
 
 ::: demo advanced
@@ -42,6 +44,7 @@ seo:
 | `offset` | 候选面板与输入框的间距。 | `number` | `4` |
 | `panelStyle` | 单次覆盖传送后面板的样式或 CSS Token。 | `CSSProperties` | — |
 | `disabled` | 是否禁用输入。 | `boolean` | `false` |
+| `invalid` | 是否显示错误状态。 | `boolean` | `false` |
 
 ### Events
 
@@ -62,14 +65,50 @@ seo:
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-autocomplete-max-height` | 自动补全最大高度 | `280px` | `280px` |
+| `--lulu-control-background` | 输入控件背景 | `#ffffff` | `#09090b` |
+| `--lulu-control-border` | 输入控件边框 | `#8b8f98` | `#62626b` |
+| `--lulu-control-color` | 输入控件文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-control-disabled-background` | 输入控件禁用背景 | `#f7f9fa` | `#121215` |
+| `--lulu-control-disabled-color` | 输入控件禁用文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-control-invalid-border` | 输入控件错误态边框 | `#c53030` | `#f87171` |
+| `--lulu-control-padding-inline` | 输入控件内边距水平方向 | `12px` | `12px` |
+| `--lulu-control-placeholder-color` | 输入控件占位文案文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-control-radius` | 输入控件圆角 | `4px` | `4px` |
+| `--lulu-floating-background` | 浮层背景 | `#ffffff` | `#09090b` |
+| `--lulu-floating-border` | 浮层边框 | `#8b8f98` | `#62626b` |
+| `--lulu-floating-color` | 浮层文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-floating-min-width` | 浮层最小宽度 | `180px` | `180px` |
+| `--lulu-floating-padding` | 浮层内边距 | `4px` | `4px` |
+| `--lulu-floating-radius` | 浮层圆角 | `4px` | `4px` |
+| `--lulu-floating-shadow` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
+| `--lulu-color-danger` | 危险或错误状态 | `#c53030` | `#f87171` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-surface-selected` | 选中背景 | `#e0f0ff` | `rgb(56 189 248 / 0.16)` |
 | `--lulu-color-surface-subtle` | 弱背景、表头与禁用底色 | `#f7f9fa` | `#121215` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
+| `--lulu-control-focus-shadow` | 输入控件聚焦阴影 | `0 0 0 3px #1668c7` | `0 0 0 3px #38bdf8` |
 | `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
@@ -85,6 +124,10 @@ seo:
 | `--lulu-transition-easing` | 过渡曲线 | `ease` | `ease` |
 | `--lulu-z-index-popup` | 候选浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
+</div>
+
+</details>
+
+浮层传送到最近的 `data-lulu-theme` 容器；Dialog 内优先留在该 Dialog 内。区域级覆盖放在对应容器；单实例覆盖使用 `panelStyle`。
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

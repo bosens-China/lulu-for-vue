@@ -1,6 +1,6 @@
 .lulu-autocomplete__list {
   list-style: none;
-  max-block-size: 280px;
+  max-block-size: var(--lulu-autocomplete-max-height, 280px);
   overflow: auto;
 }
 

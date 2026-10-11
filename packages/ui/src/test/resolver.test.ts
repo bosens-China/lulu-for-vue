@@ -33,6 +33,28 @@ describe('LuLu 自动导入 resolver', () => {
     expect(componentResolver('ElButton')).toBeUndefined()
   })
 
+  it('表单仅提供 Form 和自带错误样式的 FormItem', () => {
+    for (const name of ['Form', 'FormItem']) {
+      const entry = name === 'Form' ? 'form' : 'form-item'
+      expect(LuluResolver()(`Lulu${name}`)?.sideEffects).toEqual([
+        '@lulu/vue/base.css', `@lulu/vue/${entry}/style.css`,
+      ])
+    }
+    expect(componentResolver('LuluFormField')).toBeUndefined()
+    expect(componentResolver('LuluFieldError')).toBeUndefined()
+    expect(apiResolver('useFormValidation')).toBeUndefined()
+  })
+
+  it('收敛后的 Table 补齐依赖，移除的日期与数据表格入口不可解析', () => {
+    expect(LuluResolver()('LuluTable')?.sideEffects).toEqual([
+      '@lulu/vue/base.css', '@lulu/vue/loading/style.css',
+      '@lulu/vue/pagination/style.css', '@lulu/vue/table/style.css',
+    ])
+    for (const name of ['LuluDataTable', 'LuluYearPicker', 'LuluHourPicker']) {
+      expect(componentResolver(name)).toBeUndefined()
+    }
+  })
+
   it('仅为公开 composable 返回短路径', () => {
     expect(apiResolver('useMessage')).toEqual({
       name: 'useMessage',

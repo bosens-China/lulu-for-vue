@@ -2,13 +2,13 @@
 interface Props {
   block?: boolean
   label?: string
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'small' | 'default' | 'large' | 'sm' | 'md' | 'lg'
 }
 
 const props = withDefaults(defineProps<Props>(), {
   block: false,
   label: '加载中',
-  size: 'md',
+  size: 'default',
 })
 </script>
 

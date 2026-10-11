@@ -47,7 +47,7 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 ## 链接按钮
 
 ::: demo link
-传入 `href` 后渲染为原生 `<a>`，保留按钮外观；`target`、`rel` 等原生属性直接透传。禁用或加载时移除 `href` 并阻止跳转。
+传入 `href` 后渲染为原生 `<a>`，保留按钮外观；`target`、`rel` 等原生属性直接透传。禁用或加载时移除 `href`，阻止跳转与点击操作。
 :::
 
 ## API
@@ -76,22 +76,51 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-button-background` | 按钮背景颜色；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
-| `--lulu-button-border` | 按钮边框颜色；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
-| `--lulu-button-color` | 按钮文字颜色（CSS `color`）；未设置时由 `variant` 决定 | `按类型回退` | `按类型回退` |
+| `--lulu-button-active-background` | 按钮激活背景 | `未设置` | `未设置` |
+| `--lulu-button-active-border` | 按钮激活边框 | `未设置` | `未设置` |
+| `--lulu-button-active-shadow` | 按钮激活阴影 | `inset 0 1px 2px rgb(0 0 0 / 14%)` | `inset 0 1px 2px rgb(0 0 0 / 14%)` |
+| `--lulu-button-background` | 按钮背景颜色；未设置时由 `variant` 决定 | `未设置` | `未设置` |
+| `--lulu-button-border` | 按钮边框颜色；未设置时由 `variant` 决定 | `未设置` | `未设置` |
+| `--lulu-button-color` | 按钮文字颜色（CSS `color`）；未设置时由 `variant` 决定 | `未设置` | `未设置` |
+| `--lulu-button-gap` | 按钮间距 | `4px` | `4px` |
+| `--lulu-button-height` | 按钮高度 | `40px` | `40px` |
+| `--lulu-button-hover-background` | 按钮悬停背景 | `未设置` | `未设置` |
+| `--lulu-button-hover-border` | 按钮悬停边框 | `未设置` | `未设置` |
+| `--lulu-button-hover-filter` | 按钮悬停滤镜 | `brightness(1.06)` | `brightness(1.06)` |
+| `--lulu-button-min-width` | 按钮最小宽度 | `calc(40px * 2)` | `calc(40px * 2)` |
+| `--lulu-button-padding-inline` | 按钮内边距水平方向 | `16px` | `16px` |
+| `--lulu-button-radius` | 按钮圆角 | `4px` | `4px` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-danger` | 危险或错误状态 | `#c53030` | `#f87171` |
 | `--lulu-color-neutral-solid` | 默认按钮底色 | `#4c5161` | `#52525b` |
 | `--lulu-color-on-neutral` | 默认按钮底色上的文字 | `#ffffff` | `#ffffff` |
 | `--lulu-color-on-status` | 成功、警告按钮底色上的文字 | `#111827` | `#000000` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-primary-solid` | 主要操作底色，默认继承主色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-success` | 成功状态 | `#1cad70` | `#34d399` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |
 | `--lulu-color-warning` | 警告状态 | `#f59b00` | `#fbbf24` |
+| `--lulu-control-focus-shadow` | 输入控件聚焦阴影 | `0 0 0 3px #1668c7` | `0 0 0 3px #38bdf8` |
 | `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
@@ -103,6 +132,10 @@ native-type=reset 触发原生 reset 事件；父级在事件中同步重置 v-m
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
 | `--lulu-transition-duration` | 过渡时长 | `160ms` | `160ms` |
 | `--lulu-transition-easing` | 过渡曲线 | `ease` | `ease` |
+
+</div>
+
+</details>
 
 `--lulu-button-*` 未显式设置时按 `variant` 回退到对应语义色，可直接在按钮上覆盖。
 

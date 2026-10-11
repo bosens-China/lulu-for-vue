@@ -8,7 +8,8 @@
       window.Prism = { manual: true }
       // 在首屏绘制前恢复主题，存储受限时仍跟随系统。
       try {
-        const mode = localStorage.getItem('lulu-theme-mode')
+        const queryMode = new URLSearchParams(window.location.search).get('theme')
+        const mode = (queryMode === 'light' || queryMode === 'dark') ? queryMode : localStorage.getItem('lulu-theme-mode')
         if (mode === 'light' || mode === 'dark') document.documentElement.dataset.luluTheme = mode
         else delete document.documentElement.dataset.luluTheme
       } catch {}

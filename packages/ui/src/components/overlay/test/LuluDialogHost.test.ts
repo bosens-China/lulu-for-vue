@@ -29,6 +29,17 @@ function setup(attrs: Record<string, unknown> = {}) {
 }
 
 describe('LuluDialogHost / useDialog', () => {
+  it('单次请求的 class 和 token 与 Host 样式合并', async () => {
+    const { wrapper, dialog } = setup({ class: 'host-class', style: { '--lulu-dialog-radius': '12px' } })
+    const handle = dialog.open({ ...options, class: 'request-class', style: { '--lulu-dialog-width': '32rem' } })
+    await nextTick()
+    const modal = wrapper.get('dialog')
+    expect(modal.classes()).toEqual(expect.arrayContaining(['host-class', 'request-class']))
+    expect((modal.element as HTMLElement).style.getPropertyValue('--lulu-dialog-radius')).toBe('12px')
+    expect((modal.element as HTMLElement).style.getPropertyValue('--lulu-dialog-width')).toBe('32rem')
+    handle.close()
+    await handle.closed
+  })
   it('确认先聚焦取消，普通弹窗聚焦标题', async () => {
     const { wrapper, dialog } = setup()
     const result = dialog.confirm(options)

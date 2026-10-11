@@ -1,8 +1,10 @@
-import { mount } from '@vue/test-utils'
+import { enableAutoUnmount, mount } from '@vue/test-utils'
 import { defineComponent, h, nextTick } from 'vue'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import LuluMessageHost from '../LuluMessageHost.vue'
 import { type MessageHandle, useMessage } from '../useMessage'
+
+enableAutoUnmount(afterEach)
 
 const VariantConsumer = defineComponent({
   setup() {
@@ -56,6 +58,32 @@ afterEach(() => {
 })
 
 describe('LuluMessageHost and useMessage', () => {
+  it.each(['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end'] as const)('支持 %s 位置，位置变化不重置自动关闭计时', async (placement) => {
+    vi.useFakeTimers()
+    const wrapper = mount(LuluMessageHost, { slots: { default: () => h(TimedConsumer) } })
+    await wrapper.get('button').trigger('click')
+    expect(wrapper.get('section').attributes('data-placement')).toBe('top')
+    vi.advanceTimersByTime(200)
+    await wrapper.setProps({ placement })
+    expect(wrapper.get('section').attributes('data-placement')).toBe(placement)
+    vi.advanceTimersByTime(100)
+    await nextTick()
+    expect(wrapper.find('.lulu-message').exists()).toBe(false)
+  })
+
+  it('默认按到达顺序堆叠；newOnTop 同步调整 DOM 顺序且保留关闭句柄', async () => {
+    const wrapper = mount(LuluMessageHost, { slots: { default: () => h(VariantConsumer) } })
+    await wrapper.get('button').trigger('click')
+    const messages = () => wrapper.findAll('.lulu-message__content').map(message => message.text())
+    expect(messages()).toEqual(['Saved', 'Failed', 'Updated', 'Check this'])
+    const firstMessage = wrapper.get('.lulu-message--success').element
+    await wrapper.setProps({ placement: 'bottom', newOnTop: true })
+    expect(messages()).toEqual(['Check this', 'Updated', 'Failed', 'Saved'])
+    expect(wrapper.get('.lulu-message--success').element).toBe(firstMessage)
+    await wrapper.get('.lulu-message--success button').trigger('click')
+    expect(messages()).toEqual(['Check this', 'Updated', 'Failed'])
+  })
+
   it('provides typed message actions and removes a manually closed message', async () => {
     const wrapper = mount(LuluMessageHost, {
       props: {

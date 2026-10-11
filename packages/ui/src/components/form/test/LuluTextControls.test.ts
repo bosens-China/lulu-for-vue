@@ -4,6 +4,19 @@ import LuluInput from '../LuluInput.vue'
 import LuluTextarea from '../LuluTextarea.vue'
 
 describe('LuluInput', () => {
+  it('数字输入输出 number，清空后保留空字符串', async () => {
+    const wrapper = mount({
+      components: { LuluInput },
+      data: () => ({ value: 1 as number | '' }),
+      template: '<LuluInput v-model="value" type="number" />',
+    })
+
+    await wrapper.get('input').setValue('2.5')
+    await wrapper.get('input').setValue('')
+
+    expect(wrapper.getComponent({ name: 'LuluInput' }).emitted('update:modelValue')).toEqual([[2.5], ['']])
+  })
+
   it('uses v-model with native input attributes', async () => {
     const wrapper = mount(LuluInput, {
       attrs: { placeholder: 'Email' },

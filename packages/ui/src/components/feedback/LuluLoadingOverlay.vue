@@ -18,7 +18,7 @@ const open = defineModel<boolean>('open', { default: false })
     class="lulu-loading-overlay"
     aria-busy="true"
   >
-    <LuluLoading :label="props.message">
+    <LuluLoading :label="props.message" :aria-label="props.message">
       <slot>{{ props.message }}</slot>
     </LuluLoading>
   </div>

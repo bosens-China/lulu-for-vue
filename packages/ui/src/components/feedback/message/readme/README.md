@@ -11,11 +11,15 @@ seo:
 
 # Message 消息提示
 
+业务中通常使用 `useMessage()` 显示操作反馈。在 `App.vue` 根部配置一次 `LuluMessageHost`，后代组件直接调用 `message.success('保存成功')`、`message.error('保存失败')` 等方法。位置、默认时长和堆叠顺序在 Host 统一配置；默认顶部居中。
+
 ## 基础用法
 
 ::: demo basic
-传入 `message` 和 `type` 展示不同语义的提示。
+点击按钮调用 useMessage，队列和自动关闭由应用级 Host 管理。示例中的业务操作位于普通子组件中。
 :::
+
+`LuluMessage` 是单条消息的展示组件。需要在页面中自行摆放消息时，可直接传入 `message` 和 `type`；下方示例展示这种用法。
 
 ## 消息类型与关闭
 
@@ -51,25 +55,39 @@ duration 的单位为毫秒；close 事件由父组件移除消息。重新挂�
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-message-accent` | 普通消息强调色 | 回退到 `--lulu-color-primary` | 回退到 `--lulu-color-primary` |
-| `--lulu-message-background` | 消息背景 | 回退到 `--lulu-color-surface` | 回退到 `--lulu-color-surface` |
-| `--lulu-message-border` | 消息边框 | 回退到 `--lulu-color-border` | 回退到 `--lulu-color-border` |
-| `--lulu-message-color` | 消息文字 | 回退到 `--lulu-color-text` | 回退到 `--lulu-color-text` |
-| `--lulu-message-error-accent` | 错误消息强调色 | 回退到 `--lulu-color-danger` | 回退到 `--lulu-color-danger` |
-| `--lulu-message-radius` | 消息圆角 | 回退到 `--lulu-radius` | 回退到 `--lulu-radius` |
-| `--lulu-message-shadow` | 消息阴影 | 回退到 `--lulu-shadow-overlay` | 回退到 `--lulu-shadow-overlay` |
-| `--lulu-message-success-accent` | 成功消息强调色 | 回退到 `--lulu-color-success` | 回退到 `--lulu-color-success` |
-| `--lulu-message-warning-accent` | 警告消息强调色 | 回退到 `--lulu-color-warning` | 回退到 `--lulu-color-warning` |
+| `--lulu-close-color` | 关闭按钮文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-message-accent` | 普通消息强调色 | `#1668c7` | `#38bdf8` |
+| `--lulu-message-background` | 消息背景 | `#ffffff` | `#09090b` |
+| `--lulu-message-border` | 消息边框 | `#8b8f98` | `#62626b` |
+| `--lulu-message-color` | 消息文字 | `#4c5161` | `#f4f4f5` |
+| `--lulu-message-gap` | 消息间距 | `12px` | `12px` |
+| `--lulu-message-max-width` | 消息最大宽度 | `420px` | `420px` |
+| `--lulu-message-padding` | 消息内边距 | `12px` | `12px` |
+| `--lulu-message-radius` | 消息圆角 | `4px` | `4px` |
+| `--lulu-message-shadow` | 消息阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
 | `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
-| `--lulu-color-danger` | 错误消息强调色 | `#c53030` | `#f87171` |
 | `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
-| `--lulu-color-success` | 成功消息强调色 | `#1cad70` | `#34d399` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
 | `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
-| `--lulu-color-warning` | 警告消息强调色 | `#f59b00` | `#fbbf24` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
@@ -78,5 +96,9 @@ duration 的单位为毫秒；close 事件由父组件移除消息。重新挂�
 | `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
+
+</div>
+
+</details>
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

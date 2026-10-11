@@ -1,5 +1,5 @@
 import { nextTick, onMounted, onUnmounted, shallowReadonly, shallowRef } from 'vue'
-import { normalizePath, resolvePage } from './routes'
+import { loadPage, normalizePath, resolvePage } from './routes'
 import { absolutePageUrl, withBase } from './siteUrl'
 import type { DocsPage } from './types'
 
@@ -57,9 +57,19 @@ async function scrollToPage(url: URL): Promise<void> {
 
 export function useDocsNavigation(initialPage: DocsPage) {
   const page = shallowRef(initialPage)
+  let navigationId = 0
 
-  function showPage(url: URL, pushHistory: boolean): void {
-    const nextPage = resolvePage(url.pathname)
+  async function showPage(url: URL, pushHistory: boolean): Promise<void> {
+    const id = ++navigationId
+    let nextPage: DocsPage
+    try {
+      nextPage = await loadPage(url.pathname)
+    } catch {
+      // 部署更新或网络失败时，回退到可独立阅读的 SSG 页面。
+      if (id === navigationId) window.location.assign(url.href)
+      return
+    }
+    if (id !== navigationId) return
     const pathname = normalizePath(url.pathname)
 
     page.value = nextPage
@@ -103,11 +113,11 @@ export function useDocsNavigation(initialPage: DocsPage) {
     }
 
     event.preventDefault()
-    showPage(url, true)
+    void showPage(url, true)
   }
 
   function handlePopState(): void {
-    showPage(new URL(window.location.href), false)
+    void showPage(new URL(window.location.href), false)
   }
 
   onMounted(() => {
@@ -116,6 +126,7 @@ export function useDocsNavigation(initialPage: DocsPage) {
   })
 
   onUnmounted(() => {
+    navigationId++
     document.removeEventListener('click', handleClick)
     window.removeEventListener('popstate', handlePopState)
   })

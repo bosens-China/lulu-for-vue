@@ -42,6 +42,17 @@ describe('LuluSelect', () => {
 })
 
 describe('LuluSlider', () => {
+  it('非有限配置回退到默认值，非有限模型按最小值展示', () => {
+    const wrapper = mount(LuluSlider, { props: { min: Number.NaN, max: Number.NaN, step: 0, modelValue: Number.NaN } })
+    const input = wrapper.get('input')
+
+    expect(input.attributes('min')).toBe('0')
+    expect(input.attributes('max')).toBe('100')
+    expect(input.attributes('step')).toBe('1')
+    expect((input.element as HTMLInputElement).valueAsNumber).toBe(0)
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+  })
+
   it('emits numeric v-model values from a native range input', async () => {
     const wrapper = mount(LuluSlider, {
       attrs: { name: 'opacity' },
@@ -60,6 +71,14 @@ describe('LuluSlider', () => {
 })
 
 describe('LuluRangeSlider', () => {
+  it('倒序边界收敛为单点，不在渲染时改写父模型', () => {
+    const wrapper = mount(LuluRangeSlider, { props: { min: 10, max: 5, step: -1, modelValue: [Number.NaN, 20] } })
+
+    expect(wrapper.findAll('input').map(input => (input.element as HTMLInputElement).valueAsNumber)).toEqual([10, 10])
+    expect(wrapper.findAll('input').map(input => input.attributes('step'))).toEqual(['1', '1'])
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+  })
+
   it('keeps the tuple ordered when either native thumb changes', async () => {
     const wrapper = mount(LuluRangeSlider, {
       props: {
@@ -77,8 +96,10 @@ describe('LuluRangeSlider', () => {
     await startInput.setValue(90)
 
     expect(wrapper.emitted('update:modelValue')).toEqual([[[80, 80]]])
-    expect(startInput.attributes('max')).toBe('80')
-    expect(endInput.attributes('min')).toBe('80')
+    expect(startInput.attributes('max')).toBe('100')
+    expect(startInput.attributes('aria-valuemax')).toBe('80')
+    expect(endInput.attributes('min')).toBe('0')
+    expect(endInput.attributes('aria-valuemin')).toBe('80')
     expect(startInput.attributes('aria-label')).toBe('最小值')
     expect(endInput.attributes('aria-label')).toBe('最大值')
   })
@@ -100,6 +121,14 @@ describe('LuluRangeSlider', () => {
 })
 
 describe('LuluRate', () => {
+  it('非有限评分具有有效显示值和可访问评分文案', () => {
+    const wrapper = mount(LuluRate, { props: { modelValue: Number.NaN, step: Number.NaN } })
+
+    expect(wrapper.get('input').attributes('aria-valuetext')).toBe('0 / 5')
+    expect(wrapper.get('input').attributes('step')).toBe('0.5')
+    expect((wrapper.get('input').element as HTMLInputElement).valueAsNumber).toBe(0)
+  })
+
   it('uses an accessible native range and emits a numeric rating', async () => {
     const wrapper = mount(LuluRate, {
       props: { modelValue: 2.5 },

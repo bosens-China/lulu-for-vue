@@ -11,7 +11,7 @@
 .lulu-table {
   border: 1px solid var(--lulu-table-border, var(--lulu-color-border-subtle));
   border-collapse: collapse;
-  border-radius: var(--lulu-radius);
+  border-radius: var(--lulu-table-radius, var(--lulu-radius));
   color: var(--lulu-table-color, var(--lulu-color-text));
   inline-size: max-content;
   min-inline-size: 100%;
@@ -20,10 +20,10 @@
 
 .lulu-table__caption {
   caption-side: top;
-  color: var(--lulu-color-text);
-  font-size: var(--lulu-font-size-lg);
-  font-weight: 600;
-  padding: var(--lulu-space-3);
+  color: var(--lulu-table-caption-color, var(--lulu-table-color, var(--lulu-color-text)));
+  font-size: var(--lulu-table-caption-font-size, var(--lulu-font-size-lg));
+  font-weight: var(--lulu-font-weight-strong);
+  padding: var(--lulu-table-caption-padding, var(--lulu-space-3));
   text-align: start;
 }
 
@@ -34,9 +34,31 @@
   text-align: start;
 }
 
-.lulu-table th { background: var(--lulu-table-header-background, var(--lulu-color-surface-subtle)); font-weight: 600; }
+.lulu-table th { background: var(--lulu-table-header-background, var(--lulu-color-surface-subtle)); font-weight: var(--lulu-font-weight-strong); }
 .lulu-table td[data-align='center'],
 .lulu-table th[data-align='center'] { text-align: center; }
 .lulu-table td[data-align='end'],
 .lulu-table th[data-align='end'] { text-align: end; }
 .lulu-table tbody tr:last-child td { border-bottom: 0; }
+
+.lulu-table-container { color: var(--lulu-table-color, var(--lulu-color-text)); }
+.lulu-table { background: var(--lulu-table-background, var(--lulu-color-surface)); }
+.lulu-table__row:hover td { background: var(--lulu-table-row-hover-background, var(--lulu-color-surface-hover)); }
+
+.lulu-table__viewport { position: relative; }
+.lulu-table__loading-overlay {
+  align-items: center;
+  background: var(--lulu-table-loading-background, var(--lulu-color-loading-overlay));
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+  z-index: 1;
+}
+.lulu-table__pagination { margin-block-start: var(--lulu-table-pagination-gap, var(--lulu-space-3)); }
+
+.lulu-table__selection-header,
+.lulu-table__selection-cell {
+  inline-size: 1%;
+  text-align: center !important;
+}

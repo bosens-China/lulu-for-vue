@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useAttrs, useId, watch, type CSSProperties } from 'vue'
 import { useFloatingLayer, type FloatingPlacement } from './useFloatingLayer'
+import FloatingTrigger, { type FloatingTriggerProps } from './FloatingTrigger'
 
 defineOptions({ inheritAttrs: false })
 
@@ -34,6 +35,10 @@ const emit = defineEmits<{
 }>()
 const open = defineModel<boolean>('open', { default: false })
 const attrs = useAttrs()
+defineSlots<{
+  trigger?(props: { triggerProps: FloatingTriggerProps }): unknown
+  item?(props: { item: DropdownItem }): unknown
+}>()
 const trigger = ref<HTMLElement | null>(null)
 const panel = ref<HTMLElement | null>(null)
 const panelId = `lulu-dropdown-${useId()}`
@@ -122,24 +127,25 @@ function getPanelLabelledBy() {
   if (attrs['aria-label'] != null) return undefined
   return typeof attrs['aria-labelledby'] === 'string' ? attrs['aria-labelledby'] : triggerId
 }
+
+const triggerProps = computed<FloatingTriggerProps>(() => ({
+  id: triggerId,
+  type: 'button',
+  class: 'lulu-dropdown__trigger',
+  'aria-controls': panelId,
+  'aria-expanded': open.value,
+  'aria-haspopup': 'menu',
+  disabled: props.disabled,
+  onClick: toggle,
+  onKeydown: handleTriggerKeydown,
+}))
 </script>
 
 <template>
   <span class="lulu-dropdown">
-    <button
-      :id="triggerId"
-      ref="trigger"
-      type="button"
-      class="lulu-dropdown__trigger"
-      :aria-controls="panelId"
-      :aria-expanded="open"
-      aria-haspopup="menu"
-      :disabled="props.disabled"
-      @click="toggle"
-      @keydown="handleTriggerKeydown"
-    >
-      <slot name="trigger">切换菜单</slot>
-    </button>
+    <FloatingTrigger :trigger-props="triggerProps" label="切换菜单" @element="trigger = $event">
+      <template v-if="$slots.trigger" #default="scope"><slot name="trigger" v-bind="scope" /></template>
+    </FloatingTrigger>
     <Teleport v-if="isMounted" :to="teleportTarget">
       <div
         v-if="open"

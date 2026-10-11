@@ -6,19 +6,19 @@
 }
 
 .lulu-loading[data-block] { display: flex; justify-content: center; }
-.lulu-loading[data-size='sm'] { --lulu-loading-size: 14px; }
-.lulu-loading[data-size='md'] { --lulu-loading-size: 20px; }
-.lulu-loading[data-size='lg'] { --lulu-loading-size: 28px; }
+.lulu-loading:is([data-size='small'], [data-size='sm']) { --_lulu-loading-size: 14px; }
+.lulu-loading:is([data-size='default'], [data-size='md']) { --_lulu-loading-size: 20px; }
+.lulu-loading:is([data-size='large'], [data-size='lg']) { --_lulu-loading-size: 28px; }
 
 .lulu-loading__indicator {
-  animation: lulu-loading-spin 700ms linear infinite;
-  border: 2px solid currentcolor;
+  animation: lulu-loading-spin var(--lulu-loading-duration, 700ms) linear infinite;
+  border: var(--lulu-loading-stroke-width, 2px) solid currentcolor;
   border-right-color: transparent;
   border-radius: 50%;
   color: var(--lulu-loading-indicator-color, var(--lulu-color-primary));
   font-size: 0;
-  height: var(--lulu-loading-size, 20px);
-  width: var(--lulu-loading-size, 20px);
+  height: var(--lulu-loading-size, var(--_lulu-loading-size, 20px));
+  width: var(--lulu-loading-size, var(--_lulu-loading-size, 20px));
 }
 
 @keyframes lulu-loading-spin {

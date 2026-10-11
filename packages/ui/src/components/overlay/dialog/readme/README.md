@@ -60,28 +60,66 @@ header 插槽自定义标题；关闭策略只在确有需要的流程中使用�
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-dialog-background` | 弹窗背景 | 回退到 `--lulu-color-surface` | 回退到 `--lulu-color-surface` |
-| `--lulu-dialog-backdrop` | 模态遮罩 | 回退到 `--lulu-color-overlay` | 回退到 `--lulu-color-overlay` |
-| `--lulu-dialog-color` | 弹窗文字 | 回退到 `--lulu-color-text` | 回退到 `--lulu-color-text` |
-| `--lulu-dialog-radius` | 弹窗圆角 | 回退到 `--lulu-radius-lg` | 回退到 `--lulu-radius-lg` |
-| `--lulu-dialog-shadow` | 弹窗阴影 | 回退到 `--lulu-shadow-overlay` | 回退到 `--lulu-shadow-overlay` |
+| `--lulu-close-color` | 关闭按钮文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-dialog-backdrop` | 模态遮罩 | `rgb(15 23 42 / 45%)` | `rgb(0 0 0 / 75%)` |
+| `--lulu-dialog-background` | 弹窗背景 | `#ffffff` | `#09090b` |
+| `--lulu-dialog-body-padding` | 弹窗正文内边距 | `16px` | `16px` |
+| `--lulu-dialog-border-color` | 弹窗边框文字颜色 | `#ededef` | `#27272a` |
+| `--lulu-dialog-close-color` | 弹窗关闭按钮文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-dialog-color` | 弹窗文字 | `#4c5161` | `#f4f4f5` |
+| `--lulu-dialog-confirm-background` | 弹窗确认按钮背景 | `#1668c7` | `#38bdf8` |
+| `--lulu-dialog-confirm-color` | 弹窗确认按钮文字颜色 | `#ffffff` | `#000000` |
+| `--lulu-dialog-footer-padding` | 弹窗页脚内边距 | `12px 16px` | `12px 16px` |
+| `--lulu-dialog-gap` | 弹窗间距 | `12px` | `12px` |
+| `--lulu-dialog-header-padding` | 弹窗页头内边距 | `12px 16px` | `12px 16px` |
+| `--lulu-dialog-radius` | 弹窗圆角 | `10px` | `10px` |
+| `--lulu-dialog-shadow` | 弹窗阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+| `--lulu-dialog-title-font-size` | 弹窗标题字体尺寸 | `16px` | `16px` |
 | `--lulu-dialog-width` | 弹窗宽度上限 | `560px` | `560px` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-color-border` | 控件边框 | `#8b8f98` | `#62626b` |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
 | `--lulu-color-overlay` | 模态遮罩 | `rgb(15 23 42 / 45%)` | `rgb(0 0 0 / 75%)` |
-| `--lulu-color-primary-solid` | 关闭按钮悬停强调色，默认继承主色 | `#1668c7` | `#38bdf8` |
+| `--lulu-color-primary` | 强调色、选中态与原生控件着色 | `#1668c7` | `#38bdf8` |
+| `--lulu-color-primary-solid` | 主要操作底色，默认继承主色 | `#1668c7` | `#38bdf8` |
 | `--lulu-color-surface` | 控件与浮层背景 | `#ffffff` | `#09090b` |
+| `--lulu-color-surface-hover` | 悬停背景 | `#f0f7ff` | `#18181b` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-color-text-inverse` | 强调底色上的文字 | `#ffffff` | `#000000` |
 | `--lulu-color-text-muted` | 辅助文案或禁用文字 | `#667085` | `#a1a1aa` |
+| `--lulu-control-height` | 控件最小高度 | `40px` | `40px` |
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-font-size-lg` | 标题文字大小 | `16px` | `16px` |
+| `--lulu-font-weight-strong` | 字体字重强调 | `600` | `600` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-opacity-disabled` | 禁用态透明度 | `0.55` | `0.55` |
+| `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-radius-lg` | 大圆角 | `10px` | `10px` |
 | `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
 | `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
 | `--lulu-space-4` | 大间距 | `16px` | `16px` |
+
+</div>
+
+</details>
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border-subtle: #ededef`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

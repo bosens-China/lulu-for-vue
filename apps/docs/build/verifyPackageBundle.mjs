@@ -73,5 +73,11 @@ assert.match(resolver.css, /\.lulu-button\s*\{/)
 assert.match(resolver.css, /\.lulu-u-inline-flex\s*\{/)
 assert.match(resolver.css, /\.lulu-popover__panel\s*\{/)
 assert.match(resolver.css, /\.lulu-popconfirm__actions\s*\{/)
+for (const component of ['LuluFormItem', 'LuluTimePicker', 'LuluTable', 'LuluPagination']) {
+  assert.match(resolver.js, new RegExp(component))
+}
+for (const selector of ['form-item', 'form-item__error', 'time-picker', 'table', 'loading', 'pagination']) {
+  assert.match(resolver.css, new RegExp(`\\.lulu-${selector}(?:[\\s{:.,]|__)`))
+}
 
 console.info('单组件、组合组件与自动导入的消费打包验证通过。')

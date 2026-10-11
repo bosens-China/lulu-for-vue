@@ -1,0 +1,3 @@
+.lulu-time-picker {
+  min-inline-size: var(--lulu-time-picker-min-width, 8rem);
+}

@@ -9,6 +9,7 @@ import {
   type MessageEntry,
   type MessageHandle,
   type MessageOptions,
+  type MessagePlacement,
   type MessageType,
 } from './useMessage'
 
@@ -18,15 +19,20 @@ interface Props {
   closeLabel?: string
   duration?: number
   label?: string
+  placement?: MessagePlacement
+  newOnTop?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   closeLabel: '关闭消息',
   duration: 4000,
   label: '消息通知',
+  placement: 'top',
+  newOnTop: false,
 })
 
 const messages = shallowRef<MessageEntry[]>([])
+const displayedMessages = computed(() => props.newOnTop ? [...messages.value].reverse() : messages.value)
 const layers = shallowRef<HTMLElement[]>([])
 const messageTarget = computed(() => layers.value.at(-1))
 provide(messageLayerKey, (target) => {
@@ -86,9 +92,10 @@ provide(messageKey, messageApi)
       v-bind="$attrs"
       class="lulu-message-host"
       :aria-label="props.label"
+      :data-placement="props.placement"
     >
       <LuluMessage
-        v-for="message in messages"
+        v-for="message in displayedMessages"
         :key="message.id"
         :duration="message.duration"
         :close-label="props.closeLabel"

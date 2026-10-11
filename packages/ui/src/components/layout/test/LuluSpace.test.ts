@@ -9,9 +9,15 @@ describe('LuluSpace', () => {
       slots: { default: '<button>取消</button><button>确定</button>' },
     })
 
-    expect(wrapper.attributes()).toMatchObject({ id: 'actions', 'data-direction': 'horizontal', 'data-size': 'middle' })
+    expect(wrapper.attributes()).toMatchObject({ id: 'actions', 'data-direction': 'horizontal', 'data-size': 'default' })
     expect(wrapper.classes()).toContain('custom-space')
     expect(wrapper.findAll('button')).toHaveLength(2)
+  })
+
+  it('兼容原有 middle 尺寸别名', () => {
+    const wrapper = mount(LuluSpace, { props: { size: 'middle' } })
+
+    expect(wrapper.attributes('data-size')).toBe('middle')
   })
 
   it('响应纵向、间距尺寸与横向换行设置', async () => {

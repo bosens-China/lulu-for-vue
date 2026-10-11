@@ -1,0 +1,9 @@
+.lulu-form-item { display: grid; gap: var(--lulu-form-item-gap, var(--lulu-space-1)); min-inline-size: 0; }
+.lulu-form-item__label { color: var(--lulu-form-label-color, var(--lulu-color-text)); font-weight: var(--lulu-form-label-weight, var(--lulu-font-weight-strong)); }
+.lulu-form-item__control { min-inline-size: 0; }
+.lulu-form-item__help { color: var(--lulu-color-text-muted); font-size: var(--lulu-font-size-sm); margin: 0; }
+.lulu-form-item__error {
+  color: var(--lulu-form-error-color, var(--lulu-color-danger));
+  font-size: var(--lulu-form-error-font-size, var(--lulu-font-size-sm));
+  margin: var(--lulu-form-error-margin, var(--lulu-space-1) 0 0);
+}

@@ -1,8 +1,8 @@
-import { enableAutoUnmount, mount } from '@vue/test-utils'
+import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import ResetDemo from '../../../../packages/ui/src/components/form/form/demos/ResetDemo.vue'
 import CheckboxDemo from '../../../../packages/ui/src/components/form/checkbox/demos/StatesDemo.vue'
-import TableDemo from '../../../../packages/ui/src/components/data/data-table/demos/StatesDemo.vue'
+import TableDemo from '../../../../packages/ui/src/components/data/table/demos/StatesDemo.vue'
 import TabsDemo from '../../../../packages/ui/src/components/navigation/tabs/demos/NumericDemo.vue'
 import MessageDemo from '../../../../packages/ui/src/components/feedback/message/demos/DurationDemo.vue'
 import QueueDemo from '../../../../packages/ui/src/components/feedback/message-host/demos/QueueDemo.vue'
@@ -15,10 +15,11 @@ describe('文档场景交互', () => {
     const wrapper = mount(ResetDemo)
     await wrapper.get('input').setValue('audit@invalid.com')
     await wrapper.get('form').trigger('submit')
+    await flushPromises()
     expect(wrapper.text()).toContain('请使用 example.com 邮箱')
     await wrapper.findAll('button')[1]!.trigger('click')
-    expect((wrapper.get('input').element as HTMLInputElement).value).toBe('')
-    expect(wrapper.find('.lulu-field-error').exists()).toBe(false)
+    expect((wrapper.get('input').element as HTMLInputElement).value).toBe('default@example.com')
+    expect(wrapper.find('.lulu-form-item__error').exists()).toBe(false)
     expect(wrapper.text()).toContain('数据与校验已重置')
   })
 

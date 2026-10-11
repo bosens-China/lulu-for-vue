@@ -1,8 +1,9 @@
-.lulu-popconfirm__message { margin: 0 0 var(--lulu-space-3); }
+.lulu-popconfirm__message { margin: 0 0 var(--lulu-popconfirm-message-gap, var(--lulu-space-3)); }
+.lulu-popconfirm__error { color: var(--lulu-popconfirm-error-color, var(--lulu-color-danger)); margin: 0 0 var(--lulu-space-3); }
 
 .lulu-popconfirm__actions {
   display: flex;
-  gap: var(--lulu-space-2);
+  gap: var(--lulu-popconfirm-action-gap, var(--lulu-space-2));
   justify-content: end;
 }
 
@@ -17,7 +18,10 @@
 }
 
 .lulu-popconfirm__actions button:last-child {
-  background: var(--lulu-color-primary-solid);
-  border-color: var(--lulu-color-primary-solid);
-  color: var(--lulu-color-text-inverse);
+  background: var(--lulu-popconfirm-confirm-background, var(--lulu-color-primary-solid, var(--lulu-color-primary)));
+  border-color: var(--lulu-popconfirm-confirm-background, var(--lulu-color-primary-solid, var(--lulu-color-primary)));
+  color: var(--lulu-popconfirm-confirm-color, var(--lulu-color-text-inverse));
 }
+
+.lulu-popconfirm__actions button:disabled { cursor: wait; opacity: var(--lulu-opacity-disabled); }
+.lulu-popconfirm__actions button:focus-visible { outline: 2px solid var(--lulu-color-primary-solid, var(--lulu-color-primary)); outline-offset: 2px; }

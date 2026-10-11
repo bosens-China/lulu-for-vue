@@ -1,12 +1,9 @@
 @import './components/form.css';
-@import './components/form-field.css';
 @import './components/input.css';
 @import './components/textarea.css';
 @import './components/select.css';
 @import './components/autocomplete.css';
 @import './components/date-picker.css';
-@import './components/year-picker.css';
-@import './components/hour-picker.css';
 @import './components/date-range-picker.css';
 @import './components/checkbox.css';
 @import './components/radio.css';
@@ -15,3 +12,6 @@
 @import './components/range-slider.css';
 @import './components/rate.css';
 @import './components/color-picker.css';
+@import './components/time-picker.css';
+@import './components/time-range-picker.css';
+@import './components/form-item.css';

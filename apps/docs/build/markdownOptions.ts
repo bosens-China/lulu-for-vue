@@ -159,6 +159,8 @@ export function createMarkdownOptions(): Options {
     headEnabled: false,
     wrapperDiv: false,
     markdownSetup(markdown) {
+      markdown.renderer.rules.table_open = () => '<div class="docs-table-scroll" role="region" aria-label="文档表格" tabindex="0"><table>\n'
+      markdown.renderer.rules.table_close = () => '</table></div>\n'
       markdown.options.highlight = (code, language) => {
         const grammarName = { html: 'markup', ts: 'typescript', js: 'javascript' }[language] ?? language
         const grammar = Prism.languages[grammarName]

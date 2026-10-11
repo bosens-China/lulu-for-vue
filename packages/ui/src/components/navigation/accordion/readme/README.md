@@ -49,12 +49,47 @@ seo:
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
 
+### 组件与家族变量
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-accordion-border` | 手风琴边框 | `#ededef` | `#27272a` |
+| `--lulu-accordion-color` | 手风琴文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-accordion-content-padding` | 手风琴内容内边距 | `12px` | `12px` |
+| `--lulu-accordion-gap` | 手风琴间距 | `8px` | `8px` |
+| `--lulu-accordion-radius` | 手风琴圆角 | `4px` | `4px` |
+| `--lulu-accordion-summary-padding` | 手风琴标题内边距 | `12px` | `12px` |
+| `--lulu-disclosure-border` | 折叠面板边框 | `#ededef` | `#27272a` |
+| `--lulu-disclosure-color` | 折叠面板文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-disclosure-content-padding` | 折叠面板内容内边距 | `12px` | `12px` |
+| `--lulu-disclosure-radius` | 折叠面板圆角 | `4px` | `4px` |
+| `--lulu-disclosure-summary-padding` | 折叠面板标题内边距 | `12px` | `12px` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
 | `--lulu-color-border-subtle` | 分隔线与弱边框 | `#ededef` | `#27272a` |
 | `--lulu-color-text` | 正文颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--lulu-font-size` | 正文大小 | `14px` | `14px` |
+| `--lulu-font-weight-strong` | 字体字重强调 | `600` | `600` |
+| `--lulu-line-height` | 行高 | `1.5` | `1.5` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
+
+</div>
+
+</details>
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border-subtle: #ededef`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

@@ -4,17 +4,14 @@ const componentNames = new Set([
   'LuluButton',
   'LuluCheckbox',
   'LuluColorPicker',
-  'LuluDataTable',
   'LuluDatePicker',
   'LuluDateRangePicker',
   'LuluDialog',
   'LuluDialogHost',
   'LuluDisclosure',
   'LuluDropdown',
-  'LuluFieldError',
   'LuluForm',
-  'LuluFormField',
-  'LuluHourPicker',
+  'LuluFormItem',
   'LuluInput',
   'LuluLoading',
   'LuluLoadingOverlay',
@@ -37,19 +34,20 @@ const componentNames = new Set([
   'LuluTabs',
   'LuluTextarea',
   'LuluTooltip',
-  'LuluYearPicker',
+  'LuluTimePicker',
+  'LuluTimeRangePicker',
 ])
 
 const apiEntries = {
   useDialog: 'use-dialog',
-  useFormValidation: 'use-form-validation',
   useMessage: 'use-message',
 } as const
 
 const componentStyleDependencies: Readonly<Record<string, readonly string[]>> = {
-  'data-table': ['table'],
+  table: ['loading', 'pagination'],
   'dialog-host': ['dialog'],
-  'form-field': ['field-error'],
+  'time-picker': ['date-picker'],
+  'time-range-picker': ['date-range-picker'],
   'loading-overlay': ['loading'],
   'message-host': ['message'],
   popconfirm: ['popover'],

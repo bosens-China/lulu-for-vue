@@ -19,6 +19,8 @@ seo:
 
 菜单默认使用触发按钮作为辅助名称。组件未声明的 Attributes 会应用到传送后的 `menu` 面板；传入 `aria-label` 可覆盖默认名称，内部 ID 不会被覆盖。
 
+`trigger` 仍可直接填写文字或按钮内容。复用 `LuluButton` 时，通过 `#trigger="{ triggerProps }"` 获取绑定对象，在按钮上使用 `v-bind="triggerProps"`；不会额外嵌套按钮，键盘、展开状态和面板关联随绑定保留。
+
 ## 受控菜单与自定义项目
 
 ::: demo advanced
@@ -52,7 +54,7 @@ seo:
 
 | 插槽名 | 说明 | 参数 |
 | --- | --- | --- |
-| `trigger` | 自定义触发器内容。 | — |
+| `trigger` | 触发器内容，或绑定 triggerProps 的自定义交互元素。 | `{ triggerProps }` |
 | `item` | 自定义菜单项内容。 | `{ item: DropdownItem }` |
 
 `@lulu/vue/dropdown` 同时导出 `DropdownItem` 和 `FloatingPlacement` 类型。
@@ -60,6 +62,40 @@ seo:
 ## CSS Tokens
 
 以下变量来自组件及其组合子组件使用的样式。可在业务容器上覆盖；明暗模式分别设置，未覆盖时沿用默认主题。
+
+### 组件与家族变量
+
+<div class="docs-token-table">
+
+| Token | 用途 | 浅色默认值 | 深色默认值 |
+| --- | --- | --- | --- |
+| `--lulu-dropdown-gap` | 下拉菜单间距 | `4px` | `4px` |
+| `--lulu-dropdown-item-disabled-color` | 下拉菜单选项禁用文字颜色 | `#667085` | `#a1a1aa` |
+| `--lulu-dropdown-item-hover-background` | 下拉菜单选项悬停背景 | `#f0f7ff` | `#18181b` |
+| `--lulu-dropdown-item-padding` | 下拉菜单选项内边距 | `8px 12px` | `8px 12px` |
+| `--lulu-dropdown-item-radius` | 下拉菜单选项圆角 | `4px` | `4px` |
+| `--lulu-floating-background` | 浮层背景 | `#ffffff` | `#09090b` |
+| `--lulu-floating-border` | 浮层边框 | `#8b8f98` | `#62626b` |
+| `--lulu-floating-color` | 浮层文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-floating-min-width` | 浮层最小宽度 | `180px` | `180px` |
+| `--lulu-floating-padding` | 浮层内边距 | `4px` | `4px` |
+| `--lulu-floating-radius` | 浮层圆角 | `4px` | `4px` |
+| `--lulu-floating-shadow` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
+| `--lulu-trigger-background` | 触发器背景 | `#ffffff` | `#09090b` |
+| `--lulu-trigger-border` | 触发器边框 | `#8b8f98` | `#62626b` |
+| `--lulu-trigger-color` | 触发器文字颜色 | `#4c5161` | `#f4f4f5` |
+| `--lulu-trigger-height` | 触发器高度 | `40px` | `40px` |
+| `--lulu-trigger-padding-inline` | 触发器内边距水平方向 | `12px` | `12px` |
+| `--lulu-trigger-radius` | 触发器圆角 | `4px` | `4px` |
+
+</div>
+
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
 
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
@@ -72,14 +108,19 @@ seo:
 | `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
 | `--lulu-font-size` | 正文大小 | `14px` | `14px` |
 | `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-opacity-disabled` | 禁用态透明度 | `0.55` | `0.55` |
 | `--lulu-radius` | 圆角 | `4px` | `4px` |
 | `--lulu-radius-sm` | 小圆角 | `4px` | `4px` |
 | `--lulu-shadow-overlay` | 浮层阴影 | `0 8px 24px rgb(15 23 42 / 16%)` | `0 8px 24px rgb(0 0 0 / 70%)` |
 | `--lulu-space-1` | 最小间距 | `4px` | `4px` |
 | `--lulu-space-2` | 小间距 | `8px` | `8px` |
 | `--lulu-space-3` | 中等间距 | `12px` | `12px` |
-| `--lulu-z-index-popup` | 下拉浮层层级 | `1000` | `1000` |
+| `--lulu-z-index-popup` | 候选浮层层级 | `1000` | `1000` |
 
-浮层会传送到最近的 `data-lulu-theme` 容器。区域级覆盖放在该容器；单实例覆盖使用 `panelStyle`。
+</div>
+
+</details>
+
+浮层传送到最近的 `data-lulu-theme` 容器；Dialog 内优先留在该 Dialog 内。区域级覆盖放在对应容器；单实例覆盖使用 `panelStyle`。
 
 例如在局部容器的 `style` 中设置 `--lulu-color-border: #8b8f98`。主色调可在顶部立即设置；其他 CSS 变量的覆盖方式见“主题定制”指南。

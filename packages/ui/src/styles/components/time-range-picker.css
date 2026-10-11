@@ -1,0 +1,3 @@
+.lulu-time-range-picker {
+  gap: var(--lulu-time-range-picker-gap, var(--lulu-space-2));
+}

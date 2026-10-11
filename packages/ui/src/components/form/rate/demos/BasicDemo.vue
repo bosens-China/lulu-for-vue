@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import LuluRate from '@lulu/vue/rate'
 import '@lulu/vue/rate/style.css'
 
-const value = ref(4)
+const value = ref(2.5)
 </script>
 
 <template>

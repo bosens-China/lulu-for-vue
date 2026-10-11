@@ -6,12 +6,14 @@ import { defineConfig } from 'vite'
 import { docsDevSsrPlugin } from './build/devSsrPlugin.ts'
 import { createMarkdownOptions } from './build/markdownOptions.ts'
 import { prerenderPlugin } from './build/prerenderPlugin.ts'
+import { pageMetadataPlugin } from './build/pageMetadataPlugin.ts'
 import { uiSourceAliases } from './build/uiSourceAliases.ts'
 
 export default defineConfig(({ isSsrBuild }) => ({
   base: process.env.DOCS_BASE ?? '/',
   appType: 'custom',
   plugins: [
+    pageMetadataPlugin(),
     Vue({ include: [/\.vue$/, /\.md$/] }),
     Markdown(createMarkdownOptions()),
     UnoCSS({

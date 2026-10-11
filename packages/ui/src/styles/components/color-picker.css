@@ -13,4 +13,4 @@
   padding: var(--lulu-space-1);
 }
 
-.lulu-color-picker__alpha { inline-size: 120px; }
+.lulu-color-picker__alpha { inline-size: var(--lulu-color-picker-alpha-width, 120px); }

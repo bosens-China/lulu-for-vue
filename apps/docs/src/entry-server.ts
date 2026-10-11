@@ -20,7 +20,7 @@ export const markdownPages = [...guideNavigation, ...orderedDocsNavigationItems]
 })
 
 export async function render(url: string): Promise<RenderResult> {
-  const { app, page } = createDocsApp(url)
+  const { app, page } = await createDocsApp(url)
   const context: { modules?: Set<string> } = {}
   const appHtml = await renderToString(app, context)
   const canonical = absolutePageUrl(page.path)

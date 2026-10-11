@@ -30,24 +30,19 @@ export default {
       name: '日期与时间',
       items: [
         { component: 'date-picker', name: 'DatePicker 日期选择器' },
-        { component: 'date-range-picker', name: 'DateRangePicker 日期范围选择器' },
-        { component: 'year-picker', name: 'YearPicker 年份选择器' },
-        { component: 'hour-picker', name: 'HourPicker 小时选择器' },
+        { component: 'time-picker', name: 'TimePicker 时间选择器' },
       ],
     },
     {
       name: '表单与校验',
       items: [
         { component: 'form', name: 'Form 表单' },
-        { component: 'form-field', name: 'FormField 表单字段' },
-        { component: 'field-error', name: 'FieldError 字段错误' },
       ],
     },
     {
       name: '数据展示',
       items: [
         { component: 'table', name: 'Table 表格' },
-        { component: 'data-table', name: 'DataTable 数据表格' },
         { component: 'accordion', name: 'Accordion 手风琴' },
         { component: 'disclosure', name: 'Disclosure 折叠面板' },
         { component: 'progress', name: 'Progress 进度条' },
@@ -70,7 +65,7 @@ export default {
         { component: 'popconfirm', name: 'Popconfirm 气泡确认框' },
         { component: 'tooltip', name: 'Tooltip 文字提示' },
         { component: 'message', name: 'Message 消息提示' },
-        { component: 'message-host', name: 'MessageHost 消息宿主' },
+        { component: 'message-host', name: 'MessageHost 消息配置' },
         { component: 'loading', name: 'Loading 加载' },
         { component: 'loading-overlay', name: 'LoadingOverlay 加载遮罩' },
       ],

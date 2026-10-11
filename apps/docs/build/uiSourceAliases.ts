@@ -11,7 +11,7 @@ const styleAliases = Object.entries(packageJson.exports)
 
 export const uiSourceAliases = [
   { find: /^@lulu\/vue$/, replacement: resolve(sourceRoot, 'index.ts') },
-  { find: /^@lulu\/vue\/tokens\.css$/, replacement: resolve(sourceRoot, 'styles/tokens.css') },
+  { find: /^@lulu\/vue\/tokens\.css(?=\?|$)/, replacement: resolve(sourceRoot, 'styles/tokens.css') },
   { find: /^@lulu\/vue\/base\.css$/, replacement: resolve(sourceRoot, 'styles/source-base.css') },
   { find: /^@lulu\/vue\/style\.css$/, replacement: resolve(sourceRoot, 'styles/index.css') },
   ...styleAliases,

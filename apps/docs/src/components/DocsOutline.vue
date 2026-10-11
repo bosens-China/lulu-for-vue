@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import LuluButton from '@lulu/vue/button'
+import LuluDialog from '@lulu/vue/dialog'
+import LuluTooltip from '@lulu/vue/tooltip'
+import '@lulu/vue/button/style.css'
+import '@lulu/vue/dialog/style.css'
+import '@lulu/vue/tooltip/style.css'
 
 const props = defineProps<{ currentPath: string }>()
 
@@ -11,6 +17,7 @@ interface HeadingItem {
 
 const headings = ref<HeadingItem[]>([])
 const activeId = ref<string>('')
+const mobileOpen = ref(false)
 
 // 更新当前活跃的目录项 (Scrollspy)
 function updateActiveHeading() {
@@ -85,6 +92,11 @@ function handleHeadingClick(id: string, event: MouseEvent) {
   }
 }
 
+function handleMobileHeadingClick(id: string, event: MouseEvent) {
+  handleHeadingClick(id, event)
+  mobileOpen.value = false
+}
+
 onMounted(() => {
   void refresh()
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -100,40 +112,81 @@ watch(() => props.currentPath, () => {
 </script>
 
 <template>
-  <aside
-    v-if="headings.length > 0"
-    class="sticky top-16 h-[calc(100vh-4rem)] w-60 shrink-0 overflow-y-auto px-5 py-8 text-sm select-none"
-    aria-label="页内目录"
-  >
-    <!-- 标头设计：微型图标 + 精致小标 -->
-    <div class="flex items-center gap-1.5 mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--lulu-color-text-muted)]">
-      <span class="i-lucide-align-left text-sm" aria-hidden="true" />
-      <span>本页目录</span>
+  <template v-if="headings.length > 0">
+    <!-- 1. 桌面大屏常驻目录 (xl 及以上) -->
+    <aside
+      class="hidden xl:block sticky top-16 h-[calc(100vh-4rem)] w-50 shrink-0 overflow-y-auto px-5 py-14 text-sm select-none"
+      aria-label="页内目录"
+    >
+      <!-- 标头设计 -->
+      <div class="flex items-center gap-1.5 mb-3 text-xs font-semibold uppercase tracking-wider text-[var(--lulu-color-text-muted)]">
+        <span>本页目录</span>
+      </div>
+
+      <!-- 目录列表 -->
+      <nav class="relative border-l border-[var(--lulu-color-border-subtle)] pl-2">
+        <a
+          v-for="heading in headings"
+          :key="heading.id"
+          :href="`#${heading.id}`"
+          :title="heading.text"
+          class="group relative block transition-all duration-150 no-underline truncate"
+          :class="[
+            heading.level === 3 ? 'pl-4 text-[13px] py-1' : 'pl-2 text-[13px] py-1.5 font-normal',
+            activeId === heading.id
+              ? 'text-[var(--lulu-color-primary)] font-semibold'
+              : 'text-[var(--lulu-color-text-muted)] hover:text-[var(--lulu-color-text)]',
+          ]"
+          @click="handleHeadingClick(heading.id, $event)"
+        >
+          <!-- 激活指示小竖线 -->
+          <span
+            v-if="activeId === heading.id"
+            class="absolute -left-[9px] top-1 bottom-1 w-[2px] bg-[var(--lulu-color-primary)]"
+          />
+          {{ heading.text }}
+        </a>
+      </nav>
+    </aside>
+
+    <!-- 2. 平板与手机端浮动目录触发按钮 (xl 以下视口) -->
+    <div class="xl:hidden fixed bottom-20 right-6 z-40">
+      <LuluTooltip placement="left">
+        <template #trigger="{ triggerProps }">
+          <LuluButton
+            v-bind="triggerProps"
+            class="flex !h-10 !min-w-10 !w-10 !p-0 !rounded-full items-center justify-center border border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)]/90 backdrop-blur-md text-[var(--lulu-color-text)] shadow-md hover:text-[var(--lulu-color-primary)] hover:border-[var(--lulu-color-primary)]/40 cursor-pointer transition-all active:scale-95"
+            aria-label="本页目录"
+            @click="mobileOpen = true"
+          >
+            <span class="i-lucide-list text-base" aria-hidden="true" />
+          </LuluButton>
+        </template>
+        本页目录
+      </LuluTooltip>
     </div>
 
-    <!-- 目录列表：带左侧指示线和动态高亮 -->
-    <nav class="relative border-l border-[var(--lulu-color-border-subtle)] pl-2">
-      <a
-        v-for="heading in headings"
-        :key="heading.id"
-        :href="`#${heading.id}`"
-        :title="heading.text"
-        class="group relative block transition-colors duration-150 text-decoration-none truncate"
-        :class="[
-          heading.level === 3 ? 'pl-4 text-[12px] py-1' : 'pl-2 text-xs py-1.5 font-normal',
-          activeId === heading.id
-            ? 'text-[var(--lulu-color-primary)] font-medium'
-            : 'text-[var(--lulu-color-text-muted)] hover:text-[var(--lulu-color-text)]',
-        ]"
-        @click="handleHeadingClick(heading.id, $event)"
-      >
-        <!-- 激活指示小竖线 -->
-        <span
-          v-if="activeId === heading.id"
-          class="absolute -left-[9px] top-1 bottom-1 w-[2px] rounded-full bg-[var(--lulu-color-primary)]"
-        />
-        {{ heading.text }}
-      </a>
-    </nav>
-  </aside>
+    <!-- 3. 平板与移动端弹出的目录抽屉 -->
+    <LuluDialog v-if="mobileOpen" v-model:open="mobileOpen" title="本页目录" class="docs-mobile-outline-dialog">
+      <div class="p-3 max-h-[60vh] overflow-y-auto">
+        <ul class="m-0 list-none p-0 space-y-1">
+          <li v-for="heading in headings" :key="heading.id">
+            <a
+              :href="`#${heading.id}`"
+              class="block px-3 py-2 rounded-xl text-xs sm:text-sm transition-all no-underline truncate"
+              :class="[
+                heading.level === 3 ? 'pl-6 text-xs text-[var(--lulu-color-text-muted)]' : 'font-medium',
+                activeId === heading.id
+                  ? 'bg-[var(--lulu-color-surface-selected)] text-[var(--lulu-color-primary)] font-semibold'
+                  : 'text-[var(--lulu-color-text)] hover:bg-[var(--lulu-color-surface-hover)]'
+              ]"
+              @click="handleMobileHeadingClick(heading.id, $event)"
+            >
+              {{ heading.text }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </LuluDialog>
+  </template>
 </template>

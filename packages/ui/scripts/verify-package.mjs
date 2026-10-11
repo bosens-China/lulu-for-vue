@@ -43,18 +43,23 @@ assert.equal(root.LuluSpace, space.default, 'Space 根入口和单组件入口�
 assert.equal(root.LuluDialogHost, dialogHost.default, '弹窗宿主入口必须一致。')
 assert.equal(typeof resolver.LuluResolver, 'function', '自动导入 resolver 必须是公开入口。')
 
+for (const [name, entry] of [['LuluDataTable', 'data-table'], ['LuluYearPicker', 'year-picker'], ['LuluHourPicker', 'hour-picker'], ['LuluFormField', 'form-field'], ['LuluFieldError', 'field-error'], ['useFormValidation', 'use-form-validation']]) {
+  assert.equal(name in root, false, `${name} 不再公开。`)
+  await assert.rejects(() => import(`@lulu/vue/${entry}`), `${entry} 不再提供兼容入口。`)
+}
+
 const componentSubpaths = Object.keys(exportsMap).filter((path) => path !== './style.css' && path.endsWith('/style.css'))
 const componentStyleDependencies = new Map([
-  ['data-table', ['table']],
+  ['table', ['loading', 'pagination']],
   ['dialog-host', ['dialog']],
-  ['form-field', ['field-error']],
+  ['time-picker', ['date-picker']],
+  ['time-range-picker', ['date-range-picker']],
   ['loading-overlay', ['loading']],
   ['message-host', ['message']],
   ['popconfirm', ['popover']],
 ])
 const apiEntries = new Map([
   ['use-dialog', 'useDialog'],
-  ['use-form-validation', 'useFormValidation'],
   ['use-message', 'useMessage'],
 ])
 const builtEntries = readdirSync(resolve(packageDirectory, 'dist/entries'))

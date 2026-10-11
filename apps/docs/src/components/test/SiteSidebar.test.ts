@@ -3,6 +3,18 @@ import { describe, expect, it } from 'vitest'
 import SiteSidebar from '../SiteSidebar.vue'
 
 describe('SiteSidebar 侧边栏按章节展示测试', () => {
+  it('筛选不会触发导航，只有选择页面才发出导航事件', async () => {
+    const wrapper = mount(SiteSidebar, {
+      props: { currentPath: '/components/button/', compact: true },
+    })
+    await wrapper.get('input[aria-label="过滤组件"]').setValue('button')
+    expect(wrapper.findAll('a').map(link => link.text())).toEqual(['Button 按钮'])
+    expect(wrapper.emitted('navigate')).toBeUndefined()
+    await wrapper.get('a').trigger('click')
+    expect(wrapper.emitted('navigate')).toHaveLength(1)
+    wrapper.unmount()
+  })
+
   it('在指南路由下只渲染开发指南导航', () => {
     const wrapper = mount(SiteSidebar, {
       props: { currentPath: '/guide/installation/' },

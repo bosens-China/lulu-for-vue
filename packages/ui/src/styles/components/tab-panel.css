@@ -1,1 +1,1 @@
-.lulu-tab-panel { padding-block: var(--lulu-space-3); }
+.lulu-tab-panel { padding-block: var(--lulu-tab-panel-padding-block, var(--lulu-space-3)); }

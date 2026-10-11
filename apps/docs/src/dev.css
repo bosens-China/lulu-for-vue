@@ -1,0 +1,4 @@
+/* 开发 SSR 在执行客户端模块前加载完整样式，模块导入继续负责 HMR。 */
+@import '@lulu/vue/style.css';
+@import './docs.css';
+@import './prism.css';

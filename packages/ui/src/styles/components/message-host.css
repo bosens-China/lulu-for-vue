@@ -1,8 +1,20 @@
 .lulu-message-host {
   display: grid;
-  gap: var(--lulu-space-2);
-  inset: var(--lulu-space-4) var(--lulu-space-4) auto;
+  gap: var(--lulu-message-host-gap, var(--lulu-space-2));
+  inset-block-start: var(--lulu-message-host-offset-block, var(--lulu-space-4));
+  inset-block-end: auto;
+  inset-inline: var(--lulu-message-host-offset-inline, var(--lulu-space-4));
+  justify-items: center;
+  max-block-size: calc(100dvh - 2 * var(--lulu-message-host-offset-block, var(--lulu-space-4)));
+  overflow-y: auto;
   pointer-events: none;
   position: fixed;
   z-index: var(--lulu-z-index-message);
 }
+
+.lulu-message-host[data-placement^='bottom'] {
+  inset-block-start: auto;
+  inset-block-end: var(--lulu-message-host-offset-block, var(--lulu-space-4));
+}
+.lulu-message-host[data-placement$='start'] { justify-items: start; }
+.lulu-message-host[data-placement$='end'] { justify-items: end; }

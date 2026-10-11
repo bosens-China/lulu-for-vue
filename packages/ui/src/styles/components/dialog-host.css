@@ -2,7 +2,7 @@
   background: transparent;
   border: 0;
   border-radius: var(--lulu-radius);
-  color: var(--lulu-color-text-muted);
+  color: var(--lulu-dialog-close-color, var(--lulu-close-color, var(--lulu-color-text-muted)));
   cursor: pointer;
   font: inherit;
   font-size: 20px;
@@ -13,7 +13,7 @@
 .lulu-dialog-host .lulu-dialog__close:hover { background: var(--lulu-color-surface-hover); }
 .lulu-dialog-host .lulu-dialog__close:focus-visible { outline: 2px solid var(--lulu-color-primary); outline-offset: 2px; }
 .lulu-dialog-host__content { margin: 0; white-space: pre-wrap; }
-.lulu-dialog-host .lulu-dialog-host__error { color: var(--lulu-color-danger); margin-block: var(--lulu-space-3) 0; }
+.lulu-dialog-host .lulu-dialog-host__error { color: var(--lulu-dialog-error-color, var(--lulu-color-danger)); margin-block: var(--lulu-space-3) 0; }
 .lulu-dialog-host__messages .lulu-message-host { position: static; margin-top: var(--lulu-space-3); }
 
 .lulu-dialog-host .lulu-dialog__footer button {
@@ -28,10 +28,10 @@
 }
 
 .lulu-dialog-host .lulu-dialog__footer button:last-child {
-  background: var(--lulu-color-primary-solid);
-  border-color: var(--lulu-color-primary-solid);
-  color: var(--lulu-color-text-inverse);
+  background: var(--lulu-dialog-confirm-background, var(--lulu-color-primary-solid, var(--lulu-color-primary)));
+  border-color: var(--lulu-dialog-confirm-background, var(--lulu-color-primary-solid, var(--lulu-color-primary)));
+  color: var(--lulu-dialog-confirm-color, var(--lulu-color-text-inverse));
 }
 
-.lulu-dialog-host .lulu-dialog__footer button:disabled { cursor: wait; opacity: 0.6; }
+.lulu-dialog-host .lulu-dialog__footer button:disabled { cursor: wait; opacity: var(--lulu-opacity-disabled); }
 .lulu-dialog-host .lulu-dialog__footer button:focus-visible { outline: 2px solid var(--lulu-color-primary); outline-offset: 2px; }

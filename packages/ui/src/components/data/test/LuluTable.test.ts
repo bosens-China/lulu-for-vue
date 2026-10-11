@@ -1,9 +1,9 @@
 import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import LuluDataTable from '../LuluDataTable.vue'
 import LuluTable from '../LuluTable.vue'
-import type { DataTableCellSlot, DataTableColumn } from '../types'
+import NativeTable from '../internal/NativeTable.vue'
+import type { TableCellSlot, TableColumn } from '../types'
 
 interface Member {
   id: number
@@ -11,7 +11,7 @@ interface Member {
   role: string
 }
 
-const columns: DataTableColumn<Member>[] = [
+const columns: TableColumn<Member>[] = [
   { key: 'name', label: 'Name' },
   { key: 'role', label: 'Role' },
 ]
@@ -31,9 +31,9 @@ function getCheckbox(wrapper: ReturnType<typeof mount>, key: number) {
   return element
 }
 
-describe('LuluTable', () => {
+describe('NativeTable', () => {
   it('在可访问的横向滚动区域中保留表格属性', () => {
-    const wrapper = mount(LuluTable, {
+    const wrapper = mount(NativeTable, {
       attrs: {
         'aria-label': '成员数据',
         'class': 'member-table',
@@ -55,7 +55,7 @@ describe('LuluTable', () => {
   })
 
   it('renders semantic caption, head, body, foot, and empty slots', () => {
-    const wrapper = mount(LuluTable, {
+    const wrapper = mount(NativeTable, {
       slots: {
         body: () => h('tr', [h('td', 'Row')]),
         caption: () => h('span', 'Members'),
@@ -71,7 +71,7 @@ describe('LuluTable', () => {
   })
 
   it('renders its empty slot across the requested column count', () => {
-    const wrapper = mount(LuluTable, {
+    const wrapper = mount(NativeTable, {
       props: {
         colspan: 3,
         empty: true,
@@ -86,9 +86,9 @@ describe('LuluTable', () => {
   })
 })
 
-describe('LuluDataTable', () => {
+describe('LuluTable', () => {
   it('允许覆盖辅助文案及行选择的可访问名称', async () => {
-    const wrapper = mount(LuluDataTable<Member>, {
+    const wrapper = mount(LuluTable<Member>, {
       props: {
         columns,
         emptyText: '暂无数据',
@@ -101,22 +101,22 @@ describe('LuluDataTable', () => {
       },
     })
 
-    expect(wrapper.get('.lulu-data-table__selection-header').text()).toBe('选择')
+    expect(wrapper.get('.lulu-table__selection-header').text()).toBe('选择')
     expect(wrapper.get('[data-row-key="1"] input').attributes('aria-label')).toBe('选择 Ada')
     await wrapper.setProps({ rows: [] })
-    expect(wrapper.get('[data-testid="data-table-empty"]').text()).toBe('暂无数据')
+    expect(wrapper.get('[data-testid="table-empty"]').text()).toBe('暂无数据')
     await wrapper.setProps({ loading: true })
-    expect(wrapper.get('[data-testid="data-table-loading"]').text()).toBe('正在读取')
+    expect(wrapper.get('[data-testid="table-loading"] .lulu-loading__label').text()).toBe('正在读取')
   })
 
   it('拒绝重复的行键', () => {
-    expect(() => mount(LuluDataTable<Member>, {
+    expect(() => mount(LuluTable<Member>, {
       props: { columns, rowKey: 'id', rows: [rows[0]!, rows[0]!] },
     })).toThrow('rowKey 必须在当前 rows 中唯一')
   })
 
   it('uses rowKey to retain the selected row after rows reorder and renders cell slots', async () => {
-    const wrapper = mount(LuluDataTable<Member>, {
+    const wrapper = mount(LuluTable<Member>, {
       props: {
         columns,
         rowKey: 'id',
@@ -125,7 +125,7 @@ describe('LuluDataTable', () => {
         selectedKeys: [2],
       },
       slots: {
-        cell: (props: DataTableCellSlot<Member>) => h(
+        cell: (props: TableCellSlot<Member>) => h(
           'strong',
           { 'data-testid': `member-${props.row.id}` },
           String(props.value),
@@ -143,7 +143,7 @@ describe('LuluDataTable', () => {
   })
 
   it('renders loading before empty and then shows the empty slot', async () => {
-    const wrapper = mount(LuluDataTable<Member>, {
+    const wrapper = mount(LuluTable<Member>, {
       props: {
         columns,
         loading: true,
@@ -156,17 +156,17 @@ describe('LuluDataTable', () => {
       },
     })
 
-    expect(wrapper.get('[data-testid="data-table-loading"]').text()).toBe('Loading members')
-    expect(wrapper.find('[data-testid="data-table-empty"]').exists()).toBe(false)
+    expect(wrapper.get('[data-testid="table-loading"]').text()).toBe('Loading members')
+    expect(wrapper.find('[data-testid="table-empty"]').exists()).toBe(false)
 
     await wrapper.setProps({ loading: false })
 
-    expect(wrapper.find('[data-testid="data-table-loading"]').exists()).toBe(false)
-    expect(wrapper.get('[data-testid="data-table-empty"]').text()).toBe('Nothing here')
+    expect(wrapper.find('[data-testid="table-loading"]').exists()).toBe(false)
+    expect(wrapper.get('[data-testid="table-empty"]').text()).toBe('Nothing here')
   })
 
   it('emits controlled selected keys and selection events from a row checkbox', async () => {
-    const wrapper = mount(LuluDataTable<Member>, {
+    const wrapper = mount(LuluTable<Member>, {
       props: {
         columns,
         rowKey: 'id',

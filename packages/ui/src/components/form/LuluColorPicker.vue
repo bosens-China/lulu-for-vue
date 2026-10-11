@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { controlErrorAttrs, nativeControlAttrs, useControlAttrs, controlLayoutAttrs } from './control-attrs'
 
 defineOptions({ inheritAttrs: false })
+const attrs = useControlAttrs()
 
 interface Props {
   alpha?: boolean
@@ -24,6 +26,7 @@ const modelValue = defineModel<string>({ default: '#000000' })
 
 const colorValue = computed(() => normalizeColor(modelValue.value).slice(0, 7))
 const alphaValue = computed(() => Number.parseInt(normalizeColor(modelValue.value).slice(7, 9), 16) / 255)
+const submittedValue = computed(() => props.alpha ? normalizeColor(modelValue.value) : colorValue.value)
 
 function updateColor(event: Event) {
   const input = event.target
@@ -42,11 +45,23 @@ function updateAlpha(event: Event) {
 }
 
 function updateValue(color: string, alpha: number) {
-  const base = normalizeColor(color).slice(0, 7)
-  const value = props.alpha ? `${base}${toAlphaHex(alpha)}` : base
+  modelValue.value = formatValue(color, alpha)
+}
 
-  modelValue.value = value
-  emit('change', value)
+function formatValue(color: string, alpha: number) {
+  const base = normalizeColor(color).slice(0, 7)
+  return props.alpha ? `${base}${toAlphaHex(alpha)}` : base
+}
+
+function commitValue(event: Event) {
+  const input = event.target
+
+  if (!(input instanceof HTMLInputElement)) return
+
+  // input 和 change 可在同一轮触发；此时受控父级尚未把新模型渲染回来。
+  const color = input.type === 'color' ? input.value : colorValue.value
+  const alpha = input.type === 'range' ? input.valueAsNumber : alphaValue.value
+  if (Number.isFinite(alpha)) emit('change', formatValue(color, alpha))
 }
 
 function normalizeColor(value: string) {
@@ -67,18 +82,28 @@ function toAlphaHex(value: number) {
 </script>
 
 <template>
-  <span class="lulu-color-picker">
+  <span v-bind="controlLayoutAttrs($attrs)" class="lulu-color-picker">
     <input
-      v-bind="$attrs"
+      type="hidden"
+      :name="typeof attrs($attrs).name === 'string' ? String(attrs($attrs).name) : undefined"
+      :form="typeof $attrs.form === 'string' ? $attrs.form : undefined"
+      :value="submittedValue"
+      :disabled="props.disabled"
+    >
+    <input
+      v-bind="nativeControlAttrs(attrs($attrs))"
       class="lulu-color-picker__color"
       type="color"
       :value="colorValue"
+      :name="undefined"
       :aria-label="props.label"
       :disabled="props.disabled"
       @input="updateColor"
+      @change="commitValue"
     >
     <input
       v-if="props.alpha"
+      v-bind="controlErrorAttrs(attrs($attrs))"
       class="lulu-color-picker__alpha"
       type="range"
       min="0"
@@ -88,6 +113,7 @@ function toAlphaHex(value: number) {
       :aria-label="props.alphaLabel"
       :disabled="props.disabled"
       @input="updateAlpha"
+      @change="commitValue"
     >
   </span>
 </template>

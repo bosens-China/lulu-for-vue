@@ -5,5 +5,5 @@
   inset: 0;
   justify-content: center;
   position: absolute;
-  z-index: 1;
+  z-index: var(--lulu-loading-overlay-z-index, 1);
 }

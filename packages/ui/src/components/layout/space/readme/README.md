@@ -29,7 +29,7 @@ seo:
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | `direction` | 排列方向。 | `'horizontal' \| 'vertical'` | `'horizontal'` |
-| `size` | 子项之间的间距。 | `'small' \| 'middle' \| 'large'` | `'middle'` |
+| `size` | 子项之间的间距；`middle` 是 `default` 的兼容别名。 | `'small' \| 'default' \| 'large' \| 'middle'` | `'default'` |
 | `wrap` | 横向排列时是否允许换行。 | `boolean` | `false` |
 
 ### Slots
@@ -46,8 +46,22 @@ Space 渲染普通 `div`，不添加列表、表单或导航语义。需要这�
 
 间距沿用全局 token，可在业务容器上覆盖。
 
+<details class="docs-token-details">
+<summary>全局基础变量</summary>
+
+以下变量由多个组件共享。需要统一调整颜色、尺寸或动效时，在业务容器或应用根节点覆盖。
+
+<div class="docs-token-table">
+
 | Token | 用途 | 浅色默认值 | 深色默认值 |
 | --- | --- | --- | --- |
-| `--lulu-space-2` | `small` 间距 | `8px` | `8px` |
-| `--lulu-space-3` | `middle` 间距 | `12px` | `12px` |
-| `--lulu-space-4` | `large` 间距 | `16px` | `16px` |
+| `--lulu-font-family` | 字体族 | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` | `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif` |
+| `--lulu-font-size` | 正文大小 | `14px` | `14px` |
+| `--lulu-line-height` | 行高 | `1.5` | `1.5` |
+| `--lulu-space-2` | 小间距 | `8px` | `8px` |
+| `--lulu-space-3` | 中等间距 | `12px` | `12px` |
+| `--lulu-space-4` | 大间距 | `16px` | `16px` |
+
+</div>
+
+</details>

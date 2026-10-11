@@ -39,8 +39,8 @@ describe('组件子路径导出', () => {
     const componentStyles = Object.entries(packageJson.exports)
       .filter(([subpath]) => subpath !== './style.css' && subpath.endsWith('/style.css'))
 
-    expect(componentStyles).toHaveLength(39)
-    expect(new Set(componentStyles.map(([, target]) => target)).size).toBe(39)
+    expect(componentStyles).toHaveLength(37)
+    expect(new Set(componentStyles.map(([, target]) => target)).size).toBe(37)
     expect(componentStyles.every(([, target]) => (
       typeof target === 'string' && target.startsWith('./dist/styles/components/')
     ))).toBe(true)

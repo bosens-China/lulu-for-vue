@@ -2,8 +2,11 @@ import { nextTick } from 'vue'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createDocsApp } from '../createApp'
 import { render } from '../entry-server'
+import * as routes from '../routes'
+import type { DocsPage } from '../types'
 
 async function flushNavigation(): Promise<void> {
+  await vi.dynamicImportSettled()
   await nextTick()
   await nextTick()
 }
@@ -22,7 +25,7 @@ describe('文档客户端导航', () => {
     document.body.innerHTML = `<div id="app">${result.appHtml}</div>`
     window.history.replaceState(null, '', '/')
     vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined)
-    const { app } = createDocsApp('/')
+    const { app } = await createDocsApp('/')
 
     app.mount('#app')
 
@@ -57,7 +60,7 @@ describe('文档客户端导航', () => {
     document.body.innerHTML = `<div id="app">${result.appHtml}</div>`
     window.history.replaceState(null, '', initialPath)
     const scrollTo = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined)
-    const { app } = createDocsApp(initialPath)
+    const { app } = await createDocsApp(initialPath)
 
     app.mount('#app')
 
@@ -86,6 +89,22 @@ describe('文档客户端导航', () => {
     app.unmount()
   })
 
+  it('在首次打开主题弹窗后加载完整编辑器', async () => {
+    const result = await render('/')
+    document.body.innerHTML = `<div id="app">${result.appHtml}</div>`
+    const { app } = await createDocsApp('/')
+    app.mount('#app')
+    try {
+      expect(document.querySelector('[aria-label="主色调设置"]')).toBeNull()
+      document.querySelector<HTMLButtonElement>('button[aria-label="设置全局主题"]')?.click()
+      await flushNavigation()
+      expect(document.querySelector('[aria-label="主色调设置"]')).not.toBeNull()
+      expect(document.querySelector('input[aria-label="主色调"]')).not.toBeNull()
+    } finally {
+      app.unmount()
+    }
+  })
+
   it('响应浏览器前进后退并恢复页面 head', async () => {
     const initialPath = '/components/autocomplete/'
     const result = await render(initialPath)
@@ -93,7 +112,7 @@ describe('文档客户端导航', () => {
     document.body.innerHTML = `<div id="app">${result.appHtml}</div>`
     window.history.replaceState(null, '', initialPath)
     vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined)
-    const { app } = createDocsApp(initialPath)
+    const { app } = await createDocsApp(initialPath)
 
     app.mount('#app')
     window.history.replaceState(null, '', '/components/button/')
@@ -104,6 +123,46 @@ describe('文档客户端导航', () => {
     expect(document.title).toBe('Vue Button 按钮组件 - LuLu UI Vue')
     expect(document.head.querySelector('meta[property="og:image"]')).toBeNull()
 
+    app.unmount()
+  })
+
+  it('保留旧页面直到新页面加载完成，快速跳转时忽略较早的请求', async () => {
+    const buttonPage = await routes.loadPage('/components/button/')
+    const guidePage = await routes.loadPage('/guide/installation/')
+    const { app } = await createDocsApp('/')
+    document.body.innerHTML = '<div id="app"></div>'
+    vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined)
+    app.mount('#app')
+    let finishFirst!: (page: DocsPage) => void
+    const pending = new Promise<DocsPage>(resolve => { finishFirst = resolve })
+    vi.spyOn(routes, 'loadPage').mockReturnValueOnce(pending).mockResolvedValueOnce(guidePage)
+
+    document.querySelector<HTMLAnchorElement>('a[href="/components/button/"]')
+      ?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 }))
+    await nextTick()
+    expect(document.querySelector('h1')?.textContent).toContain('简洁、可靠的')
+    document.querySelector<HTMLAnchorElement>('a[href="/guide/installation/"]')
+      ?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 }))
+    await flushNavigation()
+    expect(window.location.pathname).toBe('/guide/installation/')
+    finishFirst(buttonPage)
+    await flushNavigation()
+    expect(window.location.pathname).toBe('/guide/installation/')
+    expect(document.querySelector('h1')?.textContent).toBe('安装')
+    app.unmount()
+  })
+
+  it('页面模块加载失败时回退到对应静态页面', async () => {
+    const { app } = await createDocsApp('/')
+    document.body.innerHTML = '<div id="app"></div>'
+    app.mount('#app')
+    const assign = vi.spyOn(window.location, 'assign').mockImplementation(() => undefined)
+    vi.spyOn(routes, 'loadPage').mockRejectedValueOnce(new Error('chunk unavailable'))
+    document.querySelector<HTMLAnchorElement>('a[href="/components/button/"]')
+      ?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, button: 0 }))
+    await flushNavigation()
+    expect(assign).toHaveBeenCalledWith(new URL('/components/button/', window.location.href).href)
+    expect(document.querySelector('h1')?.textContent).toContain('简洁、可靠的')
     app.unmount()
   })
 })

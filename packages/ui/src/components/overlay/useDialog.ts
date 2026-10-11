@@ -1,5 +1,5 @@
 import { inject, onScopeDispose } from 'vue'
-import type { InjectionKey, VNodeChild } from 'vue'
+import type { CSSProperties, InjectionKey, VNodeChild } from 'vue'
 
 export interface DialogOptions {
   title: string
@@ -8,6 +8,8 @@ export interface DialogOptions {
   closeLabel?: string
   closeOnOverlay?: boolean
   closeOnEscape?: boolean
+  class?: string
+  style?: CSSProperties
 }
 
 export interface DialogConfirmOptions extends DialogOptions {

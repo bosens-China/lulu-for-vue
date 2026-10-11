@@ -28,34 +28,34 @@ const nextItem = computed(() => {
 </script>
 
 <template>
-  <div class="mt-8 grid grid-cols-2 gap-2 border-t border-[var(--lulu-color-border-subtle)] pt-6 sm:mt-16 sm:gap-4 sm:pt-8">
+  <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3 border-t border-[var(--lulu-color-border-subtle)] pt-8 sm:mt-16 sm:gap-4 sm:pt-10">
     <!-- 上一页 -->
     <a
       v-if="prevItem"
       :href="withBase(prevItem.page.path)"
-      class="group flex min-h-20 min-w-0 flex-col items-start rounded-lg border border-[var(--lulu-color-border)] bg-[var(--lulu-color-surface-subtle)] p-3 text-decoration-none transition-colors hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] sm:p-4"
+      class="group flex min-h-18 min-w-0 flex-col items-start rounded-md border border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] p-3.5 sm:p-4 no-underline transition-all duration-200 hover:border-[var(--lulu-color-primary)]/50 hover:bg-[var(--lulu-color-surface-hover)]"
     >
-      <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
-        <span class="i-lucide-arrow-left transition-transform group-hover:-translate-x-0.5" aria-hidden="true" />
+      <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1.5 transition-colors">
+        <span class="i-lucide-arrow-left transition-transform duration-200 group-hover:-translate-x-1" aria-hidden="true" />
         上一页
       </span>
-      <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
+      <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1.5 truncate max-w-full transition-colors">
         {{ prevItem.name }}
       </span>
     </a>
-    <div v-else />
+    <div v-else class="hidden sm:block" />
 
     <!-- 下一页 -->
     <a
       v-if="nextItem"
       :href="withBase(nextItem.page.path)"
-      class="group flex min-h-20 min-w-0 flex-col items-end rounded-lg border border-[var(--lulu-color-border)] bg-[var(--lulu-color-surface-subtle)] p-3 text-right text-decoration-none transition-colors hover:border-[var(--lulu-color-primary)] hover:bg-[var(--lulu-color-surface-hover)] sm:p-4"
+      class="group flex min-h-18 min-w-0 flex-col items-end rounded-md border border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-card)] p-3.5 sm:p-4 text-right no-underline transition-all duration-200 hover:border-[var(--lulu-color-primary)]/50 hover:bg-[var(--lulu-color-surface-hover)]"
     >
-      <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1">
+      <span class="text-xs text-[var(--lulu-color-text-muted)] group-hover:text-[var(--lulu-color-primary)] flex items-center gap-1.5 transition-colors">
         下一页
-        <span class="i-lucide-arrow-right transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+        <span class="i-lucide-arrow-right transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
       </span>
-      <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1">
+      <span class="text-sm font-semibold text-[var(--docs-color-heading)] group-hover:text-[var(--lulu-color-primary)] mt-1.5 truncate max-w-full transition-colors">
         {{ nextItem.name }}
       </span>
     </a>

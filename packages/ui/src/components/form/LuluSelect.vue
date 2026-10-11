@@ -7,7 +7,10 @@ export interface LuluSelectProps<Multiple extends boolean = false> {
 </script>
 
 <script setup lang="ts" generic="Multiple extends boolean = false">
+import { controlInvalid, useControlAttrs } from './control-attrs'
+
 defineOptions({ inheritAttrs: false })
+const attrs = useControlAttrs()
 
 const props = defineProps<LuluSelectProps<Multiple>>()
 const modelValue = defineModel<Multiple extends true ? string[] : string>({ required: true })
@@ -15,12 +18,12 @@ const modelValue = defineModel<Multiple extends true ? string[] : string>({ requ
 
 <template>
   <select
-    v-bind="$attrs"
+    v-bind="attrs($attrs)"
     v-model="modelValue"
     class="lulu-select"
     :multiple="props.multiple"
     :disabled="props.disabled"
-    :aria-invalid="props.invalid || undefined"
+    :aria-invalid="controlInvalid(props.invalid, attrs($attrs))"
   >
     <slot />
   </select>

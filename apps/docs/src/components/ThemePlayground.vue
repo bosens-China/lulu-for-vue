@@ -4,6 +4,9 @@ import LuluButton from '@lulu/vue/button'
 import LuluColorPicker from '@lulu/vue/color-picker'
 import '@lulu/vue/button/style.css'
 import '@lulu/vue/color-picker/style.css'
+import GlobalTokenEditor from './GlobalTokenEditor.vue'
+
+const emit = defineEmits<{ navigate: [] }>()
 
 interface PrimaryColor {
   hex: string
@@ -115,9 +118,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="space-y-5" aria-label="主色调设置">
-    <p class="text-sm leading-6 text-[var(--lulu-color-text-muted)]">选择主色调后立即应用到整个文档站；亮色和深色会自动调整明度，背景与文字仍使用各自的默认配色。</p>
-    <label class="flex items-center justify-between gap-4 rounded-lg border border-solid border-[var(--lulu-color-border)] p-4">
+  <section class="space-y-3" aria-label="主色调设置">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+    <label class="flex items-center gap-4">
       <span class="font-medium">主色调</span>
       <span class="flex items-center gap-3">
         <code class="text-sm">{{ color }}</code>
@@ -127,6 +130,9 @@ onMounted(() => {
     <LuluButton variant="normal" @click="resetColor">
       恢复默认主色
     </LuluButton>
+    </div>
+    <p class="text-xs leading-6 text-[var(--docs-color-muted)]">主色快捷设置自动适配明暗背景，并保存在当前浏览器。下方可以精确覆盖全部全局变量。</p>
     <p v-if="storageStatus" role="status" class="text-sm text-[var(--lulu-color-text-muted)]">{{ storageStatus }}</p>
   </section>
+  <GlobalTokenEditor class="mt-6" @navigate="emit('navigate')" />
 </template>

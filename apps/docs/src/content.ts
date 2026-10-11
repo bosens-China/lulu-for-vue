@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 import type { DocsPage, DocsSeo } from './types'
 
 export interface MarkdownPageModule {
-  default: Component
+  default: Component | null
   description?: unknown
   seo?: unknown
   title?: unknown

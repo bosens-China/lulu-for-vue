@@ -4,5 +4,6 @@ export type {
   MessageConfig,
   MessageHandle,
   MessageOptions,
+  MessagePlacement,
   MessageType,
 } from '../components/feedback/useMessage'

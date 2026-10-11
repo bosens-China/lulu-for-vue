@@ -1,6 +1,5 @@
+@import './slider.css';
+
 .lulu-range-slider {
-  align-items: center;
-  display: inline-flex;
-  gap: var(--lulu-space-2);
-  inline-size: 100%;
+  inline-size: var(--lulu-range-slider-width, var(--lulu-slider-width, 100%));
 }

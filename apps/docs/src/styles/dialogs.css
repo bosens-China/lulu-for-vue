@@ -1,0 +1,43 @@
+/* Grid 子项需允许缩小，避免长搜索描述撑宽原生弹窗。 */
+.docs-search-dialog.lulu-dialog {
+  inline-size: min(640px, calc(100vw - 32px));
+  margin-block: min(12vh, 96px) auto;
+  --lulu-dialog-background: var(--docs-color-card);
+  --lulu-dialog-color: var(--docs-color-text);
+}
+.docs-search-dialog .lulu-dialog__surface {
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+}
+.docs-search-dialog .lulu-dialog__body { overflow: hidden; }
+.docs-search-dialog .lulu-dialog__header { padding: 16px 20px; }
+.docs-search-dialog .lulu-dialog__close,
+.docs-palette-dialog .lulu-dialog__close {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  color: var(--docs-color-muted);
+  background: transparent;
+  cursor: pointer;
+}
+.docs-search-dialog .lulu-dialog__close:hover,
+.docs-palette-dialog .lulu-dialog__close:hover { background: var(--docs-color-card-muted); }
+.docs-search-input-row input {
+  --lulu-color-border: var(--lulu-color-border-subtle);
+  --lulu-control-focus-shadow: 0 0 0 2px color-mix(in srgb, var(--lulu-color-primary) 18%, transparent);
+  background: var(--docs-color-card-muted);
+  border-radius: 6px;
+}
+.docs-search-dialog ul { max-height: min(320px, 45dvh); }
+.docs-search-dialog a[aria-current='true'] { background: color-mix(in srgb, var(--lulu-color-primary) 8%, var(--docs-color-card)); }
+.docs-palette-dialog.lulu-dialog {
+  inline-size: min(680px, calc(100vw - 24px));
+  width: min(680px, calc(100vw - 24px));
+  --lulu-dialog-background: var(--docs-color-card);
+  --lulu-dialog-color: var(--docs-color-text);
+}
+.docs-palette-dialog .lulu-dialog__surface { grid-template-columns: minmax(0, 1fr); }
+.docs-palette-dialog :is(.lulu-input, .lulu-select, .lulu-button) {
+  --lulu-color-border: var(--lulu-color-border-subtle);
+  --lulu-control-focus-shadow: 0 0 0 2px color-mix(in srgb, var(--lulu-color-primary) 18%, transparent);
+}

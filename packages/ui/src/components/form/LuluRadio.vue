@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { nativeControlAttrs, useControlAttrs, controlLayoutAttrs } from './control-attrs'
 
 defineOptions({ inheritAttrs: false })
+const attrs = useControlAttrs()
 
 interface Props {
   disabled?: boolean
@@ -25,9 +27,9 @@ function updateValue(event: Event) {
 </script>
 
 <template>
-  <label class="lulu-radio">
+  <label v-bind="controlLayoutAttrs($attrs)" class="lulu-radio">
     <input
-      v-bind="$attrs"
+      v-bind="nativeControlAttrs(attrs($attrs))"
       type="radio"
       :value="String(props.value)"
       :checked="checked"

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 interface Props {
   direction?: 'horizontal' | 'vertical'
-  size?: 'small' | 'middle' | 'large'
+  size?: 'small' | 'default' | 'large' | 'middle'
   wrap?: boolean
 }
 
 withDefaults(defineProps<Props>(), {
   direction: 'horizontal',
-  size: 'middle',
+  size: 'default',
   wrap: false,
 })
 

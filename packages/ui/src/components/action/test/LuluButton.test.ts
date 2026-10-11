@@ -68,4 +68,18 @@ describe('LuluButton', () => {
     expect(loading.get('a').attributes('aria-busy')).toBe('true')
     expect(loading.get('a').attributes('href')).toBeUndefined()
   })
+
+  it.each([{ disabled: true }, { loading: true }])('禁用或加载链接不会调用用户点击操作：%j', async (state) => {
+    const onClick = vi.fn()
+    const wrapper = mount(LuluButton, {
+      props: { href: '/save', ...state },
+      attrs: { onClick },
+    })
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true })
+
+    wrapper.get('a').element.dispatchEvent(event)
+
+    expect(event.defaultPrevented).toBe(true)
+    expect(onClick).not.toHaveBeenCalled()
+  })
 })

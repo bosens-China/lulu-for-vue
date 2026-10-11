@@ -10,9 +10,10 @@ describe('首屏主题初始化', () => {
   it.each(['dark', 'light', 'system', 'blocked'])('恢复 %s 偏好并在模块前禁用 Prism 自动扫描', (mode) => {
     const toggle = vi.fn()
     const root = { dataset: {} as Record<string, string>, classList: { toggle } }
-    const browser: { Prism?: { manual: boolean } } = {}
+    const browser: { Prism?: { manual: boolean }; location: { search: string } } = { location: { search: '' } }
     runInNewContext(script, {
       window: browser,
+      URLSearchParams,
       document: { documentElement: root },
       localStorage: { getItem: () => {
         if (mode === 'blocked') throw new Error('blocked')
@@ -30,7 +31,8 @@ describe('首屏主题初始化', () => {
     const root = { dataset: {} as Record<string, string>, classList: { toggle: vi.fn() }, style: { setProperty } }
     const primary = { hex: '#f0d000', hue: 52, saturation: 100, lightnessLight: 24, lightnessDark: 65 }
     runInNewContext(script, {
-      window: {},
+      window: { location: { search: '' } },
+      URLSearchParams,
       document: { documentElement: root },
       localStorage: { getItem: (key: string) => key === 'lulu-docs-primary-v1' ? JSON.stringify(primary) : 'light' },
       matchMedia: () => ({ matches: false }),

@@ -66,7 +66,7 @@ describe('Docs App Builtin Layout Components', () => {
     const contentWrapper = mount(DocsContent, {
       slots: { default: 'Main Content' },
     })
-    expect(contentWrapper.classes()).toContain('docs-content')
+    expect(contentWrapper.classes()).toContain('docs-content-area')
     expect(contentWrapper.text()).toBe('Main Content')
   })
 })

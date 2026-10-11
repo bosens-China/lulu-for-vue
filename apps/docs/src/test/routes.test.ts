@@ -1,17 +1,32 @@
 import { describe, expect, it } from 'vitest'
-import { docsRoutes, guideRoutes, resolvePage } from '../routes'
+import { docsRoutes, guideRoutes, loadPage, resolvePage } from '../routes'
 import { githubSourceUrl } from '../siteUrl'
 
 describe('文档路由', () => {
+  it('路由清单只保留元数据，加载时才取得页面组件', async () => {
+    expect(docsRoutes.every(page => page.component === null)).toBe(true)
+    expect(guideRoutes.every(page => page.component === null)).toBe(true)
+    expect(resolvePage('/').component).toBeNull()
+    expect((await loadPage('/')).component).toBeTruthy()
+    const page = await loadPage('/components/button/')
+    expect(page.component).toBeTruthy()
+    expect(page.title).toBe(resolvePage('/components/button/').title)
+    expect((await loadPage('/missing/')).statusCode).toBe(404)
+  })
   it('解析中文组件页面并规范化尾斜杠', () => {
     expect(resolvePage('/components/button').title).toBe('Vue Button 按钮组件 - LuLu UI Vue')
     expect(resolvePage('/').statusCode).toBe(200)
     expect(resolvePage('/').heading).toBe('LuLu UI Vue')
     expect(resolvePage('/').path).toBe('/')
-    expect(docsRoutes).toHaveLength(37)
+    expect(docsRoutes).toHaveLength(32)
+    for (const slug of ['form-item', 'date-range-picker', 'time-range-picker', 'year-picker', 'hour-picker', 'data-table']) {
+      expect(resolvePage(`/components/${slug}/`).statusCode).toBe(404)
+    }
     expect(docsRoutes.map((route) => route.path)).toContain('/components/button/')
     expect(resolvePage('/components/tab/').statusCode).toBe(404)
     expect(resolvePage('/components/tab-panel/').statusCode).toBe(404)
+    expect(resolvePage('/components/form-field/').statusCode).toBe(404)
+    expect(resolvePage('/components/field-error/').statusCode).toBe(404)
     expect(guideRoutes).toHaveLength(4)
     expect(resolvePage('/guide/quick-start').heading).toBe('快速开始')
     expect(githubSourceUrl(

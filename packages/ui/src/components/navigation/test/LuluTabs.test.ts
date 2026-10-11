@@ -73,6 +73,55 @@ describe('LuluTabs', () => {
     expect(securityPanel.attributes('hidden')).toBeDefined()
   })
 
+  it('将局部主题和布局属性放在根容器，保留标签栏的可访问名称', async () => {
+    const attrs = shallowRef({ class: 'account-tabs', style: '--lulu-space-3: 24px', 'data-lulu-theme': 'dark', 'aria-label': '账户设置' })
+    const wrapper = mount(defineComponent({
+      setup: () => () => h(LuluTabs, { modelValue: 'profile', ...attrs.value }, createSlots()),
+    }))
+    const root = wrapper.get('.lulu-tabs')
+    const list = wrapper.get('[role="tablist"]')
+
+    expect(root.classes()).toContain('account-tabs')
+    expect(root.attributes('style')).toContain('--lulu-space-3: 24px')
+    expect(root.attributes('data-lulu-theme')).toBe('dark')
+    expect(list.attributes('aria-label')).toBe('账户设置')
+    expect(list.attributes('style')).toBeUndefined()
+    expect(root.attributes('aria-label')).toBeUndefined()
+
+    attrs.value = { ...attrs.value, style: '--lulu-space-3: 32px', 'data-lulu-theme': 'light', 'aria-label': '成员设置' }
+    await wrapper.vm.$nextTick()
+
+    expect(root.attributes('style')).toContain('--lulu-space-3: 32px')
+    expect(root.attributes('data-lulu-theme')).toBe('light')
+    expect(list.attributes('aria-label')).toBe('成员设置')
+  })
+
+  it('动态重排后按视觉顺序移动键盘焦点', async () => {
+    const values = shallowRef(['profile', 'security', 'billing'])
+    const active = shallowRef<TabsValue>('profile')
+    const wrapper = mount(defineComponent({
+      setup: () => () => h(LuluTabs, {
+        modelValue: active.value,
+        'onUpdate:modelValue': value => { active.value = value },
+      }, {
+        tabs: () => values.value.map(value => h(LuluTab, { key: value, value }, () => value)),
+      }),
+    }), { attachTo: document.body })
+
+    values.value = ['profile', 'billing', 'security']
+    await wrapper.vm.$nextTick()
+    await wrapper.findAll('button')[0]!.trigger('keydown', { key: 'ArrowRight' })
+
+    expect(active.value).toBe('billing')
+    expect(document.activeElement).toBe(wrapper.findAll('button')[1]!.element)
+
+    active.value = 'missing'
+    values.value = ['security', 'profile', 'billing']
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findAll('button')[0]!.attributes('tabindex')).toBe('0')
+  })
+
   it('emits the selected value through v-model when a tab is clicked', async () => {
     const wrapper = mount(LuluTabs, {
       props: {

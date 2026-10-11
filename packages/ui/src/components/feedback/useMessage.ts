@@ -2,6 +2,7 @@ import { inject } from 'vue'
 import type { InjectionKey } from 'vue'
 
 export type MessageType = 'success' | 'error' | 'info' | 'warning'
+export type MessagePlacement = 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end'
 
 export interface MessageOptions {
   duration?: number

@@ -1,50 +1,62 @@
 .lulu-button {
-  background: var(--lulu-button-background, var(--lulu-color-neutral-solid));
-  border: 1px solid var(--lulu-button-border, var(--lulu-color-neutral-solid));
-  border-radius: var(--lulu-radius);
+  --_lulu-button-background: var(--lulu-color-neutral-solid);
+  --_lulu-button-border: var(--lulu-color-neutral-solid);
+  --_lulu-button-color: var(--lulu-color-on-neutral);
+  background: var(--lulu-button-background, var(--_lulu-button-background));
+  border: 1px solid var(--lulu-button-border, var(--_lulu-button-border));
+  border-radius: var(--lulu-button-radius, var(--lulu-radius));
   box-sizing: border-box;
-  color: var(--lulu-button-color, var(--lulu-color-on-neutral));
+  color: var(--lulu-button-color, var(--_lulu-button-color));
   cursor: pointer;
-  gap: var(--lulu-space-1);
-  min-height: var(--lulu-control-height);
-  min-width: calc(var(--lulu-control-height) * 2);
-  padding: 0 var(--lulu-space-4);
+  gap: var(--lulu-button-gap, var(--lulu-space-1));
+  min-height: var(--lulu-button-height, var(--lulu-control-height));
+  min-width: var(--lulu-button-min-width, calc(var(--lulu-button-height, var(--lulu-control-height)) * 2));
+  padding: 0 var(--lulu-button-padding-inline, var(--lulu-space-4));
   text-decoration: none;
   transition: background-color var(--lulu-transition-duration) var(--lulu-transition-easing), border-color var(--lulu-transition-duration) var(--lulu-transition-easing), box-shadow var(--lulu-transition-duration) var(--lulu-transition-easing);
 }
 
 .lulu-button[data-variant='normal'] {
-  background: var(--lulu-button-background, var(--lulu-color-surface));
-  border-color: var(--lulu-button-border, var(--lulu-color-border));
-  color: var(--lulu-button-color, var(--lulu-color-text));
+  --_lulu-button-background: var(--lulu-color-surface);
+  --_lulu-button-border: var(--lulu-color-border);
+  --_lulu-button-color: var(--lulu-color-text);
 }
 
 .lulu-button[data-variant='primary'] {
-  background: var(--lulu-button-background, var(--lulu-color-primary-solid));
-  border-color: var(--lulu-button-border, var(--lulu-color-primary-solid));
-  color: var(--lulu-button-color, var(--lulu-color-text-inverse));
+  --_lulu-button-background: var(--lulu-color-primary-solid, var(--lulu-color-primary));
+  --_lulu-button-border: var(--lulu-color-primary-solid, var(--lulu-color-primary));
+  --_lulu-button-color: var(--lulu-color-text-inverse);
 }
 
 .lulu-button[data-variant='success'] {
-  background: var(--lulu-button-background, var(--lulu-color-success));
-  border-color: var(--lulu-button-border, var(--lulu-color-success));
-  color: var(--lulu-button-color, var(--lulu-color-on-status));
+  --_lulu-button-background: var(--lulu-color-success);
+  --_lulu-button-border: var(--lulu-color-success);
+  --_lulu-button-color: var(--lulu-color-on-status);
 }
 
 .lulu-button[data-variant='warning'] {
-  background: var(--lulu-button-background, var(--lulu-color-warning));
-  border-color: var(--lulu-button-border, var(--lulu-color-warning));
-  color: var(--lulu-button-color, var(--lulu-color-on-status));
+  --_lulu-button-background: var(--lulu-color-warning);
+  --_lulu-button-border: var(--lulu-color-warning);
+  --_lulu-button-color: var(--lulu-color-on-status);
 }
 
 .lulu-button[data-variant='danger'] {
-  background: var(--lulu-button-background, var(--lulu-color-danger));
-  border-color: var(--lulu-button-border, var(--lulu-color-danger));
-  color: var(--lulu-button-color, var(--lulu-color-text-inverse));
+  --_lulu-button-background: var(--lulu-color-danger);
+  --_lulu-button-border: var(--lulu-color-danger);
+  --_lulu-button-color: var(--lulu-color-text-inverse);
 }
 
-.lulu-button:not(:disabled):not([aria-disabled='true']):hover { filter: brightness(1.06); }
-.lulu-button:not(:disabled):not([aria-disabled='true']):active { box-shadow: inset 0 1px 2px rgb(0 0 0 / 14%); }
+.lulu-button:not(:disabled):not([aria-disabled='true']):hover {
+  background: var(--lulu-button-hover-background, var(--lulu-button-background, var(--_lulu-button-background)));
+  border-color: var(--lulu-button-hover-border, var(--lulu-button-border, var(--_lulu-button-border)));
+  filter: var(--lulu-button-hover-filter, brightness(1.06));
+}
+
+.lulu-button:not(:disabled):not([aria-disabled='true']):active {
+  background: var(--lulu-button-active-background, var(--lulu-button-hover-background, var(--lulu-button-background, var(--_lulu-button-background))));
+  border-color: var(--lulu-button-active-border, var(--lulu-button-hover-border, var(--lulu-button-border, var(--_lulu-button-border))));
+  box-shadow: var(--lulu-button-active-shadow, inset 0 1px 2px rgb(0 0 0 / 14%));
+}
 .lulu-button:disabled,
 .lulu-button[aria-disabled='true'] { cursor: not-allowed; opacity: var(--lulu-opacity-disabled); }
 
@@ -60,4 +72,8 @@
 
 @keyframes lulu-button-loading {
   to { transform: rotate(1turn); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lulu-button__loading { animation: none; }
 }

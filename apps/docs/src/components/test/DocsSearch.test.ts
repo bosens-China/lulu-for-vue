@@ -8,9 +8,12 @@ it('Enter 选择结果时阻止默认激活，避免焦点归还后再次打开�
     await wrapper.get('button').trigger('click')
     const input = document.querySelector<HTMLInputElement>('#docs-search-input')!
     expect(document.activeElement).toBe(input)
-    input.value = 'DateRange'
+    input.value = 'DatePicker'
     input.dispatchEvent(new Event('input', { bubbles: true }))
     await wrapper.vm.$nextTick()
+    await vi.waitFor(() => {
+      expect(document.querySelector('#docs-search-results a')).not.toBeNull()
+    })
     // 保留真实关闭行为，仅阻止测试环境跳转页面。
     document.querySelector('#docs-search-results a')?.addEventListener('click', event => event.preventDefault())
     const enter = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })
@@ -27,6 +30,7 @@ it('可以搜索正文和代码块内容', async () => {
   const wrapper = mount(DocsSearch, { attachTo: document.body })
   try {
     await wrapper.get('button').trigger('click')
+    await vi.dynamicImportSettled()
     await flushPromises()
     const input = document.querySelector<HTMLInputElement>('#docs-search-input')!
 
@@ -49,5 +53,21 @@ it('可以搜索正文和代码块内容', async () => {
     })
   } finally {
     wrapper.unmount()
+  }
+})
+
+it('方向键导航会让选中结果滚入可见区域', async () => {
+  const wrapper = mount(DocsSearch, { attachTo: document.body })
+  const scroll = vi.spyOn(Element.prototype, 'scrollIntoView').mockImplementation(() => {})
+  try {
+    await wrapper.get('button').trigger('click')
+    const input = document.querySelector<HTMLInputElement>('#docs-search-input')!
+    input.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }))
+    await flushPromises()
+    expect(document.querySelector('#docs-search-results a[aria-current="true"]')?.textContent).toContain('快速开始')
+    expect(scroll).toHaveBeenCalledWith({ block: 'nearest' })
+  } finally {
+    wrapper.unmount()
+    scroll.mockRestore()
   }
 })

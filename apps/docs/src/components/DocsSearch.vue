@@ -52,11 +52,13 @@ function onGlobalKeydown(event: KeyboardEvent) {
   }
 }
 
-function onSearchKeydown(event: KeyboardEvent) {
+async function onSearchKeydown(event: KeyboardEvent) {
   if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
     event.preventDefault()
     if (results.value.length) {
       selected.value = (selected.value + (event.key === 'ArrowDown' ? 1 : -1) + results.value.length) % results.value.length
+      await nextTick()
+      document.querySelectorAll<HTMLAnchorElement>('#docs-search-results a')[selected.value]?.scrollIntoView({ block: 'nearest' })
     }
   }
   if (event.key === 'Enter' && results.value[selected.value]) {
@@ -80,28 +82,28 @@ onUnmounted(() => {
   <button
     type="button"
     aria-label="搜索文档与组件"
-    class="flex h-8.5 items-center gap-2 rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-surface-subtle)]/70 px-2.5 sm:px-3 text-xs text-[var(--lulu-color-text-muted)] hover:border-[var(--lulu-color-primary)]/50 hover:bg-[var(--lulu-color-surface-hover)] hover:text-[var(--lulu-color-text)] transition-all cursor-pointer"
+    class="docs-search-trigger flex h-9 items-center gap-2 rounded-lg border border-[var(--lulu-color-border-subtle)] bg-[var(--lulu-color-surface-subtle)]/70 px-2.5 sm:px-3 text-xs text-[var(--lulu-color-text-muted)] hover:border-[var(--lulu-color-primary)]/50 hover:bg-[var(--lulu-color-surface-hover)] hover:text-[var(--lulu-color-text)] transition-all cursor-pointer"
     @click="showSearch"
   >
     <span class="i-lucide-search text-sm text-[var(--lulu-color-text-muted)]" aria-hidden="true" />
-    <span class="hidden md:inline text-xs">搜索文档与组件...</span>
+    <span class="hidden md:inline text-xs">搜索文档</span>
     <span class="md:hidden text-xs">搜索...</span>
-    <kbd class="hidden sm:inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded border border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] text-[var(--lulu-color-text-muted)] shadow-xs">
+    <kbd class="hidden sm:inline-flex items-center text-[10px] font-mono px-1.5 py-0.5 rounded border border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] text-[var(--lulu-color-text-muted)]">
       {{ isMac ? '⌘ K' : 'Ctrl K' }}
     </kbd>
   </button>
 
   <!-- 搜索弹窗：Command Palette 现代风格 -->
   <LuluDialog v-if="open" v-model:open="open" title="搜索文档" class="docs-search-dialog">
-    <div class="flex flex-col">
+    <div class="flex min-w-0 flex-col">
       <!-- 搜索输入栏 -->
-      <div class="p-3 sm:p-4 border-b border-[var(--lulu-color-border-subtle)]">
+      <div class="docs-search-input-row p-3 sm:p-4 border-b border-[var(--lulu-color-border-subtle)]">
         <label class="sr-only" for="docs-search-input">搜索组件</label>
         <LuluInput
           id="docs-search-input"
           autofocus
           v-model="query"
-          class="w-full text-sm sm:text-base"
+          class="w-full !text-base"
           placeholder="搜索组件、指南、API 或代码..."
           aria-controls="docs-search-results"
           @input="selected = 0"
@@ -118,24 +120,18 @@ onUnmounted(() => {
         <li v-for="(item, index) in results" :key="item.page.path">
           <a
             :href="withBase(item.page.path)"
-            class="group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all duration-150 text-decoration-none"
+            :aria-current="index === selected ? 'true' : undefined"
+            class="group flex min-w-0 items-center justify-between px-3 py-2.5 rounded-md text-sm transition-colors duration-150 no-underline"
             :class="index === selected ? 'bg-[var(--lulu-color-surface-selected)] text-[var(--lulu-color-primary)] font-medium' : 'text-[var(--lulu-color-text)] hover:bg-[var(--lulu-color-surface-hover)]'"
             @mouseenter="selected = index"
             @click="open = false"
           >
-            <div class="flex items-center gap-2.5 min-w-0">
-              <!-- 分类徽章 -->
-              <span
-                class="shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded border"
-                :class="item.page.path.startsWith('/guide/')
-                  ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20'
-                  : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20'"
-              >
-                {{ item.page.path.startsWith('/guide/') ? '指南' : '组件' }}
+            <div class="min-w-0 flex-1">
+              <span class="flex items-center gap-2">
+                <span class="truncate font-medium">{{ item.name }}</span>
+                <span class="shrink-0 text-xs text-[var(--docs-color-muted)]">{{ item.page.path.startsWith('/guide/') ? '指南' : '组件' }}</span>
               </span>
-
-              <span class="font-semibold truncate">{{ item.name }}</span>
-              <span class="text-xs text-[var(--lulu-color-text-muted)] truncate hidden sm:inline">{{ item.page.description }}</span>
+              <span class="mt-1 block truncate text-xs text-[var(--docs-color-muted)]">{{ item.page.description }}</span>
             </div>
 
             <!-- 当前选中项右侧回车箭头指示 -->

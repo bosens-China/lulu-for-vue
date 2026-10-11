@@ -23,7 +23,19 @@ import '@lulu/vue/button/style.css'
 </template>
 ```
 
-`base.css` 提供 token 与共享基础规则；每个组件样式出口只包含自身专属规则。手动引入组合组件时，还需导入直接依赖样式：`data-table → table`、`dialog-host → dialog`、`form-field → field-error`、`loading-overlay → loading`、`message-host → message`、`popconfirm → popover`。相同 CSS 路径被多处导入时由构建器合并。
+`base.css` 提供 Token 与共享基础规则，每个组件样式出口提供自身专属规则。手动引入组合组件时，还需导入下列依赖样式；表中的名称对应 `@lulu/vue/<名称>/style.css`。相同 CSS 路径由构建器合并。
+
+| 组件入口 | 依赖样式入口 |
+| --- | --- |
+| `table` | `loading`、`pagination` |
+| `dialog-host` | `dialog` |
+| `time-picker` | `date-picker` |
+| `time-range-picker` | `date-range-picker` |
+| `loading-overlay` | `loading` |
+| `message-host` | `message` |
+| `popconfirm` | `popover` |
+
+例如使用 Table 时，除 `table/style.css` 外，还需导入 `loading/style.css` 和 `pagination/style.css`。分页默认关闭，显式启用后接收当前页 `rows` 与总数，组件不会再次切片。
 
 ## 自动导入
 
@@ -38,7 +50,7 @@ export default {
 }
 ```
 
-resolver 会为识别到的 `Lulu*` 组件补充独立入口、共享基础样式及组合组件的直接依赖样式。需要自动导入 `useMessage`、`useFormValidation` 时，可使用同一出口的 `LuluApiResolver()` 配合 `unplugin-auto-import`。
+resolver 会为识别到的 `Lulu*` 组件补充独立入口、共享基础样式及组合组件的直接依赖样式。需要自动导入 `useMessage`、`useDialog` 时，可使用同一出口的 `LuluApiResolver()` 配合 `unplugin-auto-import`。
 
 ## 整体引入
 

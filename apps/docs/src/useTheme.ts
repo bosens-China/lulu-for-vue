@@ -31,16 +31,26 @@ export function useTheme() {
     applyTheme(mode, dark)
   }
 
-  function toggleTheme() {
-    const nextMode: ThemeMode = themeMode.value === 'system'
-      ? 'light'
-      : themeMode.value === 'light' ? 'dark' : 'system'
-    applyMode(nextMode)
+  function setTheme(nextMode: ThemeMode) {
+    if (typeof document !== 'undefined' && 'startViewTransition' in document) {
+      (document as unknown as { startViewTransition: (cb: () => void) => void }).startViewTransition(() => {
+        applyMode(nextMode)
+      })
+    } else {
+      applyMode(nextMode)
+    }
     try {
       localStorage.setItem(STORAGE_KEY, nextMode)
     } catch {
       // 存储受限时保留当前页面的主题切换能力。
     }
+  }
+
+  function toggleTheme() {
+    const nextMode: ThemeMode = themeMode.value === 'system'
+      ? 'light'
+      : themeMode.value === 'light' ? 'dark' : 'system'
+    setTheme(nextMode)
   }
 
   function initTheme() {
@@ -49,7 +59,8 @@ export function useTheme() {
 
     let saved: string | null = null
     try {
-      saved = localStorage.getItem(STORAGE_KEY)
+      const queryMode = new URLSearchParams(window.location.search).get('theme')
+      saved = (queryMode === 'light' || queryMode === 'dark') ? queryMode : localStorage.getItem(STORAGE_KEY)
     } catch {
       // 无法读取偏好时跟随系统。
     }
@@ -68,5 +79,6 @@ export function useTheme() {
     isDark,
     themeMode,
     toggleTheme,
+    setTheme,
   }
 }

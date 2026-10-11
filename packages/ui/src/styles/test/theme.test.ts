@@ -63,7 +63,7 @@ describe('Lulu CSS theme', () => {
     const tokens = readStyle('tokens.css')
 
     expect(tokens).toContain('--lulu-color-primary: #1668c7')
-    expect(tokens).toContain('--lulu-color-primary-solid: var(--lulu-color-primary)')
+    expect(tokens).toContain('--lulu-font-weight-strong: 600')
     expect(tokens).toContain('--lulu-control-height: 40px')
     expect(tokens).toContain('--lulu-opacity-disabled: 0.55')
     expect(tokens).toContain('--lulu-transition-duration: 160ms')
@@ -95,7 +95,28 @@ describe('Lulu CSS theme', () => {
     expect(contrast(darkToken(tokens, 'lulu-color-border'), darkToken(tokens, 'lulu-color-surface'))).toBeGreaterThanOrEqual(3)
     expect(contrast(lightToken(tokens, 'lulu-color-primary'), lightToken(tokens, 'lulu-color-surface'))).toBeGreaterThanOrEqual(3)
     expect(contrast(darkToken(tokens, 'lulu-color-primary'), darkToken(tokens, 'lulu-color-surface'))).toBeGreaterThanOrEqual(3)
-    expect(tokens).toContain('--lulu-shadow-focus: 0 0 0 3px var(--lulu-color-primary)')
+    expect(readStyle('base.css')).toContain('var(--lulu-shadow-focus, 0 0 0 3px var(--lulu-color-primary))')
+  })
+
+  it('在消费元素解析主色派生值，避免局部覆盖继承祖先的已计算颜色', () => {
+    const tokens = readStyle('tokens.css')
+    const styles = `${readStyle('base.css')}\n${readComponentStyles()}`
+
+    expect(tokens).not.toMatch(/--lulu-(?:color-primary-solid|shadow-focus):/)
+    expect(styles).not.toContain('var(--lulu-color-primary-solid)')
+    expect(styles).not.toContain('var(--lulu-shadow-focus)')
+    expect(styles).toContain('var(--lulu-color-primary-solid, var(--lulu-color-primary))')
+  })
+
+  it('原生输入、反馈和浮层共用排版与状态契约', () => {
+    const base = readStyle('base.css')
+    const typography = base.slice(0, base.indexOf('}\n'))
+    for (const selector of ['.lulu-floating-panel', '.lulu-loading', '.lulu-form-item__error', '.lulu-accordion', '.lulu-disclosure']) {
+      expect(typography).toContain(selector)
+    }
+    const styles = readComponentStyles()
+    expect(styles).not.toMatch(/opacity:\s*0\.55/)
+    expect(base).toContain('var(--lulu-choice-size, 16px)')
   })
 
   it('lets component and family tokens fall back to global semantics', () => {
@@ -137,9 +158,9 @@ describe('Lulu CSS theme', () => {
 
     for (const selector of [
       '.lulu-button',
-      '.lulu-data-table',
       '.lulu-table',
-      '.lulu-field-error',
+      '.lulu-table',
+      '.lulu-form-item__error',
       '.lulu-loading',
       '.lulu-loading-overlay',
       '.lulu-message',
@@ -151,8 +172,7 @@ describe('Lulu CSS theme', () => {
       '.lulu-date-picker',
       '.lulu-date-range-picker',
       '.lulu-form',
-      '.lulu-form-field',
-      '.lulu-hour-picker',
+      '.lulu-form-item',
       '.lulu-input',
       '.lulu-radio',
       '.lulu-range-slider',
@@ -161,7 +181,6 @@ describe('Lulu CSS theme', () => {
       '.lulu-slider',
       '.lulu-switch',
       '.lulu-textarea',
-      '.lulu-year-picker',
       '.lulu-accordion',
       '.lulu-disclosure',
       '.lulu-tab-panel',

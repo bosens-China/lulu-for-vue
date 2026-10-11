@@ -74,7 +74,10 @@ export function useFloatingLayer(options: FloatingLayerOptions): FloatingLayerRe
   const isMounted = shallowRef(false)
   const teleportTarget = computed(() => {
     if (typeof document === 'undefined') return 'body'
+    // 模态框外的 DOM 会进入 inert 状态，浮层必须留在所属 dialog 内。
+    const dialog = options.trigger.value?.closest<HTMLDialogElement>('dialog')
     const themeRoot = options.trigger.value?.closest<HTMLElement>('[data-lulu-theme]')
+    if (dialog) return themeRoot && dialog.contains(themeRoot) ? themeRoot : dialog
     return themeRoot && themeRoot !== document.documentElement ? themeRoot : 'body'
   })
   let disposed = false
@@ -83,7 +86,7 @@ export function useFloatingLayer(options: FloatingLayerOptions): FloatingLayerRe
   function updatePosition() {
     if (typeof window === 'undefined' || !options.trigger.value || !options.panel.value) return
 
-    const offset = Math.max(0, options.offset.value)
+    const offset = Number.isFinite(options.offset.value) ? Math.max(0, options.offset.value) : 0
     const position = getPosition(
       options.trigger.value.getBoundingClientRect(),
       options.panel.value.getBoundingClientRect(),
@@ -141,7 +144,8 @@ export function useFloatingLayer(options: FloatingLayerOptions): FloatingLayerRe
   watch(
     [options.open, options.placement, options.offset],
     ([open]) => {
-      if (open) void addListeners()
+      if (open && listening) void nextTick(updatePosition)
+      else if (open) void addListeners()
       else removeListeners()
     },
     { flush: 'post' },

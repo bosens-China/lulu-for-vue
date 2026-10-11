@@ -24,7 +24,7 @@ const inert = computed(() => props.disabled || props.loading)
 function onLinkClick(event: MouseEvent) {
   if (inert.value) {
     event.preventDefault()
-    event.stopPropagation()
+    event.stopImmediatePropagation()
   }
 }
 </script>

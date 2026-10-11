@@ -46,7 +46,7 @@ describe('文档 SSR', () => {
     const result = await render(path)
     document.body.innerHTML = `<div id="app">${result.appHtml}</div>`
 
-    const { app } = createDocsApp(path)
+    const { app } = await createDocsApp(path)
     app.mount('#app')
 
     expect(document.querySelector('h1')?.textContent).toBe('Button 按钮')
@@ -62,7 +62,7 @@ describe('文档 SSR', () => {
     const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => undefined)
     document.body.innerHTML = `<div id="app">${result.appHtml}</div>`
 
-    const { app } = createDocsApp(path)
+    const { app } = await createDocsApp(path)
     let hydrationMessages: string | undefined
 
     try {

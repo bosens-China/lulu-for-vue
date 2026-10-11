@@ -3,7 +3,6 @@
   color-scheme: light;
   /* 基础调色板 (Light 模式) */
   --lulu-color-primary: #1668c7;
-  --lulu-color-primary-solid: var(--lulu-color-primary);
   --lulu-color-success: #1cad70;
   --lulu-color-warning: #f59b00;
   --lulu-color-danger: #c53030;
@@ -33,6 +32,7 @@
   --lulu-font-size: 14px;
   --lulu-font-size-sm: 12px;
   --lulu-font-size-lg: 16px;
+  --lulu-font-weight-strong: 600;
   --lulu-line-height: 1.5;
   --lulu-control-height: 40px;
   --lulu-control-height-sm: 32px;
@@ -47,7 +47,6 @@
   --lulu-space-4: 16px;
 
   /* 阴影与过渡 */
-  --lulu-shadow-focus: 0 0 0 3px var(--lulu-color-primary);
   --lulu-shadow-overlay: 0 8px 24px rgb(15 23 42 / 16%);
   --lulu-opacity-disabled: 0.55;
   --lulu-transition-duration: 160ms;
@@ -60,7 +59,6 @@
 [data-lulu-theme='dark'] {
   color-scheme: dark;
   --lulu-color-primary: #38bdf8;
-  --lulu-color-primary-solid: var(--lulu-color-primary);
   --lulu-color-success: #34d399;
   --lulu-color-warning: #fbbf24;
   --lulu-color-danger: #f87171;
@@ -89,7 +87,6 @@
   :root:where(:not([data-lulu-theme])) {
     color-scheme: dark;
     --lulu-color-primary: #38bdf8;
-    --lulu-color-primary-solid: var(--lulu-color-primary);
     --lulu-color-success: #34d399;
     --lulu-color-warning: #fbbf24;
     --lulu-color-danger: #f87171;

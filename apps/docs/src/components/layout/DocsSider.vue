@@ -73,7 +73,7 @@ function toggleCollapse() {
 
 <template>
   <aside
-    class="docs-sider relative shrink-0 border-r border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] transition-all duration-300 ease-in-out select-none z-20"
+    class="docs-sider relative shrink-0 border-r border-solid border-[var(--lulu-color-border-subtle)] bg-[var(--docs-color-container)] transition-all duration-300 ease-in-out select-none z-20"
     :class="[
       sticky ? 'sticky' : '',
     ]"

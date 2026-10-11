@@ -1,10 +1,10 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { basename, dirname, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { getComponentStyleTokens } from '../../build/componentStyleTokens'
 
 const componentsRoot = resolve(import.meta.dirname, '../../../../packages/ui/src/components')
 const entriesRoot = resolve(import.meta.dirname, '../../../../packages/ui/src/entries')
-const componentStylesRoot = resolve(import.meta.dirname, '../../../../packages/ui/src/styles/components')
 
 function findFiles(directory: string, fileName: string): string[] {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -32,7 +32,7 @@ function componentSourceFromEntry(entryName: string): string {
 }
 
 describe('组件中文文档交付', () => {
-  const compositeParts = new Set(['tab', 'tab-panel'])
+  const compositeParts = new Set(['tab', 'tab-panel', 'form-item', 'date-range-picker', 'time-range-picker'])
   const publicEntries = readdirSync(entriesRoot)
     .filter((fileName) => fileName.endsWith('.ts') && !fileName.startsWith('use-'))
     .map((fileName) => fileName.slice(0, -'.ts'.length))
@@ -73,6 +73,16 @@ describe('组件中文文档交付', () => {
     expect(tabs).toContain('### LuluTabPanel')
   })
 
+  it.each([
+    ['form', 'LuluForm', 'LuluFormItem'],
+    ['date-picker', 'LuluDatePicker', 'LuluDateRangePicker'],
+    ['time-picker', 'LuluTimePicker', 'LuluTimeRangePicker'],
+  ])('%s 主文档包含单值与组合子组件 API', (entry, main, part) => {
+    const document = readFileSync(resolve(componentsRoot, `form/${entry}/readme/README.md`), 'utf8')
+    expect(document).toContain(`### ${main}\n`)
+    expect(document).toContain(`### ${part}\n`)
+  })
+
   it('不再保留英文 README 副本', () => {
     expect(findFiles(componentsRoot, 'README_US.md')).toEqual([])
   })
@@ -88,16 +98,36 @@ describe('组件中文文档交付', () => {
     }
   })
 
-  it('组件专属 CSS 直接使用的 Token 均列入对应文档', () => {
+  it('组件、共享样式和组合子组件使用的 Token 均列入对应文档', () => {
     for (const readme of readmes) {
       const componentName = componentNameFromDocument(readme)
-      const stylePath = resolve(componentStylesRoot, `${componentName}.css`)
-      const style = readFileSync(stylePath, 'utf8')
       const document = readFileSync(readme, 'utf8')
-      const tokens = new Set([...style.matchAll(/--lulu-[\w-]+/g)].map(match => match[0]))
+      const tokens = getComponentStyleTokens(componentName).keys()
 
       for (const token of tokens) {
         expect(document, `${readme}: 缺少 ${token}`).toContain(`\`${token}\``)
+      }
+    }
+  })
+
+  it('Token 表不保留失效项，明暗全局默认值与主题源码一致', () => {
+    const theme = readFileSync(resolve(componentsRoot, '../styles/tokens.css'), 'utf8')
+    const blocks = [...theme.matchAll(/\{([^{}]*)\}/g)]
+    const definitions = (source: string) => new Map([...source.matchAll(/(--lulu-[\w-]+):\s*([^;]+);/g)]
+      .map(([, name = '', value = '']) => [name, value] as const))
+    const light = definitions(blocks[0]?.[1] ?? '')
+    const dark = new Map([...light, ...definitions(blocks[1]?.[1] ?? '')])
+
+    for (const readme of readmes) {
+      const document = readFileSync(readme, 'utf8')
+      const tokens = getComponentStyleTokens(componentNameFromDocument(readme))
+      const rows = [...document.matchAll(/^\| `(--lulu-[\w-]+)` \| (.*?) \| `([^`]+)` \| `([^`]+)` \|/gm)]
+      expect(rows.map(row => row[1]).sort(), readme).toEqual([...tokens.keys()].sort())
+      for (const [, name = '', description, lightValue, darkValue] of rows) {
+        expect(description?.trim(), `${readme}: ${name}`).toBeTruthy()
+        if (!light.has(name)) continue
+        expect(lightValue, `${readme}: ${name} light`).toBe(light.get(name))
+        expect(darkValue, `${readme}: ${name} dark`).toBe(dark.get(name))
       }
     }
   })

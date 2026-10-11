@@ -1,4 +1,19 @@
 .lulu-accordion {
   display: grid;
-  gap: var(--lulu-space-2);
+  gap: var(--lulu-accordion-gap, var(--lulu-space-2));
+}
+
+.lulu-accordion__item {
+  border-color: var(--lulu-accordion-border, var(--lulu-disclosure-border, var(--lulu-color-border-subtle)));
+  border-radius: var(--lulu-accordion-radius, var(--lulu-disclosure-radius, var(--lulu-radius)));
+  color: var(--lulu-accordion-color, var(--lulu-disclosure-color, var(--lulu-color-text)));
+}
+
+.lulu-accordion__summary {
+  padding: var(--lulu-accordion-summary-padding, var(--lulu-disclosure-summary-padding, var(--lulu-space-3)));
+}
+
+.lulu-accordion__content {
+  border-top-color: var(--lulu-accordion-border, var(--lulu-disclosure-border, var(--lulu-color-border-subtle)));
+  padding: var(--lulu-accordion-content-padding, var(--lulu-disclosure-content-padding, var(--lulu-space-3)));
 }
